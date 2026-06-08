@@ -290,6 +290,12 @@ button{cursor:pointer;font-family:var(--sans)}
   .footer-right{gap:32px}
   .footer-bottom{flex-direction:column;gap:12px;text-align:center}
   .hero-scroll{display:none}
+  /* testimonials mobile */
+  section[style*="background:var(--teal)"] > div { grid-template-columns:1fr !important; gap:40px !important; padding:0 !important; }
+  /* founder mobile */
+  section[style*="grid-template-columns:1fr 2fr"] { grid-template-columns:1fr !important; gap:32px !important; }
+  /* fight team mobile */
+  section[style*="fight"] div[style*="grid-template-columns:repeat(3"] { grid-template-columns:1fr !important; }
 }
 </style>
 </head>
@@ -458,6 +464,71 @@ button{cursor:pointer;font-family:var(--sans)}
   </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section style="padding:100px 40px;background:var(--teal)">
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px">
+    <div>
+      <p style="font-family:var(--display);font-size:clamp(28px,3vw,42px);letter-spacing:.04em;line-height:1.2;color:#080808;margin-bottom:20px">"Masters Gym är som min extra familj. Så mycket värme, gemenskap och tillit till dem man tränar med."</p>
+      <p style="font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(8,8,8,0.6)">— Medlem</p>
+    </div>
+    <div>
+      <p style="font-family:var(--display);font-size:clamp(28px,3vw,42px);letter-spacing:.04em;line-height:1.2;color:#080808;margin-bottom:20px">"Min son önskar att det var barnträning varje dag och ser fram emot att få avancera när han blir äldre."</p>
+      <p style="font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(8,8,8,0.6)">— Mamma till en av våra yngsta i klubben</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section style="padding:100px 40px;border-top:1px solid var(--line)">
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:center">
+    <div style="position:relative">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&fit=crop&crop=face" alt="Founder Masters Gym" style="width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(20%)">
+      <div style="position:absolute;bottom:0;left:0;right:0;background:var(--teal);padding:14px 20px">
+        <span style="font-family:var(--display);font-size:16px;letter-spacing:.1em;color:#080808">MASTERS GYM · FOUNDER</span>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500">Grundaren</p>
+      <h2 style="font-family:var(--display);font-size:clamp(44px,5vw,80px);letter-spacing:.04em;line-height:.92;margin-bottom:24px">MEET THE<br>FOUNDER</h2>
+      <p style="font-size:16px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:0">Founder of Masters Gym Stockholm. Dedicated to building champions both inside and outside the ring.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FIGHT TEAM -->
+<section style="padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)">
+  <div style="max-width:1200px;margin:0 auto">
+    <p style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500">Tävling</p>
+    <h2 style="font-family:var(--display);font-size:clamp(48px,6vw,88px);letter-spacing:.04em;line-height:.92;margin-bottom:56px">FIGHT TEAM</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+      <div style="background:var(--bg3);border:1px solid var(--line);overflow:hidden;position:relative">
+        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt="Fight" style="width:100%;height:280px;object-fit:cover;filter:grayscale(30%)">
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:16px 20px 20px;background:linear-gradient(to top,rgba(8,8,8,.95),transparent)">
+          <span style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:700;display:block;margin-bottom:6px">Medaljer</span>
+          <h3 style="font-family:var(--display);font-size:24px;letter-spacing:.06em">CHAMPIONS</h3>
+          <p style="font-size:13px;color:var(--muted);margin-top:6px">Bästa klubb 2017 & 2018. Flertalet SM-medaljer och internationella titlar.</p>
+        </div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--line);overflow:hidden;position:relative">
+        <img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=600&q=80&fit=crop" alt="Fighters" style="width:100%;height:280px;object-fit:cover;filter:grayscale(30%)">
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:16px 20px 20px;background:linear-gradient(to top,rgba(8,8,8,.95),transparent)">
+          <span style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:700;display:block;margin-bottom:6px">Fighters</span>
+          <h3 style="font-family:var(--display);font-size:24px;letter-spacing:.06em">FIGHT TEAM</h3>
+          <p style="font-size:13px;color:var(--muted);margin-top:6px">Sofia — landslagsfighter, Svenska Kickboxningsförbundet. Och fler på väg upp.</p>
+        </div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--line);overflow:hidden;position:relative">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt="Gala" style="width:100%;height:280px;object-fit:cover;filter:grayscale(30%)">
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:16px 20px 20px;background:linear-gradient(to top,rgba(8,8,8,.95),transparent)">
+          <span style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:700;display:block;margin-bottom:6px">Events</span>
+          <h3 style="font-family:var(--display);font-size:24px;letter-spacing:.06em">GALOR</h3>
+          <p style="font-size:13px;color:var(--muted);margin-top:6px">Vi arrangerar och deltar i tävlingar och galor genom hela säsongen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CLASSES -->
 <section class="classes" id="classes">
   <div class="classes-container">
@@ -508,19 +579,20 @@ button{cursor:pointer;font-family:var(--sans)}
     <div class="schedule-slider">
       <div class="schedule-panel active" data-panel="today">
         <div class="schedule-grid">
-          <div class="schedule-card"><div class="schedule-time">06:30</div><div class="schedule-info"><h3>Kickboxning morgon</h3><p>Alla nivåer</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">09:00</div><div class="schedule-info"><h3>Thaiboxning</h3><p>Nybörjare</p></div><button class="schedule-book open-modal">Boka →</button></div>
+          <div class="schedule-card"><div class="schedule-time">06:30</div><div class="schedule-info"><h3>Kickboxning</h3><p>Alla nivåer</p></div><button class="schedule-book open-modal">Boka →</button></div>
+          <div class="schedule-card"><div class="schedule-time">09:30</div><div class="schedule-info"><h3>Nybörjarpass</h3><p>Nivå 1 & 2</p></div><button class="schedule-book open-modal">Boka →</button></div>
           <div class="schedule-card"><div class="schedule-time">12:00</div><div class="schedule-info"><h3>Fyspass</h3><p>Alla nivåer</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">17:30</div><div class="schedule-info"><h3>Kickboxning</h3><p>Mellanstadium</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">19:00</div><div class="schedule-info"><h3>Thaiboxning avancerat</h3><p>Avancerat</p></div><button class="schedule-book open-modal">Boka →</button></div>
+          <div class="schedule-card"><div class="schedule-time">17:30</div><div class="schedule-info"><h3>Fortsättningspass</h3><p>Från termin 2</p></div><button class="schedule-book open-modal">Boka →</button></div>
+          <div class="schedule-card"><div class="schedule-time">19:00</div><div class="schedule-info"><h3>Tävlingsgrupp</h3><p>På inbjudan</p></div><button class="schedule-book open-modal">Boka →</button></div>
         </div>
       </div>
       <div class="schedule-panel" data-panel="tomorrow">
         <div class="schedule-grid">
-          <div class="schedule-card"><div class="schedule-time">06:30</div><div class="schedule-info"><h3>Morgonpass</h3><p>Alla nivåer</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">10:00</div><div class="schedule-info"><h3>Barnträning</h3><p>6–15 år</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">18:00</div><div class="schedule-info"><h3>Kickboxning</h3><p>Alla nivåer</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">19:30</div><div class="schedule-info"><h3>Sparring</h3><p>Avancerat</p></div><button class="schedule-book open-modal">Boka →</button></div>
+          <div class="schedule-card"><div class="schedule-time">06:30</div><div class="schedule-info"><h3>Kickboxning morgon</h3><p>Alla nivåer</p></div><button class="schedule-book open-modal">Boka →</button></div>
+          <div class="schedule-card"><div class="schedule-time">10:00</div><div class="schedule-info"><h3>Barnträning</h3><p>6–11 år</p></div><button class="schedule-book open-modal">Boka →</button></div>
+          <div class="schedule-card"><div class="schedule-time">11:00</div><div class="schedule-info"><h3>Juniorträning</h3><p>12–15 år</p></div><button class="schedule-book open-modal">Boka →</button></div>
+          <div class="schedule-card"><div class="schedule-time">18:00</div><div class="schedule-info"><h3>Nybörjarpass</h3><p>Nivå 1 & 2</p></div><button class="schedule-book open-modal">Boka →</button></div>
+          <div class="schedule-card"><div class="schedule-time">19:30</div><div class="schedule-info"><h3>Fortsättningspass</h3><p>Från termin 2</p></div><button class="schedule-book open-modal">Boka →</button></div>
         </div>
       </div>
     </div>
@@ -619,8 +691,8 @@ button{cursor:pointer;font-family:var(--sans)}
       <p>Masters Gym erbjuder strukturerad och trygg träning för barn och ungdomar. Vi lär ut respekt, disciplin och självförtroende — packade i rolig och engagerande träning.</p>
       <p>Alla tränare har erfarenhet av att arbeta med barn och en pedagogisk approach som passar alla nivåer och personligheter.</p>
       <div class="kids-ages">
-        <span class="kids-age-tag">Barn 6–12 år</span>
-        <span class="kids-age-tag">Junior 13–17 år</span>
+        <span class="kids-age-tag">Barn 6–11 år</span>
+        <span class="kids-age-tag">Junior 12–15 år</span>
         <span class="kids-age-tag">Terminskort</span>
       </div>
       <button class="btn btn-primary open-modal">Anmäl ditt barn</button>
