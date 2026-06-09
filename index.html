@@ -299,6 +299,107 @@ button{cursor:pointer;font-family:var(--sans)}
   /* fight team mobile */
   section[style*="fight"] div[style*="grid-template-columns:repeat(3"] { grid-template-columns:1fr !important; }
 }
+/* ── ANIMATIONS ─────────────────────────────── */
+
+/* Base hidden state for scroll-triggered elements */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(.22,.61,.36,1), transform 0.6s cubic-bezier(.22,.61,.36,1);
+}
+.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:.05s }
+.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:.15s }
+.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:.25s }
+.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:.35s }
+.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:.45s }
+.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:.55s }
+
+/* Slide in from left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-48px);
+  transition: opacity 0.8s cubic-bezier(.22,.61,.36,1), transform 0.8s cubic-bezier(.22,.61,.36,1);
+}
+.reveal-left.visible { opacity:1; transform:translateX(0); }
+
+/* Slide in from right */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(48px);
+  transition: opacity 0.8s cubic-bezier(.22,.61,.36,1), transform 0.8s cubic-bezier(.22,.61,.36,1);
+}
+.reveal-right.visible { opacity:1; transform:translateX(0); }
+
+/* Hero content animation */
+.hero-content { animation: heroSlideUp 1s cubic-bezier(.22,.61,.36,1) 0.2s both; }
+@keyframes heroSlideUp {
+  from { opacity:0; transform:translateY(48px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* Hero eyebrow */
+.hero-eyebrow { animation: fadeInDown 0.8s ease 0.4s both; }
+@keyframes fadeInDown {
+  from { opacity:0; transform:translateY(-12px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* Scroll indicator pulse */
+.hero-scroll { animation: scrollPulse 2.5s ease-in-out infinite; }
+@keyframes scrollPulse {
+  0%,100% { opacity:.3; transform:translateX(0); }
+  50%      { opacity:.7; transform:translateX(6px); }
+}
+
+/* Marquee speed variation on hover */
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* Button punch on hover */
+.btn-primary { transition: background .2s, transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .2s; }
+.btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 24px rgba(26,191,170,0.3); }
+.btn-primary:active { transform: translateY(0) scale(0.98); }
+
+.nav-cta { transition: background .2s, transform .15s cubic-bezier(.34,1.56,.64,1); }
+.nav-cta:hover { transform: scale(1.04); }
+
+/* Value cards — teal border sweep */
+.value-card { transition: border-color .25s, transform .25s cubic-bezier(.34,1.56,.64,1), background .25s; }
+.value-card:hover { transform: translateY(-6px); background: rgba(26,191,170,0.06); }
+
+/* Schedule card slide */
+.schedule-card { transition: border-color .2s, background .2s, transform .2s cubic-bezier(.34,1.56,.64,1); }
+.schedule-card:hover { transform: translateX(6px); }
+
+/* Membership card */
+.membership-card { transition: border-color .25s, transform .3s cubic-bezier(.34,1.56,.64,1), background .25s; }
+
+/* Class card image zoom already handled — add scale on card */
+.class-card { transition: border-color .2s, transform .3s cubic-bezier(.22,.61,.36,1); }
+.class-card:hover { transform: translateY(-6px); }
+
+/* Counter animation */
+.count-up { display: inline-block; }
+
+/* Teal bar slide in */
+.about-teal-bar { transform: translateY(100%); transition: transform .6s cubic-bezier(.22,.61,.36,1) .4s; }
+.reveal-left.visible .about-teal-bar,
+.about-media.visible .about-teal-bar { transform: translateY(0); }
+
+/* Fight team card hover */
+.fight-card { transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.fight-card:hover { transform: translateY(-8px); }
+
 </style>
 </head>
 <body>
@@ -408,9 +509,9 @@ button{cursor:pointer;font-family:var(--sans)}
 <!-- VALUES -->
 <section class="values" id="about">
   <div class="values-container">
-    <p class="values-label" data-i18n="values_label">Våra värderingar</p>
-    <h2>DISCIPLINE.<br>RESPECT.<br>COMMUNITY.</h2>
-    <div class="values-grid">
+    <p class="values-label reveal" data-i18n="values_label">Våra värderingar</p>
+    <h2 class="reveal">DISCIPLINE.<br>RESPECT.<br>COMMUNITY.</h2>
+    <div class="values-grid reveal-stagger">
       <div class="value-card">
         <div class="value-num">01</div>
         <h3>HARD WORK</h3>
@@ -447,13 +548,13 @@ button{cursor:pointer;font-family:var(--sans)}
 <!-- ABOUT -->
 <section class="about">
   <div class="about-container">
-    <div class="about-media">
+    <div class="about-media reveal-left">
       <img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=800&q=80&fit=crop" alt="Masters Gym training">
       <div class="about-teal-bar">
         <span>MASTERS GYM · STOCKHOLM · 2016</span>
       </div>
     </div>
-    <div class="about-content">
+    <div class="about-content reveal-right">
       <span class="about-label" data-i18n="about_label">Om Masters Gym</span>
       <h2 data-i18n="about_h2">MER ÄN ETT GYM</h2>
       <p class="about-tagline" data-i18n="about_tagline">"See you soon, champion!"</p>
@@ -538,8 +639,8 @@ button{cursor:pointer;font-family:var(--sans)}
 <section class="classes" id="classes">
   <div class="classes-container">
     <p class="section-label" data-i18n="classes_label">Träning</p>
-    <h2 class="section-title" data-i18n="classes_h2">VÅRA PASS</h2>
-    <div class="classes-grid">
+    <h2 class="section-title reveal" data-i18n="classes_h2">VÅRA PASS</h2>
+    <div class="classes-grid reveal-stagger">
       <div class="class-card">
         <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&q=80&fit=crop" alt="Kickboxning">
         <div class="class-card-body">
@@ -594,7 +695,7 @@ button{cursor:pointer;font-family:var(--sans)}
   <div class="memberships-container">
     <p class="section-label">Priser</p>
     <h2 class="section-title">MEDLEMSKAP</h2>
-    <div class="memberships-grid">
+    <div class="memberships-grid reveal-stagger">
       <div class="membership-card">
         <div class="membership-ribbon">Prova på</div>
         <h3>Provpass</h3>
@@ -698,7 +799,7 @@ button{cursor:pointer;font-family:var(--sans)}
       </div>
       <a href="https://instagram.com/mastersgymstockholm" target="_blank" rel="noopener noreferrer" class="social-link">Följ på Instagram →</a>
     </div>
-    <div class="social-grid">
+    <div class="social-grid reveal-stagger">
       <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card"><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=400&q=80&fit=crop" alt=""></a>
       <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card"><img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=400&q=80&fit=crop" alt=""></a>
       <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card"><img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&q=80&fit=crop" alt=""></a>
@@ -842,6 +943,7 @@ async function loadSchedule() {
     }
 
     renderDay(days[0]);
+    addScheduleAnimations();
 
     tabsEl.addEventListener('click', e => {
       const tab = e.target.closest('.schedule-tab');
@@ -849,6 +951,7 @@ async function loadSchedule() {
       tabsEl.querySelectorAll('.schedule-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       renderDay(tab.dataset.day);
+      addScheduleAnimations();
     });
 
   } catch(err) {
@@ -867,6 +970,67 @@ if(mapEl){
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
   const icon=L.divIcon({className:'',html:'<div style="width:14px;height:14px;background:#1ABFAA;border-radius:50%;border:2px solid #080808;box-shadow:0 0 0 4px rgba(26,191,170,0.3);"></div>',iconSize:[14,14],iconAnchor:[7,7]});
   L.marker([59.3293,18.0440],{icon}).addTo(map).bindPopup('<strong>Masters Gym Stockholm</strong><br>Norra Agnegatan 36').openPopup();
+}
+
+// SCROLL REVEAL
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-stagger').forEach(el => {
+  revealObserver.observe(el);
+});
+
+// COUNTER ANIMATION
+function animateCounter(el, target, duration=1800) {
+  const isNum = !isNaN(parseInt(target));
+  if (!isNum) return;
+  const num = parseInt(target);
+  const start = performance.now();
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * num);
+    if (progress < 1) requestAnimationFrame(update);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(update);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = el.getAttribute('data-target');
+      animateCounter(el, target);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.about-stat-num').forEach(el => {
+  const text = el.textContent.trim();
+  el.setAttribute('data-target', text);
+  counterObserver.observe(el);
+});
+
+// SCHEDULE CARD STAGGER on render (called after loadSchedule builds DOM)
+function addScheduleAnimations() {
+  document.querySelectorAll('.schedule-card').forEach((card, i) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateX(-20px)';
+    card.style.transition = `opacity .4s ease ${i * 0.07}s, transform .4s cubic-bezier(.22,.61,.36,1) ${i * 0.07}s`;
+    setTimeout(() => {
+      card.style.opacity = '1';
+      card.style.transform = 'translateX(0)';
+    }, 50);
+  });
 }
 
 // LANGUAGE SWITCHER
