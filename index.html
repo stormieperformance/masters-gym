@@ -52,11 +52,9 @@ button{cursor:pointer;font-family:var(--sans)}
 /* NAVBAR */
 .navbar{position:fixed;top:0;left:0;right:0;z-index:100;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;transition:background .3s ease,border-bottom .3s ease}
 .navbar.scrolled{background:rgba(8,8,8,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.nav-logo-icon{width:44px;height:44px}
-.nav-logo-text{display:flex;flex-direction:column;line-height:1}
-.nav-logo-main{font-family:var(--display);font-size:18px;letter-spacing:.16em;color:var(--text)}
-.nav-logo-sub{font-size:8px;letter-spacing:.22em;color:var(--teal);font-weight:500;text-transform:uppercase;margin-top:2px}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo-img{height:44px;width:auto;filter:invert(1);opacity:0.92;transition:opacity .2s}
+.nav-logo-img:hover{opacity:1}
 .nav-links{display:flex;align-items:center;gap:28px;list-style:none}
 .nav-links a{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .nav-links a:hover{color:var(--text)}
@@ -567,14 +565,7 @@ button{cursor:pointer;font-family:var(--sans)}
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <a href="#" class="nav-logo">
-    <svg class="nav-logo-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="22" cy="22" r="21" stroke="#1ABFAA" stroke-width="1.5" fill="none"/>
-      <text x="22" y="28" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="16" fill="#1ABFAA" letter-spacing="1">MG</text>
-    </svg>
-    <div class="nav-logo-text">
-      <span class="nav-logo-main">MASTERS GYM</span>
-      <span class="nav-logo-sub">Kick- & Thaiboxning · Stockholm 2016</span>
-    </div>
+    <img src="MastersGym_logo_crop.png" alt="Masters Gym Stockholm" class="nav-logo-img">
   </a>
   <ul class="nav-links">
     <li><a href="#about" data-i18n="nav_about">Om oss</a></li>
@@ -647,17 +638,17 @@ button{cursor:pointer;font-family:var(--sans)}
     <h2 class="reveal">DISCIPLINE.<br>RESPECT.<br>COMMUNITY.</h2>
     <div class="values-grid reveal-stagger">
       <div class="value-card">
-        <div class="value-num">01</div>
+        <div class="value-num"><img src="MastersGym_logo_crop.png" alt="Masters Gym" style="width:80px;opacity:0.25;filter:invert(1)"></div>
         <h3>HARD WORK</h3>
         <p>No matter what your goal is, we help you achieve it. From getting in shape to becoming world champion, we are here to help you in your process.</p>
       </div>
       <div class="value-card">
-        <div class="value-num">02</div>
+        <div class="value-num"><img src="MastersGym_logo_crop.png" alt="Masters Gym" style="width:80px;opacity:0.25;filter:invert(1)"></div>
         <h3>RESPECT</h3>
         <p>Here only matters how determined you are, how open to learn, how respectful and hard working. Everyone is welcome — regardless of background or level.</p>
       </div>
       <div class="value-card">
-        <div class="value-num">03</div>
+        <div class="value-num"><img src="MastersGym_logo_crop.png" alt="Masters Gym" style="width:80px;opacity:0.25;filter:invert(1)"></div>
         <h3>COMMUNITY</h3>
         <p>Masters Gym is proud to be a place where people can be themselves, work with dedication and respect to achieve their goals. Come and make friends for life.</p>
       </div>
@@ -967,7 +958,7 @@ button{cursor:pointer;font-family:var(--sans)}
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-left">
-      <div class="footer-logo">MASTERS GYM</div>
+      <img src="MastersGym_logo_crop.png" alt="Masters Gym Stockholm" style="height:40px;width:auto;filter:invert(1);opacity:0.7;margin-bottom:12px">
       <p>Stockholm · Kick- & Thaiboxning · Est. 2016</p>
     </div>
     <div class="footer-right">
