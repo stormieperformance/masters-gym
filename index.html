@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,26 +11,16 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#080808;
-  --bg2:#111;
-  --bg3:#1a1a1a;
-  --text:#f0ede6;
-  --muted:rgba(240,237,230,0.45);
-  --muted2:rgba(240,237,230,0.18);
-  --line:rgba(240,237,230,0.08);
-  --teal:#1ABFAA;
-  --teal-dim:rgba(26,191,170,0.12);
-  --teal-dark:#12907e;
-  --sans:'DM Sans',sans-serif;
-  --display:'Bebas Neue',sans-serif;
+  --bg:#080808;--bg2:#111;--bg3:#1a1a1a;
+  --text:#f0ede6;--muted:rgba(240,237,230,0.45);--muted2:rgba(240,237,230,0.18);
+  --line:rgba(240,237,230,0.08);--teal:#1ABFAA;--teal-dim:rgba(26,191,170,0.12);
+  --teal-dark:#12907e;--sans:'DM Sans',sans-serif;--display:'Bebas Neue',sans-serif;
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:var(--sans)}
-
-/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s ease}
 .modal-overlay.active{opacity:1;pointer-events:all}
 .modal-box{background:var(--bg2);border:1px solid var(--line);width:100%;max-width:460px;padding:40px;position:relative;transform:translateY(20px);transition:transform .25s ease}
@@ -48,8 +38,6 @@ button{cursor:pointer;font-family:var(--sans)}
 .modal-submit{background:var(--teal);color:#080808;border:none;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:16px 24px;width:100%;margin-top:4px;cursor:pointer;font-family:var(--sans);transition:background .2s}
 .modal-submit:hover{background:var(--teal-dark)}
 .modal-note{font-size:11px;color:var(--muted2);text-align:center;margin:4px 0 0}
-
-/* NAVBAR */
 .navbar{position:fixed;top:0;left:0;right:0;z-index:100;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;transition:background .3s ease,border-bottom .3s ease}
 .navbar.scrolled{background:rgba(8,8,8,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
@@ -60,8 +48,6 @@ button{cursor:pointer;font-family:var(--sans)}
 .nav-links{display:flex;align-items:center;gap:28px;list-style:none}
 .nav-links a{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .nav-links a:hover{color:var(--text)}
-.nav-cta{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--teal);color:#080808;border:none;padding:11px 22px;cursor:pointer;font-family:var(--sans);transition:background .2s}
-.nav-cta:hover{background:var(--teal-dark)}
 .lang-btn{background:transparent;border:1px solid rgba(26,191,170,0.4);color:var(--teal);font-size:10px;font-weight:700;letter-spacing:.14em;padding:8px 14px;cursor:pointer;font-family:var(--sans);transition:all .2s}
 .lang-btn:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;z-index:200}
@@ -75,9 +61,6 @@ button{cursor:pointer;font-family:var(--sans)}
 .mobile-menu-close:hover{color:var(--text)}
 .mobile-menu a{font-family:var(--display);font-size:44px;letter-spacing:.08em;color:var(--muted);text-decoration:none;transition:color .2s;padding:4px 0}
 .mobile-menu a:hover{color:var(--teal)}
-.mobile-cta{margin-top:28px;background:var(--teal);color:#080808;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:16px 40px;border:none;cursor:pointer;font-family:var(--sans)}
-
-/* HERO */
 .hero{position:relative;height:100vh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end}
 .hero-bg{position:absolute;inset:0;z-index:0}
 .hero-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(30%) brightness(.6)}
@@ -90,8 +73,6 @@ button{cursor:pointer;font-family:var(--sans)}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
 .hero-scroll{position:absolute;bottom:32px;right:40px;z-index:2;display:flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2)}
 .hero-scroll-line{width:40px;height:1px;background:var(--muted2)}
-
-/* MARQUEE */
 .marquee{overflow:hidden;padding:14px 0;white-space:nowrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .marquee-teal{background:var(--teal)}
 .marquee-teal .marquee-track span{color:#080808}
@@ -100,25 +81,20 @@ button{cursor:pointer;font-family:var(--sans)}
 .marquee-track{display:inline-flex;animation:marquee 22s linear infinite}
 .marquee-track span{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;padding:0 40px}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* VALUES */
 .values{padding:100px 40px;background:var(--bg2);border-bottom:1px solid var(--line)}
 .values-container{max-width:1100px;margin:0 auto}
 .values-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
 .values h2{font-family:var(--display);font-size:clamp(48px,6vw,88px);letter-spacing:.04em;line-height:.92;margin-bottom:64px}
 .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.value-card{background:var(--bg3);padding:40px 32px;border:1px solid var(--line);transition:border-color .2s}
-.value-card:hover{border-color:var(--teal)}
+.value-card{background:var(--bg3);padding:40px 32px;border:1px solid var(--line)}
 .value-num{font-family:var(--display);font-size:64px;letter-spacing:.04em;color:var(--teal);opacity:.3;line-height:1;margin-bottom:20px}
 .value-card h3{font-family:var(--display);font-size:32px;letter-spacing:.06em;margin-bottom:14px}
 .value-card p{font-size:14px;font-weight:300;color:var(--muted);line-height:1.8}
-
-/* ABOUT */
 .about{padding:100px 40px}
 .about-container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .about-media{position:relative}
 .about-media img{width:100%;height:580px;object-fit:cover;filter:grayscale(20%)}
-.about-teal-bar{position:absolute;bottom:0;left:0;right:0;background:var(--teal);padding:20px 28px;display:flex;align-items:center;gap:16px}
+.about-teal-bar{position:absolute;bottom:0;left:0;right:0;background:var(--teal);padding:20px 28px}
 .about-teal-bar span{font-family:var(--display);font-size:18px;letter-spacing:.1em;color:#080808}
 .about-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:20px;font-weight:500}
 .about h2{font-family:var(--display);font-size:clamp(44px,5vw,72px);letter-spacing:.04em;line-height:.92;margin-bottom:12px}
@@ -128,8 +104,30 @@ button{cursor:pointer;font-family:var(--sans)}
 .about-stat{background:var(--bg);padding:20px 16px}
 .about-stat-num{font-family:var(--display);font-size:40px;letter-spacing:.04em;color:var(--teal);line-height:1;margin-bottom:4px}
 .about-stat-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
-
-/* CLASSES */
+.testimonials{padding:100px 40px;background:var(--teal)}
+.testimonials-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.testimonial-quote{font-family:var(--display);font-size:clamp(28px,3vw,42px);letter-spacing:.04em;line-height:1.2;color:#080808;margin-bottom:20px}
+.testimonial-author{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(8,8,8,0.6)}
+.founder-section{padding:100px 40px;border-top:1px solid var(--line)}
+.founder-container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:center}
+.founder-img-wrap{position:relative}
+.founder-img-wrap img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(20%)}
+.founder-bar{position:absolute;bottom:0;left:0;right:0;background:var(--teal);padding:14px 20px}
+.founder-bar span{font-family:var(--display);font-size:16px;letter-spacing:.1em;color:#080808}
+.founder-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
+.founder-h2{font-family:var(--display);font-size:clamp(44px,5vw,80px);letter-spacing:.04em;line-height:.92;margin-bottom:24px}
+.founder-text{font-size:16px;font-weight:300;color:var(--muted);line-height:1.85}
+.fight-section{padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)}
+.fight-container{max-width:1200px;margin:0 auto}
+.fight-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
+.fight-h2{font-family:var(--display);font-size:clamp(48px,6vw,88px);letter-spacing:.04em;line-height:.92;margin-bottom:56px}
+.fight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.fight-card{background:var(--bg3);border:1px solid var(--line);overflow:hidden;position:relative}
+.fight-card img{width:100%;height:280px;object-fit:cover;filter:grayscale(30%)}
+.fight-card-body{position:absolute;bottom:0;left:0;right:0;padding:16px 20px 20px;background:linear-gradient(to top,rgba(8,8,8,.95),transparent)}
+.fight-card-tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:700;display:block;margin-bottom:6px}
+.fight-card h3{font-family:var(--display);font-size:24px;letter-spacing:.06em}
+.fight-card p{font-size:13px;color:var(--muted);margin-top:6px}
 .classes{padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)}
 .classes-container{max-width:1200px;margin:0 auto}
 .section-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
@@ -144,8 +142,6 @@ button{cursor:pointer;font-family:var(--sans)}
 .class-card h3{font-family:var(--display);font-size:28px;letter-spacing:.06em;margin-bottom:10px}
 .class-card p{font-size:13px;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:20px}
 .class-card .btn{width:100%}
-
-/* SCHEDULE */
 .schedule{padding:100px 40px;border-top:1px solid var(--line)}
 .schedule-container{max-width:900px;margin:0 auto}
 .schedule-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:16px;flex-wrap:wrap}
@@ -153,8 +149,6 @@ button{cursor:pointer;font-family:var(--sans)}
 .schedule-tabs{display:flex;gap:2px}
 .schedule-tab{background:var(--bg3);border:1px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:10px 20px;transition:all .2s;font-family:var(--sans);cursor:pointer}
 .schedule-tab.active,.schedule-tab:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
-.schedule-panel{display:none}
-.schedule-panel.active{display:block}
 .schedule-grid{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
 .schedule-card{background:var(--bg2);border:1px solid var(--line);display:flex;align-items:center;gap:24px;padding:20px 24px;transition:border-color .2s,background .2s}
 .schedule-card:hover{border-color:var(--teal);background:var(--teal-dim)}
@@ -164,15 +158,13 @@ button{cursor:pointer;font-family:var(--sans)}
 .schedule-info p{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2)}
 .schedule-book{background:transparent;border:1px solid var(--line);color:var(--muted);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:8px 16px;transition:all .2s;font-family:var(--sans);cursor:pointer;white-space:nowrap}
 .schedule-card:hover .schedule-book{border-color:var(--teal);color:var(--teal)}
-
-/* MEMBERSHIPS */
+.schedule-note{font-size:12px;color:var(--muted);margin-bottom:20px;letter-spacing:.06em;margin-top:8px}
 .memberships{padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)}
 .memberships-container{max-width:1200px;margin:0 auto}
 .memberships-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
 .membership-card{background:var(--bg3);border:1px solid var(--line);padding:32px 28px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;display:flex;flex-direction:column}
 .membership-card:hover{border-color:var(--muted2);transform:translateY(-3px)}
 .membership-card.featured{border-color:var(--teal);background:var(--teal-dim)}
-.membership-card.featured:hover{border-color:var(--teal)}
 .membership-ribbon{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:16px}
 .membership-card h3{font-family:var(--display);font-size:28px;letter-spacing:.06em;margin-bottom:10px}
 .membership-card .price{font-size:22px;font-weight:600;color:var(--text);margin-bottom:8px}
@@ -182,12 +174,9 @@ button{cursor:pointer;font-family:var(--sans)}
 .membership-cta{margin-top:48px;padding:40px;background:var(--teal-dim);border:1px solid rgba(26,191,170,.25);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .membership-cta p{font-size:15px;font-weight:300;color:var(--muted);max-width:500px;line-height:1.7}
 .membership-cta strong{color:var(--text)}
-
-/* CORPORATE */
 .corporate{padding:100px 40px;border-top:1px solid var(--line);position:relative;overflow:hidden}
 .corporate::before{content:'';position:absolute;top:0;right:0;width:50%;height:100%;background:var(--teal-dim);z-index:0}
 .corporate-container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1}
-.corporate-content .section-label{margin-bottom:16px}
 .corporate-content h2{font-family:var(--display);font-size:clamp(44px,5vw,72px);letter-spacing:.04em;line-height:.92;margin-bottom:24px}
 .corporate-content p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:14px}
 .corporate-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0}
@@ -195,18 +184,13 @@ button{cursor:pointer;font-family:var(--sans)}
 .corp-feature h4{font-size:12px;font-weight:600;letter-spacing:.08em;margin-bottom:4px;text-transform:uppercase}
 .corp-feature p{font-size:12px;color:var(--muted);line-height:1.5}
 .corporate-media img{width:100%;height:520px;object-fit:cover;filter:grayscale(20%)}
-
-/* KIDS */
 .kids{padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)}
 .kids-container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .kids-media img{width:100%;height:480px;object-fit:cover;filter:grayscale(20%)}
-.kids-content .section-label{margin-bottom:16px}
 .kids-content h2{font-family:var(--display);font-size:clamp(44px,5vw,72px);letter-spacing:.04em;line-height:.92;margin-bottom:24px}
 .kids-content p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:14px}
 .kids-ages{display:flex;gap:12px;margin:28px 0;flex-wrap:wrap}
 .kids-age-tag{background:var(--teal-dim);border:1px solid rgba(26,191,170,.3);padding:8px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:600}
-
-/* INSTAGRAM */
 .social{padding:100px 40px;border-top:1px solid var(--line)}
 .social-container{max-width:1200px;margin:0 auto}
 .social-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px}
@@ -218,8 +202,6 @@ button{cursor:pointer;font-family:var(--sans)}
 .social-card{aspect-ratio:1;overflow:hidden;display:block;background:var(--bg2)}
 .social-card img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%);transition:transform .4s ease,filter .3s}
 .social-card:hover img{transform:scale(1.06);filter:grayscale(0%)}
-
-/* CONTACT */
 .contact{padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)}
 .contact-container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
 .contact h2{font-family:var(--display);font-size:clamp(44px,5vw,72px);letter-spacing:.04em;margin-bottom:8px}
@@ -230,8 +212,6 @@ button{cursor:pointer;font-family:var(--sans)}
 .contact-row p{font-size:14px;color:var(--text)}
 .contact-btns{display:flex;gap:10px;flex-wrap:wrap}
 #map{height:420px;width:100%;border:1px solid var(--line);filter:grayscale(80%) invert(88%) contrast(85%)}
-
-/* FOOTER */
 .footer{padding:60px 40px 32px;border-top:1px solid var(--line)}
 .footer-container{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;gap:40px;margin-bottom:48px}
 .footer-logo{font-family:var(--display);font-size:22px;letter-spacing:.14em;margin-bottom:4px}
@@ -245,8 +225,6 @@ button{cursor:pointer;font-family:var(--sans)}
 .footer-bottom p{font-size:11px;color:var(--muted2);letter-spacing:.1em}
 .footer-bottom a{font-size:11px;color:var(--muted2);letter-spacing:.12em;text-transform:uppercase;transition:color .2s}
 .footer-bottom a:hover{color:var(--teal)}
-
-/* RESPONSIVE */
 @media(max-width:768px){
   .navbar{padding:0 20px}
   .nav-links,.nav-cta{display:none}
@@ -254,286 +232,77 @@ button{cursor:pointer;font-family:var(--sans)}
   .mobile-menu{display:flex}
   .hero-content{padding:0 20px 60px}
   .hero h1{font-size:clamp(60px,18vw,100px)}
-  .values{padding:60px 20px}
-  .values-grid{grid-template-columns:1fr}
-  .about{padding:60px 20px}
-  .about-container{grid-template-columns:1fr;gap:40px}
-  .about-media img{height:380px}
-  .about-stats{grid-template-columns:repeat(3,1fr)}
-  .classes{padding:60px 20px}
-  .classes-grid{grid-template-columns:1fr}
-  .schedule{padding:60px 20px}
-  .schedule-header{flex-direction:column;align-items:flex-start}
-  .memberships{padding:60px 20px}
-  .memberships-grid{grid-template-columns:1fr}
-  .membership-cta{flex-direction:column}
-  .corporate{padding:60px 20px}
-  .corporate::before{display:none}
-  .corporate-container{grid-template-columns:1fr;gap:40px}
-  .corporate-media{order:-1}
-  .corporate-media img{height:300px}
-  .kids{padding:60px 20px}
-  .kids-container{grid-template-columns:1fr;gap:40px}
-  .kids-media img{height:300px}
-  .social{padding:60px 20px}
-  .social-grid{grid-template-columns:repeat(2,1fr)}
-  .contact{padding:60px 20px}
-  .contact-container{grid-template-columns:1fr;gap:40px}
+  .values{padding:60px 20px}.values-grid{grid-template-columns:1fr}
+  .about{padding:60px 20px}.about-container{grid-template-columns:1fr;gap:40px}.about-media img{height:380px}
+  .testimonials{padding:60px 20px}.testimonials-grid{grid-template-columns:1fr;gap:40px}
+  .founder-section{padding:60px 20px}.founder-container{grid-template-columns:1fr;gap:40px}
+  .fight-section{padding:60px 20px}.fight-grid{grid-template-columns:1fr}
+  .classes{padding:60px 20px}.classes-grid{grid-template-columns:1fr}
+  .schedule{padding:60px 20px}.schedule-header{flex-direction:column;align-items:flex-start}
+  .memberships{padding:60px 20px}.memberships-grid{grid-template-columns:1fr}.membership-cta{flex-direction:column}
+  .corporate{padding:60px 20px}.corporate::before{display:none}.corporate-container{grid-template-columns:1fr;gap:40px}.corporate-media{order:-1}.corporate-media img{height:300px}
+  .kids{padding:60px 20px}.kids-container{grid-template-columns:1fr;gap:40px}.kids-media img{height:300px}
+  .social{padding:60px 20px}.social-grid{grid-template-columns:repeat(2,1fr)}
+  .contact{padding:60px 20px}.contact-container{grid-template-columns:1fr;gap:40px}.contact-btns{flex-direction:column}
   #map{height:260px}
-  .footer{padding:40px 20px 24px}
-  .footer-container{flex-direction:column;gap:32px}
-  .footer-right{gap:32px}
-  .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+  .footer{padding:40px 20px 24px}.footer-container{flex-direction:column;gap:32px}.footer-right{gap:32px}.footer-bottom{flex-direction:column;gap:12px;text-align:center}
   .hero-scroll{display:none}
-  /* testimonials mobile */
-  section[style*="background:var(--teal)"] > div { grid-template-columns:1fr !important; gap:40px !important; padding:0 !important; }
-  /* founder mobile */
-  section[style*="grid-template-columns:1fr 2fr"] { grid-template-columns:1fr !important; gap:32px !important; }
-  /* fight team mobile */
-  section[style*="fight"] div[style*="grid-template-columns:repeat(3"] { grid-template-columns:1fr !important; }
 }
-/* ── BUTTONS ─────────────────────────────────── */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 13px 26px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  font-family: var(--sans);
-  position: relative;
-  overflow: hidden;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 26px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--sans);position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.btn-primary{background:var(--teal);color:#080808;transition:background .25s,transform .2s,box-shadow .25s;animation:ctaPulse 2.8s ease-in-out infinite}
+@keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(26,191,170,0.5)}50%{box-shadow:0 0 0 10px rgba(26,191,170,0)}100%{box-shadow:0 0 0 0 rgba(26,191,170,0)}}
+.btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transform:skewX(-20deg);animation:shineSweep 3.5s ease-in-out infinite}
+@keyframes shineSweep{0%{left:-100%}40%{left:140%}100%{left:140%}}
+.btn-primary:active{transform:scale(0.96);animation:none;box-shadow:none}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(240,237,230,0.22);transition:border-color .25s,background .25s,transform .2s}
+.btn-ghost:active{transform:scale(0.96)}
+@media(hover:hover){
+  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(26,191,170,0.35)}
+  .btn-ghost:hover{border-color:rgba(240,237,230,0.6);background:rgba(240,237,230,0.05);transform:translateY(-2px)}
 }
-
-/* Primary CTA — pulsing glow + shine sweep */
-.btn-primary {
-  background: var(--teal);
-  color: #080808;
-  transition: background .25s, transform .2s, box-shadow .25s;
-  box-shadow: 0 0 0 0 rgba(26,191,170,0);
-  animation: ctaPulse 2.8s ease-in-out infinite;
+.nav-cta{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--teal);color:#080808;border:none;padding:11px 22px;cursor:pointer;font-family:var(--sans);position:relative;overflow:hidden;animation:ctaPulse 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
+.nav-cta::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transform:skewX(-20deg);animation:shineSweep 3.5s ease-in-out infinite}
+@media(hover:hover){.nav-cta:hover{background:var(--teal-dark)}}
+.mobile-cta{margin-top:28px;background:var(--teal);color:#080808;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:18px 48px;border:none;cursor:pointer;font-family:var(--sans);position:relative;overflow:hidden;animation:ctaPulse 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.mobile-cta::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transform:skewX(-20deg);animation:shineSweep 3.5s ease-in-out infinite}
+/* ANIMATIONS */
+@media(prefers-reduced-motion:reduce){.reveal,.reveal-left,.reveal-right,.reveal-stagger>*{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;will-change:opacity,transform}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .7s ease,transform .7s ease;will-change:opacity,transform}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(32px);transition:opacity .7s ease,transform .7s ease;will-change:opacity,transform}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.reveal-stagger>*{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;will-change:opacity,transform}
+.reveal-stagger.visible>*:nth-child(1){opacity:1;transform:translateY(0);transition-delay:.04s}
+.reveal-stagger.visible>*:nth-child(2){opacity:1;transform:translateY(0);transition-delay:.10s}
+.reveal-stagger.visible>*:nth-child(3){opacity:1;transform:translateY(0);transition-delay:.16s}
+.reveal-stagger.visible>*:nth-child(4){opacity:1;transform:translateY(0);transition-delay:.22s}
+.reveal-stagger.visible>*:nth-child(5){opacity:1;transform:translateY(0);transition-delay:.28s}
+.reveal-stagger.visible>*:nth-child(6){opacity:1;transform:translateY(0);transition-delay:.34s}
+.hero-content{animation:heroSlideUp .9s cubic-bezier(.22,.61,.36,1) .15s both}
+@keyframes heroSlideUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow{animation:fadeInDown .7s ease .35s both}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.hero-scroll{animation:scrollPulse 2.5s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:.3;transform:translateX(0)}50%{opacity:.7;transform:translateX(5px)}}
+@media(hover:hover){
+  .value-card{transition:border-color .25s,transform .25s ease,background .25s}
+  .value-card:hover{transform:translateY(-5px);background:rgba(26,191,170,0.06)}
+  .schedule-card{transition:border-color .2s,background .2s,transform .2s ease}
+  .schedule-card:hover{transform:translateX(5px)}
+  .class-card{transition:border-color .2s,transform .25s ease}
+  .class-card:hover{transform:translateY(-5px)}
+  .marquee:hover .marquee-track{animation-play-state:paused}
 }
-
-@keyframes ctaPulse {
-  0%   { box-shadow: 0 0 0 0 rgba(26,191,170,0.5); }
-  50%  { box-shadow: 0 0 0 10px rgba(26,191,170,0); }
-  100% { box-shadow: 0 0 0 0 rgba(26,191,170,0); }
+.about-teal-bar{transform:translateY(100%);transition:transform .6s ease .3s}
+.reveal-left.visible .about-teal-bar{transform:translateY(0)}
+@media(max-width:768px){
+  .btn,.nav-cta,.mobile-cta,.schedule-book,.membership-card .btn{min-height:48px}
+  .schedule-card:active{background:var(--teal-dim)}
+  .value-card:active{background:rgba(26,191,170,0.06)}
 }
-
-/* Shine sweep on primary */
-.btn-primary::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-  transform: skewX(-20deg);
-  animation: shineSweep 3.5s ease-in-out infinite;
-}
-
-@keyframes shineSweep {
-  0%   { left: -100%; }
-  40%  { left: 140%; }
-  100% { left: 140%; }
-}
-
-.btn-primary:active {
-  transform: scale(0.96);
-  animation: none;
-  box-shadow: none;
-}
-
-/* Ghost button */
-.btn-ghost {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid rgba(240,237,230,0.22);
-  transition: border-color .25s, background .25s, transform .2s;
-}
-.btn-ghost:active { transform: scale(0.96); }
-
-/* Desktop hover only */
-@media (hover: hover) {
-  .btn-primary:hover {
-    background: var(--teal-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(26,191,170,0.35);
-  }
-  .btn-ghost:hover {
-    border-color: rgba(240,237,230,0.6);
-    background: rgba(240,237,230,0.05);
-    transform: translateY(-2px);
-  }
-}
-
-/* Nav CTA */
-.nav-cta {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  background: var(--teal);
-  color: #080808;
-  border: none;
-  padding: 11px 22px;
-  cursor: pointer;
-  font-family: var(--sans);
-  position: relative;
-  overflow: hidden;
-  animation: ctaPulse 2.8s ease-in-out infinite;
-  -webkit-tap-highlight-color: transparent;
-}
-.nav-cta::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transform: skewX(-20deg);
-  animation: shineSweep 3.5s ease-in-out infinite;
-}
-@media (hover: hover) {
-  .nav-cta:hover { background: var(--teal-dark); }
-}
-
-/* Mobile CTA in menu */
-.mobile-cta {
-  margin-top: 28px;
-  background: var(--teal);
-  color: #080808;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  padding: 18px 48px;
-  border: none;
-  cursor: pointer;
-  font-family: var(--sans);
-  position: relative;
-  overflow: hidden;
-  animation: ctaPulse 2.8s ease-in-out infinite;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-.mobile-cta::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 60%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transform: skewX(-20deg);
-  animation: shineSweep 3.5s ease-in-out infinite;
-}
-
-/* ── SCROLL REVEAL — smooth, mobile-optimised ── */
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal-left, .reveal-right, .reveal-stagger > * {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-    animation: none !important;
-  }
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity .6s ease, transform .6s ease;
-  will-change: opacity, transform;
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-.reveal-left {
-  opacity: 0;
-  transform: translateX(-32px);
-  transition: opacity .7s ease, transform .7s ease;
-  will-change: opacity, transform;
-}
-.reveal-left.visible { opacity: 1; transform: translateX(0); }
-
-.reveal-right {
-  opacity: 0;
-  transform: translateX(32px);
-  transition: opacity .7s ease, transform .7s ease;
-  will-change: opacity, transform;
-}
-.reveal-right.visible { opacity: 1; transform: translateX(0); }
-
-/* Stagger — smaller distance, gentler timing */
-.reveal-stagger > * {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .5s ease, transform .5s ease;
-  will-change: opacity, transform;
-}
-.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:.04s }
-.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:.10s }
-.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:.16s }
-.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:.22s }
-.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:.28s }
-.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:.34s }
-
-/* ── HERO ──────────────────────────────────────── */
-.hero-content { animation: heroSlideUp .9s cubic-bezier(.22,.61,.36,1) .15s both; }
-@keyframes heroSlideUp {
-  from { opacity:0; transform:translateY(36px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-.hero-eyebrow { animation: fadeInDown .7s ease .35s both; }
-@keyframes fadeInDown {
-  from { opacity:0; transform:translateY(-10px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-
-/* Scroll indicator */
-.hero-scroll { animation: scrollPulse 2.5s ease-in-out infinite; }
-@keyframes scrollPulse {
-  0%,100% { opacity:.3; transform:translateX(0); }
-  50%      { opacity:.7; transform:translateX(5px); }
-}
-
-/* Marquee pause on hover (desktop only) */
-@media (hover: hover) {
-  .marquee:hover .marquee-track { animation-play-state: paused; }
-}
-
-/* ── CARD HOVERS — desktop only ─────────────── */
-@media (hover: hover) {
-  .value-card { transition: border-color .25s, transform .25s ease, background .25s; }
-  .value-card:hover { transform: translateY(-5px); background: rgba(26,191,170,0.06); }
-
-  .schedule-card { transition: border-color .2s, background .2s, transform .2s ease; }
-  .schedule-card:hover { transform: translateX(5px); }
-
-  .membership-card { transition: border-color .25s, transform .25s ease, background .25s; }
-
-  .class-card { transition: border-color .2s, transform .25s ease; }
-  .class-card:hover { transform: translateY(-5px); }
-}
-
-/* Teal bar */
-.about-teal-bar { transform: translateY(100%); transition: transform .6s ease .3s; }
-.reveal-left.visible .about-teal-bar { transform: translateY(0); }
-
-/* ── MOBILE TOUCH FEEDBACK ──────────────────── */
-@media (max-width: 768px) {
-  .btn, .nav-cta, .mobile-cta, .schedule-book, .membership-card .btn {
-    min-height: 48px; /* thumb-friendly tap target */
-  }
-  .schedule-card:active { background: var(--teal-dim); }
-  .value-card:active { background: rgba(26,191,170,0.06); }
-}
-
 </style>
 </head>
 <body>
@@ -545,18 +314,18 @@ button{cursor:pointer;font-family:var(--sans)}
     <h3 data-i18n="modal_title">BLI MEDLEM</h3>
     <p class="modal-sub" data-i18n="modal_sub">Prova ditt första pass kostnadsfritt. Vi återkommer inom 24 timmar.</p>
     <div class="modal-form">
-      <input type="text" placeholder="Ditt namn" autocomplete="name"/>
-      <input type="email" placeholder="E-postadress" autocomplete="email"/>
-      <input type="tel" placeholder="Telefonnummer (valfritt)" autocomplete="tel"/>
-      <select>
-        <option value="" disabled selected>Vilket pass intresserar dig?</option>
-        <option>Kickboxning — nybörjare</option>
-        <option>Thaiboxning — nybörjare</option>
-        <option>Boxning</option>
-        <option>Fyspass</option>
-        <option>Barnträning</option>
-        <option>Företagsträning</option>
-        <option>Vet inte ännu</option>
+      <input type="text" data-i18n-placeholder="modal_name" placeholder="Ditt namn" autocomplete="name"/>
+      <input type="email" data-i18n-placeholder="modal_email" placeholder="E-postadress" autocomplete="email"/>
+      <input type="tel" data-i18n-placeholder="modal_phone" placeholder="Telefonnummer (valfritt)" autocomplete="tel"/>
+      <select id="modal-select">
+        <option value="" disabled selected data-i18n="modal_select">Vilket pass intresserar dig?</option>
+        <option data-i18n="modal_opt1">Kickboxning — nybörjare</option>
+        <option data-i18n="modal_opt2">Thaiboxning — nybörjare</option>
+        <option data-i18n="modal_opt3">Boxning</option>
+        <option data-i18n="modal_opt4">Fyspass</option>
+        <option data-i18n="modal_opt5">Barnträning</option>
+        <option data-i18n="modal_opt6">Företagsträning</option>
+        <option data-i18n="modal_opt7">Vet inte ännu</option>
       </select>
       <button class="modal-submit" id="modal-submit" data-i18n="modal_submit">Skicka förfrågan →</button>
       <p class="modal-note" data-i18n="modal_note">Ingen bindningstid. Ingen utrustning behövs.</p>
@@ -573,7 +342,7 @@ button{cursor:pointer;font-family:var(--sans)}
     </svg>
     <div class="nav-logo-text">
       <span class="nav-logo-main">MASTERS GYM</span>
-      <span class="nav-logo-sub">Kick- & Thaiboxning · Stockholm 2016</span>
+      <span class="nav-logo-sub" data-i18n="nav_tagline">Kick- & Thaiboxning · Stockholm 2016</span>
     </div>
   </a>
   <ul class="nav-links">
@@ -588,9 +357,7 @@ button{cursor:pointer;font-family:var(--sans)}
     <button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
     <button class="nav-cta open-modal" data-i18n="nav_cta">Bli medlem</button>
   </div>
-  <button class="hamburger" id="hamburger">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- MOBILE MENU -->
@@ -607,36 +374,25 @@ button{cursor:pointer;font-family:var(--sans)}
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=1600&q=80&fit=crop" alt="Masters Gym Stockholm">
-  </div>
+  <div class="hero-bg"><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=1600&q=80&fit=crop" alt="Masters Gym Stockholm"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-eyebrow" data-i18n="hero_eyebrow">Stockholm · Kungsholmen · Est. 2016</p>
     <h1>A PLACE WHERE<br><span data-i18n="hero_everybody">EVERYBODY</span><br>IS EQUAL</h1>
     <p class="hero-desc" data-i18n="hero_desc">Kick- och thaiboxning för alla nivåer. Från nybörjare till världsmästare. Välkommen till Masters Gym.</p>
     <div class="hero-btns">
-      <button class="btn btn-primary open-modal" data-i18n="hero_cta1">Bli medlem</button>
-      <a href="#classes" class="btn btn-ghost" data-i18n="hero_cta2">Våra pass</a>
+      <button class="btn btn-primary open-modal" data-i18n="nav_cta">Bli medlem</button>
+      <a href="#classes" class="btn btn-ghost" data-i18n="nav_classes">Våra pass</a>
     </div>
   </div>
-  <div class="hero-scroll">
-    <div class="hero-scroll-line"></div>
-    Scroll
-  </div>
+  <div class="hero-scroll"><div class="hero-scroll-line"></div><span data-i18n="scroll">Scroll</span></div>
 </section>
 
-<!-- MARQUEE -->
+<!-- MARQUEE 1 -->
 <div class="marquee marquee-teal">
   <div class="marquee-track">
-    <span>HARD WORK</span><span>•</span>
-    <span>RESPECT</span><span>•</span>
-    <span>COMMUNITY</span><span>•</span>
-    <span>EVERYBODY IS EQUAL</span><span>•</span>
-    <span>HARD WORK</span><span>•</span>
-    <span>RESPECT</span><span>•</span>
-    <span>COMMUNITY</span><span>•</span>
-    <span>EVERYBODY IS EQUAL</span><span>•</span>
+    <span data-i18n="mq1">HARD WORK • RESPECT • COMMUNITY • EVERYBODY IS EQUAL •</span>
+    <span data-i18n="mq1">HARD WORK • RESPECT • COMMUNITY • EVERYBODY IS EQUAL •</span>
   </div>
 </div>
 
@@ -644,22 +400,22 @@ button{cursor:pointer;font-family:var(--sans)}
 <section class="values" id="about">
   <div class="values-container">
     <p class="values-label reveal" data-i18n="values_label">Våra värderingar</p>
-    <h2 class="reveal">DISCIPLINE.<br>RESPECT.<br>COMMUNITY.</h2>
+    <h2 class="reveal" data-i18n="values_h2">DISCIPLINE.<br>RESPECT.<br>COMMUNITY.</h2>
     <div class="values-grid reveal-stagger">
       <div class="value-card">
         <div class="value-num">01</div>
-        <h3>HARD WORK</h3>
-        <p>No matter what your goal is, we help you achieve it. From getting in shape to becoming world champion, we are here to help you in your process.</p>
+        <h3 data-i18n="val1_title">HARD WORK</h3>
+        <p data-i18n="val1_text">No matter what your goal is, we help you achieve it. From getting in shape to becoming world champion, we are here to help you in your process.</p>
       </div>
       <div class="value-card">
         <div class="value-num">02</div>
-        <h3>RESPECT</h3>
-        <p>Here only matters how determined you are, how open to learn, how respectful and hard working. Everyone is welcome — regardless of background or level.</p>
+        <h3 data-i18n="val2_title">RESPECT</h3>
+        <p data-i18n="val2_text">Here only matters how determined you are, how open to learn, how respectful and hard working. Everyone is welcome — regardless of background or level.</p>
       </div>
       <div class="value-card">
         <div class="value-num">03</div>
-        <h3>COMMUNITY</h3>
-        <p>Masters Gym is proud to be a place where people can be themselves, work with dedication and respect to achieve their goals. Come and make friends for life.</p>
+        <h3 data-i18n="val3_title">COMMUNITY</h3>
+        <p data-i18n="val3_text">Masters Gym is proud to be a place where people can be themselves, work with dedication and respect to achieve their goals. Come and make friends for life.</p>
       </div>
     </div>
   </div>
@@ -668,14 +424,8 @@ button{cursor:pointer;font-family:var(--sans)}
 <!-- MARQUEE 2 -->
 <div class="marquee marquee-dark">
   <div class="marquee-track">
-    <span>MASTERS GYM STOCKHOLM</span><span>•</span>
-    <span>NORRA AGNEGATAN 36</span><span>•</span>
-    <span>KUNGSHOLMEN</span><span>•</span>
-    <span>GRUNDAT 2016</span><span>•</span>
-    <span>MASTERS GYM STOCKHOLM</span><span>•</span>
-    <span>NORRA AGNEGATAN 36</span><span>•</span>
-    <span>KUNGSHOLMEN</span><span>•</span>
-    <span>GRUNDAT 2016</span><span>•</span>
+    <span data-i18n="mq2">MASTERS GYM STOCKHOLM • NORRA AGNEGATAN 36 • KUNGSHOLMEN • GRUNDAT 2016 •</span>
+    <span data-i18n="mq2">MASTERS GYM STOCKHOLM • NORRA AGNEGATAN 36 • KUNGSHOLMEN • GRUNDAT 2016 •</span>
   </div>
 </div>
 
@@ -684,9 +434,7 @@ button{cursor:pointer;font-family:var(--sans)}
   <div class="about-container">
     <div class="about-media reveal-left">
       <img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=800&q=80&fit=crop" alt="Masters Gym training">
-      <div class="about-teal-bar">
-        <span>MASTERS GYM · STOCKHOLM · 2016</span>
-      </div>
+      <div class="about-teal-bar"><span data-i18n="about_bar">MASTERS GYM · STOCKHOLM · 2016</span></div>
     </div>
     <div class="about-content reveal-right">
       <span class="about-label" data-i18n="about_label">Om Masters Gym</span>
@@ -696,73 +444,71 @@ button{cursor:pointer;font-family:var(--sans)}
       <p data-i18n="about_p2">Vår träning passar alla — oavsett om du vill komma i form, lära dig en ny sport eller tävla på elitnivå. Hos oss bestämmer du ditt mål, vi hjälper dig nå det.</p>
       <p data-i18n="about_p3">Gymmet ligger på Norra Agnegatan 36, 10 minuter till fots från Centralstationen. Närmaste T-bana: Rådhuset.</p>
       <div class="about-stats">
-        <div class="about-stat"><div class="about-stat-num">2016</div><div class="about-stat-label">Grundat</div></div>
-        <div class="about-stat"><div class="about-stat-num">2×</div><div class="about-stat-label">Bästa klubb</div></div>
-        <div class="about-stat"><div class="about-stat-num">All</div><div class="about-stat-label">Nivåer välkomna</div></div>
+        <div class="about-stat"><div class="about-stat-num">2016</div><div class="about-stat-label" data-i18n="stat1">Grundat</div></div>
+        <div class="about-stat"><div class="about-stat-num">2×</div><div class="about-stat-label" data-i18n="stat2">Bästa klubb</div></div>
+        <div class="about-stat"><div class="about-stat-num" data-i18n="stat3_num">All</div><div class="about-stat-label" data-i18n="stat3">Nivåer välkomna</div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section style="padding:100px 40px;background:var(--teal)">
-  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px">
+<section class="testimonials">
+  <div class="testimonials-grid">
     <div>
-      <p style="font-family:var(--display);font-size:clamp(28px,3vw,42px);letter-spacing:.04em;line-height:1.2;color:#080808;margin-bottom:20px">"Masters Gym är som min extra familj. Så mycket värme, gemenskap och tillit till dem man tränar med."</p>
-      <p style="font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(8,8,8,0.6)">— Medlem</p>
+      <p class="testimonial-quote" data-i18n="test1_quote">"Masters Gym är som min extra familj. Så mycket värme, gemenskap och tillit till dem man tränar med."</p>
+      <p class="testimonial-author" data-i18n="test1_author">— Medlem</p>
     </div>
     <div>
-      <p style="font-family:var(--display);font-size:clamp(28px,3vw,42px);letter-spacing:.04em;line-height:1.2;color:#080808;margin-bottom:20px">"Min son önskar att det var barnträning varje dag och ser fram emot att få avancera när han blir äldre."</p>
-      <p style="font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(8,8,8,0.6)">— Mamma till en av våra yngsta i klubben</p>
+      <p class="testimonial-quote" data-i18n="test2_quote">"Min son önskar att det var barnträning varje dag och ser fram emot att få avancera när han blir äldre."</p>
+      <p class="testimonial-author" data-i18n="test2_author">— Mamma till en av våra yngsta i klubben</p>
     </div>
   </div>
 </section>
 
 <!-- FOUNDER -->
-<section style="padding:100px 40px;border-top:1px solid var(--line)">
-  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:center">
-    <div style="position:relative">
-      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&fit=crop&crop=face" alt="Founder Masters Gym" style="width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(20%)">
-      <div style="position:absolute;bottom:0;left:0;right:0;background:var(--teal);padding:14px 20px">
-        <span style="font-family:var(--display);font-size:16px;letter-spacing:.1em;color:#080808">MASTERS GYM · FOUNDER</span>
-      </div>
+<section class="founder-section">
+  <div class="founder-container">
+    <div class="founder-img-wrap">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&fit=crop&crop=face" alt="Founder Masters Gym">
+      <div class="founder-bar"><span data-i18n="founder_bar">MASTERS GYM · FOUNDER</span></div>
     </div>
     <div>
-      <p style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500">Grundaren</p>
-      <h2 style="font-family:var(--display);font-size:clamp(44px,5vw,80px);letter-spacing:.04em;line-height:.92;margin-bottom:24px">MEET THE<br>FOUNDER</h2>
-      <p style="font-size:16px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:0">Founder of Masters Gym Stockholm. Dedicated to building champions both inside and outside the ring.</p>
+      <p class="founder-label" data-i18n="founder_label">Grundaren</p>
+      <h2 class="founder-h2" data-i18n="founder_h2">MEET THE<br>FOUNDER</h2>
+      <p class="founder-text" data-i18n="founder_text">Founder of Masters Gym Stockholm. Dedicated to building champions both inside and outside the ring.</p>
     </div>
   </div>
 </section>
 
 <!-- FIGHT TEAM -->
-<section style="padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)">
-  <div style="max-width:1200px;margin:0 auto">
-    <p style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500">Tävling</p>
-    <h2 style="font-family:var(--display);font-size:clamp(48px,6vw,88px);letter-spacing:.04em;line-height:.92;margin-bottom:56px">FIGHT TEAM</h2>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
-      <div style="background:var(--bg3);border:1px solid var(--line);overflow:hidden;position:relative">
-        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt="Fight" style="width:100%;height:280px;object-fit:cover;filter:grayscale(30%)">
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:16px 20px 20px;background:linear-gradient(to top,rgba(8,8,8,.95),transparent)">
-          <span style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:700;display:block;margin-bottom:6px">Medaljer</span>
-          <h3 style="font-family:var(--display);font-size:24px;letter-spacing:.06em">CHAMPIONS</h3>
-          <p style="font-size:13px;color:var(--muted);margin-top:6px">Bästa klubb 2017 & 2018. Flertalet SM-medaljer och internationella titlar.</p>
+<section class="fight-section">
+  <div class="fight-container">
+    <p class="fight-label" data-i18n="fight_label">Tävling</p>
+    <h2 class="fight-h2" data-i18n="fight_h2">FIGHT TEAM</h2>
+    <div class="fight-grid reveal-stagger">
+      <div class="fight-card">
+        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt="">
+        <div class="fight-card-body">
+          <span class="fight-card-tag" data-i18n="fight1_tag">Medaljer</span>
+          <h3 data-i18n="fight1_title">CHAMPIONS</h3>
+          <p data-i18n="fight1_text">Bästa klubb 2017 & 2018. Flertalet SM-medaljer och internationella titlar.</p>
         </div>
       </div>
-      <div style="background:var(--bg3);border:1px solid var(--line);overflow:hidden;position:relative">
-        <img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=600&q=80&fit=crop" alt="Fighters" style="width:100%;height:280px;object-fit:cover;filter:grayscale(30%)">
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:16px 20px 20px;background:linear-gradient(to top,rgba(8,8,8,.95),transparent)">
-          <span style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:700;display:block;margin-bottom:6px">Fighters</span>
-          <h3 style="font-family:var(--display);font-size:24px;letter-spacing:.06em">FIGHT TEAM</h3>
-          <p style="font-size:13px;color:var(--muted);margin-top:6px">Sofia — landslagsfighter, Svenska Kickboxningsförbundet. Och fler på väg upp.</p>
+      <div class="fight-card">
+        <img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=600&q=80&fit=crop" alt="">
+        <div class="fight-card-body">
+          <span class="fight-card-tag" data-i18n="fight2_tag">Fighters</span>
+          <h3 data-i18n="fight2_title">FIGHT TEAM</h3>
+          <p data-i18n="fight2_text">Sofia — landslagsfighter, Svenska Kickboxningsförbundet. Och fler på väg upp.</p>
         </div>
       </div>
-      <div style="background:var(--bg3);border:1px solid var(--line);overflow:hidden;position:relative">
-        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt="Gala" style="width:100%;height:280px;object-fit:cover;filter:grayscale(30%)">
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:16px 20px 20px;background:linear-gradient(to top,rgba(8,8,8,.95),transparent)">
-          <span style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:700;display:block;margin-bottom:6px">Events</span>
-          <h3 style="font-family:var(--display);font-size:24px;letter-spacing:.06em">GALOR</h3>
-          <p style="font-size:13px;color:var(--muted);margin-top:6px">Vi arrangerar och deltar i tävlingar och galor genom hela säsongen.</p>
+      <div class="fight-card">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt="">
+        <div class="fight-card-body">
+          <span class="fight-card-tag" data-i18n="fight3_tag">Events</span>
+          <h3 data-i18n="fight3_title">GALOR</h3>
+          <p data-i18n="fight3_text">Vi arrangerar och deltar i tävlingar och galor genom hela säsongen.</p>
         </div>
       </div>
     </div>
@@ -776,30 +522,30 @@ button{cursor:pointer;font-family:var(--sans)}
     <h2 class="section-title reveal" data-i18n="classes_h2">VÅRA PASS</h2>
     <div class="classes-grid reveal-stagger">
       <div class="class-card">
-        <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&q=80&fit=crop" alt="Kickboxning">
+        <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&q=80&fit=crop" alt="">
         <div class="class-card-body">
-          <span class="class-card-tag">Alla nivåer</span>
-          <h3>KICKBOXNING</h3>
-          <p>Grunderna i kickboxning — kombinationer, teknik och kondition. Passar perfekt för nybörjare och de som vill förbättra sin grund.</p>
-          <button class="btn btn-ghost open-modal">Boka provpass</button>
+          <span class="class-card-tag" data-i18n="all_levels">Alla nivåer</span>
+          <h3 data-i18n="class1_title">KICKBOXNING</h3>
+          <p data-i18n="class1_text">Grunderna i kickboxning — kombinationer, teknik och kondition. Passar perfekt för nybörjare och de som vill förbättra sin grund.</p>
+          <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
         </div>
       </div>
       <div class="class-card">
-        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt="Thaiboxning">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt="">
         <div class="class-card-body">
-          <span class="class-card-tag">Alla nivåer</span>
-          <h3>THAIBOXNING</h3>
-          <p>Muay Thai — "åtta extremiteters konst". Sparkar, knän, armbågar och clinch. Teknisk och effektiv kampsport med djupa rötter.</p>
-          <button class="btn btn-ghost open-modal">Boka provpass</button>
+          <span class="class-card-tag" data-i18n="all_levels">Alla nivåer</span>
+          <h3 data-i18n="class2_title">THAIBOXNING</h3>
+          <p data-i18n="class2_text">Muay Thai — "åtta extremiteters konst". Sparkar, knän, armbågar och clinch. Teknisk och effektiv kampsport med djupa rötter.</p>
+          <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
         </div>
       </div>
       <div class="class-card">
-        <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=80&fit=crop" alt="Fyspass">
+        <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=80&fit=crop" alt="">
         <div class="class-card-body">
-          <span class="class-card-tag">Alla nivåer</span>
-          <h3>FYSPASS</h3>
-          <p>Kondition, styrka och rörlighet inspirerat av kampsportens träningsmetoder. Intensivt, roligt och effektivt för hela kroppen.</p>
-          <button class="btn btn-ghost open-modal">Boka provpass</button>
+          <span class="class-card-tag" data-i18n="all_levels">Alla nivåer</span>
+          <h3 data-i18n="class3_title">FYSPASS</h3>
+          <p data-i18n="class3_text">Kondition, styrka och rörlighet inspirerat av kampsportens träningsmetoder. Intensivt, roligt och effektivt för hela kroppen.</p>
+          <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
         </div>
       </div>
     </div>
@@ -812,70 +558,70 @@ button{cursor:pointer;font-family:var(--sans)}
     <div class="schedule-header">
       <div>
         <h2 data-i18n="schedule_h2">SCHEMA</h2>
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:.06em" data-i18n="schedule_note_sub">Uppdateras automatiskt från Google Sheets</p>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:.06em" data-i18n="schedule_sub">Uppdateras automatiskt från Google Sheets</p>
       </div>
       <div class="schedule-tabs" id="schedule-tabs"></div>
     </div>
     <div id="schedule-content" style="min-height:200px;display:flex;align-items:center;justify-content:center">
-      <p style="color:var(--muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase">Laddar schema...</p>
+      <p style="color:var(--muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase" data-i18n="schedule_loading">Laddar schema...</p>
     </div>
-    <p style="font-size:12px;color:var(--muted);margin-bottom:20px;letter-spacing:.06em;margin-top:8px">Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.</p>
-    <a href="https://www.mastersgym.se/schema" target="_blank" class="btn btn-ghost">Se fullständigt schema →</a>
+    <p class="schedule-note" data-i18n="schedule_note">Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.</p>
+    <a href="https://www.mastersgym.se/schema" target="_blank" class="btn btn-ghost" data-i18n="schedule_full">Se fullständigt schema →</a>
   </div>
 </section>
 
 <!-- MEMBERSHIPS -->
 <section class="memberships" id="memberships">
   <div class="memberships-container">
-    <p class="section-label">Priser</p>
-    <h2 class="section-title">MEDLEMSKAP</h2>
+    <p class="section-label" data-i18n="memberships_label">Priser</p>
+    <h2 class="section-title" data-i18n="memberships_h2">MEDLEMSKAP</h2>
     <div class="memberships-grid reveal-stagger">
       <div class="membership-card">
-        <div class="membership-ribbon">Prova på</div>
-        <h3>Provpass</h3>
-        <p class="price">200 kr</p>
-        <p class="desc">Prova ett pass utan att binda dig. Perfekt för dig som vill se om Masters Gym passar dig.</p>
-        <button class="btn open-modal">Boka provpass</button>
+        <div class="membership-ribbon" data-i18n="mem1_ribbon">Prova på</div>
+        <h3 data-i18n="mem1_title">Provpass</h3>
+        <p class="price" data-i18n="mem1_price">200 kr</p>
+        <p class="desc" data-i18n="mem1_desc">Prova ett pass utan att binda dig. Perfekt för dig som vill se om Masters Gym passar dig.</p>
+        <button class="btn open-modal" data-i18n="book_trial">Boka provpass</button>
       </div>
       <div class="membership-card featured">
-        <div class="membership-ribbon">Bäst värde</div>
-        <h3>Autogiro 12 mån</h3>
-        <p class="price">649 kr / mån</p>
-        <p class="desc">Obegränsat antal pass. Bästa priset per månad. 12 månaders bindningstid via autogiro.</p>
-        <button class="btn open-modal">Bli medlem</button>
+        <div class="membership-ribbon" data-i18n="mem2_ribbon">Bäst värde</div>
+        <h3 data-i18n="mem2_title">Autogiro 12 mån</h3>
+        <p class="price" data-i18n="mem2_price">649 kr / mån</p>
+        <p class="desc" data-i18n="mem2_desc">Obegränsat antal pass. Bästa priset per månad. 12 månaders bindningstid via autogiro.</p>
+        <button class="btn open-modal" data-i18n="join_now">Bli medlem</button>
       </div>
       <div class="membership-card">
-        <div class="membership-ribbon">Flexibelt</div>
-        <h3>Autogiro 6 mån</h3>
-        <p class="price">699 kr / mån</p>
-        <p class="desc">Obegränsat antal pass med 6 månaders bindningstid. Bra balans mellan pris och flexibilitet.</p>
-        <button class="btn open-modal">Bli medlem</button>
+        <div class="membership-ribbon" data-i18n="mem3_ribbon">Flexibelt</div>
+        <h3 data-i18n="mem3_title">Autogiro 6 mån</h3>
+        <p class="price" data-i18n="mem3_price">699 kr / mån</p>
+        <p class="desc" data-i18n="mem3_desc">Obegränsat antal pass med 6 månaders bindningstid. Bra balans mellan pris och flexibilitet.</p>
+        <button class="btn open-modal" data-i18n="join_now">Bli medlem</button>
       </div>
       <div class="membership-card">
-        <div class="membership-ribbon">Ungdom</div>
-        <h3>Junior</h3>
-        <p class="price">599 kr / mån</p>
-        <p class="desc">Rabatterat pris för ungdomar 13–17 år. Autogiro.</p>
-        <button class="btn open-modal">Bli medlem</button>
+        <div class="membership-ribbon" data-i18n="mem4_ribbon">Ungdom</div>
+        <h3 data-i18n="mem4_title">Junior</h3>
+        <p class="price" data-i18n="mem4_price">599 kr / mån</p>
+        <p class="desc" data-i18n="mem4_desc">Rabatterat pris för ungdomar. Autogiro.</p>
+        <button class="btn open-modal" data-i18n="join_now">Bli medlem</button>
       </div>
       <div class="membership-card">
-        <div class="membership-ribbon">10 pass</div>
-        <h3>Klippkort</h3>
-        <p class="price">1 500 kr</p>
-        <p class="desc">10 pass att använda när det passar dig. Inget slutdatum.</p>
-        <button class="btn open-modal">Köp klippkort</button>
+        <div class="membership-ribbon" data-i18n="mem5_ribbon">10 pass</div>
+        <h3 data-i18n="mem5_title">Klippkort</h3>
+        <p class="price" data-i18n="mem5_price">1 500 kr</p>
+        <p class="desc" data-i18n="mem5_desc">10 pass att använda när det passar dig. Inget slutdatum.</p>
+        <button class="btn open-modal" data-i18n="mem5_btn">Köp klippkort</button>
       </div>
       <div class="membership-card">
-        <div class="membership-ribbon">Helår</div>
-        <h3>Årskort</h3>
-        <p class="price">7 750 kr</p>
-        <p class="desc">Betal ett år i förskott och spara. Obegränsat antal pass hela året.</p>
-        <button class="btn open-modal">Köp årskort</button>
+        <div class="membership-ribbon" data-i18n="mem6_ribbon">Helår</div>
+        <h3 data-i18n="mem6_title">Årskort</h3>
+        <p class="price" data-i18n="mem6_price">7 750 kr</p>
+        <p class="desc" data-i18n="mem6_desc">Betal ett år i förskott och spara. Obegränsat antal pass hela året.</p>
+        <button class="btn open-modal" data-i18n="mem6_btn">Köp årskort</button>
       </div>
     </div>
     <div class="membership-cta">
-      <p><strong>Osäker på vilket alternativ som passar dig?</strong> Kom in på ett provpass för 200 kr och känn på gymmet innan du bestämmer dig. Ingen utrustning behövs.</p>
-      <button class="btn btn-primary open-modal">Boka provpass</button>
+      <p data-i18n="mem_cta_text"><strong>Osäker på vilket alternativ som passar dig?</strong> Kom in på ett provpass för 200 kr och känn på gymmet innan du bestämmer dig. Ingen utrustning behövs.</p>
+      <button class="btn btn-primary open-modal" data-i18n="book_trial">Boka provpass</button>
     </div>
   </div>
 </section>
@@ -884,20 +630,20 @@ button{cursor:pointer;font-family:var(--sans)}
 <section class="corporate" id="corporate">
   <div class="corporate-container">
     <div class="corporate-content">
-      <p class="section-label">För företag</p>
-      <h2>TRÄNA TILLSAMMANS. PRESTERA BÄTTRE.</h2>
-      <p>Masters Gym erbjuder skräddarsydda träningslösningar för företag och team. Oavsett om ni söker en aktiv teambuilding-aktivitet eller vill starta en regelbunden träningsgrupp för era medarbetare — vi hjälper er.</p>
-      <p>Morgonpass med frukost inkluderat, privata gruppass, teambuilding-events och lokalhyra för konferenser och fester.</p>
+      <p class="section-label" data-i18n="corp_label">För företag</p>
+      <h2 data-i18n="corp_h2">TRÄNA TILLSAMMANS. PRESTERA BÄTTRE.</h2>
+      <p data-i18n="corp_p1">Masters Gym erbjuder skräddarsydda träningslösningar för företag och team. Oavsett om ni söker en aktiv teambuilding-aktivitet eller vill starta en regelbunden träningsgrupp för era medarbetare — vi hjälper er.</p>
+      <p data-i18n="corp_p2">Morgonpass med frukost inkluderat, privata gruppass, teambuilding-events och lokalhyra för konferenser och fester.</p>
       <div class="corporate-features">
-        <div class="corp-feature"><h4>Morgonträning</h4><p>Kickstart dagen med ett energifyllt pass. Frukost ingår.</p></div>
-        <div class="corp-feature"><h4>Teambuilding</h4><p>Unikt och minnesvärt. Svensexor, möhippor, kalas.</p></div>
-        <div class="corp-feature"><h4>Lokalhyra</h4><p>Hyr gymmet för privata events och konferenser.</p></div>
-        <div class="corp-feature"><h4>Gruppass</h4><p>Regelbunden träning för era medarbetare. Vi anpassar.</p></div>
+        <div class="corp-feature"><h4 data-i18n="corp_f1_title">Morgonträning</h4><p data-i18n="corp_f1_text">Kickstart dagen med ett energifyllt pass. Frukost ingår.</p></div>
+        <div class="corp-feature"><h4 data-i18n="corp_f2_title">Teambuilding</h4><p data-i18n="corp_f2_text">Unikt och minnesvärt. Svensexor, möhippor, kalas.</p></div>
+        <div class="corp-feature"><h4 data-i18n="corp_f3_title">Lokalhyra</h4><p data-i18n="corp_f3_text">Hyr gymmet för privata events och konferenser.</p></div>
+        <div class="corp-feature"><h4 data-i18n="corp_f4_title">Gruppass</h4><p data-i18n="corp_f4_text">Regelbunden träning för era medarbetare. Vi anpassar.</p></div>
       </div>
-      <button class="btn btn-primary open-modal">Kontakta oss för offert</button>
+      <button class="btn btn-primary open-modal" data-i18n="corp_cta">Kontakta oss för offert</button>
     </div>
     <div class="corporate-media">
-      <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80&fit=crop" alt="Företagsträning Masters Gym">
+      <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80&fit=crop" alt="">
     </div>
   </div>
 </section>
@@ -906,32 +652,32 @@ button{cursor:pointer;font-family:var(--sans)}
 <section class="kids" id="kids">
   <div class="kids-container">
     <div class="kids-media">
-      <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=800&q=80&fit=crop" alt="Barnträning Masters Gym">
+      <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=800&q=80&fit=crop" alt="">
     </div>
     <div class="kids-content">
-      <p class="section-label">Barn & junior</p>
-      <h2>TRÄNING FÖR UNGA UTÖVARE</h2>
-      <p>Masters Gym erbjuder strukturerad och trygg träning för barn och ungdomar. Vi lär ut respekt, disciplin och självförtroende — packade i rolig och engagerande träning.</p>
-      <p>Alla tränare har erfarenhet av att arbeta med barn och en pedagogisk approach som passar alla nivåer och personligheter.</p>
+      <p class="section-label" data-i18n="kids_label">Barn & junior</p>
+      <h2 data-i18n="kids_h2">TRÄNING FÖR UNGA UTÖVARE</h2>
+      <p data-i18n="kids_p1">Masters Gym erbjuder strukturerad och trygg träning för barn och ungdomar. Vi lär ut respekt, disciplin och självförtroende — packade i rolig och engagerande träning.</p>
+      <p data-i18n="kids_p2">Alla tränare har erfarenhet av att arbeta med barn och en pedagogisk approach som passar alla nivåer och personligheter.</p>
       <div class="kids-ages">
-        <span class="kids-age-tag">Barn 6–11 år</span>
-        <span class="kids-age-tag">Junior 12–15 år</span>
-        <span class="kids-age-tag">Terminskort</span>
+        <span class="kids-age-tag" data-i18n="kids_age1">Barn 6–11 år</span>
+        <span class="kids-age-tag" data-i18n="kids_age2">Junior 12–15 år</span>
+        <span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span>
       </div>
-      <button class="btn btn-primary open-modal">Anmäl ditt barn</button>
+      <button class="btn btn-primary open-modal" data-i18n="kids_cta">Anmäl ditt barn</button>
     </div>
   </div>
 </section>
 
-<!-- INSTAGRAM -->
+<!-- SOCIAL -->
 <section class="social">
   <div class="social-container">
     <div class="social-header">
       <div>
-        <h2>FRÅN GYMMET</h2>
+        <h2 data-i18n="social_h2">FRÅN GYMMET</h2>
         <p class="social-handle">@mastersgymstockholm</p>
       </div>
-      <a href="https://instagram.com/mastersgymstockholm" target="_blank" rel="noopener noreferrer" class="social-link">Följ på Instagram →</a>
+      <a href="https://instagram.com/mastersgymstockholm" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n="social_link">Följ på Instagram →</a>
     </div>
     <div class="social-grid reveal-stagger">
       <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card"><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=400&q=80&fit=crop" alt=""></a>
@@ -949,14 +695,14 @@ button{cursor:pointer;font-family:var(--sans)}
       <h2 data-i18n="contact_h2">KONTAKT</h2>
       <p class="contact-sub" data-i18n="contact_sub">Välkommen till oss i Kungsholmen.</p>
       <div class="contact-details">
-        <div class="contact-row"><span class="contact-label">Adress</span><p>Norra Agnegatan 36, Stockholm</p></div>
-        <div class="contact-row"><span class="contact-label">T-bana</span><p>Rådhuset (Röda linjen)</p></div>
+        <div class="contact-row"><span class="contact-label" data-i18n="contact_addr_label">Adress</span><p>Norra Agnegatan 36, Stockholm</p></div>
+        <div class="contact-row"><span class="contact-label" data-i18n="contact_metro_label">T-bana</span><p data-i18n="contact_metro">Rådhuset (Röda linjen)</p></div>
         <div class="contact-row"><span class="contact-label">Instagram</span><p>@mastersgymstockholm</p></div>
-        <div class="contact-row"><span class="contact-label">Öppettider</span><p>Öppet 30 min innan första passet och 30 min efter sista passet</p></div>
+        <div class="contact-row"><span class="contact-label" data-i18n="contact_hours_label">Öppettider</span><p data-i18n="contact_hours">Öppet 30 min innan första passet och 30 min efter sista passet</p></div>
       </div>
       <div class="contact-btns">
-        <button class="btn btn-primary open-modal">Bli medlem</button>
-        <a href="https://maps.google.com/?q=Norra+Agnegatan+36+Stockholm" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Öppna i Maps</a>
+        <button class="btn btn-primary open-modal" data-i18n="join_now">Bli medlem</button>
+        <a href="https://maps.google.com/?q=Norra+Agnegatan+36+Stockholm" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" data-i18n="open_maps">Öppna i Maps</a>
       </div>
     </div>
     <div id="map"></div>
@@ -968,27 +714,27 @@ button{cursor:pointer;font-family:var(--sans)}
   <div class="footer-container">
     <div class="footer-left">
       <div class="footer-logo">MASTERS GYM</div>
-      <p>Stockholm · Kick- & Thaiboxning · Est. 2016</p>
+      <p data-i18n="footer_sub">Stockholm · Kick- & Thaiboxning · Est. 2016</p>
     </div>
     <div class="footer-right">
       <div class="footer-col">
-        <span>Navigera</span>
-        <a href="#about">Om oss</a>
-        <a href="#classes">Våra pass</a>
-        <a href="#schedule">Schema</a>
-        <a href="#memberships">Medlemskap</a>
-        <a href="#corporate">Företag</a>
+        <span data-i18n="footer_nav">Navigera</span>
+        <a href="#about" data-i18n="nav_about">Om oss</a>
+        <a href="#classes" data-i18n="nav_classes">Våra pass</a>
+        <a href="#schedule" data-i18n="nav_schedule">Schema</a>
+        <a href="#memberships" data-i18n="nav_memberships">Medlemskap</a>
+        <a href="#corporate" data-i18n="nav_corporate">Företag</a>
       </div>
       <div class="footer-col">
-        <span>Kontakt</span>
+        <span data-i18n="footer_contact">Kontakt</span>
         <a href="https://instagram.com/mastersgymstockholm" target="_blank">Instagram</a>
         <a href="https://www.mastersgym.se" target="_blank">mastersgym.se</a>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© Masters Gym Stockholm 2024</p>
-    <a href="https://stormieperformance.com" target="_blank">Built by Stormie Performance</a>
+    <p data-i18n="footer_copy">© Masters Gym Stockholm 2024</p>
+    <a href="https://stormieperformance.com" target="_blank" data-i18n="footer_built">Built by Stormie Performance</a>
   </div>
 </footer>
 
@@ -1016,85 +762,55 @@ modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 document.getElementById('modal-submit').addEventListener('click',function(e){
   e.preventDefault();
-  this.textContent='Skickat! Vi hör av oss snart.';
+  const t=translations[currentLang];
+  this.textContent=t.modal_sent||'Skickat!';
   this.style.background='rgba(26,191,170,0.2)';
   this.style.color='var(--teal)';
   this.style.cursor='default';
   setTimeout(closeModal,2000);
 });
 
-// SCHEDULE — Google Sheets
-const SHEET_ID = '1sh1syerkpB3ERVOyswRNdDvVAgc6ZPKUgJyTMysoBwY';
-const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Sheet1`;
+// SCHEDULE
+const SHEET_ID='1sh1syerkpB3ERVOyswRNdDvVAgc6ZPKUgJyTMysoBwY';
+const SHEET_URL=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Sheet1`;
+const dagOrder=['Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag','Söndag'];
 
-const dagOrder = ['Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag','Söndag'];
-
-async function loadSchedule() {
-  try {
-    const res = await fetch(SHEET_URL);
-    const text = await res.text();
-    // Google wraps JSON in /*O_o*/ google.visualization.Query.setResponse({...});
-    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/)[1]);
-    const rows = json.table.rows;
-
-    // Parse rows into { dag, tid, pass, niva }
-    const passes = rows.map(r => ({
-      dag:  r.c[0]?.v || '',
-      tid:  r.c[1]?.v || '',
-      pass: r.c[2]?.v || '',
-      niva: r.c[3]?.v || ''
-    })).filter(r => r.dag);
-
-    // Group by dag
-    const byDay = {};
-    passes.forEach(p => {
-      if (!byDay[p.dag]) byDay[p.dag] = [];
-      byDay[p.dag].push(p);
-    });
-
-    // Sort days
-    const days = Object.keys(byDay).sort((a,b) => dagOrder.indexOf(a) - dagOrder.indexOf(b));
-
-    // Build tabs
-    const tabsEl = document.getElementById('schedule-tabs');
-    tabsEl.innerHTML = days.map((d, i) =>
-      `<button class="schedule-tab ${i===0?'active':''}" data-day="${d}">${d}</button>`
-    ).join('');
-
-    // Build content
-    function renderDay(day) {
-      const content = document.getElementById('schedule-content');
-      content.innerHTML = `<div class="schedule-grid">${
-        byDay[day].map(p => `
-          <div class="schedule-card">
-            <div class="schedule-time">${p.tid}</div>
-            <div class="schedule-info"><h3>${p.pass}</h3><p>${p.niva}</p></div>
-            <button class="schedule-book open-modal">Boka →</button>
-          </div>`).join('')
-      }</div>`;
-      // Re-attach modal listeners for new buttons
-      content.querySelectorAll('.open-modal').forEach(b => b.addEventListener('click', openModal));
+async function loadSchedule(){
+  try{
+    const res=await fetch(SHEET_URL);
+    const text=await res.text();
+    const json=JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/)[1]);
+    const passes=json.table.rows.map(r=>({dag:r.c[0]?.v||'',tid:r.c[1]?.v||'',pass:r.c[2]?.v||'',niva:r.c[3]?.v||''})).filter(r=>r.dag);
+    const byDay={};
+    passes.forEach(p=>{if(!byDay[p.dag])byDay[p.dag]=[];byDay[p.dag].push(p);});
+    const days=Object.keys(byDay).sort((a,b)=>dagOrder.indexOf(a)-dagOrder.indexOf(b));
+    const tabsEl=document.getElementById('schedule-tabs');
+    tabsEl.innerHTML=days.map((d,i)=>`<button class="schedule-tab ${i===0?'active':''}" data-day="${d}">${d}</button>`).join('');
+    function renderDay(day){
+      const t=translations[currentLang];
+      const content=document.getElementById('schedule-content');
+      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(p=>`
+        <div class="schedule-card">
+          <div class="schedule-time">${p.tid}</div>
+          <div class="schedule-info"><h3>${p.pass}</h3><p>${p.niva}</p></div>
+          <button class="schedule-book open-modal">${t.book_arrow||'Boka →'}</button>
+        </div>`).join('')}</div>`;
+      content.querySelectorAll('.open-modal').forEach(b=>b.addEventListener('click',openModal));
     }
-
     renderDay(days[0]);
     addScheduleAnimations();
-
-    tabsEl.addEventListener('click', e => {
-      const tab = e.target.closest('.schedule-tab');
-      if (!tab) return;
-      tabsEl.querySelectorAll('.schedule-tab').forEach(t => t.classList.remove('active'));
+    tabsEl.addEventListener('click',e=>{
+      const tab=e.target.closest('.schedule-tab');
+      if(!tab)return;
+      tabsEl.querySelectorAll('.schedule-tab').forEach(t=>t.classList.remove('active'));
       tab.classList.add('active');
       renderDay(tab.dataset.day);
       addScheduleAnimations();
     });
-
-  } catch(err) {
-    document.getElementById('schedule-content').innerHTML =
-      `<p style="color:var(--muted);font-size:13px;padding:20px 0">Kunde inte ladda schemat. <a href="https://www.mastersgym.se/schema" target="_blank" style="color:var(--teal)">Se schemat här →</a></p>`;
-    console.error('Schema error:', err);
+  }catch(err){
+    document.getElementById('schedule-content').innerHTML=`<p style="color:var(--muted);font-size:13px;padding:20px 0">Kunde inte ladda schemat. <a href="https://www.mastersgym.se/schema" target="_blank" style="color:var(--teal)">Se schemat här →</a></p>`;
   }
 }
-
 loadSchedule();
 
 // MAP
@@ -1107,123 +823,209 @@ if(mapEl){
 }
 
 // SCROLL REVEAL
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+const revealObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-stagger').forEach(el=>revealObserver.observe(el));
 
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-stagger').forEach(el => {
-  revealObserver.observe(el);
-});
-
-// COUNTER ANIMATION
-function animateCounter(el, target, duration=1800) {
-  const isNum = !isNaN(parseInt(target));
-  if (!isNum) return;
-  const num = parseInt(target);
-  const start = performance.now();
-  function update(now) {
-    const elapsed = now - start;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = Math.floor(eased * num);
-    if (progress < 1) requestAnimationFrame(update);
-    else el.textContent = target;
-  }
+// COUNTER
+function animateCounter(el,target,duration=1800){
+  const num=parseInt(target);if(isNaN(num))return;
+  const start=performance.now();
+  function update(now){const p=Math.min((now-start)/duration,1);const e=1-Math.pow(1-p,3);el.textContent=Math.floor(e*num);if(p<1)requestAnimationFrame(update);else el.textContent=target;}
   requestAnimationFrame(update);
 }
+const counterObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){animateCounter(e.target,e.target.getAttribute('data-target'));counterObserver.unobserve(e.target);}});},{threshold:0.5});
+document.querySelectorAll('.about-stat-num').forEach(el=>{el.setAttribute('data-target',el.textContent.trim());counterObserver.observe(el);});
 
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const el = entry.target;
-      const target = el.getAttribute('data-target');
-      animateCounter(el, target);
-      counterObserver.unobserve(el);
-    }
-  });
-}, { threshold: 0.5 });
-
-document.querySelectorAll('.about-stat-num').forEach(el => {
-  const text = el.textContent.trim();
-  el.setAttribute('data-target', text);
-  counterObserver.observe(el);
-});
-
-// SCHEDULE CARD STAGGER on render (called after loadSchedule builds DOM)
-function addScheduleAnimations() {
-  document.querySelectorAll('.schedule-card').forEach((card, i) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateX(-20px)';
-    card.style.transition = `opacity .4s ease ${i * 0.07}s, transform .4s cubic-bezier(.22,.61,.36,1) ${i * 0.07}s`;
-    setTimeout(() => {
-      card.style.opacity = '1';
-      card.style.transform = 'translateX(0)';
-    }, 50);
+function addScheduleAnimations(){
+  document.querySelectorAll('.schedule-card').forEach((card,i)=>{
+    card.style.opacity='0';card.style.transform='translateX(-20px)';
+    card.style.transition=`opacity .4s ease ${i*.07}s,transform .4s cubic-bezier(.22,.61,.36,1) ${i*.07}s`;
+    setTimeout(()=>{card.style.opacity='1';card.style.transform='translateX(0)';},50);
   });
 }
 
-// LANGUAGE SWITCHER
+// ── FULL I18N ──────────────────────────────────────────────────────────────
 const translations = {
   sv: {
+    // nav
+    nav_tagline:'Kick- & Thaiboxning · Stockholm 2016',
     nav_about:'Om oss', nav_classes:'Våra pass', nav_schedule:'Schema',
     nav_memberships:'Medlemskap', nav_corporate:'Företag', nav_contact:'Kontakt',
     nav_cta:'Bli medlem',
-    hero_eyebrow:'Stockholm · Kungsholmen · Est. 2016',
-    hero_desc:'Kick- och thaiboxning för alla nivåer. Från nybörjare till världsmästare. Välkommen till Masters Gym.',
-    hero_cta1:'Bli medlem', hero_cta2:'Våra pass',
+    // modal
     modal_title:'BLI MEDLEM',
     modal_sub:'Prova ditt första pass kostnadsfritt. Vi återkommer inom 24 timmar.',
+    modal_name:'Ditt namn', modal_email:'E-postadress', modal_phone:'Telefonnummer (valfritt)',
+    modal_select:'Vilket pass intresserar dig?',
+    modal_opt1:'Kickboxning — nybörjare', modal_opt2:'Thaiboxning — nybörjare',
+    modal_opt3:'Boxning', modal_opt4:'Fyspass', modal_opt5:'Barnträning',
+    modal_opt6:'Företagsträning', modal_opt7:'Vet inte ännu',
     modal_submit:'Skicka förfrågan →', modal_note:'Ingen bindningstid. Ingen utrustning behövs.',
+    modal_sent:'Skickat! Vi hör av oss snart.',
+    // hero
+    hero_eyebrow:'Stockholm · Kungsholmen · Est. 2016',
+    hero_everybody:'EVERYBODY',
+    hero_desc:'Kick- och thaiboxning för alla nivåer. Från nybörjare till världsmästare. Välkommen till Masters Gym.',
+    scroll:'Scroll',
+    // marquee
+    mq1:'HARD WORK • RESPECT • COMMUNITY • EVERYBODY IS EQUAL •',
+    mq2:'MASTERS GYM STOCKHOLM • NORRA AGNEGATAN 36 • KUNGSHOLMEN • GRUNDAT 2016 •',
+    // values
     values_label:'Våra värderingar',
+    values_h2:'DISCIPLINE.\nRESPECT.\nCOMMUNITY.',
+    val1_title:'HARD WORK', val1_text:'No matter what your goal is, we help you achieve it. From getting in shape to becoming world champion, we are here to help you in your process.',
+    val2_title:'RESPECT', val2_text:'Here only matters how determined you are, how open to learn, how respectful and hard working. Everyone is welcome — regardless of background or level.',
+    val3_title:'COMMUNITY', val3_text:'Masters Gym is proud to be a place where people can be themselves, work with dedication and respect to achieve their goals. Come and make friends for life.',
+    // about
+    about_bar:'MASTERS GYM · STOCKHOLM · 2016',
     about_label:'Om Masters Gym', about_h2:'MER ÄN ETT GYM',
     about_tagline:'"See you soon, champion!"',
     about_p1:'Masters Gym grundades 2016 i Kungsholmen, Stockholm. Vi erbjuder kick- och thaiboxning, boxning och fyspass för alla nivåer.',
     about_p2:'Vår träning passar alla — oavsett om du vill komma i form, lära dig en ny sport eller tävla på elitnivå. Hos oss bestämmer du ditt mål, vi hjälper dig nå det.',
     about_p3:'Gymmet ligger på Norra Agnegatan 36, 10 minuter till fots från Centralstationen. Närmaste T-bana: Rådhuset.',
-    classes_label:'Träning', classes_h2:'VÅRA PASS',
-    schedule_h2:'SCHEMA',
-    schedule_note:'Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.',
-    schedule_full:'Se fullständigt schema →',
-    memberships_label:'Priser', memberships_h2:'MEDLEMSKAP',
-    corporate_label:'För företag', corporate_h2:'TRÄNA TILLSAMMANS. PRESTERA BÄTTRE.',
-    kids_label:'Barn & junior', kids_h2:'TRÄNING FÖR UNGA UTÖVARE',
-    social_h2:'FRÅN GYMMET',
-    contact_h2:'KONTAKT', contact_sub:'Välkommen till oss i Kungsholmen.',
+    stat1:'Grundat', stat2:'Bästa klubb', stat3_num:'Alla', stat3:'Nivåer välkomna',
+    // testimonials
+    test1_quote:'"Masters Gym är som min extra familj. Så mycket värme, gemenskap och tillit till dem man tränar med."',
+    test1_author:'— Medlem',
+    test2_quote:'"Min son önskar att det var barnträning varje dag och ser fram emot att få avancera när han blir äldre."',
+    test2_author:'— Mamma till en av våra yngsta i klubben',
+    // founder
+    founder_bar:'MASTERS GYM · FOUNDER',
     founder_label:'Grundaren', founder_h2:'MEET THE\nFOUNDER',
+    founder_text:'Founder of Masters Gym Stockholm. Dedicated to building champions both inside and outside the ring.',
+    // fight team
     fight_label:'Tävling', fight_h2:'FIGHT TEAM',
+    fight1_tag:'Medaljer', fight1_title:'CHAMPIONS', fight1_text:'Bästa klubb 2017 & 2018. Flertalet SM-medaljer och internationella titlar.',
+    fight2_tag:'Fighters', fight2_title:'FIGHT TEAM', fight2_text:'Sofia — landslagsfighter, Svenska Kickboxningsförbundet. Och fler på väg upp.',
+    fight3_tag:'Events', fight3_title:'GALOR', fight3_text:'Vi arrangerar och deltar i tävlingar och galor genom hela säsongen.',
+    // classes
+    classes_label:'Träning', classes_h2:'VÅRA PASS', all_levels:'Alla nivåer',
+    class1_title:'KICKBOXNING', class1_text:'Grunderna i kickboxning — kombinationer, teknik och kondition. Passar perfekt för nybörjare och de som vill förbättra sin grund.',
+    class2_title:'THAIBOXNING', class2_text:'Muay Thai — "åtta extremiteters konst". Sparkar, knän, armbågar och clinch. Teknisk och effektiv kampsport med djupa rötter.',
+    class3_title:'FYSPASS', class3_text:'Kondition, styrka och rörlighet inspirerat av kampsportens träningsmetoder. Intensivt, roligt och effektivt för hela kroppen.',
+    book_trial:'Boka provpass', book_arrow:'Boka →',
+    // schedule
+    schedule_h2:'SCHEMA', schedule_sub:'Uppdateras automatiskt från Google Sheets',
+    schedule_loading:'Laddar schema...', schedule_note:'Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.',
+    schedule_full:'Se fullständigt schema →',
+    // memberships
+    memberships_label:'Priser', memberships_h2:'MEDLEMSKAP',
+    mem1_ribbon:'Prova på', mem1_title:'Provpass', mem1_price:'200 kr', mem1_desc:'Prova ett pass utan att binda dig. Perfekt för dig som vill se om Masters Gym passar dig.',
+    mem2_ribbon:'Bäst värde', mem2_title:'Autogiro 12 mån', mem2_price:'649 kr / mån', mem2_desc:'Obegränsat antal pass. Bästa priset per månad. 12 månaders bindningstid via autogiro.',
+    mem3_ribbon:'Flexibelt', mem3_title:'Autogiro 6 mån', mem3_price:'699 kr / mån', mem3_desc:'Obegränsat antal pass med 6 månaders bindningstid. Bra balans mellan pris och flexibilitet.',
+    mem4_ribbon:'Ungdom', mem4_title:'Junior', mem4_price:'599 kr / mån', mem4_desc:'Rabatterat pris för ungdomar. Autogiro.',
+    mem5_ribbon:'10 pass', mem5_title:'Klippkort', mem5_price:'1 500 kr', mem5_desc:'10 pass att använda när det passar dig. Inget slutdatum.', mem5_btn:'Köp klippkort',
+    mem6_ribbon:'Helår', mem6_title:'Årskort', mem6_price:'7 750 kr', mem6_desc:'Betal ett år i förskott och spara. Obegränsat antal pass hela året.', mem6_btn:'Köp årskort',
+    mem_cta_text:'Osäker på vilket alternativ som passar dig? Kom in på ett provpass för 200 kr och känn på gymmet innan du bestämmer dig. Ingen utrustning behövs.',
+    join_now:'Bli medlem',
+    // corporate
+    corp_label:'För företag', corp_h2:'TRÄNA TILLSAMMANS. PRESTERA BÄTTRE.',
+    corp_p1:'Masters Gym erbjuder skräddarsydda träningslösningar för företag och team. Oavsett om ni söker en aktiv teambuilding-aktivitet eller vill starta en regelbunden träningsgrupp — vi hjälper er.',
+    corp_p2:'Morgonpass med frukost inkluderat, privata gruppass, teambuilding-events och lokalhyra för konferenser och fester.',
+    corp_f1_title:'Morgonträning', corp_f1_text:'Kickstart dagen med ett energifyllt pass. Frukost ingår.',
+    corp_f2_title:'Teambuilding', corp_f2_text:'Unikt och minnesvärt. Svensexor, möhippor, kalas.',
+    corp_f3_title:'Lokalhyra', corp_f3_text:'Hyr gymmet för privata events och konferenser.',
+    corp_f4_title:'Gruppass', corp_f4_text:'Regelbunden träning för era medarbetare. Vi anpassar.',
+    corp_cta:'Kontakta oss för offert',
+    // kids
+    kids_label:'Barn & junior', kids_h2:'TRÄNING FÖR UNGA UTÖVARE',
+    kids_p1:'Masters Gym erbjuder strukturerad och trygg träning för barn och ungdomar. Vi lär ut respekt, disciplin och självförtroende — packade i rolig och engagerande träning.',
+    kids_p2:'Alla tränare har erfarenhet av att arbeta med barn och en pedagogisk approach som passar alla nivåer och personligheter.',
+    kids_age1:'Barn 6–11 år', kids_age2:'Junior 12–15 år', kids_age3:'Terminskort',
+    kids_cta:'Anmäl ditt barn',
+    // social
+    social_h2:'FRÅN GYMMET', social_link:'Följ på Instagram →',
+    // contact
+    contact_h2:'KONTAKT', contact_sub:'Välkommen till oss i Kungsholmen.',
+    contact_addr_label:'Adress', contact_metro_label:'T-bana', contact_metro:'Rådhuset (Röda linjen)',
+    contact_hours_label:'Öppettider', contact_hours:'Öppet 30 min innan första passet och 30 min efter sista passet',
+    open_maps:'Öppna i Maps',
+    // footer
+    footer_sub:'Stockholm · Kick- & Thaiboxning · Est. 2016',
+    footer_nav:'Navigera', footer_contact:'Kontakt',
+    footer_copy:'© Masters Gym Stockholm 2024', footer_built:'Built by Stormie Performance',
   },
   en: {
+    nav_tagline:'Kick- & Muay Thai · Stockholm 2016',
     nav_about:'About', nav_classes:'Classes', nav_schedule:'Schedule',
     nav_memberships:'Memberships', nav_corporate:'Corporate', nav_contact:'Contact',
     nav_cta:'Join now',
-    hero_eyebrow:'Stockholm · Kungsholmen · Est. 2016',
-    hero_desc:'Kickboxing and Muay Thai for all levels. From beginner to world champion. Welcome to Masters Gym.',
-    hero_cta1:'Join now', hero_cta2:'Our classes',
     modal_title:'JOIN NOW',
     modal_sub:"Try your first class for free. We'll get back to you within 24 hours.",
+    modal_name:'Your name', modal_email:'Email address', modal_phone:'Phone number (optional)',
+    modal_select:'Which class interests you?',
+    modal_opt1:'Kickboxing — beginner', modal_opt2:'Muay Thai — beginner',
+    modal_opt3:'Boxing', modal_opt4:'Fitness class', modal_opt5:'Kids training',
+    modal_opt6:'Corporate training', modal_opt7:"I'm not sure yet",
     modal_submit:'Send request →', modal_note:'No commitment. No equipment needed.',
+    modal_sent:'Sent! We\'ll be in touch soon.',
+    hero_eyebrow:'Stockholm · Kungsholmen · Est. 2016',
+    hero_everybody:'EVERYBODY',
+    hero_desc:'Kickboxing and Muay Thai for all levels. From beginner to world champion. Welcome to Masters Gym.',
+    scroll:'Scroll',
+    mq1:'HARD WORK • RESPECT • COMMUNITY • EVERYBODY IS EQUAL •',
+    mq2:'MASTERS GYM STOCKHOLM • NORRA AGNEGATAN 36 • KUNGSHOLMEN • FOUNDED 2016 •',
     values_label:'Our values',
+    values_h2:'DISCIPLINE.\nRESPECT.\nCOMMUNITY.',
+    val1_title:'HARD WORK', val1_text:'No matter what your goal is, we help you achieve it. From getting in shape to becoming world champion, we are here to help you in your process.',
+    val2_title:'RESPECT', val2_text:'Here only matters how determined you are, how open to learn, how respectful and hard working. Everyone is welcome — regardless of background or level.',
+    val3_title:'COMMUNITY', val3_text:'Masters Gym is proud to be a place where people can be themselves, work with dedication and respect to achieve their goals. Come and make friends for life.',
+    about_bar:'MASTERS GYM · STOCKHOLM · 2016',
     about_label:'About Masters Gym', about_h2:'MORE THAN A GYM',
     about_tagline:'"See you soon, champion!"',
     about_p1:'Masters Gym was founded in 2016 in Kungsholmen, Stockholm. We offer kickboxing, Muay Thai, boxing and fitness classes for all levels.',
     about_p2:'Our training suits everyone — whether you want to get in shape, learn a new skill, or compete at elite level. You set the goal, we help you reach it.',
     about_p3:'Located at Norra Agnegatan 36, a 10-minute walk from Stockholm Central Station. Nearest metro: Rådhuset.',
-    classes_label:'Training', classes_h2:'OUR CLASSES',
-    schedule_h2:'SCHEDULE',
-    schedule_note:'Schedule changes every season. Always check the current schedule before coming.',
+    stat1:'Founded', stat2:'Best club', stat3_num:'All', stat3:'Levels welcome',
+    test1_quote:'"Masters Gym is like my second family. So much warmth, community and trust among the people you train with."',
+    test1_author:'— Member',
+    test2_quote:'"My son wishes there was kids training every day and looks forward to advancing as he gets older."',
+    test2_author:'— Mother of one of our youngest members',
+    founder_bar:'MASTERS GYM · FOUNDER',
+    founder_label:'The Founder', founder_h2:'MEET THE\nFOUNDER',
+    founder_text:'Founder of Masters Gym Stockholm. Dedicated to building champions both inside and outside the ring.',
+    fight_label:'Competition', fight_h2:'FIGHT TEAM',
+    fight1_tag:'Medals', fight1_title:'CHAMPIONS', fight1_text:'Best club 2017 & 2018. Multiple national medals and international titles.',
+    fight2_tag:'Fighters', fight2_title:'FIGHT TEAM', fight2_text:'Sofia — national team fighter, Swedish Kickboxing Federation. And more rising up.',
+    fight3_tag:'Events', fight3_title:'GALAS', fight3_text:'We organise and participate in competitions and galas throughout the season.',
+    classes_label:'Training', classes_h2:'OUR CLASSES', all_levels:'All levels',
+    class1_title:'KICKBOXING', class1_text:'The fundamentals of kickboxing — combinations, technique and conditioning. Perfect for beginners and those looking to sharpen their foundation.',
+    class2_title:'MUAY THAI', class2_text:'The art of eight limbs. Kicks, knees, elbows and clinch. A technical and effective martial art with deep roots.',
+    class3_title:'FITNESS CLASS', class3_text:'Conditioning, strength and mobility inspired by combat sports training methods. Intense, fun and effective for the whole body.',
+    book_trial:'Book trial class', book_arrow:'Book →',
+    schedule_h2:'SCHEDULE', schedule_sub:'Updated automatically from Google Sheets',
+    schedule_loading:'Loading schedule...', schedule_note:'Schedule changes every season. Always check the current schedule before coming.',
     schedule_full:'View full schedule →',
     memberships_label:'Pricing', memberships_h2:'MEMBERSHIPS',
-    corporate_label:'For companies', corporate_h2:'TRAIN TOGETHER. PERFORM BETTER.',
+    mem1_ribbon:'Trial', mem1_title:'Trial class', mem1_price:'200 SEK', mem1_desc:'Try a class with no commitment. Perfect for seeing if Masters Gym is right for you.',
+    mem2_ribbon:'Best value', mem2_title:'Direct debit 12 mo', mem2_price:'649 SEK / mo', mem2_desc:'Unlimited classes. Best price per month. 12-month commitment via direct debit.',
+    mem3_ribbon:'Flexible', mem3_title:'Direct debit 6 mo', mem3_price:'699 SEK / mo', mem3_desc:'Unlimited classes with 6-month commitment. Good balance of price and flexibility.',
+    mem4_ribbon:'Youth', mem4_title:'Junior', mem4_price:'599 SEK / mo', mem4_desc:'Discounted rate for young athletes. Direct debit.',
+    mem5_ribbon:'10 classes', mem5_title:'Class pack', mem5_price:'1 500 SEK', mem5_desc:'10 classes to use whenever you want. No expiry date.', mem5_btn:'Buy class pack',
+    mem6_ribbon:'Full year', mem6_title:'Annual pass', mem6_price:'7 750 SEK', mem6_desc:'Pay a full year upfront and save. Unlimited classes all year.', mem6_btn:'Buy annual pass',
+    mem_cta_text:'Not sure which option suits you? Come in for a trial class for 200 SEK and get a feel for the gym before you decide. No equipment needed.',
+    join_now:'Join now',
+    corp_label:'For companies', corp_h2:'TRAIN TOGETHER. PERFORM BETTER.',
+    corp_p1:'Masters Gym offers tailored training solutions for companies and teams. Whether you\'re looking for a unique team-building activity or want to start a regular training group for your employees — we can help.',
+    corp_p2:'Morning sessions including breakfast, private group classes, team-building events and venue hire for conferences and parties.',
+    corp_f1_title:'Morning training', corp_f1_text:'Kickstart the day with an energising session. Breakfast included.',
+    corp_f2_title:'Team building', corp_f2_text:'Unique and memorable. Stag dos, hen parties, celebrations.',
+    corp_f3_title:'Venue hire', corp_f3_text:'Rent the gym for private events and conferences.',
+    corp_f4_title:'Group classes', corp_f4_text:'Regular training for your employees. We adapt to your needs.',
+    corp_cta:'Contact us for a quote',
     kids_label:'Kids & junior', kids_h2:'TRAINING FOR YOUNG ATHLETES',
-    social_h2:'FROM THE GYM',
+    kids_p1:'Masters Gym offers structured and safe training for children and young people. We teach respect, discipline and confidence — wrapped in fun and engaging sessions.',
+    kids_p2:'All coaches have experience working with children and a pedagogical approach that suits all levels and personalities.',
+    kids_age1:'Kids 6–11 years', kids_age2:'Junior 12–15 years', kids_age3:'Term passes',
+    kids_cta:'Register your child',
+    social_h2:'FROM THE GYM', social_link:'Follow on Instagram →',
     contact_h2:'CONTACT', contact_sub:'Come train with us in Kungsholmen.',
-    founder_label:'The Founder', founder_h2:'MEET THE\nFOUNDER',
-    fight_label:'Competition', fight_h2:'FIGHT TEAM',
+    contact_addr_label:'Address', contact_metro_label:'Metro', contact_metro:'Rådhuset (Red line)',
+    contact_hours_label:'Opening hours', contact_hours:'Open 30 min before the first class and 30 min after the last class',
+    open_maps:'Open in Maps',
+    footer_sub:'Stockholm · Kickboxing & Muay Thai · Est. 2016',
+    footer_nav:'Navigate', footer_contact:'Contact',
+    footer_copy:'© Masters Gym Stockholm 2024', footer_built:'Built by Stormie Performance',
   }
 };
 
@@ -1232,19 +1034,40 @@ let currentLang = 'sv';
 function toggleLang() {
   currentLang = currentLang === 'sv' ? 'en' : 'sv';
   document.getElementById('lang-btn').textContent = currentLang === 'sv' ? 'EN' : 'SV';
+  document.documentElement.lang = currentLang;
   applyTranslations();
+  // Reload schedule book buttons with correct language
+  document.querySelectorAll('.schedule-book').forEach(b => {
+    b.textContent = translations[currentLang].book_arrow || 'Boka →';
+  });
 }
 
 function applyTranslations() {
   const t = translations[currentLang];
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (t[key] !== undefined) el.textContent = t[key];
+    if (t[key] !== undefined) {
+      // Handle line breaks in h2 elements
+      if (el.tagName === 'H2' && t[key].includes('\n')) {
+        el.innerHTML = t[key].replace(/\n/g, '<br>');
+      } else {
+        el.textContent = t[key];
+      }
+    }
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
     if (t[key] !== undefined) el.placeholder = t[key];
   });
+  // Update select options
+  const select = document.getElementById('modal-select');
+  if (select) {
+    const options = select.querySelectorAll('option[data-i18n]');
+    options.forEach(opt => {
+      const key = opt.getAttribute('data-i18n');
+      if (t[key] !== undefined) opt.textContent = t[key];
+    });
+  }
 }
 </script>
 </body>
