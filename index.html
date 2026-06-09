@@ -62,6 +62,8 @@ button{cursor:pointer;font-family:var(--sans)}
 .nav-links a:hover{color:var(--text)}
 .nav-cta{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--teal);color:#080808;border:none;padding:11px 22px;cursor:pointer;font-family:var(--sans);transition:background .2s}
 .nav-cta:hover{background:var(--teal-dark)}
+.lang-btn{background:transparent;border:1px solid rgba(26,191,170,0.4);color:var(--teal);font-size:10px;font-weight:700;letter-spacing:.14em;padding:8px 14px;cursor:pointer;font-family:var(--sans);transition:all .2s}
+.lang-btn:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;z-index:200}
 .hamburger span{display:block;width:24px;height:1.5px;background:var(--text);transition:all .3s ease;transform-origin:center}
 .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
@@ -305,8 +307,8 @@ button{cursor:pointer;font-family:var(--sans)}
 <div class="modal-overlay" id="modal">
   <div class="modal-box">
     <button class="modal-close" id="modal-close">&times;</button>
-    <h3>BLI MEDLEM</h3>
-    <p class="modal-sub">Prova ditt första pass kostnadsfritt. Vi återkommer inom 24 timmar.</p>
+    <h3 data-i18n="modal_title">BLI MEDLEM</h3>
+    <p class="modal-sub" data-i18n="modal_sub">Prova ditt första pass kostnadsfritt. Vi återkommer inom 24 timmar.</p>
     <div class="modal-form">
       <input type="text" placeholder="Ditt namn" autocomplete="name"/>
       <input type="email" placeholder="E-postadress" autocomplete="email"/>
@@ -321,8 +323,8 @@ button{cursor:pointer;font-family:var(--sans)}
         <option>Företagsträning</option>
         <option>Vet inte ännu</option>
       </select>
-      <button class="modal-submit" id="modal-submit">Skicka förfrågan →</button>
-      <p class="modal-note">Ingen bindningstid. Ingen utrustning behövs.</p>
+      <button class="modal-submit" id="modal-submit" data-i18n="modal_submit">Skicka förfrågan →</button>
+      <p class="modal-note" data-i18n="modal_note">Ingen bindningstid. Ingen utrustning behövs.</p>
     </div>
   </div>
 </div>
@@ -340,14 +342,17 @@ button{cursor:pointer;font-family:var(--sans)}
     </div>
   </a>
   <ul class="nav-links">
-    <li><a href="#about">Om oss</a></li>
-    <li><a href="#classes">Våra pass</a></li>
-    <li><a href="#schedule">Schema</a></li>
-    <li><a href="#memberships">Medlemskap</a></li>
-    <li><a href="#corporate">Företag</a></li>
-    <li><a href="#contact">Kontakt</a></li>
+    <li><a href="#about" data-i18n="nav_about">Om oss</a></li>
+    <li><a href="#classes" data-i18n="nav_classes">Våra pass</a></li>
+    <li><a href="#schedule" data-i18n="nav_schedule">Schema</a></li>
+    <li><a href="#memberships" data-i18n="nav_memberships">Medlemskap</a></li>
+    <li><a href="#corporate" data-i18n="nav_corporate">Företag</a></li>
+    <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
   </ul>
-  <button class="nav-cta open-modal">Bli medlem</button>
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
+    <button class="nav-cta open-modal" data-i18n="nav_cta">Bli medlem</button>
+  </div>
   <button class="hamburger" id="hamburger">
     <span></span><span></span><span></span>
   </button>
@@ -356,13 +361,13 @@ button{cursor:pointer;font-family:var(--sans)}
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
   <button class="mobile-menu-close" id="mobile-close">&times;</button>
-  <a href="#about" class="mobile-link">Om oss</a>
-  <a href="#classes" class="mobile-link">Våra pass</a>
-  <a href="#schedule" class="mobile-link">Schema</a>
-  <a href="#memberships" class="mobile-link">Medlemskap</a>
-  <a href="#corporate" class="mobile-link">Företag</a>
-  <a href="#contact" class="mobile-link">Kontakt</a>
-  <button class="mobile-cta open-modal">Bli medlem</button>
+  <a href="#about" class="mobile-link" data-i18n="nav_about">Om oss</a>
+  <a href="#classes" class="mobile-link" data-i18n="nav_classes">Våra pass</a>
+  <a href="#schedule" class="mobile-link" data-i18n="nav_schedule">Schema</a>
+  <a href="#memberships" class="mobile-link" data-i18n="nav_memberships">Medlemskap</a>
+  <a href="#corporate" class="mobile-link" data-i18n="nav_corporate">Företag</a>
+  <a href="#contact" class="mobile-link" data-i18n="nav_contact">Kontakt</a>
+  <button class="mobile-cta open-modal" data-i18n="nav_cta">Bli medlem</button>
 </div>
 
 <!-- HERO -->
@@ -372,12 +377,12 @@ button{cursor:pointer;font-family:var(--sans)}
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Stockholm · Kungsholmen · Est. 2016</p>
-    <h1>A PLACE WHERE<br><span>EVERYBODY</span><br>IS EQUAL</h1>
-    <p class="hero-desc">Kick- och thaiboxning för alla nivåer. Från nybörjare till världsmästare. Välkommen till Masters Gym.</p>
+    <p class="hero-eyebrow" data-i18n="hero_eyebrow">Stockholm · Kungsholmen · Est. 2016</p>
+    <h1>A PLACE WHERE<br><span data-i18n="hero_everybody">EVERYBODY</span><br>IS EQUAL</h1>
+    <p class="hero-desc" data-i18n="hero_desc">Kick- och thaiboxning för alla nivåer. Från nybörjare till världsmästare. Välkommen till Masters Gym.</p>
     <div class="hero-btns">
-      <button class="btn btn-primary open-modal">Bli medlem</button>
-      <a href="#classes" class="btn btn-ghost">Våra pass</a>
+      <button class="btn btn-primary open-modal" data-i18n="hero_cta1">Bli medlem</button>
+      <a href="#classes" class="btn btn-ghost" data-i18n="hero_cta2">Våra pass</a>
     </div>
   </div>
   <div class="hero-scroll">
@@ -403,7 +408,7 @@ button{cursor:pointer;font-family:var(--sans)}
 <!-- VALUES -->
 <section class="values" id="about">
   <div class="values-container">
-    <p class="values-label">Våra värderingar</p>
+    <p class="values-label" data-i18n="values_label">Våra värderingar</p>
     <h2>DISCIPLINE.<br>RESPECT.<br>COMMUNITY.</h2>
     <div class="values-grid">
       <div class="value-card">
@@ -449,12 +454,12 @@ button{cursor:pointer;font-family:var(--sans)}
       </div>
     </div>
     <div class="about-content">
-      <span class="about-label">Om Masters Gym</span>
-      <h2>MER ÄN ETT GYM</h2>
-      <p class="about-tagline">"See you soon, champion!"</p>
-      <p>Masters Gym grundades 2016 i Kungsholmen, Stockholm. Vi erbjuder kick- och thaiboxning, boxning och fyspass för alla nivåer.</p>
-      <p>Vår träning passar alla — oavsett om du vill komma i form, lära dig en ny sport eller tävla på elitnivå. Hos oss bestämmer du ditt mål, vi hjälper dig nå det.</p>
-      <p>Gymmet ligger på Norra Agnegatan 36, 10 minuter till fots från Centralstationen. Närmaste T-bana: Rådhuset.</p>
+      <span class="about-label" data-i18n="about_label">Om Masters Gym</span>
+      <h2 data-i18n="about_h2">MER ÄN ETT GYM</h2>
+      <p class="about-tagline" data-i18n="about_tagline">"See you soon, champion!"</p>
+      <p data-i18n="about_p1">Masters Gym grundades 2016 i Kungsholmen, Stockholm. Vi erbjuder kick- och thaiboxning, boxning och fyspass för alla nivåer.</p>
+      <p data-i18n="about_p2">Vår träning passar alla — oavsett om du vill komma i form, lära dig en ny sport eller tävla på elitnivå. Hos oss bestämmer du ditt mål, vi hjälper dig nå det.</p>
+      <p data-i18n="about_p3">Gymmet ligger på Norra Agnegatan 36, 10 minuter till fots från Centralstationen. Närmaste T-bana: Rådhuset.</p>
       <div class="about-stats">
         <div class="about-stat"><div class="about-stat-num">2016</div><div class="about-stat-label">Grundat</div></div>
         <div class="about-stat"><div class="about-stat-num">2×</div><div class="about-stat-label">Bästa klubb</div></div>
@@ -532,8 +537,8 @@ button{cursor:pointer;font-family:var(--sans)}
 <!-- CLASSES -->
 <section class="classes" id="classes">
   <div class="classes-container">
-    <p class="section-label">Träning</p>
-    <h2 class="section-title">VÅRA PASS</h2>
+    <p class="section-label" data-i18n="classes_label">Träning</p>
+    <h2 class="section-title" data-i18n="classes_h2">VÅRA PASS</h2>
     <div class="classes-grid">
       <div class="class-card">
         <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&q=80&fit=crop" alt="Kickboxning">
@@ -570,33 +575,16 @@ button{cursor:pointer;font-family:var(--sans)}
 <section class="schedule" id="schedule">
   <div class="schedule-container">
     <div class="schedule-header">
-      <h2>SCHEMA</h2>
-      <div class="schedule-tabs">
-        <button class="schedule-tab active" data-schedule="today">Idag</button>
-        <button class="schedule-tab" data-schedule="tomorrow">Imorgon</button>
+      <div>
+        <h2 data-i18n="schedule_h2">SCHEMA</h2>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:.06em" data-i18n="schedule_note_sub">Uppdateras automatiskt från Google Sheets</p>
       </div>
+      <div class="schedule-tabs" id="schedule-tabs"></div>
     </div>
-    <div class="schedule-slider">
-      <div class="schedule-panel active" data-panel="today">
-        <div class="schedule-grid">
-          <div class="schedule-card"><div class="schedule-time">06:30</div><div class="schedule-info"><h3>Kickboxning</h3><p>Alla nivåer</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">09:30</div><div class="schedule-info"><h3>Nybörjarpass</h3><p>Nivå 1 & 2</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">12:00</div><div class="schedule-info"><h3>Fyspass</h3><p>Alla nivåer</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">17:30</div><div class="schedule-info"><h3>Fortsättningspass</h3><p>Från termin 2</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">19:00</div><div class="schedule-info"><h3>Tävlingsgrupp</h3><p>På inbjudan</p></div><button class="schedule-book open-modal">Boka →</button></div>
-        </div>
-      </div>
-      <div class="schedule-panel" data-panel="tomorrow">
-        <div class="schedule-grid">
-          <div class="schedule-card"><div class="schedule-time">06:30</div><div class="schedule-info"><h3>Kickboxning morgon</h3><p>Alla nivåer</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">10:00</div><div class="schedule-info"><h3>Barnträning</h3><p>6–11 år</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">11:00</div><div class="schedule-info"><h3>Juniorträning</h3><p>12–15 år</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">18:00</div><div class="schedule-info"><h3>Nybörjarpass</h3><p>Nivå 1 & 2</p></div><button class="schedule-book open-modal">Boka →</button></div>
-          <div class="schedule-card"><div class="schedule-time">19:30</div><div class="schedule-info"><h3>Fortsättningspass</h3><p>Från termin 2</p></div><button class="schedule-book open-modal">Boka →</button></div>
-        </div>
-      </div>
+    <div id="schedule-content" style="min-height:200px;display:flex;align-items:center;justify-content:center">
+      <p style="color:var(--muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase">Laddar schema...</p>
     </div>
-    <p style="font-size:12px;color:var(--muted);margin-bottom:20px;letter-spacing:.06em;">Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.</p>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:20px;letter-spacing:.06em;margin-top:8px">Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.</p>
     <a href="https://www.mastersgym.se/schema" target="_blank" class="btn btn-ghost">Se fullständigt schema →</a>
   </div>
 </section>
@@ -723,8 +711,8 @@ button{cursor:pointer;font-family:var(--sans)}
 <section class="contact" id="contact">
   <div class="contact-container">
     <div>
-      <h2>KONTAKT</h2>
-      <p class="contact-sub">Välkommen till oss i Kungsholmen.</p>
+      <h2 data-i18n="contact_h2">KONTAKT</h2>
+      <p class="contact-sub" data-i18n="contact_sub">Välkommen till oss i Kungsholmen.</p>
       <div class="contact-details">
         <div class="contact-row"><span class="contact-label">Adress</span><p>Norra Agnegatan 36, Stockholm</p></div>
         <div class="contact-row"><span class="contact-label">T-bana</span><p>Rådhuset (Röda linjen)</p></div>
@@ -800,14 +788,77 @@ document.getElementById('modal-submit').addEventListener('click',function(e){
   setTimeout(closeModal,2000);
 });
 
-// SCHEDULE
-const tabs=document.querySelectorAll('.schedule-tab');
-const panels=document.querySelectorAll('.schedule-panel');
-const order=['today','tomorrow'];
-let idx=0;
-function showPanel(name){tabs.forEach(t=>t.classList.toggle('active',t.dataset.schedule===name));panels.forEach(p=>p.classList.toggle('active',p.dataset.panel===name));}
-tabs.forEach(t=>t.addEventListener('click',()=>{idx=order.indexOf(t.dataset.schedule);showPanel(t.dataset.schedule)}));
-setInterval(()=>{idx=(idx+1)%order.length;showPanel(order[idx])},4500);
+// SCHEDULE — Google Sheets
+const SHEET_ID = '1sh1syerkpB3ERVOyswRNdDvVAgc6ZPKUgJyTMysoBwY';
+const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Sheet1`;
+
+const dagOrder = ['Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag','Söndag'];
+
+async function loadSchedule() {
+  try {
+    const res = await fetch(SHEET_URL);
+    const text = await res.text();
+    // Google wraps JSON in /*O_o*/ google.visualization.Query.setResponse({...});
+    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/)[1]);
+    const rows = json.table.rows;
+
+    // Parse rows into { dag, tid, pass, niva }
+    const passes = rows.map(r => ({
+      dag:  r.c[0]?.v || '',
+      tid:  r.c[1]?.v || '',
+      pass: r.c[2]?.v || '',
+      niva: r.c[3]?.v || ''
+    })).filter(r => r.dag);
+
+    // Group by dag
+    const byDay = {};
+    passes.forEach(p => {
+      if (!byDay[p.dag]) byDay[p.dag] = [];
+      byDay[p.dag].push(p);
+    });
+
+    // Sort days
+    const days = Object.keys(byDay).sort((a,b) => dagOrder.indexOf(a) - dagOrder.indexOf(b));
+
+    // Build tabs
+    const tabsEl = document.getElementById('schedule-tabs');
+    tabsEl.innerHTML = days.map((d, i) =>
+      `<button class="schedule-tab ${i===0?'active':''}" data-day="${d}">${d}</button>`
+    ).join('');
+
+    // Build content
+    function renderDay(day) {
+      const content = document.getElementById('schedule-content');
+      content.innerHTML = `<div class="schedule-grid">${
+        byDay[day].map(p => `
+          <div class="schedule-card">
+            <div class="schedule-time">${p.tid}</div>
+            <div class="schedule-info"><h3>${p.pass}</h3><p>${p.niva}</p></div>
+            <button class="schedule-book open-modal">Boka →</button>
+          </div>`).join('')
+      }</div>`;
+      // Re-attach modal listeners for new buttons
+      content.querySelectorAll('.open-modal').forEach(b => b.addEventListener('click', openModal));
+    }
+
+    renderDay(days[0]);
+
+    tabsEl.addEventListener('click', e => {
+      const tab = e.target.closest('.schedule-tab');
+      if (!tab) return;
+      tabsEl.querySelectorAll('.schedule-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      renderDay(tab.dataset.day);
+    });
+
+  } catch(err) {
+    document.getElementById('schedule-content').innerHTML =
+      `<p style="color:var(--muted);font-size:13px;padding:20px 0">Kunde inte ladda schemat. <a href="https://www.mastersgym.se/schema" target="_blank" style="color:var(--teal)">Se schemat här →</a></p>`;
+    console.error('Schema error:', err);
+  }
+}
+
+loadSchedule();
 
 // MAP
 const mapEl=document.getElementById('map');
@@ -816,6 +867,86 @@ if(mapEl){
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
   const icon=L.divIcon({className:'',html:'<div style="width:14px;height:14px;background:#1ABFAA;border-radius:50%;border:2px solid #080808;box-shadow:0 0 0 4px rgba(26,191,170,0.3);"></div>',iconSize:[14,14],iconAnchor:[7,7]});
   L.marker([59.3293,18.0440],{icon}).addTo(map).bindPopup('<strong>Masters Gym Stockholm</strong><br>Norra Agnegatan 36').openPopup();
+}
+
+// LANGUAGE SWITCHER
+const translations = {
+  sv: {
+    nav_about:'Om oss', nav_classes:'Våra pass', nav_schedule:'Schema',
+    nav_memberships:'Medlemskap', nav_corporate:'Företag', nav_contact:'Kontakt',
+    nav_cta:'Bli medlem',
+    hero_eyebrow:'Stockholm · Kungsholmen · Est. 2016',
+    hero_desc:'Kick- och thaiboxning för alla nivåer. Från nybörjare till världsmästare. Välkommen till Masters Gym.',
+    hero_cta1:'Bli medlem', hero_cta2:'Våra pass',
+    modal_title:'BLI MEDLEM',
+    modal_sub:'Prova ditt första pass kostnadsfritt. Vi återkommer inom 24 timmar.',
+    modal_submit:'Skicka förfrågan →', modal_note:'Ingen bindningstid. Ingen utrustning behövs.',
+    values_label:'Våra värderingar',
+    about_label:'Om Masters Gym', about_h2:'MER ÄN ETT GYM',
+    about_tagline:'"See you soon, champion!"',
+    about_p1:'Masters Gym grundades 2016 i Kungsholmen, Stockholm. Vi erbjuder kick- och thaiboxning, boxning och fyspass för alla nivåer.',
+    about_p2:'Vår träning passar alla — oavsett om du vill komma i form, lära dig en ny sport eller tävla på elitnivå. Hos oss bestämmer du ditt mål, vi hjälper dig nå det.',
+    about_p3:'Gymmet ligger på Norra Agnegatan 36, 10 minuter till fots från Centralstationen. Närmaste T-bana: Rådhuset.',
+    classes_label:'Träning', classes_h2:'VÅRA PASS',
+    schedule_h2:'SCHEMA',
+    schedule_note:'Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.',
+    schedule_full:'Se fullständigt schema →',
+    memberships_label:'Priser', memberships_h2:'MEDLEMSKAP',
+    corporate_label:'För företag', corporate_h2:'TRÄNA TILLSAMMANS. PRESTERA BÄTTRE.',
+    kids_label:'Barn & junior', kids_h2:'TRÄNING FÖR UNGA UTÖVARE',
+    social_h2:'FRÅN GYMMET',
+    contact_h2:'KONTAKT', contact_sub:'Välkommen till oss i Kungsholmen.',
+    founder_label:'Grundaren', founder_h2:'MEET THE\nFOUNDER',
+    fight_label:'Tävling', fight_h2:'FIGHT TEAM',
+  },
+  en: {
+    nav_about:'About', nav_classes:'Classes', nav_schedule:'Schedule',
+    nav_memberships:'Memberships', nav_corporate:'Corporate', nav_contact:'Contact',
+    nav_cta:'Join now',
+    hero_eyebrow:'Stockholm · Kungsholmen · Est. 2016',
+    hero_desc:'Kickboxing and Muay Thai for all levels. From beginner to world champion. Welcome to Masters Gym.',
+    hero_cta1:'Join now', hero_cta2:'Our classes',
+    modal_title:'JOIN NOW',
+    modal_sub:"Try your first class for free. We'll get back to you within 24 hours.",
+    modal_submit:'Send request →', modal_note:'No commitment. No equipment needed.',
+    values_label:'Our values',
+    about_label:'About Masters Gym', about_h2:'MORE THAN A GYM',
+    about_tagline:'"See you soon, champion!"',
+    about_p1:'Masters Gym was founded in 2016 in Kungsholmen, Stockholm. We offer kickboxing, Muay Thai, boxing and fitness classes for all levels.',
+    about_p2:'Our training suits everyone — whether you want to get in shape, learn a new skill, or compete at elite level. You set the goal, we help you reach it.',
+    about_p3:'Located at Norra Agnegatan 36, a 10-minute walk from Stockholm Central Station. Nearest metro: Rådhuset.',
+    classes_label:'Training', classes_h2:'OUR CLASSES',
+    schedule_h2:'SCHEDULE',
+    schedule_note:'Schedule changes every season. Always check the current schedule before coming.',
+    schedule_full:'View full schedule →',
+    memberships_label:'Pricing', memberships_h2:'MEMBERSHIPS',
+    corporate_label:'For companies', corporate_h2:'TRAIN TOGETHER. PERFORM BETTER.',
+    kids_label:'Kids & junior', kids_h2:'TRAINING FOR YOUNG ATHLETES',
+    social_h2:'FROM THE GYM',
+    contact_h2:'CONTACT', contact_sub:'Come train with us in Kungsholmen.',
+    founder_label:'The Founder', founder_h2:'MEET THE\nFOUNDER',
+    fight_label:'Competition', fight_h2:'FIGHT TEAM',
+  }
+};
+
+let currentLang = 'sv';
+
+function toggleLang() {
+  currentLang = currentLang === 'sv' ? 'en' : 'sv';
+  document.getElementById('lang-btn').textContent = currentLang === 'sv' ? 'EN' : 'SV';
+  applyTranslations();
+}
+
+function applyTranslations() {
+  const t = translations[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
 }
 </script>
 </body>
