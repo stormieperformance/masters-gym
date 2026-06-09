@@ -77,13 +77,6 @@ button{cursor:pointer;font-family:var(--sans)}
 .mobile-menu a:hover{color:var(--teal)}
 .mobile-cta{margin-top:28px;background:var(--teal);color:#080808;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:16px 40px;border:none;cursor:pointer;font-family:var(--sans)}
 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 26px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--sans);transition:all .2s ease}
-.btn-primary{background:var(--teal);color:#080808}
-.btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
-.btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(240,237,230,0.22)}
-.btn-ghost:hover{border-color:var(--text);transform:translateY(-1px)}
-
 /* HERO */
 .hero{position:relative;height:100vh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end}
 .hero-bg{position:absolute;inset:0;z-index:0}
@@ -299,106 +292,247 @@ button{cursor:pointer;font-family:var(--sans)}
   /* fight team mobile */
   section[style*="fight"] div[style*="grid-template-columns:repeat(3"] { grid-template-columns:1fr !important; }
 }
-/* ── ANIMATIONS ─────────────────────────────── */
+/* ── BUTTONS ─────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 26px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
 
-/* Base hidden state for scroll-triggered elements */
+/* Primary CTA — pulsing glow + shine sweep */
+.btn-primary {
+  background: var(--teal);
+  color: #080808;
+  transition: background .25s, transform .2s, box-shadow .25s;
+  box-shadow: 0 0 0 0 rgba(26,191,170,0);
+  animation: ctaPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes ctaPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(26,191,170,0.5); }
+  50%  { box-shadow: 0 0 0 10px rgba(26,191,170,0); }
+  100% { box-shadow: 0 0 0 0 rgba(26,191,170,0); }
+}
+
+/* Shine sweep on primary */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: skewX(-20deg);
+  animation: shineSweep 3.5s ease-in-out infinite;
+}
+
+@keyframes shineSweep {
+  0%   { left: -100%; }
+  40%  { left: 140%; }
+  100% { left: 140%; }
+}
+
+.btn-primary:active {
+  transform: scale(0.96);
+  animation: none;
+  box-shadow: none;
+}
+
+/* Ghost button */
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(240,237,230,0.22);
+  transition: border-color .25s, background .25s, transform .2s;
+}
+.btn-ghost:active { transform: scale(0.96); }
+
+/* Desktop hover only */
+@media (hover: hover) {
+  .btn-primary:hover {
+    background: var(--teal-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(26,191,170,0.35);
+  }
+  .btn-ghost:hover {
+    border-color: rgba(240,237,230,0.6);
+    background: rgba(240,237,230,0.05);
+    transform: translateY(-2px);
+  }
+}
+
+/* Nav CTA */
+.nav-cta {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  background: var(--teal);
+  color: #080808;
+  border: none;
+  padding: 11px 22px;
+  cursor: pointer;
+  font-family: var(--sans);
+  position: relative;
+  overflow: hidden;
+  animation: ctaPulse 2.8s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-cta::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-20deg);
+  animation: shineSweep 3.5s ease-in-out infinite;
+}
+@media (hover: hover) {
+  .nav-cta:hover { background: var(--teal-dark); }
+}
+
+/* Mobile CTA in menu */
+.mobile-cta {
+  margin-top: 28px;
+  background: var(--teal);
+  color: #080808;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  padding: 18px 48px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  position: relative;
+  overflow: hidden;
+  animation: ctaPulse 2.8s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.mobile-cta::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-20deg);
+  animation: shineSweep 3.5s ease-in-out infinite;
+}
+
+/* ── SCROLL REVEAL — smooth, mobile-optimised ── */
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right, .reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1);
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Stagger children */
-.reveal-stagger > * {
-  opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.6s cubic-bezier(.22,.61,.36,1), transform 0.6s cubic-bezier(.22,.61,.36,1);
+  transition: opacity .6s ease, transform .6s ease;
+  will-change: opacity, transform;
 }
-.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:.05s }
-.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:.15s }
-.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:.25s }
-.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:.35s }
-.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:.45s }
-.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:.55s }
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* Slide in from left */
 .reveal-left {
   opacity: 0;
-  transform: translateX(-48px);
-  transition: opacity 0.8s cubic-bezier(.22,.61,.36,1), transform 0.8s cubic-bezier(.22,.61,.36,1);
+  transform: translateX(-32px);
+  transition: opacity .7s ease, transform .7s ease;
+  will-change: opacity, transform;
 }
-.reveal-left.visible { opacity:1; transform:translateX(0); }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
 
-/* Slide in from right */
 .reveal-right {
   opacity: 0;
-  transform: translateX(48px);
-  transition: opacity 0.8s cubic-bezier(.22,.61,.36,1), transform 0.8s cubic-bezier(.22,.61,.36,1);
+  transform: translateX(32px);
+  transition: opacity .7s ease, transform .7s ease;
+  will-change: opacity, transform;
 }
-.reveal-right.visible { opacity:1; transform:translateX(0); }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
 
-/* Hero content animation */
-.hero-content { animation: heroSlideUp 1s cubic-bezier(.22,.61,.36,1) 0.2s both; }
+/* Stagger — smaller distance, gentler timing */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .5s ease, transform .5s ease;
+  will-change: opacity, transform;
+}
+.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:.04s }
+.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:.10s }
+.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:.16s }
+.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:.22s }
+.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:.28s }
+.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:.34s }
+
+/* ── HERO ──────────────────────────────────────── */
+.hero-content { animation: heroSlideUp .9s cubic-bezier(.22,.61,.36,1) .15s both; }
 @keyframes heroSlideUp {
-  from { opacity:0; transform:translateY(48px); }
+  from { opacity:0; transform:translateY(36px); }
   to   { opacity:1; transform:translateY(0); }
 }
-
-/* Hero eyebrow */
-.hero-eyebrow { animation: fadeInDown 0.8s ease 0.4s both; }
+.hero-eyebrow { animation: fadeInDown .7s ease .35s both; }
 @keyframes fadeInDown {
-  from { opacity:0; transform:translateY(-12px); }
+  from { opacity:0; transform:translateY(-10px); }
   to   { opacity:1; transform:translateY(0); }
 }
 
-/* Scroll indicator pulse */
+/* Scroll indicator */
 .hero-scroll { animation: scrollPulse 2.5s ease-in-out infinite; }
 @keyframes scrollPulse {
   0%,100% { opacity:.3; transform:translateX(0); }
-  50%      { opacity:.7; transform:translateX(6px); }
+  50%      { opacity:.7; transform:translateX(5px); }
 }
 
-/* Marquee speed variation on hover */
-.marquee:hover .marquee-track { animation-play-state: paused; }
+/* Marquee pause on hover (desktop only) */
+@media (hover: hover) {
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+}
 
-/* Button punch on hover */
-.btn-primary { transition: background .2s, transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .2s; }
-.btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 24px rgba(26,191,170,0.3); }
-.btn-primary:active { transform: translateY(0) scale(0.98); }
+/* ── CARD HOVERS — desktop only ─────────────── */
+@media (hover: hover) {
+  .value-card { transition: border-color .25s, transform .25s ease, background .25s; }
+  .value-card:hover { transform: translateY(-5px); background: rgba(26,191,170,0.06); }
 
-.nav-cta { transition: background .2s, transform .15s cubic-bezier(.34,1.56,.64,1); }
-.nav-cta:hover { transform: scale(1.04); }
+  .schedule-card { transition: border-color .2s, background .2s, transform .2s ease; }
+  .schedule-card:hover { transform: translateX(5px); }
 
-/* Value cards — teal border sweep */
-.value-card { transition: border-color .25s, transform .25s cubic-bezier(.34,1.56,.64,1), background .25s; }
-.value-card:hover { transform: translateY(-6px); background: rgba(26,191,170,0.06); }
+  .membership-card { transition: border-color .25s, transform .25s ease, background .25s; }
 
-/* Schedule card slide */
-.schedule-card { transition: border-color .2s, background .2s, transform .2s cubic-bezier(.34,1.56,.64,1); }
-.schedule-card:hover { transform: translateX(6px); }
+  .class-card { transition: border-color .2s, transform .25s ease; }
+  .class-card:hover { transform: translateY(-5px); }
+}
 
-/* Membership card */
-.membership-card { transition: border-color .25s, transform .3s cubic-bezier(.34,1.56,.64,1), background .25s; }
+/* Teal bar */
+.about-teal-bar { transform: translateY(100%); transition: transform .6s ease .3s; }
+.reveal-left.visible .about-teal-bar { transform: translateY(0); }
 
-/* Class card image zoom already handled — add scale on card */
-.class-card { transition: border-color .2s, transform .3s cubic-bezier(.22,.61,.36,1); }
-.class-card:hover { transform: translateY(-6px); }
-
-/* Counter animation */
-.count-up { display: inline-block; }
-
-/* Teal bar slide in */
-.about-teal-bar { transform: translateY(100%); transition: transform .6s cubic-bezier(.22,.61,.36,1) .4s; }
-.reveal-left.visible .about-teal-bar,
-.about-media.visible .about-teal-bar { transform: translateY(0); }
-
-/* Fight team card hover */
-.fight-card { transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
-.fight-card:hover { transform: translateY(-8px); }
+/* ── MOBILE TOUCH FEEDBACK ──────────────────── */
+@media (max-width: 768px) {
+  .btn, .nav-cta, .mobile-cta, .schedule-book, .membership-card .btn {
+    min-height: 48px; /* thumb-friendly tap target */
+  }
+  .schedule-card:active { background: var(--teal-dim); }
+  .value-card:active { background: rgba(26,191,170,0.06); }
+}
 
 </style>
 </head>
