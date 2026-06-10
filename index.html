@@ -38,29 +38,37 @@ button{cursor:pointer;font-family:var(--sans)}
 .modal-submit{background:var(--teal);color:#080808;border:none;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:16px 24px;width:100%;margin-top:4px;cursor:pointer;font-family:var(--sans);transition:background .2s}
 .modal-submit:hover{background:var(--teal-dark)}
 .modal-note{font-size:11px;color:var(--muted2);text-align:center;margin:4px 0 0}
+/* ── NAVBAR ── */
 .navbar{position:fixed;top:0;left:0;right:0;z-index:100;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;transition:background .3s ease,border-bottom .3s ease}
 .navbar.scrolled{background:rgba(8,8,8,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.nav-logo-icon{width:44px;height:44px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.nav-logo img{height:40px;width:auto;flex-shrink:0}
 .nav-logo-text{display:flex;flex-direction:column;line-height:1}
-.nav-logo-main{font-family:var(--display);font-size:18px;letter-spacing:.16em;color:var(--text)}
-.nav-logo-sub{font-size:8px;letter-spacing:.22em;color:var(--teal);font-weight:500;text-transform:uppercase;margin-top:2px}
-.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
-.nav-links a{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav-logo-main{font-family:var(--display);font-size:17px;letter-spacing:.16em;color:var(--text);white-space:nowrap}
+.nav-logo-sub{font-size:7.5px;letter-spacing:.2em;color:var(--teal);font-weight:500;text-transform:uppercase;margin-top:3px;white-space:nowrap}
+.nav-links{display:flex;align-items:center;gap:22px;list-style:none}
+.nav-links a{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .2s;white-space:nowrap}
 .nav-links a:hover{color:var(--text)}
 .lang-btn{background:transparent;border:1px solid rgba(26,191,170,0.4);color:var(--teal);font-size:10px;font-weight:700;letter-spacing:.14em;padding:8px 14px;cursor:pointer;font-family:var(--sans);transition:all .2s}
 .lang-btn:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
+/* ── HAMBURGER ── */
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;z-index:200}
 .hamburger span{display:block;width:24px;height:1.5px;background:var(--text);transition:all .3s ease;transform-origin:center}
 .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:6px;opacity:0;pointer-events:none;transition:opacity .3s ease}
+/* ── MOBILE MENU ── */
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:0;pointer-events:none;transition:opacity .3s ease}
 .mobile-menu.active{opacity:1;pointer-events:all}
 .mobile-menu-close{position:absolute;top:28px;right:28px;background:none;border:none;color:var(--muted);font-size:52px;font-weight:300;line-height:1;cursor:pointer;font-family:var(--sans);transition:color .2s}
 .mobile-menu-close:hover{color:var(--text)}
-.mobile-menu a{font-family:var(--display);font-size:44px;letter-spacing:.08em;color:var(--muted);text-decoration:none;transition:color .2s;padding:4px 0}
-.mobile-menu a:hover{color:var(--teal)}
+.mobile-menu a.mobile-link{font-family:var(--display);font-size:40px;letter-spacing:.08em;color:var(--muted);text-decoration:none;transition:color .2s;padding:2px 0;display:block}
+.mobile-menu a.mobile-link:hover{color:var(--teal)}
+/* Mobile CTA buttons — reset all inherited styles */
+.mobile-cta-wrap{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:24px;width:260px}
+.mobile-cta{background:var(--teal) !important;color:#080808 !important;font-size:11px !important;font-weight:700 !important;letter-spacing:.18em !important;text-transform:uppercase !important;padding:16px 0 !important;border:none !important;cursor:pointer;font-family:var(--sans) !important;width:100%;text-align:center;text-decoration:none !important;display:flex !important;align-items:center;justify-content:center;position:relative;overflow:hidden;animation:ctaPulse 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.mobile-cta.ghost{background:transparent !important;color:var(--text) !important;border:1px solid rgba(240,237,230,0.22) !important;animation:none}
+.mobile-cta::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transform:skewX(-20deg);animation:shineSweep 3.5s ease-in-out infinite}
 .hero{position:relative;height:100vh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end}
 .hero-bg{position:absolute;inset:0;z-index:0}
 .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:grayscale(15%) brightness(.55)}
@@ -387,6 +395,7 @@ button{cursor:pointer;font-family:var(--sans)}
   <ul class="nav-links">
     <li><a href="#about" data-i18n="nav_about">Om oss</a></li>
     <li><a href="#classes" data-i18n="nav_classes">Våra pass</a></li>
+    <li><a href="#kids" data-i18n="nav_kids">Barn & Junior</a></li>
     <li><a href="#schedule" data-i18n="nav_schedule">Schema</a></li>
     <li><a href="#memberships" data-i18n="nav_memberships">Medlemskap</a></li>
     <li><a href="#corporate" data-i18n="nav_corporate">Företag</a></li>
@@ -405,12 +414,15 @@ button{cursor:pointer;font-family:var(--sans)}
   <button class="mobile-menu-close" id="mobile-close">&times;</button>
   <a href="#about" class="mobile-link" data-i18n="nav_about">Om oss</a>
   <a href="#classes" class="mobile-link" data-i18n="nav_classes">Våra pass</a>
+  <a href="#kids" class="mobile-link" data-i18n="nav_kids">Barn & Junior</a>
   <a href="#schedule" class="mobile-link" data-i18n="nav_schedule">Schema</a>
   <a href="#memberships" class="mobile-link" data-i18n="nav_memberships">Medlemskap</a>
   <a href="#corporate" class="mobile-link" data-i18n="nav_corporate">Företag</a>
   <a href="#contact" class="mobile-link" data-i18n="nav_contact">Kontakt</a>
-  <button class="mobile-cta open-modal" data-i18n="nav_cta_trial">Boka provpass</button>
-  <a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" rel="noopener noreferrer" class="mobile-cta" style="margin-top:8px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center" data-i18n="nav_cta_member">Bli medlem</a>
+  <div class="mobile-cta-wrap">
+    <button class="mobile-cta open-modal" data-i18n="nav_cta_trial">Boka provpass</button>
+    <a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" rel="noopener noreferrer" class="mobile-cta ghost" data-i18n="nav_cta_member">Bli medlem</a>
+  </div>
 </div>
 
 <!-- HERO -->
@@ -474,7 +486,7 @@ button{cursor:pointer;font-family:var(--sans)}
 <section class="about">
   <div class="about-container">
     <div class="about-media reveal-left">
-      <img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=800&q=80&fit=crop" alt="Masters Gym training">
+      <img src="IMG_8386.jpg" alt="Masters Gym Stockholm — Norra Agnegatan">
       <div class="about-teal-bar"><span data-i18n="about_bar">MASTERS GYM · STOCKHOLM · 2016</span></div>
     </div>
     <div class="about-content reveal-right">
@@ -1109,7 +1121,7 @@ function addScheduleAnimations(){
 const translations = {
   sv: {
     nav_tagline:'Kick- & Thaiboxning · Stockholm 2016',
-    nav_about:'Om oss', nav_classes:'Våra pass', nav_schedule:'Schema',
+    nav_about:'Om oss', nav_classes:'Våra pass', nav_kids:'Barn & Junior', nav_schedule:'Schema',
     nav_memberships:'Medlemskap', nav_corporate:'Företag', nav_contact:'Kontakt',
     nav_cta_trial:'Boka provpass', nav_cta_member:'Bli medlem',
     modal_title:'BOKA PROVPASS',
@@ -1205,7 +1217,7 @@ const translations = {
   },
   en: {
     nav_tagline:'Kickboxing & Muay Thai · Stockholm 2016',
-    nav_about:'About', nav_classes:'Classes', nav_schedule:'Schedule',
+    nav_about:'About', nav_classes:'Classes', nav_kids:'Kids & Junior', nav_schedule:'Schedule',
     nav_memberships:'Memberships', nav_corporate:'Corporate', nav_contact:'Contact',
     nav_cta_trial:'Book trial class', nav_cta_member:'Join now',
     modal_title:'BOOK A TRIAL CLASS',
