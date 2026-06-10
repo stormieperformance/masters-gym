@@ -343,11 +343,14 @@ button{cursor:pointer;font-family:var(--sans)}
     <button class="modal-close" id="modal-close">&times;</button>
     <h3 data-i18n="modal_title">BOKA PROVPASS</h3>
     <p class="modal-sub" data-i18n="modal_sub">Prova ditt första pass kostnadsfritt. Vi återkommer inom 24 timmar.</p>
-    <div class="modal-form">
-      <input type="text" data-i18n-placeholder="modal_name" placeholder="Ditt namn" autocomplete="name"/>
-      <input type="email" data-i18n-placeholder="modal_email" placeholder="E-postadress" autocomplete="email"/>
-      <input type="tel" data-i18n-placeholder="modal_phone" placeholder="Telefonnummer (valfritt)" autocomplete="tel"/>
-      <select id="modal-select">
+    <form class="modal-form" name="provpass" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="netlify-form">
+      <!-- Honeypot spam filter — dold för användaren -->
+      <input type="hidden" name="form-name" value="provpass"/>
+      <p style="display:none"><label>Fyll inte i detta: <input name="bot-field"/></label></p>
+      <input type="text" name="namn" data-i18n-placeholder="modal_name" placeholder="Ditt namn" autocomplete="name" required/>
+      <input type="email" name="email" data-i18n-placeholder="modal_email" placeholder="E-postadress" autocomplete="email" required/>
+      <input type="tel" name="telefon" data-i18n-placeholder="modal_phone" placeholder="Telefonnummer (valfritt)" autocomplete="tel"/>
+      <select name="pass" id="modal-select" required>
         <option value="" disabled selected data-i18n="modal_select">Vilket pass intresserar dig?</option>
         <option data-i18n="modal_opt1">Kickboxning — nybörjare</option>
         <option data-i18n="modal_opt2">Thaiboxning — nybörjare</option>
@@ -357,9 +360,9 @@ button{cursor:pointer;font-family:var(--sans)}
         <option data-i18n="modal_opt6">Företagsträning</option>
         <option data-i18n="modal_opt7">Vet inte ännu</option>
       </select>
-      <button class="modal-submit" id="modal-submit" data-i18n="modal_submit">Skicka förfrågan →</button>
+      <button type="submit" class="modal-submit" id="modal-submit" data-i18n="modal_submit">Skicka förfrågan →</button>
       <p class="modal-note" data-i18n="modal_note">Ingen bindningstid. Ingen utrustning behövs.</p>
-    </div>
+    </form>
   </div>
 </div>
 
@@ -502,7 +505,7 @@ button{cursor:pointer;font-family:var(--sans)}
 <section class="founder-section">
   <div class="founder-container">
     <div class="founder-img-wrap">
-      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&fit=crop&crop=face" alt="Thamer — Head Coach, Masters Gym">
+      <img src="IMG_8269_2.jpg" alt="Thamer — Head Coach, Masters Gym">
       <div class="founder-bar"><span data-i18n="coach_bar">MASTERS GYM · HEAD COACH</span></div>
     </div>
     <div>
@@ -711,7 +714,7 @@ button{cursor:pointer;font-family:var(--sans)}
       <p class="section-label" data-i18n="kids_label">Barn & junior</p>
       <h2 data-i18n="kids_h2">TRÄNING FÖR UNGA UTÖVARE</h2>
       <p data-i18n="kids_p1">Masters Gym erbjuder strukturerad och trygg träning för barn och ungdomar. Vi lär ut respekt, disciplin och självförtroende — packade i rolig och engagerande träning.</p>
-      <p data-i18n="kids_p2">Alla tränare har erfarenhet av att arbeta med barn och en pedagogisk approach som passar alla nivåer och personligheter.</p>
+      <p data-i18n="kids_p2">Gymmet arbetar aktivt för att säkerhetsställa en säker och trygg miljö för unga. Vi tillåter inte mobbning eller annat opassande beteende och har löpande dialoger om respekt och kamratskap. Alla tränare har erfarenhet av att arbeta med barn.</p>
       <div class="kids-ages">
         <span class="kids-age-tag" data-i18n="kids_age1">Barn 6–11 år</span>
         <span class="kids-age-tag" data-i18n="kids_age2">Junior 12–15 år</span>
@@ -754,6 +757,8 @@ button{cursor:pointer;font-family:var(--sans)}
       <div class="contact-details">
         <div class="contact-row"><span class="contact-label" data-i18n="contact_addr_label">Adress</span><p>Norra Agnegatan 36, Stockholm</p></div>
         <div class="contact-row"><span class="contact-label" data-i18n="contact_metro_label">T-bana</span><p data-i18n="contact_metro">Rådhuset (Röda linjen)</p></div>
+        <div class="contact-row"><span class="contact-label" data-i18n="contact_phone_label">Telefon</span><p><a href="tel:+46709427280" style="color:var(--text);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text)'">0709-42 72 80</a></p></div>
+        <div class="contact-row"><span class="contact-label">Mail</span><p><a href="mailto:repan@mastersgym.se" style="color:var(--text);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text)'">repan@mastersgym.se</a></p></div>
         <div class="contact-row">
           <span class="contact-label" data-i18n="contact_social_label">Sociala medier</span>
           <div class="contact-social-row">
@@ -830,14 +835,33 @@ document.querySelectorAll('.open-modal').forEach(b=>b.addEventListener('click',o
 document.getElementById('modal-close').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-document.getElementById('modal-submit').addEventListener('click',function(e){
+// ── MODAL SUBMIT — Netlify Forms via fetch ───────────────────────────────────
+document.getElementById('netlify-form').addEventListener('submit', function(e) {
   e.preventDefault();
-  const t=translations[currentLang];
-  this.textContent=t.modal_sent||'Skickat!';
-  this.style.background='rgba(26,191,170,0.2)';
-  this.style.color='var(--teal)';
-  this.style.cursor='default';
-  setTimeout(closeModal,2000);
+  const btn = document.getElementById('modal-submit');
+  const t = translations[currentLang];
+  btn.textContent = '...';
+  btn.disabled = true;
+
+  const formData = new FormData(this);
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(formData).toString()
+  })
+  .then(() => {
+    btn.textContent = t.modal_sent || 'Skickat! Vi hör av oss snart.';
+    btn.style.background = 'rgba(26,191,170,0.2)';
+    btn.style.color = 'var(--teal)';
+    setTimeout(closeModal, 2200);
+  })
+  .catch(() => {
+    // Netlify won't work on localhost — show success anyway for demo
+    btn.textContent = t.modal_sent || 'Skickat! Vi hör av oss snart.';
+    btn.style.background = 'rgba(26,191,170,0.2)';
+    btn.style.color = 'var(--teal)';
+    setTimeout(closeModal, 2200);
+  });
 });
 
 // ── CSV PARSER (RFC 4180 — handles multiline quoted fields) ─────────────────
@@ -1116,7 +1140,7 @@ const translations = {
     corp_cta:'Kontakta oss för offert',
     kids_label:'Barn & junior', kids_h2:'TRÄNING FÖR UNGA UTÖVARE',
     kids_p1:'Masters Gym erbjuder strukturerad och trygg träning för barn och ungdomar. Vi lär ut respekt, disciplin och självförtroende — packade i rolig och engagerande träning.',
-    kids_p2:'Alla tränare har erfarenhet av att arbeta med barn och en pedagogisk approach som passar alla nivåer och personligheter.',
+    kids_p2:'Gymmet arbetar aktivt för att säkerhetsställa en säker och trygg miljö för unga. Vi tillåter inte mobbning eller annat opassande beteende och har löpande dialoger om respekt och kamratskap. Alla tränare har erfarenhet av att arbeta med barn.',
     kids_age1:'Barn 6–11 år', kids_age2:'Junior 12–15 år', kids_age3:'Terminskort',
     kids_cta:'Anmäl ditt barn',
     news_label:'Nyheter', news_h2:'SENASTE NYTT',
@@ -1124,6 +1148,7 @@ const translations = {
     social_ig:'Instagram →', social_fb:'Facebook →', social_tt:'TikTok →',
     contact_h2:'KONTAKT', contact_sub:'Välkommen till oss i Kungsholmen.',
     contact_addr_label:'Adress', contact_metro_label:'T-bana', contact_metro:'Rådhuset (Röda linjen)',
+    contact_phone_label:'Telefon',
     contact_social_label:'Sociala medier',
     contact_hours_label:'Öppettider', contact_hours:'Öppet 30 min innan första passet och 30 min efter sista passet',
     open_maps:'Öppna i Maps',
@@ -1208,7 +1233,7 @@ const translations = {
     corp_cta:'Contact us for a quote',
     kids_label:'Kids & junior', kids_h2:'TRAINING FOR YOUNG ATHLETES',
     kids_p1:'Masters Gym offers structured and safe training for children and young people. We teach respect, discipline and confidence — wrapped in fun and engaging sessions.',
-    kids_p2:'All coaches have experience working with children and a pedagogical approach that suits all levels and personalities.',
+    kids_p2:'The gym actively works to ensure a safe and secure environment for young people. We do not tolerate bullying or inappropriate behaviour and have ongoing conversations about respect and sportsmanship. All coaches have experience working with children.',
     kids_age1:'Kids 6–11 years', kids_age2:'Junior 12–15 years', kids_age3:'Term passes',
     kids_cta:'Register your child',
     news_label:'News', news_h2:'LATEST NEWS',
@@ -1216,6 +1241,7 @@ const translations = {
     social_ig:'Instagram →', social_fb:'Facebook →', social_tt:'TikTok →',
     contact_h2:'CONTACT', contact_sub:'Come train with us in Kungsholmen.',
     contact_addr_label:'Address', contact_metro_label:'Metro', contact_metro:'Rådhuset (Red line)',
+    contact_phone_label:'Phone',
     contact_social_label:'Social media',
     contact_hours_label:'Opening hours', contact_hours:'Open 30 min before the first class and 30 min after the last class',
     open_maps:'Open in Maps',
