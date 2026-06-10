@@ -818,7 +818,7 @@ function loadSheetJSONP(sheetName, callback) {
 
 // SCHEDULE
 function loadSchedule(){
-  loadSheetJSONP('Sheet1', function(data) {
+  loadSheetJSONP('Schema', function(data) {
     if (!data) {
       document.getElementById('schedule-content').innerHTML=
         `<p style="color:var(--muted);font-size:13px;padding:20px 0">Kunde inte ladda schemat. <a href="https://www.mastersgym.se/schema" target="_blank" style="color:var(--teal)">Se schemat här →</a></p>`;
