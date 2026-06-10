@@ -266,7 +266,24 @@ button{cursor:pointer;font-family:var(--sans)}
 @media(hover:hover){.nav-cta:hover{background:var(--teal-dark)}}
 .mobile-cta{margin-top:28px;background:var(--teal);color:#080808;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:18px 48px;border:none;cursor:pointer;font-family:var(--sans);position:relative;overflow:hidden;animation:ctaPulse 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .mobile-cta::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transform:skewX(-20deg);animation:shineSweep 3.5s ease-in-out infinite}
-/* ANIMATIONS */
+/* NEWS */
+.news-section{padding:100px 40px;border-top:1px solid var(--line)}
+.news-container{max-width:1200px;margin:0 auto}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
+.news-card{background:var(--bg2);border:1px solid var(--line);overflow:hidden;transition:border-color .2s,transform .2s}
+.news-card:hover{border-color:var(--muted2);transform:translateY(-4px)}
+.news-img-wrap{overflow:hidden;height:220px}
+.news-img-wrap img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%);transition:transform .4s ease,filter .3s}
+.news-card:hover .news-img-wrap img{transform:scale(1.04);filter:grayscale(0%)}
+.news-body{padding:24px}
+.news-tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:700;display:inline-block;margin-bottom:6px}
+.news-date{font-size:11px;color:var(--muted2);letter-spacing:.08em;margin-left:12px}
+.news-body h3{font-family:var(--display);font-size:24px;letter-spacing:.04em;margin:8px 0 10px}
+.news-body p{font-size:13px;font-weight:300;color:var(--muted);line-height:1.7}
+@media(max-width:768px){
+  .news-section{padding:60px 20px}
+  .news-grid{grid-template-columns:1fr;gap:2px}
+}
 @media(prefers-reduced-motion:reduce){.reveal,.reveal-left,.reveal-right,.reveal-stagger>*{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;will-change:opacity,transform}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -511,6 +528,17 @@ button{cursor:pointer;font-family:var(--sans)}
           <p data-i18n="fight3_text">Vi arrangerar och deltar i tävlingar och galor genom hela säsongen.</p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="news-section">
+  <div class="news-container">
+    <p class="section-label" data-i18n="news_label">Nyheter</p>
+    <h2 class="section-title reveal" data-i18n="news_h2">SENASTE NYTT</h2>
+    <div class="news-grid reveal-stagger" id="news-grid">
+      <p style="color:var(--muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase">Laddar nyheter...</p>
     </div>
   </div>
 </section>
@@ -770,35 +798,64 @@ document.getElementById('modal-submit').addEventListener('click',function(e){
   setTimeout(closeModal,2000);
 });
 
-// SCHEDULE
+// GOOGLE SHEETS via JSONP (no CORS issues)
 const SHEET_ID='1sh1syerkpB3ERVOyswRNdDvVAgc6ZPKUgJyTMysoBwY';
-const SHEET_URL=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Sheet1`;
 const dagOrder=['Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag','Söndag'];
 
-async function loadSchedule(){
-  try{
-    const res=await fetch(SHEET_URL);
-    const text=await res.text();
-    const json=JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/)[1]);
-    const passes=json.table.rows.map(r=>({dag:r.c[0]?.v||'',tid:r.c[1]?.v||'',pass:r.c[2]?.v||'',niva:r.c[3]?.v||''})).filter(r=>r.dag);
+function loadSheetJSONP(sheetName, callback) {
+  const callbackName = 'cb_' + sheetName.replace(/\s/g,'_') + '_' + Date.now();
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&tq=select+*&sheet=${encodeURIComponent(sheetName)}&callback=${callbackName}`;
+  window[callbackName] = function(data) {
+    delete window[callbackName];
+    document.head.removeChild(script);
+    callback(data);
+  };
+  const script = document.createElement('script');
+  script.src = url;
+  script.onerror = () => callback(null);
+  document.head.appendChild(script);
+}
+
+// SCHEDULE
+function loadSchedule(){
+  loadSheetJSONP('Sheet1', function(data) {
+    if (!data) {
+      document.getElementById('schedule-content').innerHTML=
+        `<p style="color:var(--muted);font-size:13px;padding:20px 0">Kunde inte ladda schemat. <a href="https://www.mastersgym.se/schema" target="_blank" style="color:var(--teal)">Se schemat här →</a></p>`;
+      return;
+    }
+    const rows = data.table.rows;
+    const passes = rows.map(r=>({
+      dag:r.c[0]?.v||'', tid:r.c[1]?.v||'', pass:r.c[2]?.v||'', niva:r.c[3]?.v||''
+    })).filter(r=>r.dag);
+
     const byDay={};
     passes.forEach(p=>{if(!byDay[p.dag])byDay[p.dag]=[];byDay[p.dag].push(p);});
     const days=Object.keys(byDay).sort((a,b)=>dagOrder.indexOf(a)-dagOrder.indexOf(b));
+
     const tabsEl=document.getElementById('schedule-tabs');
-    tabsEl.innerHTML=days.map((d,i)=>`<button class="schedule-tab ${i===0?'active':''}" data-day="${d}">${d}</button>`).join('');
+    tabsEl.innerHTML=days.map((d,i)=>
+      `<button class="schedule-tab ${i===0?'active':''}" data-day="${d}">${d}</button>`
+    ).join('');
+
     function renderDay(day){
       const t=translations[currentLang];
       const content=document.getElementById('schedule-content');
-      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(p=>`
-        <div class="schedule-card">
-          <div class="schedule-time">${p.tid}</div>
-          <div class="schedule-info"><h3>${p.pass}</h3><p>${p.niva}</p></div>
-          <button class="schedule-book open-modal">${t.book_arrow||'Boka →'}</button>
-        </div>`).join('')}</div>`;
+      content.style.display='block';
+      content.innerHTML=`<div class="schedule-grid">${
+        byDay[day].map(p=>`
+          <div class="schedule-card">
+            <div class="schedule-time">${p.tid}</div>
+            <div class="schedule-info"><h3>${p.pass}</h3><p>${p.niva}</p></div>
+            <button class="schedule-book open-modal">${t.book_arrow||'Boka →'}</button>
+          </div>`).join('')
+      }</div>`;
       content.querySelectorAll('.open-modal').forEach(b=>b.addEventListener('click',openModal));
     }
+
     renderDay(days[0]);
     addScheduleAnimations();
+
     tabsEl.addEventListener('click',e=>{
       const tab=e.target.closest('.schedule-tab');
       if(!tab)return;
@@ -807,11 +864,44 @@ async function loadSchedule(){
       renderDay(tab.dataset.day);
       addScheduleAnimations();
     });
-  }catch(err){
-    document.getElementById('schedule-content').innerHTML=`<p style="color:var(--muted);font-size:13px;padding:20px 0">Kunde inte ladda schemat. <a href="https://www.mastersgym.se/schema" target="_blank" style="color:var(--teal)">Se schemat här →</a></p>`;
-  }
+  });
 }
 loadSchedule();
+
+// NEWS from Google Sheets
+function loadNews(){
+  const newsGrid = document.getElementById('news-grid');
+  if (!newsGrid) return;
+
+  loadSheetJSONP('Nyheter', function(data) {
+    if (!data || !data.table.rows.length) {
+      newsGrid.innerHTML = '<p style="color:var(--muted);font-size:14px">Inga nyheter just nu.</p>';
+      return;
+    }
+    const rows = data.table.rows;
+    const news = rows.map(r=>({
+      datum:  r.c[0]?.v || '',
+      rubrik: r.c[1]?.v || '',
+      text:   r.c[2]?.v || '',
+      bild:   r.c[3]?.v || 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop',
+      tagg:   r.c[4]?.v || 'Nyhet'
+    })).filter(r=>r.rubrik).reverse(); // newest first
+
+    newsGrid.innerHTML = news.map(n=>`
+      <div class="news-card">
+        <div class="news-img-wrap">
+          <img src="${n.bild}" alt="${n.rubrik}" loading="lazy">
+        </div>
+        <div class="news-body">
+          <span class="news-tag">${n.tagg}</span>
+          ${n.datum ? `<span class="news-date">${n.datum}</span>` : ''}
+          <h3>${n.rubrik}</h3>
+          <p>${n.text}</p>
+        </div>
+      </div>`).join('');
+  });
+}
+loadNews();
 
 // MAP
 const mapEl=document.getElementById('map');
@@ -933,6 +1023,8 @@ const translations = {
     kids_p2:'Alla tränare har erfarenhet av att arbeta med barn och en pedagogisk approach som passar alla nivåer och personligheter.',
     kids_age1:'Barn 6–11 år', kids_age2:'Junior 12–15 år', kids_age3:'Terminskort',
     kids_cta:'Anmäl ditt barn',
+    // news
+    news_label:'Nyheter', news_h2:'SENASTE NYTT',
     // social
     social_h2:'FRÅN GYMMET', social_link:'Följ på Instagram →',
     // contact
@@ -1018,6 +1110,7 @@ const translations = {
     kids_p2:'All coaches have experience working with children and a pedagogical approach that suits all levels and personalities.',
     kids_age1:'Kids 6–11 years', kids_age2:'Junior 12–15 years', kids_age3:'Term passes',
     kids_cta:'Register your child',
+    news_label:'News', news_h2:'LATEST NEWS',
     social_h2:'FROM THE GYM', social_link:'Follow on Instagram →',
     contact_h2:'CONTACT', contact_sub:'Come train with us in Kungsholmen.',
     contact_addr_label:'Address', contact_metro_label:'Metro', contact_metro:'Rådhuset (Red line)',
