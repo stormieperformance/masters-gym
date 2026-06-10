@@ -798,108 +798,114 @@ document.getElementById('modal-submit').addEventListener('click',function(e){
   setTimeout(closeModal,2000);
 });
 
-// GOOGLE SHEETS via JSONP (no CORS issues)
-const SHEET_ID='1sh1syerkpB3ERVOyswRNdDvVAgc6ZPKUgJyTMysoBwY';
+// CSV URLs (published from Google Sheets — no CORS issues)
+const CSV_SCHEMA = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRb-OaHSzncTmm3MpQGyfTa5VOVuPFLA9OsrKNCtr5ktsAF1RHgcuBLO1QE2sUnewxJ9UGK4cnjzkDX/pub?gid=0&single=true&output=csv';
+const CSV_NYHETER = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRb-OaHSzncTmm3MpQGyfTa5VOVuPFLA9OsrKNCtr5ktsAF1RHgcuBLO1QE2sUnewxJ9UGK4cnjzkDX/pub?gid=1145388468&single=true&output=csv';
 const dagOrder=['Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag','Söndag'];
 
-function loadSheetJSONP(sheetName, callback) {
-  const callbackName = 'cb_' + sheetName.replace(/\s/g,'_') + '_' + Date.now();
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&tq=select+*&sheet=${encodeURIComponent(sheetName)}&callback=${callbackName}`;
-  window[callbackName] = function(data) {
-    delete window[callbackName];
-    document.head.removeChild(script);
-    callback(data);
-  };
-  const script = document.createElement('script');
-  script.src = url;
-  script.onerror = () => callback(null);
-  document.head.appendChild(script);
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g,''));
+  return lines.slice(1).map(line => {
+    // Handle quoted fields with commas inside
+    const cols = [];
+    let cur = '', inQ = false;
+    for (let c of line) {
+      if (c === '"') inQ = !inQ;
+      else if (c === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+      else cur += c;
+    }
+    cols.push(cur.trim());
+    const obj = {};
+    headers.forEach((h,i) => obj[h] = (cols[i]||'').replace(/^"|"$/g,''));
+    return obj;
+  });
 }
 
 // SCHEDULE
-function loadSchedule(){
-  loadSheetJSONP('Schema', function(data) {
-    if (!data) {
-      document.getElementById('schedule-content').innerHTML=
-        `<p style="color:var(--muted);font-size:13px;padding:20px 0">Kunde inte ladda schemat. <a href="https://www.mastersgym.se/schema" target="_blank" style="color:var(--teal)">Se schemat här →</a></p>`;
-      return;
-    }
-    const rows = data.table.rows;
-    const passes = rows.map(r=>({
-      dag:r.c[0]?.v||'', tid:r.c[1]?.v||'', pass:r.c[2]?.v||'', niva:r.c[3]?.v||''
-    })).filter(r=>r.dag);
+async function loadSchedule(){
+  try {
+    const res = await fetch(CSV_SCHEMA);
+    const text = await res.text();
+    const rows = parseCSV(text).filter(r => r.Dag);
 
-    const byDay={};
-    passes.forEach(p=>{if(!byDay[p.dag])byDay[p.dag]=[];byDay[p.dag].push(p);});
-    const days=Object.keys(byDay).sort((a,b)=>dagOrder.indexOf(a)-dagOrder.indexOf(b));
+    const byDay = {};
+    rows.forEach(r => {
+      if (!byDay[r.Dag]) byDay[r.Dag] = [];
+      byDay[r.Dag].push(r);
+    });
+    const days = Object.keys(byDay).sort((a,b) => dagOrder.indexOf(a) - dagOrder.indexOf(b));
 
-    const tabsEl=document.getElementById('schedule-tabs');
-    tabsEl.innerHTML=days.map((d,i)=>
+    const tabsEl = document.getElementById('schedule-tabs');
+    tabsEl.innerHTML = days.map((d,i) =>
       `<button class="schedule-tab ${i===0?'active':''}" data-day="${d}">${d}</button>`
     ).join('');
 
-    function renderDay(day){
-      const t=translations[currentLang];
-      const content=document.getElementById('schedule-content');
-      content.style.display='block';
-      content.innerHTML=`<div class="schedule-grid">${
-        byDay[day].map(p=>`
+    function renderDay(day) {
+      const t = translations[currentLang];
+      const content = document.getElementById('schedule-content');
+      content.style.display = 'block';
+      content.innerHTML = `<div class="schedule-grid">${
+        byDay[day].map(r => `
           <div class="schedule-card">
-            <div class="schedule-time">${p.tid}</div>
-            <div class="schedule-info"><h3>${p.pass}</h3><p>${p.niva}</p></div>
+            <div class="schedule-time">${r.Tid}</div>
+            <div class="schedule-info"><h3>${r.Pass}</h3><p>${r.Nivå||r['Niv\u00e5']||''}</p></div>
             <button class="schedule-book open-modal">${t.book_arrow||'Boka →'}</button>
           </div>`).join('')
       }</div>`;
-      content.querySelectorAll('.open-modal').forEach(b=>b.addEventListener('click',openModal));
+      content.querySelectorAll('.open-modal').forEach(b => b.addEventListener('click', openModal));
     }
 
     renderDay(days[0]);
     addScheduleAnimations();
 
-    tabsEl.addEventListener('click',e=>{
-      const tab=e.target.closest('.schedule-tab');
-      if(!tab)return;
-      tabsEl.querySelectorAll('.schedule-tab').forEach(t=>t.classList.remove('active'));
+    tabsEl.addEventListener('click', e => {
+      const tab = e.target.closest('.schedule-tab');
+      if (!tab) return;
+      tabsEl.querySelectorAll('.schedule-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       renderDay(tab.dataset.day);
       addScheduleAnimations();
     });
-  });
+
+  } catch(err) {
+    document.getElementById('schedule-content').innerHTML =
+      `<p style="color:var(--muted);font-size:13px;padding:20px 0">Kunde inte ladda schemat. <a href="https://www.mastersgym.se/schema" target="_blank" style="color:var(--teal)">Se schemat här →</a></p>`;
+    console.error('Schema error:', err);
+  }
 }
 loadSchedule();
 
-// NEWS from Google Sheets
-function loadNews(){
+// NEWS
+async function loadNews(){
   const newsGrid = document.getElementById('news-grid');
   if (!newsGrid) return;
+  try {
+    const res = await fetch(CSV_NYHETER);
+    const text = await res.text();
+    const rows = parseCSV(text).filter(r => r.Rubrik);
 
-  loadSheetJSONP('Nyheter', function(data) {
-    if (!data || !data.table.rows.length) {
+    if (!rows.length) {
       newsGrid.innerHTML = '<p style="color:var(--muted);font-size:14px">Inga nyheter just nu.</p>';
       return;
     }
-    const rows = data.table.rows;
-    const news = rows.map(r=>({
-      datum:  r.c[0]?.v || '',
-      rubrik: r.c[1]?.v || '',
-      text:   r.c[2]?.v || '',
-      bild:   r.c[3]?.v || 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop',
-      tagg:   r.c[4]?.v || 'Nyhet'
-    })).filter(r=>r.rubrik).reverse(); // newest first
 
-    newsGrid.innerHTML = news.map(n=>`
+    newsGrid.innerHTML = rows.reverse().map(r => `
       <div class="news-card">
         <div class="news-img-wrap">
-          <img src="${n.bild}" alt="${n.rubrik}" loading="lazy">
+          <img src="${r.Bildlänk||r['Bildl\u00e4nk']||'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop'}" alt="${r.Rubrik}" loading="lazy">
         </div>
         <div class="news-body">
-          <span class="news-tag">${n.tagg}</span>
-          ${n.datum ? `<span class="news-date">${n.datum}</span>` : ''}
-          <h3>${n.rubrik}</h3>
-          <p>${n.text}</p>
+          <span class="news-tag">${r.Tagg||'Nyhet'}</span>
+          ${r.Datum ? `<span class="news-date">${r.Datum}</span>` : ''}
+          <h3>${r.Rubrik}</h3>
+          <p>${r.Text||''}</p>
         </div>
       </div>`).join('');
-  });
+  } catch(err) {
+    newsGrid.innerHTML = '<p style="color:var(--muted);font-size:14px">Kunde inte ladda nyheter.</p>';
+    console.error('Nyheter error:', err);
+  }
 }
 loadNews();
 
