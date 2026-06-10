@@ -144,6 +144,24 @@ button{cursor:pointer;font-family:var(--sans)}
 .coach-title-year{font-family:var(--display);font-size:15px;letter-spacing:.08em;color:var(--teal);min-width:80px;flex-shrink:0}
 .coach-title-name{font-size:13px;font-weight:500;color:var(--text);letter-spacing:.04em;text-transform:uppercase}
 .coach-intl{font-size:12px;color:var(--muted2);line-height:1.7;margin-bottom:24px;letter-spacing:.04em}
+/* COACHES */
+.coaches-section{padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)}
+.coaches-container{max-width:1200px;margin:0 auto}
+.coaches-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:56px}
+.coach-card{background:var(--bg3);border:1px solid var(--line);overflow:hidden;transition:border-color .2s,transform .2s}
+.coach-card:hover{border-color:var(--teal);transform:translateY(-4px)}
+.coach-img-wrap{position:relative;overflow:hidden}
+.coach-img-wrap img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;filter:grayscale(15%);transition:transform .4s ease,filter .3s}
+.coach-card:hover .coach-img-wrap img{transform:scale(1.04);filter:grayscale(0%)}
+.coach-badge{position:absolute;bottom:0;left:0;right:0;background:var(--teal);padding:8px 16px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#080808;font-weight:700;font-family:var(--sans)}
+.coach-card-body{padding:20px}
+.coach-name{font-family:var(--display);font-size:28px;letter-spacing:.06em;margin-bottom:4px}
+.coach-role{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;font-weight:500}
+.coach-bio{font-size:13px;font-weight:300;color:var(--muted);line-height:1.7}
+@media(max-width:768px){
+  .coaches-section{padding:60px 20px}
+  .coaches-grid{grid-template-columns:repeat(2,1fr)}
+}
 .fight-section{padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)}
 .fight-container{max-width:1200px;margin:0 auto}
 .fight-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
@@ -561,6 +579,82 @@ button{cursor:pointer;font-family:var(--sans)}
       </div>
       <p class="coach-intl" data-i18n="coach_intl">Internationella tävlingar i Thailand, Ukraina, Italien, Serbien, Georgien, Kroatien, Marocko, Ryssland, Tunisien, Jordanien m.fl.</p>
       <a href="#coaches" class="coaches-link" data-i18n="coaches_link">Se alla instruktörer →</a>
+    </div>
+  </div>
+</section>
+
+<!-- COACHES -->
+<section class="coaches-section" id="coaches">
+  <div class="coaches-container">
+    <p class="section-label" data-i18n="coaches_label">Instruktörer</p>
+    <h2 class="section-title reveal" data-i18n="coaches_h2">VÅRT TEAM</h2>
+    <div class="coaches-grid reveal-stagger">
+
+      <!-- Thamer -->
+      <div class="coach-card">
+        <div class="coach-img-wrap">
+          <img src="IMG_8269_2.jpg" alt="Thamer — Head Coach">
+          <div class="coach-badge" data-i18n="coach_badge_head">Head Coach</div>
+        </div>
+        <div class="coach-card-body">
+          <h3 class="coach-name">THAMER</h3>
+          <p class="coach-role" data-i18n="coach_role_thamer">Grundare & Head Coach</p>
+          <p class="coach-bio" data-i18n="coach_bio_thamer">Grundare av Masters Gym med en imponerande internationell meritlista — både som tävlande och coach. Iraq Champion, Arabian Champion, två World Cup-titlar 2003 och Master of Muay Thai (Ajarn) 2009.</p>
+        </div>
+      </div>
+
+      <!-- Andy -->
+      <div class="coach-card">
+        <div class="coach-img-wrap">
+          <img src="Coach-Andy.jpg" alt="Andy — Coach Masters Gym">
+          <div class="coach-badge" data-i18n="coach_badge_coach">Coach</div>
+        </div>
+        <div class="coach-card-body">
+          <h3 class="coach-name">ANDY</h3>
+          <p class="coach-role" data-i18n="coach_role_andy">Kickboxning & Thaiboxning</p>
+          <p class="coach-bio" data-i18n="coach_bio_andy">Andy har tränat kampsport i snart 10 år. Han är bred i sin kampsport och har sitt ursprung från Thaiboxning.</p>
+        </div>
+      </div>
+
+      <!-- Christian -->
+      <div class="coach-card">
+        <div class="coach-img-wrap">
+          <img src="Coach-Christian.jpg" alt="Christian — Coach Masters Gym">
+          <div class="coach-badge" data-i18n="coach_badge_coach">Coach</div>
+        </div>
+        <div class="coach-card-body">
+          <h3 class="coach-name">CHRISTIAN</h3>
+          <p class="coach-role" data-i18n="coach_role_christian">Instruktör</p>
+          <p class="coach-bio" data-i18n="coach_bio_christian">Mer info kommer snart.</p>
+        </div>
+      </div>
+
+      <!-- Tanja -->
+      <div class="coach-card">
+        <div class="coach-img-wrap">
+          <img src="Coach-Tanja.jpg" alt="Tanja — Coach Masters Gym">
+          <div class="coach-badge" data-i18n="coach_badge_coach">Coach</div>
+        </div>
+        <div class="coach-card-body">
+          <h3 class="coach-name">TANJA</h3>
+          <p class="coach-role" data-i18n="coach_role_tanja">Instruktör</p>
+          <p class="coach-bio" data-i18n="coach_bio_tanja">Mer info kommer snart.</p>
+        </div>
+      </div>
+
+      <!-- Joonas -->
+      <div class="coach-card">
+        <div class="coach-img-wrap">
+          <img src="Coach-Joonas.jpg" alt="Joonas — Coach Masters Gym">
+          <div class="coach-badge" data-i18n="coach_badge_coach">Coach</div>
+        </div>
+        <div class="coach-card-body">
+          <h3 class="coach-name">JOONAS</h3>
+          <p class="coach-role" data-i18n="coach_role_joonas">Barnträning</p>
+          <p class="coach-bio" data-i18n="coach_bio_joonas">Joonas är ansvarig för barnträningen. Han började aktivt träna kickboxning 2010 och har hållit i barnpass sedan 2014. Han har sett många barn avancera från nybörjare till riktigt duktiga utövare på kort tid.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1227,6 +1321,16 @@ const translations = {
     ct6:'Master of Muay Thai (Ajarn)',
     coach_intl:'Internationella tävlingar i Thailand, Ukraina, Italien, Serbien, Georgien, Kroatien, Marocko, Ryssland, Tunisien, Jordanien m.fl.',
     coaches_link:'Se alla instruktörer →',
+    coaches_label:'Instruktörer', coaches_h2:'VÅRT TEAM',
+    coach_badge_head:'Head Coach', coach_badge_coach:'Coach',
+    coach_role_thamer:'Grundare & Head Coach',
+    coach_bio_thamer:'Grundare av Masters Gym med en imponerande internationell meritlista — både som tävlande och coach. Iraq Champion, Arabian Champion, två World Cup-titlar 2003 och Master of Muay Thai (Ajarn) 2009.',
+    coach_role_andy:'Kickboxning & Thaiboxning',
+    coach_bio_andy:'Andy har tränat kampsport i snart 10 år. Han är bred i sin kampsport och har sitt ursprung från Thaiboxning.',
+    coach_role_christian:'Instruktör', coach_bio_christian:'Mer info kommer snart.',
+    coach_role_tanja:'Instruktör', coach_bio_tanja:'Mer info kommer snart.',
+    coach_role_joonas:'Barnträning',
+    coach_bio_joonas:'Joonas är ansvarig för barnträningen. Han började aktivt träna kickboxning 2010 och har hållit i barnpass sedan 2014. Han har sett många barn avancera från nybörjare till riktigt duktiga utövare på kort tid.',
     fight_label:'Tävling', fight_h2:'FIGHT TEAM',
     fight1_tag:'Medaljer', fight1_title:'CHAMPIONS', fight1_text:'Bästa klubb 2017 & 2018. Flertalet SM-medaljer och internationella titlar.',
     fight2_tag:'Fighters', fight2_title:'FIGHT TEAM', fight2_text:'Sofia — landslagsfighter, Svenska Kickboxningsförbundet. Och fler på väg upp.',
@@ -1338,6 +1442,16 @@ const translations = {
     ct6:'Master of Muay Thai (Ajarn)',
     coach_intl:'International competitions in Thailand, Ukraine, Italy, Serbia, Georgia, Croatia, Morocco, Russia, Tunisia, Jordan and more.',
     coaches_link:'Meet all coaches →',
+    coaches_label:'Coaches', coaches_h2:'OUR TEAM',
+    coach_badge_head:'Head Coach', coach_badge_coach:'Coach',
+    coach_role_thamer:'Founder & Head Coach',
+    coach_bio_thamer:'Founder of Masters Gym with an impressive international record — both as a competitor and coach. Iraq Champion, Arabian Champion, two World Cup titles in 2003 and Master of Muay Thai (Ajarn) in 2009.',
+    coach_role_andy:'Kickboxing & Muay Thai',
+    coach_bio_andy:'Andy has trained martial arts for nearly 10 years. He has a broad martial arts background with roots in Muay Thai.',
+    coach_role_christian:'Coach', coach_bio_christian:'More info coming soon.',
+    coach_role_tanja:'Coach', coach_bio_tanja:'More info coming soon.',
+    coach_role_joonas:'Kids Training',
+    coach_bio_joonas:'Joonas is responsible for the kids training. He started kickboxing in 2010 and has been coaching kids classes since 2014. He has seen many children progress from complete beginners to skilled practitioners in a short time.',
     fight_label:'Competition', fight_h2:'FIGHT TEAM',
     fight1_tag:'Medals', fight1_title:'CHAMPIONS', fight1_text:'Best club 2017 & 2018. Multiple national medals and international titles.',
     fight2_tag:'Fighters', fight2_title:'FIGHT TEAM', fight2_text:'Sofia — national team fighter, Swedish Kickboxing Federation. And more rising up.',
