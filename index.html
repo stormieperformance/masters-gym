@@ -198,6 +198,10 @@ button{cursor:pointer;font-family:var(--sans)}
 .kids-content h2{font-family:var(--display);font-size:clamp(44px,5vw,72px);letter-spacing:.04em;line-height:.92;margin-bottom:24px}
 .kids-content p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:14px}
 .kids-ages{display:flex;gap:12px;margin:28px 0;flex-wrap:wrap}
+.kids-tabs{display:flex;gap:2px;margin-bottom:24px}
+.kids-tab{background:var(--bg3);border:1px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:10px 20px;transition:all .2s;font-family:var(--sans);cursor:pointer}
+.kids-tab.active,.kids-tab:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
+.kids-panel p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:14px}
 .kids-age-tag{background:var(--teal-dim);border:1px solid rgba(26,191,170,.3);padding:8px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:600}
 .social{padding:100px 40px;border-top:1px solid var(--line)}
 .social-container{max-width:1200px;margin:0 auto}
@@ -207,6 +211,10 @@ button{cursor:pointer;font-family:var(--sans)}
 .social-links-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .social-link{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);border-bottom:1px solid rgba(26,191,170,.3);padding-bottom:2px;transition:border-color .2s}
 .social-link:hover{border-color:var(--teal)}
+.social-icon-link{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);transition:opacity .2s}
+.social-icon-link:hover{opacity:.75}
+.footer-social-link{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);transition:color .2s}
+.footer-social-link:hover{color:var(--text)}
 .social-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
 .social-card{aspect-ratio:1;overflow:hidden;display:block;background:var(--bg2)}
 .social-card img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%);transition:transform .4s ease,filter .3s}
@@ -369,10 +377,7 @@ button{cursor:pointer;font-family:var(--sans)}
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <a href="#" class="nav-logo">
-    <svg class="nav-logo-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="22" cy="22" r="21" stroke="#1ABFAA" stroke-width="1.5" fill="none"/>
-      <text x="22" y="28" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="16" fill="#1ABFAA" letter-spacing="1">MG</text>
-    </svg>
+    <img src="masters_gym_logo.png" alt="Masters Gym" style="height:44px;width:auto">
     <div class="nav-logo-text">
       <span class="nav-logo-main">MASTERS GYM</span>
       <span class="nav-logo-sub" data-i18n="nav_tagline">Kick- & Thaiboxning · Stockholm 2016</span>
@@ -704,7 +709,7 @@ button{cursor:pointer;font-family:var(--sans)}
   </div>
 </section>
 
-<!-- KIDS -->
+<!-- KIDS & JUNIOR -->
 <section class="kids" id="kids">
   <div class="kids-container">
     <div class="kids-media">
@@ -713,14 +718,34 @@ button{cursor:pointer;font-family:var(--sans)}
     <div class="kids-content">
       <p class="section-label" data-i18n="kids_label">Barn & junior</p>
       <h2 data-i18n="kids_h2">TRÄNING FÖR UNGA UTÖVARE</h2>
-      <p data-i18n="kids_p1">Masters Gym erbjuder strukturerad och trygg träning för barn och ungdomar. Vi lär ut respekt, disciplin och självförtroende — packade i rolig och engagerande träning.</p>
-      <p data-i18n="kids_p2">Gymmet arbetar aktivt för att säkerhetsställa en säker och trygg miljö för unga. Vi tillåter inte mobbning eller annat opassande beteende och har löpande dialoger om respekt och kamratskap. Alla tränare har erfarenhet av att arbeta med barn.</p>
-      <div class="kids-ages">
-        <span class="kids-age-tag" data-i18n="kids_age1">Barn 6–11 år</span>
-        <span class="kids-age-tag" data-i18n="kids_age2">Junior 12–15 år</span>
-        <span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span>
+
+      <!-- Flikar -->
+      <div class="kids-tabs">
+        <button class="kids-tab active" data-tab="barn" data-i18n="kids_tab_barn">Barn 6–11 år</button>
+        <button class="kids-tab" data-tab="junior" data-i18n="kids_tab_junior">Junior 12–15 år</button>
       </div>
-      <button class="btn btn-primary open-modal" data-i18n="kids_cta">Anmäl ditt barn</button>
+
+      <!-- Barn -->
+      <div class="kids-panel" id="kids-panel-barn">
+        <p data-i18n="kids_p1">Masters Gym erbjuder strukturerad och trygg träning för barn och ungdomar. Vi lär ut respekt, disciplin och självförtroende — packade i rolig och engagerande träning.</p>
+        <p data-i18n="kids_p2">Gymmet arbetar aktivt för att säkerhetsställa en säker och trygg miljö för unga. Vi tillåter inte mobbning eller annat opassande beteende och har löpande dialoger om respekt och kamratskap. Alla tränare har erfarenhet av att arbeta med barn.</p>
+        <div class="kids-ages">
+          <span class="kids-age-tag" data-i18n="kids_age1">Barn 6–11 år</span>
+          <span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span>
+        </div>
+      </div>
+
+      <!-- Junior -->
+      <div class="kids-panel" id="kids-panel-junior" style="display:none">
+        <p data-i18n="kids_junior_p1">Juniorgruppen är för ungdomar 12–15 år som vill ta sin träning till nästa nivå. Här kombineras teknik, kondition och tävlingsförberedelse i en trygg och motiverande miljö.</p>
+        <p data-i18n="kids_junior_p2">Juniorer som visar framsteg och intresse ges möjlighet att avancera mot tävling och att på sikt gå upp i vuxengruppen.</p>
+        <div class="kids-ages">
+          <span class="kids-age-tag" data-i18n="kids_age2">Junior 12–15 år</span>
+          <span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary open-modal" style="margin-top:8px" data-i18n="kids_cta">Anmäl ditt barn</button>
     </div>
   </div>
 </section>
@@ -734,9 +759,18 @@ button{cursor:pointer;font-family:var(--sans)}
         <p class="social-handle">@mastersgymstockholm</p>
       </div>
       <div class="social-links-row">
-        <a href="https://instagram.com/mastersgymstockholm" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n="social_ig">Instagram →</a>
-        <a href="https://www.facebook.com/mastersgymsweden" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n="social_fb">Facebook →</a>
-        <a href="https://www.tiktok.com/@mastersgym" target="_blank" rel="noopener noreferrer" class="social-link" data-i18n="social_tt">TikTok →</a>
+        <a href="https://instagram.com/mastersgymstockholm" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>
+          <span data-i18n="social_ig">Instagram</span>
+        </a>
+        <a href="https://www.facebook.com/mastersgymsweden" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Facebook">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <span data-i18n="social_fb">Facebook</span>
+        </a>
+        <a href="https://www.tiktok.com/@mastersgym" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="TikTok">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+          <span data-i18n="social_tt">TikTok</span>
+        </a>
       </div>
     </div>
     <div class="social-grid reveal-stagger">
@@ -797,15 +831,24 @@ button{cursor:pointer;font-family:var(--sans)}
       </div>
       <div class="footer-col">
         <span data-i18n="footer_contact">Kontakt</span>
-        <a href="https://instagram.com/mastersgymstockholm" target="_blank">Instagram</a>
-        <a href="https://www.facebook.com/mastersgymsweden" target="_blank">Facebook</a>
-        <a href="https://www.tiktok.com/@mastersgym" target="_blank">TikTok</a>
+        <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="footer-social-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.facebook.com/mastersgymsweden" target="_blank" class="footer-social-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+        <a href="https://www.tiktok.com/@mastersgym" target="_blank" class="footer-social-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+          TikTok
+        </a>
         <a href="https://www.mastersgym.se" target="_blank">mastersgym.se</a>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <p data-i18n="footer_copy">© Masters Gym Stockholm 2025</p>
+    <p data-i18n="footer_copy">© Masters Gym Stockholm 2026</p>
     <a href="https://stormieperformance.com" target="_blank" data-i18n="footer_built">Built by Stormie Performance</a>
   </div>
 </footer>
@@ -1139,8 +1182,11 @@ const translations = {
     corp_f4_title:'Gruppass', corp_f4_text:'Regelbunden träning för era medarbetare. Vi anpassar.',
     corp_cta:'Kontakta oss för offert',
     kids_label:'Barn & junior', kids_h2:'TRÄNING FÖR UNGA UTÖVARE',
+    kids_tab_barn:'Barn 6–11 år', kids_tab_junior:'Junior 12–15 år',
     kids_p1:'Masters Gym erbjuder strukturerad och trygg träning för barn och ungdomar. Vi lär ut respekt, disciplin och självförtroende — packade i rolig och engagerande träning.',
     kids_p2:'Gymmet arbetar aktivt för att säkerhetsställa en säker och trygg miljö för unga. Vi tillåter inte mobbning eller annat opassande beteende och har löpande dialoger om respekt och kamratskap. Alla tränare har erfarenhet av att arbeta med barn.',
+    kids_junior_p1:'Juniorgruppen är för ungdomar 12–15 år som vill ta sin träning till nästa nivå. Här kombineras teknik, kondition och tävlingsförberedelse i en trygg och motiverande miljö.',
+    kids_junior_p2:'Juniorer som visar framsteg och intresse ges möjlighet att avancera mot tävling och att på sikt gå upp i vuxengruppen.',
     kids_age1:'Barn 6–11 år', kids_age2:'Junior 12–15 år', kids_age3:'Terminskort',
     kids_cta:'Anmäl ditt barn',
     news_label:'Nyheter', news_h2:'SENASTE NYTT',
@@ -1154,7 +1200,7 @@ const translations = {
     open_maps:'Öppna i Maps',
     footer_sub:'Stockholm · Kick- & Thaiboxning · Est. 2016',
     footer_nav:'Navigera', footer_contact:'Kontakt',
-    footer_copy:'© Masters Gym Stockholm 2025', footer_built:'Built by Stormie Performance',
+    footer_copy:'© Masters Gym Stockholm 2026', footer_built:'Built by Stormie Performance',
   },
   en: {
     nav_tagline:'Kickboxing & Muay Thai · Stockholm 2016',
@@ -1232,8 +1278,11 @@ const translations = {
     corp_f4_title:'Group classes', corp_f4_text:'Regular training for your employees. We adapt to your needs.',
     corp_cta:'Contact us for a quote',
     kids_label:'Kids & junior', kids_h2:'TRAINING FOR YOUNG ATHLETES',
+    kids_tab_barn:'Kids 6–11 years', kids_tab_junior:'Junior 12–15 years',
     kids_p1:'Masters Gym offers structured and safe training for children and young people. We teach respect, discipline and confidence — wrapped in fun and engaging sessions.',
     kids_p2:'The gym actively works to ensure a safe and secure environment for young people. We do not tolerate bullying or inappropriate behaviour and have ongoing conversations about respect and sportsmanship. All coaches have experience working with children.',
+    kids_junior_p1:'The junior group is for young people aged 12–15 who want to take their training to the next level. Technique, conditioning and competition preparation are combined in a safe and motivating environment.',
+    kids_junior_p2:'Juniors who show progress and interest are given the opportunity to advance towards competition and eventually move up to the adult group.',
     kids_age1:'Kids 6–11 years', kids_age2:'Junior 12–15 years', kids_age3:'Term passes',
     kids_cta:'Register your child',
     news_label:'News', news_h2:'LATEST NEWS',
@@ -1247,7 +1296,7 @@ const translations = {
     open_maps:'Open in Maps',
     footer_sub:'Stockholm · Kickboxing & Muay Thai · Est. 2016',
     footer_nav:'Navigate', footer_contact:'Contact',
-    footer_copy:'© Masters Gym Stockholm 2025', footer_built:'Built by Stormie Performance',
+    footer_copy:'© Masters Gym Stockholm 2026', footer_built:'Built by Stormie Performance',
   }
 };
 
@@ -1288,6 +1337,17 @@ function applyTranslations() {
     });
   }
 }
+
+// ── KIDS TABS ─────────────────────────────────────────────────────────────────
+document.querySelectorAll('.kids-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.kids-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const target = tab.dataset.tab;
+    document.querySelectorAll('.kids-panel').forEach(p => p.style.display = 'none');
+    document.getElementById('kids-panel-' + target).style.display = 'block';
+  });
+});
 </script>
 </body>
 </html>
