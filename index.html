@@ -7,6 +7,14 @@
 <meta name="description" content="Masters Gym Stockholm. Kick- och thaiboxning för alla nivåer. Norra Agnegatan 36, Kungsholmen.">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Open Graph -->
+<meta property="og:title" content="Masters Gym Stockholm — Kick- & Thaiboxning">
+<meta property="og:description" content="Kick- och thaiboxning för alla nivåer. Från nybörjare till världsmästare. Norra Agnegatan 36, Kungsholmen.">
+<meta property="og:image" content="https://mastersgym.se/og-image.jpg">
+<meta property="og:url" content="https://mastersgym.se">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mastersgym.se/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -161,6 +169,18 @@ button{cursor:pointer;font-family:var(--sans)}
 .class-card h3{font-family:var(--display);font-size:28px;letter-spacing:.06em;margin-bottom:10px}
 .class-card p{font-size:13px;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:20px}
 .class-card .btn{width:100%}
+.class-equipment{font-size:11px;color:var(--muted2);line-height:1.6;margin-bottom:16px;letter-spacing:.03em;border-left:2px solid var(--teal);padding-left:10px}
+.pt-prices{display:flex;flex-direction:column;gap:5px;margin-bottom:20px;background:var(--bg);border:1px solid var(--line);padding:14px 16px}
+.pt-price-row{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.pt-price-row span{color:var(--muted)}
+.pt-price-row strong{color:var(--teal);font-weight:600}
+.pt-divider{height:1px;background:var(--line);margin:8px 0}
+.pt-sub{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:4px;font-weight:600}
+/* 5 cards — wrap to 3+2 */
+@media(min-width:769px){
+  .classes-grid{grid-template-columns:repeat(3,1fr)}
+  .class-card-pt{grid-column:span 1}
+}
 .schedule{padding:100px 40px;border-top:1px solid var(--line)}
 .schedule-container{max-width:900px;margin:0 auto}
 .schedule-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:16px;flex-wrap:wrap}
@@ -596,33 +616,76 @@ button{cursor:pointer;font-family:var(--sans)}
     <p class="section-label" data-i18n="classes_label">Träning</p>
     <h2 class="section-title reveal" data-i18n="classes_h2">VÅRA PASS</h2>
     <div class="classes-grid reveal-stagger">
+
+      <!-- Nybörjar -->
       <div class="class-card">
         <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&q=80&fit=crop" alt="">
         <div class="class-card-body">
-          <span class="class-card-tag" data-i18n="all_levels">Alla nivåer</span>
-          <h3 data-i18n="class1_title">KICKBOXNING</h3>
-          <p data-i18n="class1_text">Grunderna i kickboxning — kombinationer, teknik och kondition. Passar perfekt för nybörjare och de som vill förbättra sin grund.</p>
+          <span class="class-card-tag" data-i18n="class1_tag">Nivå 1 & 2 · Alla välkomna</span>
+          <h3 data-i18n="class1_title">NYBÖRJARPASS</h3>
+          <p data-i18n="class1_text">Fokus på grunderna — sparkar, slag och fotarbete, blandat med kondition, styrka och smidighet. Inga tidigare erfarenheter krävs. 60 min med grundtekniker, enklare kombinationer och blockträning.</p>
+          <div class="class-equipment" data-i18n="class1_equip">Utrustning: Handskar finns att låna. Lindor rekommenderas och finns att köpa i receptionen.</div>
           <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
         </div>
       </div>
+
+      <!-- Fortsättning -->
       <div class="class-card">
         <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt="">
         <div class="class-card-body">
-          <span class="class-card-tag" data-i18n="all_levels">Alla nivåer</span>
-          <h3 data-i18n="class2_title">THAIBOXNING</h3>
-          <p data-i18n="class2_text">Muay Thai — "åtta extremiteters konst". Sparkar, knän, armbågar och clinch. Teknisk och effektiv kampsport med djupa rötter.</p>
+          <span class="class-card-tag" data-i18n="class2_tag">Min. 2 terminer</span>
+          <h3 data-i18n="class2_title">FORTSÄTTNINGSPASS</h3>
+          <p data-i18n="class2_text">Efter minst två terminer tar du steget vidare. Fokus på att utveckla tekniker och längre kombinationer, sparringövningar och lätt fri sparring. 60 min som tar din kampsport till nästa nivå.</p>
+          <div class="class-equipment" data-i18n="class2_equip">Utrustning: Egna handskar, benskydd och lindor. Tandskydd, hjälm och suspensoar vid sparring.</div>
           <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
         </div>
       </div>
+
+      <!-- Tävlingsgrupp -->
+      <div class="class-card">
+        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt="">
+        <div class="class-card-body">
+          <span class="class-card-tag" data-i18n="class3_tag">På inbjudan</span>
+          <h3 data-i18n="class3_title">TÄVLINGSGRUPP</h3>
+          <p data-i18n="class3_text">Det är huvudtränaren som bestämmer vem som får ingå i tävlingsgruppen. Prata med Thamer och hör efter hur du bäst når dina mål att tävla och ingå i Masters Gyms fight team.</p>
+          <div class="class-equipment" data-i18n="class3_equip"></div>
+          <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
+        </div>
+      </div>
+
+      <!-- Fyspass -->
       <div class="class-card">
         <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=80&fit=crop" alt="">
         <div class="class-card-body">
-          <span class="class-card-tag" data-i18n="all_levels">Alla nivåer</span>
-          <h3 data-i18n="class3_title">FYSPASS</h3>
-          <p data-i18n="class3_text">Kondition, styrka och rörlighet inspirerat av kampsportens träningsmetoder. Intensivt, roligt och effektivt för hela kroppen.</p>
+          <span class="class-card-tag" data-i18n="class4_tag">Alla nivåer</span>
+          <h3 data-i18n="class4_title">FYSPASS</h3>
+          <p data-i18n="class4_text">Fyspassen är till för alla. Funktionell träning med varierat upplägg och fokus på hela kroppen — du kommer svettas, ha roligt och få resultat!</p>
+          <div class="class-equipment" data-i18n="class4_equip">Utrustning: Träningen sker barfota. Ta med lätta kläder, liten handduk och vattenflaska.</div>
           <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
         </div>
       </div>
+
+      <!-- PT -->
+      <div class="class-card class-card-pt">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80&fit=crop" alt="">
+        <div class="class-card-body">
+          <span class="class-card-tag" data-i18n="class5_tag">Personlig träning</span>
+          <h3 data-i18n="class5_title">PT MED THAMER</h3>
+          <p data-i18n="class5_text">För alla som vill ta sin kick- och thaiboxning till nästa nivå — från amatör till elitnivå. Boka via kontaktformuläret.</p>
+          <div class="pt-prices">
+            <div class="pt-price-row"><span data-i18n="pt1_label">1 timme</span><strong>1 000 kr</strong></div>
+            <div class="pt-price-row"><span data-i18n="pt2_label">5 × 1 timme</span><strong>4 750 kr</strong></div>
+            <div class="pt-price-row"><span data-i18n="pt3_label">10 × 1 timme</span><strong>9 000 kr</strong></div>
+            <div class="pt-divider"></div>
+            <div class="pt-sub" data-i18n="pt_kids_label">PT för barn</div>
+            <div class="pt-price-row"><span data-i18n="pt4_label">1 timme</span><strong>450 kr</strong></div>
+            <div class="pt-price-row"><span data-i18n="pt5_label">5 × 1 timme</span><strong>2 000 kr</strong></div>
+            <div class="pt-price-row"><span data-i18n="pt6_label">10 × 1 timme</span><strong>3 500 kr</strong></div>
+          </div>
+          <button class="btn btn-ghost open-modal" data-i18n="pt_cta">Boka PT-pass</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1168,10 +1231,25 @@ const translations = {
     fight1_tag:'Medaljer', fight1_title:'CHAMPIONS', fight1_text:'Bästa klubb 2017 & 2018. Flertalet SM-medaljer och internationella titlar.',
     fight2_tag:'Fighters', fight2_title:'FIGHT TEAM', fight2_text:'Sofia — landslagsfighter, Svenska Kickboxningsförbundet. Och fler på väg upp.',
     fight3_tag:'Events', fight3_title:'GALOR', fight3_text:'Vi arrangerar och deltar i tävlingar och galor genom hela säsongen.',
-    classes_label:'Träning', classes_h2:'VÅRA PASS', all_levels:'Alla nivåer',
-    class1_title:'KICKBOXNING', class1_text:'Grunderna i kickboxning — kombinationer, teknik och kondition. Passar perfekt för nybörjare och de som vill förbättra sin grund.',
-    class2_title:'THAIBOXNING', class2_text:'Muay Thai — "åtta extremiteters konst". Sparkar, knän, armbågar och clinch. Teknisk och effektiv kampsport med djupa rötter.',
-    class3_title:'FYSPASS', class3_text:'Kondition, styrka och rörlighet inspirerat av kampsportens träningsmetoder. Intensivt, roligt och effektivt för hela kroppen.',
+    classes_label:'Träning', classes_h2:'VÅRA PASS',
+    class1_tag:'Nivå 1 & 2 · Alla välkomna', class1_title:'NYBÖRJARPASS',
+    class1_text:'Fokus på grunderna — sparkar, slag och fotarbete, blandat med kondition, styrka och smidighet. Inga tidigare erfarenheter krävs. 60 min med grundtekniker, enklare kombinationer och blockträning.',
+    class1_equip:'Utrustning: Handskar finns att låna. Lindor rekommenderas och finns att köpa i receptionen.',
+    class2_tag:'Min. 2 terminer', class2_title:'FORTSÄTTNINGSPASS',
+    class2_text:'Efter minst två terminer tar du steget vidare. Fokus på att utveckla tekniker och längre kombinationer, sparringövningar och lätt fri sparring. 60 min som tar din kampsport till nästa nivå.',
+    class2_equip:'Utrustning: Egna handskar, benskydd och lindor. Tandskydd, hjälm och suspensoar vid sparring.',
+    class3_tag:'På inbjudan', class3_title:'TÄVLINGSGRUPP',
+    class3_text:'Det är huvudtränaren som bestämmer vem som får ingå i tävlingsgruppen. Prata med Thamer och hör efter hur du bäst når dina mål att tävla och ingå i Masters Gyms fight team.',
+    class3_equip:'',
+    class4_tag:'Alla nivåer', class4_title:'FYSPASS',
+    class4_text:'Fyspassen är till för alla. Funktionell träning med varierat upplägg och fokus på hela kroppen — du kommer svettas, ha roligt och få resultat!',
+    class4_equip:'Utrustning: Träningen sker barfota. Ta med lätta kläder, liten handduk och vattenflaska.',
+    class5_tag:'Personlig träning', class5_title:'PT MED THAMER',
+    class5_text:'För alla som vill ta sin kick- och thaiboxning till nästa nivå — från amatör till elitnivå. Boka via kontaktformuläret.',
+    pt1_label:'1 timme', pt2_label:'5 × 1 timme', pt3_label:'10 × 1 timme',
+    pt_kids_label:'PT för barn',
+    pt4_label:'1 timme', pt5_label:'5 × 1 timme', pt6_label:'10 × 1 timme',
+    pt_cta:'Boka PT-pass',
     book_trial:'Boka provpass', book_arrow:'Boka →',
     schedule_h2:'SCHEMA',
     schedule_loading:'Laddar schema...',
@@ -1264,10 +1342,25 @@ const translations = {
     fight1_tag:'Medals', fight1_title:'CHAMPIONS', fight1_text:'Best club 2017 & 2018. Multiple national medals and international titles.',
     fight2_tag:'Fighters', fight2_title:'FIGHT TEAM', fight2_text:'Sofia — national team fighter, Swedish Kickboxing Federation. And more rising up.',
     fight3_tag:'Events', fight3_title:'GALAS', fight3_text:'We organise and participate in competitions and galas throughout the season.',
-    classes_label:'Training', classes_h2:'OUR CLASSES', all_levels:'All levels',
-    class1_title:'KICKBOXING', class1_text:'The fundamentals of kickboxing — combinations, technique and conditioning. Perfect for beginners and those looking to sharpen their foundation.',
-    class2_title:'MUAY THAI', class2_text:'The art of eight limbs. Kicks, knees, elbows and clinch. A technical and effective martial art with deep roots.',
-    class3_title:'FITNESS CLASS', class3_text:'Conditioning, strength and mobility inspired by combat sports training methods. Intense, fun and effective for the whole body.',
+    classes_label:'Training', classes_h2:'OUR CLASSES',
+    class1_tag:'Level 1 & 2 · All welcome', class1_title:'BEGINNER CLASS',
+    class1_text:'Focus on the fundamentals — kicks, punches and footwork, combined with conditioning, strength and agility. No prior experience required. 60 min of basic techniques, simple combinations and block training.',
+    class1_equip:'Equipment: Gloves available to borrow. Wraps recommended and available to buy at reception.',
+    class2_tag:'Min. 2 terms', class2_title:'INTERMEDIATE CLASS',
+    class2_text:'After at least two terms, take it to the next level. Focus on developing techniques and longer combinations, sparring drills and light free sparring. 60 min that elevates your martial arts.',
+    class2_equip:'Equipment: Own gloves, shin guards and wraps. Mouthguard, headgear and groin guard for sparring.',
+    class3_tag:'By invitation', class3_title:'COMPETITION GROUP',
+    class3_text:'The head coach decides who joins the competition group. Talk to Thamer and find out how to best reach your goals of competing and joining the Masters Gym fight team.',
+    class3_equip:'',
+    class4_tag:'All levels', class4_title:'FITNESS CLASS',
+    class4_text:'Fitness classes are for everyone. Functional training with varied sessions focused on the whole body — you will sweat, have fun and get results!',
+    class4_equip:'Equipment: Training is done barefoot. Bring light clothing, a small towel and a water bottle.',
+    class5_tag:'Personal training', class5_title:'PT WITH THAMER',
+    class5_text:'For anyone looking to take their kickboxing or Muay Thai to the next level — from amateur to elite. Book via the contact form.',
+    pt1_label:'1 hour', pt2_label:'5 × 1 hour', pt3_label:'10 × 1 hour',
+    pt_kids_label:'PT for kids',
+    pt4_label:'1 hour', pt5_label:'5 × 1 hour', pt6_label:'10 × 1 hour',
+    pt_cta:'Book PT session',
     book_trial:'Book trial class', book_arrow:'Book →',
     schedule_h2:'SCHEDULE',
     schedule_loading:'Loading schedule...',
