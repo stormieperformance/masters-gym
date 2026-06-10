@@ -119,6 +119,12 @@ button{cursor:pointer;font-family:var(--sans)}
 .founder-text{font-size:16px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:28px}
 .coaches-link{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);border-bottom:1px solid rgba(26,191,170,0.3);padding-bottom:3px;transition:border-color .2s}
 .coaches-link:hover{border-color:var(--teal)}
+.coach-quote{font-size:15px;font-weight:300;color:var(--muted);line-height:1.75;font-style:italic;border-left:3px solid var(--teal);padding-left:20px;margin:20px 0 28px}
+.coach-titles{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.coach-title-item{display:flex;align-items:baseline;gap:12px}
+.coach-title-year{font-family:var(--display);font-size:15px;letter-spacing:.08em;color:var(--teal);min-width:80px;flex-shrink:0}
+.coach-title-name{font-size:13px;font-weight:500;color:var(--text);letter-spacing:.04em;text-transform:uppercase}
+.coach-intl{font-size:12px;color:var(--muted2);line-height:1.7;margin-bottom:24px;letter-spacing:.04em}
 .fight-section{padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)}
 .fight-container{max-width:1200px;margin:0 auto}
 .fight-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
@@ -466,8 +472,8 @@ button{cursor:pointer;font-family:var(--sans)}
       <span class="about-label" data-i18n="about_label">Om Masters Gym</span>
       <h2 data-i18n="about_h2">MER ÄN ETT GYM</h2>
       <p class="about-tagline" data-i18n="about_tagline">"See you soon, champion!"</p>
-      <p data-i18n="about_p1">Masters Gym grundades 2016 i Kungsholmen, Stockholm. Vi erbjuder kick- och thaiboxning, boxning och fyspass för alla nivåer.</p>
-      <p data-i18n="about_p2">Vår träning passar alla — oavsett om du vill komma i form, lära dig en ny sport eller tävla på elitnivå. Hos oss bestämmer du ditt mål, vi hjälper dig nå det.</p>
+      <p data-i18n="about_p1">Masters Gym grundades 2016 i Kungsholmen och utnämndes till bästa klubb av Svenska Kickboxningsförbundet både 2017 och 2018. Vi är kända för vår höga andel kvinnliga utövare och vår varma, välkomnande atmosfär.</p>
+      <p data-i18n="about_p2">Vi har några av Sveriges absolut bästa och mest meriterade tränare inom kick- och thaiboxning. Vår egen Sofia är uttagen som landslagsfighter av Svenska Kickboxningsförbundet. Tillsammans hjälper vi varandra att nå våra mål — oavsett om det handlar om att komma i bättre form eller att komma hem med en guldmedalj.</p>
       <p data-i18n="about_p3">Gymmet ligger på Norra Agnegatan 36, 10 minuter till fots från Centralstationen. Närmaste T-bana: Rådhuset.</p>
       <div class="about-stats">
         <div class="about-stat"><div class="about-stat-num">2016</div><div class="about-stat-label" data-i18n="stat1">Grundat</div></div>
@@ -502,7 +508,17 @@ button{cursor:pointer;font-family:var(--sans)}
     <div>
       <p class="founder-label" data-i18n="coach_label">Head Coach</p>
       <h2 class="founder-h2">THAMER</h2>
-      <p class="founder-text" data-i18n="coach_text">Head Coach och grundare av Masters Gym Stockholm. Dedikerad till att bygga mästare — både i och utanför ringen.</p>
+      <p class="founder-text" data-i18n="coach_text">Thamer är huvudtränaren på Masters Gym. Han har en lång och imponerande meritlista med stora internationella framgångar — både som tävlande och som coach.</p>
+      <blockquote class="coach-quote" data-i18n="coach_quote">"Jag älskar kickboxning. Det ger självförtroende, är socialt och ger vänner för livet. Man kan ta det till tävlingsnivå om man vill och man kan alltid bli sitt bästa jag!"</blockquote>
+      <div class="coach-titles">
+        <div class="coach-title-item"><span class="coach-title-year">1985–1994</span><span class="coach-title-name" data-i18n="ct1">Iraq Champion</span></div>
+        <div class="coach-title-item"><span class="coach-title-year">1992–1997</span><span class="coach-title-name" data-i18n="ct2">Arabian Champion</span></div>
+        <div class="coach-title-item"><span class="coach-title-year">1992</span><span class="coach-title-name" data-i18n="ct3">Fighter of the Year</span></div>
+        <div class="coach-title-item"><span class="coach-title-year">2003</span><span class="coach-title-name" data-i18n="ct4">World Cup Champion — Pro Muay Thai</span></div>
+        <div class="coach-title-item"><span class="coach-title-year">2003</span><span class="coach-title-name" data-i18n="ct5">World Cup Champion — Amateur Kickboxing</span></div>
+        <div class="coach-title-item"><span class="coach-title-year">2009</span><span class="coach-title-name" data-i18n="ct6">Master of Muay Thai (Ajarn)</span></div>
+      </div>
+      <p class="coach-intl" data-i18n="coach_intl">Internationella tävlingar i Thailand, Ukraina, Italien, Serbien, Georgien, Kroatien, Marocko, Ryssland, Tunisien, Jordanien m.fl.</p>
       <a href="#coaches" class="coaches-link" data-i18n="coaches_link">Se alla instruktörer →</a>
     </div>
   </div>
@@ -1051,8 +1067,8 @@ const translations = {
     about_bar:'MASTERS GYM · STOCKHOLM · 2016',
     about_label:'Om Masters Gym', about_h2:'MER ÄN ETT GYM',
     about_tagline:'"See you soon, champion!"',
-    about_p1:'Masters Gym grundades 2016 i Kungsholmen, Stockholm. Vi erbjuder kick- och thaiboxning, boxning och fyspass för alla nivåer.',
-    about_p2:'Vår träning passar alla — oavsett om du vill komma i form, lära dig en ny sport eller tävla på elitnivå. Hos oss bestämmer du ditt mål, vi hjälper dig nå det.',
+    about_p1:'Masters Gym grundades 2016 i Kungsholmen och utnämndes till bästa klubb av Svenska Kickboxningsförbundet både 2017 och 2018. Vi är kända för vår höga andel kvinnliga utövare och vår varma, välkomnande atmosfär.',
+    about_p2:'Vi har några av Sveriges absolut bästa och mest meriterade tränare inom kick- och thaiboxning. Vår egen Sofia är uttagen som landslagsfighter av Svenska Kickboxningsförbundet. Tillsammans hjälper vi varandra att nå våra mål — oavsett om det handlar om att komma i bättre form eller att komma hem med en guldmedalj.',
     about_p3:'Gymmet ligger på Norra Agnegatan 36, 10 minuter till fots från Centralstationen. Närmaste T-bana: Rådhuset.',
     stat1:'Grundat', stat2:'Bästa klubb', stat3_num:'Alla', stat3:'Nivåer välkomna',
     test1_quote:'"Masters Gym är som min extra familj. Så mycket värme, gemenskap och tillit till dem man tränar med."',
@@ -1061,7 +1077,12 @@ const translations = {
     test2_author:'— Mamma till en av våra yngsta i klubben',
     coach_bar:'MASTERS GYM · HEAD COACH',
     coach_label:'Head Coach',
-    coach_text:'Head Coach och grundare av Masters Gym Stockholm. Dedikerad till att bygga mästare — både i och utanför ringen.',
+    coach_text:'Thamer är huvudtränaren på Masters Gym. Han har en lång och imponerande meritlista med stora internationella framgångar — både som tävlande och som coach.',
+    coach_quote:'"Jag älskar kickboxning. Det ger självförtroende, är socialt och ger vänner för livet. Man kan ta det till tävlingsnivå om man vill och man kan alltid bli sitt bästa jag!"',
+    ct1:'Iraq Champion', ct2:'Arabian Champion', ct3:'Fighter of the Year',
+    ct4:'World Cup Champion — Pro Muay Thai', ct5:'World Cup Champion — Amatör Kickboxning',
+    ct6:'Master of Muay Thai (Ajarn)',
+    coach_intl:'Internationella tävlingar i Thailand, Ukraina, Italien, Serbien, Georgien, Kroatien, Marocko, Ryssland, Tunisien, Jordanien m.fl.',
     coaches_link:'Se alla instruktörer →',
     fight_label:'Tävling', fight_h2:'FIGHT TEAM',
     fight1_tag:'Medaljer', fight1_title:'CHAMPIONS', fight1_text:'Bästa klubb 2017 & 2018. Flertalet SM-medaljer och internationella titlar.',
@@ -1138,8 +1159,8 @@ const translations = {
     about_bar:'MASTERS GYM · STOCKHOLM · 2016',
     about_label:'About Masters Gym', about_h2:'MORE THAN A GYM',
     about_tagline:'"See you soon, champion!"',
-    about_p1:'Masters Gym was founded in 2016 in Kungsholmen, Stockholm. We offer kickboxing, Muay Thai, boxing and fitness classes for all levels.',
-    about_p2:'Our training suits everyone — whether you want to get in shape, learn a new skill, or compete at elite level. You set the goal, we help you reach it.',
+    about_p1:'Masters Gym was founded in 2016 in Kungsholmen and was named best club by the Swedish Kickboxing Federation in both 2017 and 2018. We are known for our high proportion of female practitioners and our warm, welcoming atmosphere.',
+    about_p2:'We have some of Sweden\'s best and most decorated coaches in kickboxing and Muay Thai. Our very own Sofia is selected as a national team fighter by the Swedish Kickboxing Federation. Together we push each other to reach our goals — whether that means getting in shape or coming home with a gold medal.',
     about_p3:'Located at Norra Agnegatan 36, a 10-minute walk from Stockholm Central Station. Nearest metro: Rådhuset.',
     stat1:'Founded', stat2:'Best club', stat3_num:'All', stat3:'Levels welcome',
     test1_quote:'"Masters Gym is like my second family. So much warmth, community and trust among the people you train with."',
@@ -1148,7 +1169,12 @@ const translations = {
     test2_author:'— Mother of one of our youngest members',
     coach_bar:'MASTERS GYM · HEAD COACH',
     coach_label:'Head Coach',
-    coach_text:'Head Coach and founder of Masters Gym Stockholm. Dedicated to building champions — inside and outside the ring.',
+    coach_text:'Thamer is the head coach at Masters Gym. He has a long and impressive record of achievements — both as a competitor and as a coach.',
+    coach_quote:'"I love kickboxing. It builds confidence, it\'s social and gives you friends for life. You can take it to competition level if you want — and you can always become your best self!"',
+    ct1:'Iraq Champion', ct2:'Arabian Champion', ct3:'Fighter of the Year',
+    ct4:'World Cup Champion — Pro Muay Thai', ct5:'World Cup Champion — Amateur Kickboxing',
+    ct6:'Master of Muay Thai (Ajarn)',
+    coach_intl:'International competitions in Thailand, Ukraine, Italy, Serbia, Georgia, Croatia, Morocco, Russia, Tunisia, Jordan and more.',
     coaches_link:'Meet all coaches →',
     fight_label:'Competition', fight_h2:'FIGHT TEAM',
     fight1_tag:'Medals', fight1_title:'CHAMPIONS', fight1_text:'Best club 2017 & 2018. Multiple national medals and international titles.',
