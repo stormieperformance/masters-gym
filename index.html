@@ -52,10 +52,13 @@ button{cursor:pointer;font-family:var(--sans)}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:100;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;transition:background .3s ease,border-bottom .3s ease}
 .navbar.scrolled{background:rgba(8,8,8,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-.nav-logo img{height:40px;width:auto;flex-shrink:0}
+.nav-logo img{height:36px;width:auto;flex-shrink:0}
 .nav-logo-text{display:flex;flex-direction:column;line-height:1}
-.nav-logo-main{font-family:var(--display);font-size:17px;letter-spacing:.16em;color:var(--text);white-space:nowrap}
-.nav-logo-sub{font-size:7.5px;letter-spacing:.2em;color:var(--teal);font-weight:500;text-transform:uppercase;margin-top:3px;white-space:nowrap}
+.nav-logo-main{font-family:var(--display);font-size:16px;letter-spacing:.16em;color:var(--text);white-space:nowrap}
+.nav-logo-sub{font-size:7px;letter-spacing:.18em;color:var(--teal);font-weight:500;text-transform:uppercase;margin-top:3px;white-space:nowrap}
+@media(max-width:1200px){.nav-logo-sub{display:none}}
+@media(max-width:1080px){.nav-links{gap:16px}}
+@media(max-width:1080px){.nav-links a{font-size:8.5px}}
 .nav-links{display:flex;align-items:center;gap:22px;list-style:none}
 .nav-links a{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .2s;white-space:nowrap}
 .nav-links a:hover{color:var(--text)}
@@ -968,9 +971,15 @@ button{cursor:pointer;font-family:var(--sans)}
         <div class="contact-row">
           <span class="contact-label" data-i18n="contact_social_label">Sociala medier</span>
           <div class="contact-social-row">
-            <a href="https://instagram.com/mastersgymstockholm" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="https://www.facebook.com/mastersgymsweden" target="_blank" rel="noopener noreferrer">Facebook</a>
-            <a href="https://www.tiktok.com/@mastersgym" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a href="https://instagram.com/mastersgymstockholm" target="_blank" rel="noopener noreferrer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:5px"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>Instagram
+            </a>
+            <a href="https://www.facebook.com/mastersgymsweden" target="_blank" rel="noopener noreferrer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:5px"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook
+            </a>
+            <a href="https://www.tiktok.com/@mastersgym" target="_blank" rel="noopener noreferrer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:5px"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>TikTok
+            </a>
           </div>
         </div>
         <div class="contact-row"><span class="contact-label" data-i18n="contact_hours_label">Öppettider</span><p data-i18n="contact_hours">Öppet 30 min innan första passet och 30 min efter sista passet</p></div>
