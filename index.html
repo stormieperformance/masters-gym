@@ -813,7 +813,13 @@ button{cursor:pointer;font-family:var(--sans)}
       <div>
         <h2 data-i18n="schedule_h2">SCHEMA</h2>
       </div>
-      <div class="schedule-tabs" id="schedule-tabs"></div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+  <div class="schedule-tabs" id="schedule-tabs"></div>
+  <div class="schedule-view-toggle">
+    <button class="view-btn active" id="view-week" onclick="setScheduleView('week')">Veckoöversikt</button>
+    <button class="view-btn" id="view-day" onclick="setScheduleView('day')">Dag för dag</button>
+  </div>
+</div>
     </div>
     <div id="schedule-content" style="min-height:200px;display:flex;align-items:center;justify-content:center">
       <p style="color:var(--muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase" data-i18n="schedule_loading">Laddar schema...</p>
