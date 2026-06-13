@@ -1164,50 +1164,27 @@ async function loadSchedule(){
     const res = await fetch(CSV_SCHEMA);
     const text = await res.text();
     const rows = parseCSV(text).filter(r => r.Dag);
-
     const byDay = {};
-    rows.forEach(r => {
-      if (!byDay[r.Dag]) byDay[r.Dag] = [];
-      byDay[r.Dag].push(r);
-    });
+    rows.forEach(r => { if (!byDay[r.Dag]) byDay[r.Dag] = []; byDay[r.Dag].push(r); });
     const days = Object.keys(byDay).sort((a,b) => dagOrder.indexOf(a) - dagOrder.indexOf(b));
-
-    const tabsEl = document.getElementById('schedule-tabs');
-    tabsEl.innerHTML = days.map((d,i) =>
-      `<button class="schedule-tab ${i===0?'active':''}" data-day="${d}">${d}</button>`
-    ).join('');
-
-    function renderDay(day) {
-      const t = translations[currentLang];
-      const content = document.getElementById('schedule-content');
-      content.style.display = 'block';
-      content.innerHTML = `<div class="schedule-grid">${
-        byDay[day].map(r => `
-          <div class="schedule-card">
-            <div class="schedule-time">${r.Tid}</div>
-            <div class="schedule-info"><h3>${r.Pass}</h3><p>${r['Nivå']||r['Niv\u00e5']||''}</p></div>
-            <button class="schedule-book open-modal">${t.book_arrow||'Boka →'}</button>
-          </div>`).join('')
-      }</div>`;
-      content.querySelectorAll('.open-modal').forEach(b => b.addEventListener('click', openModal));
-    }
-
-    renderDay(days[0]);
-    addScheduleAnimations();
-
-    tabsEl.addEventListener('click', e => {
-      const tab = e.target.closest('.schedule-tab');
-      if (!tab) return;
-      tabsEl.querySelectorAll('.schedule-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      renderDay(tab.dataset.day);
-      addScheduleAnimations();
-    });
-
+    document.getElementById('schedule-tabs').style.display = 'none';
+    const content = document.getElementById('schedule-content');
+    content.style.cssText = 'display:block;min-height:auto';
+    content.innerHTML = `<div class="week-grid">${days.map(day => `
+      <div class="week-col">
+        <div class="week-day-header">${day}</div>
+        <div class="week-day-slots">${byDay[day].map(r => `
+          <div class="week-slot" onclick="openModal()">
+            <div class="week-slot-time">${r.Tid}</div>
+            <div class="week-slot-name">${r.Pass}</div>
+            <div class="week-slot-level">${r['Nivå']||r['Niv\u00e5']||''}</div>
+          </div>`).join('')}
+        </div>
+      </div>`).join('')}
+    </div>`;
   } catch(err) {
     document.getElementById('schedule-content').innerHTML =
       `<p style="color:var(--muted);font-size:13px;padding:20px 0">Kunde inte ladda schemat. <a href="https://www.mastersgym.se/schema" target="_blank" style="color:var(--teal)">Se schemat här →</a></p>`;
-    console.error('Schema error:', err);
   }
 }
 loadSchedule();
