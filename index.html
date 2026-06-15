@@ -20,13 +20,18 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
+  --bg:#F5F5F0;--bg2:#ECEAE4;--bg3:#E2E0DA;
+  --text:#0A0A08;--muted:rgba(10,10,8,0.55);--muted2:rgba(10,10,8,0.28);
+  --line:rgba(10,10,8,0.1);--teal:#35B3A8;--teal-dim:rgba(53,179,168,0.12);
+  --teal-dark:#2A9088;--sans:'DM Sans',sans-serif;--display:'Bebas Neue',sans-serif;
+}
+body.dark{
   --bg:#080808;--bg2:#111;--bg3:#1a1a1a;
   --text:#f0ede6;--muted:rgba(240,237,230,0.45);--muted2:rgba(240,237,230,0.18);
-  --line:rgba(240,237,230,0.08);--teal:#1ABFAA;--teal-dim:rgba(26,191,170,0.12);
-  --teal-dark:#12907e;--sans:'DM Sans',sans-serif;--display:'Bebas Neue',sans-serif;
+  --line:rgba(240,237,230,0.08);
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:var(--sans)}
@@ -48,7 +53,9 @@ button{cursor:pointer;font-family:var(--sans)}
 .modal-submit:hover{background:var(--teal-dark)}
 .modal-note{font-size:11px;color:var(--muted2);text-align:center;margin:4px 0 0}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:100;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;transition:background .3s ease,border-bottom .3s ease;background:linear-gradient(180deg,rgba(8,8,8,0.88) 0%,transparent 100%)}
-.navbar.scrolled{background:rgba(8,8,8,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.navbar.scrolled{backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+body:not(.dark) .navbar.scrolled{background:rgba(245,245,240,0.95)}
+body.dark .navbar.scrolled{background:rgba(8,8,8,0.95)}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
 .nav-logo img{height:36px;width:auto;flex-shrink:0}
 .nav-logo-text{display:flex;flex-direction:column;line-height:1}
@@ -60,7 +67,7 @@ button{cursor:pointer;font-family:var(--sans)}
 @media(max-width:1300px){.nav-logo-sub{display:none}}
 @media(max-width:1150px){.nav-links{gap:14px}.nav-links a{font-size:8.5px;letter-spacing:.1em}}
 @media(max-width:980px){.nav-logo-main{display:none}}
-.lang-btn{background:transparent;border:1px solid rgba(26,191,170,0.4);color:var(--teal);font-size:10px;font-weight:700;letter-spacing:.14em;padding:8px 14px;cursor:pointer;font-family:var(--sans);transition:all .2s}
+.lang-btn{background:transparent;border:1px solid rgba(53,179,168,0.4);color:var(--teal);font-size:10px;font-weight:700;letter-spacing:.14em;padding:8px 14px;cursor:pointer;font-family:var(--sans);transition:all .2s}
 .lang-btn:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;z-index:200}
 .hamburger span{display:block;width:24px;height:1.5px;background:var(--text);transition:all .3s ease;transform-origin:center}
@@ -84,9 +91,9 @@ button{cursor:pointer;font-family:var(--sans)}
 .hero-content{position:relative;z-index:2;padding:0 40px 80px;max-width:900px}
 .hero-eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;font-weight:500}
 @media(min-width:769px){.hero-eyebrow{display:none}}
-.hero h1{font-family:var(--display);font-size:clamp(72px,11vw,150px);line-height:.88;letter-spacing:.04em;margin-bottom:24px}
+.hero h1{font-family:var(--display);font-size:clamp(72px,11vw,150px);line-height:.88;letter-spacing:.04em;margin-bottom:24px;color:#f0ede6}
 .hero h1 span{color:var(--teal)}
-.hero-desc{font-size:16px;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:36px;max-width:420px}
+.hero-desc{font-size:16px;font-weight:300;color:rgba(240,237,230,0.75);line-height:1.8;margin-bottom:36px;max-width:420px}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
 .hero-scroll{position:absolute;bottom:32px;right:40px;z-index:2;display:flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2)}
 .hero-scroll-line{width:40px;height:1px;background:var(--muted2)}
@@ -107,7 +114,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .value-icon{width:72px;height:72px;margin-bottom:20px;opacity:.65}
 .value-icon img{width:100%;height:100%;object-fit:contain;transition:opacity .3s ease,filter .3s ease}
 .value-card:hover .value-icon{opacity:1}
-.value-card:hover .value-icon img{filter:drop-shadow(0 0 10px rgba(26,191,170,0.5))}
+.value-card:hover .value-icon img{filter:drop-shadow(0 0 10px rgba(53,179,168,0.5))}
 .value-card h3{font-family:var(--display);font-size:32px;letter-spacing:.06em;margin-bottom:14px}
 .value-card p{font-size:14px;font-weight:300;color:var(--muted);line-height:1.8}
 .about{padding:100px 40px}
@@ -137,7 +144,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .founder-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
 .founder-h2{font-family:var(--display);font-size:clamp(44px,5vw,80px);letter-spacing:.04em;line-height:.92;margin-bottom:8px}
 .founder-text{font-size:16px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:28px}
-.coaches-link{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);border-bottom:1px solid rgba(26,191,170,0.3);padding-bottom:3px;transition:border-color .2s}
+.coaches-link{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);border-bottom:1px solid rgba(53,179,168,0.3);padding-bottom:3px;transition:border-color .2s}
 .coaches-link:hover{border-color:var(--teal)}
 .coach-quote{font-size:15px;font-weight:300;color:var(--muted);line-height:1.75;font-style:italic;border-left:3px solid var(--teal);padding-left:20px;margin:20px 0 28px}
 .coach-titles{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
@@ -221,7 +228,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .membership-card .desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:28px;flex:1}
 .membership-card .btn{width:100%;background:transparent;border:1px solid var(--line);color:var(--text);padding:12px}
 .membership-card .btn:hover,.membership-card.featured .btn{background:var(--teal);color:#080808;border-color:var(--teal)}
-.membership-cta{margin-top:48px;padding:40px;background:var(--teal-dim);border:1px solid rgba(26,191,170,.25);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.membership-cta{margin-top:48px;padding:40px;background:var(--teal-dim);border:1px solid rgba(53,179,168,.25);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .membership-cta p{font-size:15px;font-weight:300;color:var(--muted);max-width:500px;line-height:1.7}
 .membership-cta strong{color:var(--text)}
 .corporate{padding:100px 40px;border-top:1px solid var(--line);position:relative;overflow:hidden}
@@ -244,7 +251,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .kids-tab{background:var(--bg3);border:1px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:10px 20px;transition:all .2s;font-family:var(--sans);cursor:pointer}
 .kids-tab.active,.kids-tab:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
 .kids-panel p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:14px}
-.kids-age-tag{background:var(--teal-dim);border:1px solid rgba(26,191,170,.3);padding:8px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:600}
+.kids-age-tag{background:var(--teal-dim);border:1px solid rgba(53,179,168,.3);padding:8px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:600}
 .social{padding:100px 40px;border-top:1px solid var(--line)}
 .social-container{max-width:1200px;margin:0 auto}
 .social-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
@@ -271,7 +278,8 @@ button{cursor:pointer;font-family:var(--sans)}
 .contact-social-row a{font-size:13px;color:var(--muted);transition:color .2s}
 .contact-social-row a:hover{color:var(--teal)}
 .contact-btns{display:flex;gap:10px;flex-wrap:wrap}
-#map{height:420px;width:100%;border:1px solid var(--line);filter:grayscale(80%) invert(88%) contrast(85%)}
+#map{height:420px;width:100%;border:1px solid var(--line);filter:grayscale(40%) contrast(90%)}
+body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
 .footer{padding:60px 40px 32px;border-top:1px solid var(--line)}
 .footer-container{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;gap:40px;margin-bottom:48px}
 .footer-logo{font-family:var(--display);font-size:22px;letter-spacing:.14em;margin-bottom:4px}
@@ -352,14 +360,14 @@ button{cursor:pointer;font-family:var(--sans)}
 }
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 26px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--sans);position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .btn-primary{background:var(--teal);color:#080808;transition:background .25s,transform .2s,box-shadow .25s;animation:ctaPulse 2.8s ease-in-out infinite}
-@keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(26,191,170,0.5)}50%{box-shadow:0 0 0 10px rgba(26,191,170,0)}100%{box-shadow:0 0 0 0 rgba(26,191,170,0)}}
+@keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(53,179,168,0.5)}50%{box-shadow:0 0 0 10px rgba(53,179,168,0)}100%{box-shadow:0 0 0 0 rgba(53,179,168,0)}}
 .btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transform:skewX(-20deg);animation:shineSweep 3.5s ease-in-out infinite}
 @keyframes shineSweep{0%{left:-100%}40%{left:140%}100%{left:140%}}
 .btn-primary:active{transform:scale(0.96);animation:none;box-shadow:none}
 .btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(240,237,230,0.22);transition:border-color .25s,background .25s,transform .2s}
 .btn-ghost:active{transform:scale(0.96)}
 @media(hover:hover){
-  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(26,191,170,0.35)}
+  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(53,179,168,0.35)}
   .btn-ghost:hover{border-color:rgba(240,237,230,0.6);background:rgba(240,237,230,0.05);transform:translateY(-2px)}
 }
 .nav-cta{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--teal);color:#080808;border:none;padding:11px 22px;cursor:pointer;font-family:var(--sans);position:relative;overflow:hidden;animation:ctaPulse 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
@@ -387,7 +395,7 @@ button{cursor:pointer;font-family:var(--sans)}
 @keyframes scrollPulse{0%,100%{opacity:.3;transform:translateX(0)}50%{opacity:.7;transform:translateX(5px)}}
 @media(hover:hover){
   .value-card{transition:border-color .25s,transform .25s ease,background .25s}
-  .value-card:hover{transform:translateY(-5px);background:rgba(26,191,170,0.06)}
+  .value-card:hover{transform:translateY(-5px);background:rgba(53,179,168,0.06)}
   .schedule-card{transition:border-color .2s,background .2s,transform .2s ease}
   .schedule-card:hover{transform:translateX(5px)}
   .class-card{transition:border-color .2s,transform .25s ease}
@@ -399,7 +407,7 @@ button{cursor:pointer;font-family:var(--sans)}
 @media(max-width:768px){
   .btn,.nav-cta,.mobile-cta,.schedule-book,.membership-card .btn{min-height:48px}
   .schedule-card:active{background:var(--teal-dim)}
-  .value-card:active{background:rgba(26,191,170,0.06)}
+  .value-card:active{background:rgba(53,179,168,0.06)}
 }
 .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;background:var(--line);border:1px solid var(--line);margin-bottom:32px}
 .week-col{background:var(--bg2);display:flex;flex-direction:column}
@@ -415,6 +423,23 @@ button{cursor:pointer;font-family:var(--sans)}
 .schedule-view-toggle{display:flex;gap:2px;margin-left:auto}
 .view-btn{background:var(--bg3);border:1px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 18px;font-family:var(--sans);cursor:pointer;transition:all .2s}
 .view-btn.active,.view-btn:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
+
+/* ACCORDION — class cards */
+.class-card-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px;cursor:pointer;user-select:none}
+.class-card-header-left{flex:1}
+.class-card-chevron{flex-shrink:0;color:var(--muted);transition:transform .3s ease,color .2s}
+.class-card.open .class-card-chevron{transform:rotate(180deg);color:var(--teal)}
+.class-card-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(0.22,1,0.36,1)}
+.class-card.open .class-card-body{max-height:600px}
+.class-card-inner{padding:0 24px 24px}
+.class-card-inner p{font-size:13px;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:16px}
+.class-card-inner .btn{width:100%}
+/* Override existing class-card img height for accordion */
+.class-card img{height:180px}
+
+/* THEME TOGGLE */
+.theme-btn{background:transparent;border:1px solid var(--line);color:var(--text);font-size:15px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s;flex-shrink:0}
+.theme-btn:hover{border-color:var(--teal)}
 </style>
 </head>
 <body>
@@ -423,7 +448,7 @@ button{cursor:pointer;font-family:var(--sans)}
   <div class="modal-box">
     <button class="modal-close" id="modal-close">&times;</button>
     <h3 data-i18n="modal_title">BOKA PROVPASS</h3>
-    <p class="modal-sub" data-i18n="modal_sub">Boka ett provpass för 200 kr, ingen utrustning behövs. Vi återkommer inom 24 timmar.</p>
+    <p class="modal-sub" data-i18n="modal_sub">Prova ditt första pass för 200 kr. Vi återkommer inom 24 timmar.</p>
     <form class="modal-form" name="provpass" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="netlify-form">
       <input type="hidden" name="form-name" value="provpass"/>
       <p style="display:none"><label>Fyll inte i detta: <input name="bot-field"/></label></p>
@@ -448,7 +473,7 @@ button{cursor:pointer;font-family:var(--sans)}
 
 <nav class="navbar" id="navbar">
   <a href="#" class="nav-logo">
-    <img src="masters_gym_logo.png" alt="Masters Gym" style="height:44px;width:auto">
+    <img src="MastersGymLogo.png" alt="Masters Gym" style="height:44px;width:auto">
     <div class="nav-logo-text">
       <span class="nav-logo-main">MASTERS GYM</span>
       <span class="nav-logo-sub" data-i18n="nav_tagline">Kick- & Thaiboxning · Stockholm 2016</span>
@@ -463,8 +488,9 @@ button{cursor:pointer;font-family:var(--sans)}
     <li><a href="#corporate" data-i18n="nav_corporate">Företag</a></li>
     <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:12px">
+  <div style="display:flex;align-items:center;gap:10px">
     <button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">🌙</button>
     <button class="nav-cta open-modal" data-i18n="nav_cta_trial">Boka provpass</button>
     <a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" rel="noopener noreferrer" class="nav-cta" data-i18n="nav_cta_member" style="text-decoration:none">Bli medlem</a>
   </div>
@@ -473,6 +499,10 @@ button{cursor:pointer;font-family:var(--sans)}
 
 <div class="mobile-menu" id="mobile-menu">
   <button class="mobile-menu-close" id="mobile-close">&times;</button>
+  <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+    <button class="lang-btn" style="font-size:12px;padding:10px 20px" onclick="toggleLang()">EN</button>
+    <button class="theme-btn" id="theme-btn-mobile" onclick="toggleTheme()">🌙</button>
+  </div>
   <a href="#about" class="mobile-link" data-i18n="nav_about">Om oss</a>
   <a href="#classes" class="mobile-link" data-i18n="nav_classes">Våra pass</a>
   <a href="#kids" class="mobile-link" data-i18n="nav_kids">Barn & Junior</a>
@@ -480,7 +510,6 @@ button{cursor:pointer;font-family:var(--sans)}
   <a href="#memberships" class="mobile-link" data-i18n="nav_memberships">Medlemskap</a>
   <a href="#corporate" class="mobile-link" data-i18n="nav_corporate">Företag</a>
   <a href="#contact" class="mobile-link" data-i18n="nav_contact">Kontakt</a>
-  <button class="lang-btn" style="margin-bottom:8px;font-size:12px;padding:10px 20px" onclick="toggleLang()">EN</button>
   <div class="mobile-cta-wrap">
     <button class="mobile-cta open-modal" data-i18n="nav_cta_trial">Boka provpass</button>
     <a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" rel="noopener noreferrer" class="mobile-cta ghost" data-i18n="nav_cta_member">Bli medlem</a>
@@ -657,11 +686,105 @@ button{cursor:pointer;font-family:var(--sans)}
     <p class="section-label" data-i18n="classes_label">Träning</p>
     <h2 class="section-title reveal" data-i18n="classes_h2">VÅRA PASS</h2>
     <div class="classes-grid reveal-stagger">
-      <div class="class-card"><img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&q=80&fit=crop" alt=""><div class="class-card-body"><span class="class-card-tag" data-i18n="class1_tag">Nivå 1 & 2 · Alla välkomna</span><h3 data-i18n="class1_title">NYBÖRJARPASS</h3><p data-i18n="class1_text">Fokus på grunderna — sparkar, slag och fotarbete, blandat med kondition, styrka och smidighet.</p><div class="class-equipment" data-i18n="class1_equip">Handskar finns att låna. Lindor rekommenderas.</div><button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button></div></div>
-      <div class="class-card"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt=""><div class="class-card-body"><span class="class-card-tag" data-i18n="class2_tag">Min. 2 terminer</span><h3 data-i18n="class2_title">FORTSÄTTNINGSPASS</h3><p data-i18n="class2_text">Längre kombinationer, sparringövningar och lätt fri sparring.</p><div class="class-equipment" data-i18n="class2_equip">Egna handskar, benskydd och lindor krävs.</div><button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button></div></div>
-      <div class="class-card"><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt=""><div class="class-card-body"><span class="class-card-tag" data-i18n="class3_tag">På inbjudan</span><h3 data-i18n="class3_title">TÄVLINGSGRUPP</h3><p data-i18n="class3_text">Prata med Thamer om hur du bäst når dina mål att tävla.</p><div class="class-equipment" data-i18n="class3_equip"></div><button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button></div></div>
-      <div class="class-card"><img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=80&fit=crop" alt=""><div class="class-card-body"><span class="class-card-tag" data-i18n="class4_tag">Alla nivåer</span><h3 data-i18n="class4_title">FYSPASS</h3><p data-i18n="class4_text">Funktionell träning med fokus på hela kroppen — du kommer svettas och ha roligt!</p><div class="class-equipment" data-i18n="class4_equip">Träningen sker barfota. Ta med vattenflaska.</div><button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button></div></div>
-      <div class="class-card class-card-pt"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80&fit=crop" alt=""><div class="class-card-body"><span class="class-card-tag" data-i18n="class5_tag">Personlig träning</span><h3 data-i18n="class5_title">PT MED THAMER</h3><p data-i18n="class5_text">Från amatör till elitnivå. Boka via kontaktformuläret.</p><div class="pt-prices"><div class="pt-price-row"><span data-i18n="pt1_label">1 timme</span><strong>1 000 kr</strong></div><div class="pt-price-row"><span data-i18n="pt2_label">5 × 1 timme</span><strong>4 750 kr</strong></div><div class="pt-price-row"><span data-i18n="pt3_label">10 × 1 timme</span><strong>9 000 kr</strong></div><div class="pt-divider"></div><div class="pt-sub" data-i18n="pt_kids_label">PT för barn</div><div class="pt-price-row"><span data-i18n="pt4_label">1 timme</span><strong>450 kr</strong></div><div class="pt-price-row"><span data-i18n="pt5_label">5 × 1 timme</span><strong>2 000 kr</strong></div><div class="pt-price-row"><span data-i18n="pt6_label">10 × 1 timme</span><strong>3 500 kr</strong></div></div><button class="btn btn-ghost open-modal" data-i18n="pt_cta">Boka PT-pass</button></div></div>
+
+      <div class="class-card">
+        <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&q=80&fit=crop" alt="">
+        <div class="class-card-header">
+          <div class="class-card-header-left">
+            <span class="class-card-tag" data-i18n="class1_tag">Nivå 1 &amp; 2 · Alla välkomna</span>
+            <h3 data-i18n="class1_title">NYBÖRJARPASS</h3>
+          </div>
+          <svg class="class-card-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="class-card-body">
+          <div class="class-card-inner">
+            <p data-i18n="class1_text">Fokus på grunderna — sparkar, slag och fotarbete, blandat med kondition, styrka och smidighet.</p>
+            <div class="class-equipment" data-i18n="class1_equip">Handskar finns att låna. Lindor rekommenderas.</div>
+            <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="class-card">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt="">
+        <div class="class-card-header">
+          <div class="class-card-header-left">
+            <span class="class-card-tag" data-i18n="class2_tag">Min. 2 terminer</span>
+            <h3 data-i18n="class2_title">FORTSÄTTNINGSPASS</h3>
+          </div>
+          <svg class="class-card-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="class-card-body">
+          <div class="class-card-inner">
+            <p data-i18n="class2_text">Längre kombinationer, sparringövningar och lätt fri sparring.</p>
+            <div class="class-equipment" data-i18n="class2_equip">Egna handskar, benskydd och lindor krävs.</div>
+            <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="class-card">
+        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt="">
+        <div class="class-card-header">
+          <div class="class-card-header-left">
+            <span class="class-card-tag" data-i18n="class3_tag">På inbjudan</span>
+            <h3 data-i18n="class3_title">TÄVLINGSGRUPP</h3>
+          </div>
+          <svg class="class-card-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="class-card-body">
+          <div class="class-card-inner">
+            <p data-i18n="class3_text">Prata med Thamer om hur du bäst når dina mål att tävla.</p>
+            <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="class-card">
+        <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=80&fit=crop" alt="">
+        <div class="class-card-header">
+          <div class="class-card-header-left">
+            <span class="class-card-tag" data-i18n="class4_tag">Alla nivåer</span>
+            <h3 data-i18n="class4_title">FYSPASS</h3>
+          </div>
+          <svg class="class-card-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="class-card-body">
+          <div class="class-card-inner">
+            <p data-i18n="class4_text">Funktionell träning med fokus på hela kroppen — du kommer svettas och ha roligt!</p>
+            <div class="class-equipment" data-i18n="class4_equip">Träningen sker barfota. Ta med vattenflaska.</div>
+            <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="class-card class-card-pt">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80&fit=crop" alt="">
+        <div class="class-card-header">
+          <div class="class-card-header-left">
+            <span class="class-card-tag" data-i18n="class5_tag">Personlig träning</span>
+            <h3 data-i18n="class5_title">PT MED THAMER</h3>
+          </div>
+          <svg class="class-card-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="class-card-body">
+          <div class="class-card-inner">
+            <p data-i18n="class5_text">Från amatör till elitnivå. Boka via kontaktformuläret.</p>
+            <div class="pt-prices">
+              <div class="pt-price-row"><span data-i18n="pt1_label">1 timme</span><strong>1 000 kr</strong></div>
+              <div class="pt-price-row"><span data-i18n="pt2_label">5 × 1 timme</span><strong>4 750 kr</strong></div>
+              <div class="pt-price-row"><span data-i18n="pt3_label">10 × 1 timme</span><strong>9 000 kr</strong></div>
+              <div class="pt-divider"></div>
+              <div class="pt-sub" data-i18n="pt_kids_label">PT för barn</div>
+              <div class="pt-price-row"><span data-i18n="pt4_label">1 timme</span><strong>450 kr</strong></div>
+              <div class="pt-price-row"><span data-i18n="pt5_label">5 × 1 timme</span><strong>2 000 kr</strong></div>
+              <div class="pt-price-row"><span data-i18n="pt6_label">10 × 1 timme</span><strong>3 500 kr</strong></div>
+            </div>
+            <button class="btn btn-ghost open-modal" data-i18n="pt_cta">Boka PT-pass</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -785,7 +908,21 @@ button{cursor:pointer;font-family:var(--sans)}
         <div class="contact-row"><span class="contact-label">Mail</span><p><a href="mailto:repan@mastersgym.se" style="color:var(--text);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text)'">repan@mastersgym.se</a></p></div>
         <div class="contact-row"><span class="contact-label" data-i18n="contact_hours_label">Öppettider</span><p data-i18n="contact_hours">Öppet 30 min innan första passet och 30 min efter sista passet</p></div>
       </div>
-      <div class="contact-btns">
+      <div class="contact-social-row" style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:24px">
+        <a href="https://instagram.com/mastersgymstockholm" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.facebook.com/mastersgymsweden" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+        <a href="https://www.tiktok.com/@mastersgym" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+          TikTok
+        </a>
+      </div>
+      <div cla<div class="contact-btns">
         <button class="btn btn-primary open-modal" data-i18n="book_trial">Boka provpass</button>
         <a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" data-i18n="join_gymcontrol">Bli medlem →</a>
         <a href="https://maps.google.com/?q=Norra+Agnegatan+36+Stockholm" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" data-i18n="open_maps">Öppna i Maps</a>
@@ -847,8 +984,8 @@ document.getElementById('netlify-form').addEventListener('submit',function(e){
   btn.textContent='...';btn.disabled=true;
   const formData=new FormData(this);
   fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(formData).toString()})
-  .then(()=>{btn.textContent='Skickat! Vi hör av oss snart.';btn.style.background='rgba(26,191,170,0.2)';btn.style.color='var(--teal)';setTimeout(closeModal,2200);})
-  .catch(()=>{btn.textContent='Skickat! Vi hör av oss snart.';btn.style.background='rgba(26,191,170,0.2)';btn.style.color='var(--teal)';setTimeout(closeModal,2200);});
+  .then(()=>{btn.textContent='Skickat! Vi hör av oss snart.';btn.style.background='rgba(53,179,168,0.2)';btn.style.color='var(--teal)';setTimeout(closeModal,2200);})
+  .catch(()=>{btn.textContent='Skickat! Vi hör av oss snart.';btn.style.background='rgba(53,179,168,0.2)';btn.style.color='var(--teal)';setTimeout(closeModal,2200);});
 });
 
 function parseCSV(text){
@@ -958,7 +1095,7 @@ const mapEl=document.getElementById('map');
 if(mapEl){
   const map=L.map('map',{scrollWheelZoom:false}).setView([59.3293,18.0440],15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
-  const icon=L.divIcon({className:'',html:'<div style="width:14px;height:14px;background:#1ABFAA;border-radius:50%;border:2px solid #080808;box-shadow:0 0 0 4px rgba(26,191,170,0.3);"></div>',iconSize:[14,14],iconAnchor:[7,7]});
+  const icon=L.divIcon({className:'',html:'<div style="width:14px;height:14px;background:#35B3A8;border-radius:50%;border:2px solid #080808;box-shadow:0 0 0 4px rgba(53,179,168,0.3);"></div>',iconSize:[14,14],iconAnchor:[7,7]});
   L.marker([59.3293,18.0440],{icon}).addTo(map).bindPopup('<strong>Masters Gym Stockholm</strong><br>Norra Agnegatan 36').openPopup();
 }
 
@@ -977,7 +1114,7 @@ function addScheduleAnimations(){
   });
 }
 
-const translations={sv:{nav_tagline:'Kick- & Thaiboxning · Stockholm 2016',nav_about:'Om oss',nav_classes:'Våra pass',nav_kids:'Barn & Junior',nav_schedule:'Schema',nav_memberships:'Medlemskap',nav_corporate:'Företag',nav_contact:'Kontakt',nav_cta_trial:'Boka provpass',nav_cta_member:'Bli medlem',modal_title:'BOKA PROVPASS',modal_sub:'Prova ditt första pass kostnadsfritt. Vi återkommer inom 24 timmar.',modal_name:'Ditt namn',modal_email:'E-postadress',modal_phone:'Telefonnummer (valfritt)',modal_select:'Vilket pass intresserar dig?',modal_opt1:'Kickboxning — nybörjare',modal_opt2:'Thaiboxning — nybörjare',modal_opt3:'Boxning',modal_opt4:'Fyspass',modal_opt5:'Barnträning',modal_opt6:'Företagsträning',modal_opt7:'Vet inte ännu',modal_submit:'Skicka förfrågan →',modal_note:'Ingen bindningstid. Ingen utrustning behövs.',modal_sent:'Skickat! Vi hör av oss snart.',hero_eyebrow:'Stockholm · Kungsholmen · Est. 2016',hero_everybody:'EVERYBODY',hero_desc:'Kick- och thaiboxning för alla nivåer. Från nybörjare till världsmästare.',scroll:'Scroll',mq1:'HARD WORK • RESPECT • COMMUNITY • EVERYBODY IS EQUAL •',mq2:'MASTERS GYM STOCKHOLM • NORRA AGNEGATAN 36 • KUNGSHOLMEN • GRUNDAT 2016 •',values_label:'Våra värderingar',values_h2:'DISCIPLINE.\nRESPECT.\nCOMMUNITY.',val1_title:'HARD WORK',val1_text:'Oavsett vad ditt mål är hjälper vi dig att nå det.',val2_title:'RESPECT',val2_text:'Alla är välkomna oavsett nivå eller bakgrund.',val3_title:'COMMUNITY',val3_text:'Kom och skaffa vänner för livet.',about_bar:'MASTERS GYM · STOCKHOLM · 2016',about_label:'Om Masters Gym',about_h2:'MER ÄN ETT GYM',about_tagline:'"See you soon, champion!"',about_p1:'Masters Gym grundades 2016 i Kungsholmen och utnämndes till bästa klubb av Svenska Kickboxningsförbundet både 2017 och 2018.',about_p2:'Vi har några av Sveriges bästa tränare. Vår Sofia är landslagsfighter.',about_p3:'Norra Agnegatan 36, 10 min från Centralstationen. T-bana: Rådhuset.',stat1:'Grundat',stat2:'Bästa klubb',stat3_num:'Alla',stat3:'Nivåer välkomna',test1_quote:'"Masters Gym är som min extra familj."',test1_author:'— Medlem',test2_quote:'"Min son önskar att det var barnträning varje dag."',test2_author:'— Mamma till en av våra yngsta',coach_bar:'MASTERS GYM · HEAD COACH',coach_label:'Head Coach',coach_text:'Thamer är huvudtränaren på Masters Gym med imponerande internationell meritlista.',coach_quote:'"Jag älskar kickboxning. Det ger självförtroende och vänner för livet!"',ct1:'Iraq Champion',ct2:'Arabian Champion',ct3:'Fighter of the Year',ct4:'World Cup Champion — Pro Muay Thai',ct5:'World Cup Champion — Amatör Kickboxning',ct6:'Master of Muay Thai (Ajarn)',coach_intl:'Internationella tävlingar i Thailand, Ukraina, Italien, Serbien m.fl.',coaches_link:'Se alla instruktörer →',coaches_label:'Instruktörer',coaches_h2:'VÅRT TEAM',coach_badge_head:'Head Coach',coach_badge_coach:'Coach',coach_role_thamer:'Grundare & Head Coach',coach_bio_thamer:'Grundare av Masters Gym. Iraq Champion, Arabian Champion, World Cup 2003, Ajarn 2009.',coach_role_andy:'Kickboxning & Thaiboxning',coach_bio_andy:'Andy har tränat kampsport i snart 10 år.',coach_role_christian:'Instruktör',coach_bio_christian:'Mer info kommer snart.',coach_role_tanja:'Instruktör',coach_bio_tanja:'Mer info kommer snart.',coach_role_joonas:'Barnträning',coach_bio_joonas:'Ansvarig för barnträningen sedan 2014.',fight_label:'Tävling',fight_h2:'FIGHT TEAM',fight1_tag:'Medaljer',fight1_title:'CHAMPIONS',fight1_text:'Bästa klubb 2017 & 2018.',fight2_tag:'Fighters',fight2_title:'FIGHT TEAM',fight2_text:'Sofia — landslagsfighter.',fight3_tag:'Events',fight3_title:'GALOR',fight3_text:'Vi arrangerar tävlingar och galor.',classes_label:'Träning',classes_h2:'VÅRA PASS',class1_tag:'Nivå 1 & 2 · Alla välkomna',class1_title:'NYBÖRJARPASS',class1_text:'Grunderna — sparkar, slag, fotarbete och kondition.',class1_equip:'Handskar finns att låna.',class2_tag:'Min. 2 terminer',class2_title:'FORTSÄTTNINGSPASS',class2_text:'Längre kombinationer och lätt sparring.',class2_equip:'Egna handskar och benskydd.',class3_tag:'På inbjudan',class3_title:'TÄVLINGSGRUPP',class3_text:'Prata med Thamer.',class3_equip:'',class4_tag:'Alla nivåer',class4_title:'FYSPASS',class4_text:'Funktionell träning för alla.',class4_equip:'Träningen sker barfota.',class5_tag:'Personlig träning',class5_title:'PT MED THAMER',class5_text:'Från amatör till elitnivå.',pt1_label:'1 timme',pt2_label:'5 × 1 timme',pt3_label:'10 × 1 timme',pt_kids_label:'PT för barn',pt4_label:'1 timme',pt5_label:'5 × 1 timme',pt6_label:'10 × 1 timme',pt_cta:'Boka PT-pass',book_trial:'Boka provpass',book_arrow:'Boka →',schedule_h2:'SCHEMA',schedule_loading:'Laddar schema...',schedule_note:'Schemat uppdateras varje säsong.',schedule_full:'Se fullständigt schema →',memberships_label:'Priser',memberships_h2:'MEDLEMSKAP',mem1_ribbon:'Prova på',mem1_title:'Provpass',mem1_price:'200 kr',mem1_desc:'Prova utan att binda dig.',mem2_ribbon:'Bäst värde',mem2_title:'Autogiro 12 mån',mem2_price:'649 kr / mån',mem2_desc:'Obegränsat. 12 mån.',mem3_ribbon:'Flexibelt',mem3_title:'Autogiro 6 mån',mem3_price:'699 kr / mån',mem3_desc:'Obegränsat. 6 mån.',mem4_ribbon:'Ungdom',mem4_title:'Junior',mem4_price:'599 kr / mån',mem4_desc:'Rabatterat för ungdomar.',mem5_ribbon:'10 pass',mem5_title:'Klippkort',mem5_price:'1 500 kr',mem5_desc:'10 pass utan slutdatum.',mem5_btn:'Köp klippkort →',mem6_ribbon:'Helår',mem6_title:'Årskort',mem6_price:'7 750 kr',mem6_desc:'Ett år i förskott.',mem6_btn:'Köp årskort →',join_gymcontrol:'Bli medlem →',mem_cta_text:'Osäker? Kom in på ett provpass för 200 kr.',corp_label:'För företag',corp_h2:'TRÄNA TILLSAMMANS. PRESTERA BÄTTRE.',corp_p1:'Skräddarsydda träningslösningar för företag och team.',corp_p2:'Morgonpass, teambuilding och lokalhyra.',corp_f1_title:'Morgonträning',corp_f1_text:'Frukost ingår.',corp_f2_title:'Teambuilding',corp_f2_text:'Svensexor, möhippor, kalas.',corp_f3_title:'Lokalhyra',corp_f3_text:'Hyr gymmet.',corp_f4_title:'Gruppass',corp_f4_text:'Vi anpassar.',corp_cta:'Kontakta oss för offert',kids_label:'Barn & junior',kids_h2:'TRÄNING FÖR UNGA UTÖVARE',kids_tab_barn:'Barn 6–11 år',kids_tab_junior:'Junior 12–15 år',kids_p1:'Strukturerad träning med respekt och disciplin.',kids_p2:'Säker miljö med erfarna tränare.',kids_junior_p1:'För ungdomar 12–15 år.',kids_junior_p2:'Möjlighet att avancera mot tävling.',kids_age1:'Barn 6–11 år',kids_age2:'Junior 12–15 år',kids_age3:'Terminskort',kids_cta:'Anmäl ditt barn',news_label:'Nyheter',news_h2:'SENASTE NYTT',social_h2:'FRÅN GYMMET',social_ig:'Instagram →',social_fb:'Facebook →',social_tt:'TikTok →',contact_h2:'KONTAKT',contact_sub:'Välkommen till oss i Kungsholmen.',contact_addr_label:'Adress',contact_metro_label:'T-bana',contact_metro:'Rådhuset (Röda linjen)',contact_phone_label:'Telefon',contact_social_label:'Sociala medier',contact_hours_label:'Öppettider',contact_hours:'30 min innan första passet och 30 min efter sista',open_maps:'Öppna i Maps',footer_sub:'Stockholm · Kick- & Thaiboxning · Est. 2016',footer_nav:'Navigera',footer_contact:'Kontakt',footer_copy:'© Masters Gym Stockholm 2026',footer_built:'Built by Stormie Performance'},en:{nav_tagline:'Kickboxing & Muay Thai · Stockholm 2016',nav_about:'About',nav_classes:'Classes',nav_kids:'Kids & Junior',nav_schedule:'Schedule',nav_memberships:'Memberships',nav_corporate:'Corporate',nav_contact:'Contact',nav_cta_trial:'Book trial class',nav_cta_member:'Join now',modal_title:'BOOK A TRIAL CLASS',modal_sub:"Try your first class for free. We'll get back to you within 24 hours.",modal_name:'Your name',modal_email:'Email address',modal_phone:'Phone (optional)',modal_select:'Which class interests you?',modal_opt1:'Kickboxing — beginner',modal_opt2:'Muay Thai — beginner',modal_opt3:'Boxing',modal_opt4:'Fitness class',modal_opt5:'Kids training',modal_opt6:'Corporate training',modal_opt7:"Not sure yet",modal_submit:'Send request →',modal_note:'No commitment. No equipment needed.',modal_sent:"Sent! We'll be in touch soon.",hero_eyebrow:'Stockholm · Kungsholmen · Est. 2016',hero_everybody:'EVERYBODY',hero_desc:'Kickboxing and Muay Thai for all levels. From beginner to world champion.',scroll:'Scroll',mq1:'HARD WORK • RESPECT • COMMUNITY • EVERYBODY IS EQUAL •',mq2:'MASTERS GYM STOCKHOLM • NORRA AGNEGATAN 36 • KUNGSHOLMEN • FOUNDED 2016 •',values_label:'Our values',values_h2:'DISCIPLINE.\nRESPECT.\nCOMMUNITY.',val1_title:'HARD WORK',val1_text:'No matter your goal, we help you achieve it.',val2_title:'RESPECT',val2_text:'Everyone is welcome regardless of background.',val3_title:'COMMUNITY',val3_text:'Come and make friends for life.',about_bar:'MASTERS GYM · STOCKHOLM · 2016',about_label:'About Masters Gym',about_h2:'MORE THAN A GYM',about_tagline:'"See you soon, champion!"',about_p1:'Founded in 2016 in Kungsholmen. Named best club by the Swedish Kickboxing Federation in 2017 and 2018.',about_p2:"Some of Sweden's best coaches. Sofia is a national team fighter.",about_p3:'Norra Agnegatan 36, 10 min from Central Station. Metro: Rådhuset.',stat1:'Founded',stat2:'Best club',stat3_num:'All',stat3:'Levels welcome',test1_quote:'"Masters Gym is like my second family."',test1_author:'— Member',test2_quote:'"My son wishes there was kids training every day."',test2_author:'— Mother of one of our youngest',coach_bar:'MASTERS GYM · HEAD COACH',coach_label:'Head Coach',coach_text:'Thamer is the head coach with an impressive international record.',coach_quote:'"I love kickboxing. It builds confidence and friends for life!"',ct1:'Iraq Champion',ct2:'Arabian Champion',ct3:'Fighter of the Year',ct4:'World Cup Champion — Pro Muay Thai',ct5:'World Cup Champion — Amateur Kickboxing',ct6:'Master of Muay Thai (Ajarn)',coach_intl:'International competitions in Thailand, Ukraine, Italy, Serbia and more.',coaches_link:'Meet all coaches →',coaches_label:'Coaches',coaches_h2:'OUR TEAM',coach_badge_head:'Head Coach',coach_badge_coach:'Coach',coach_role_thamer:'Founder & Head Coach',coach_bio_thamer:'Founder with an impressive international record.',coach_role_andy:'Kickboxing & Muay Thai',coach_bio_andy:'Andy has trained martial arts for nearly 10 years.',coach_role_christian:'Coach',coach_bio_christian:'More info coming soon.',coach_role_tanja:'Coach',coach_bio_tanja:'More info coming soon.',coach_role_joonas:'Kids Training',coach_bio_joonas:'Responsible for kids training since 2014.',fight_label:'Competition',fight_h2:'FIGHT TEAM',fight1_tag:'Medals',fight1_title:'CHAMPIONS',fight1_text:'Best club 2017 & 2018.',fight2_tag:'Fighters',fight2_title:'FIGHT TEAM',fight2_text:'Sofia — national team fighter.',fight3_tag:'Events',fight3_title:'GALAS',fight3_text:'We organise competitions all season.',classes_label:'Training',classes_h2:'OUR CLASSES',class1_tag:'Level 1 & 2 · All welcome',class1_title:'BEGINNER CLASS',class1_text:'Fundamentals — kicks, punches, footwork and conditioning.',class1_equip:'Gloves available to borrow.',class2_tag:'Min. 2 terms',class2_title:'INTERMEDIATE CLASS',class2_text:'Longer combinations and light sparring.',class2_equip:'Own gloves and shin guards required.',class3_tag:'By invitation',class3_title:'COMPETITION GROUP',class3_text:'Talk to Thamer.',class3_equip:'',class4_tag:'All levels',class4_title:'FITNESS CLASS',class4_text:'Functional training for everyone.',class4_equip:'Training done barefoot.',class5_tag:'Personal training',class5_title:'PT WITH THAMER',class5_text:'Amateur to elite. Book via contact form.',pt1_label:'1 hour',pt2_label:'5 × 1 hour',pt3_label:'10 × 1 hour',pt_kids_label:'PT for kids',pt4_label:'1 hour',pt5_label:'5 × 1 hour',pt6_label:'10 × 1 hour',pt_cta:'Book PT session',book_trial:'Book trial class',book_arrow:'Book →',schedule_h2:'SCHEDULE',schedule_loading:'Loading schedule...',schedule_note:'Schedule changes each season.',schedule_full:'View full schedule →',memberships_label:'Pricing',memberships_h2:'MEMBERSHIPS',mem1_ribbon:'Trial',mem1_title:'Trial class',mem1_price:'200 SEK',mem1_desc:'Try a class with no commitment.',mem2_ribbon:'Best value',mem2_title:'Direct debit 12 mo',mem2_price:'649 SEK / mo',mem2_desc:'Unlimited. 12-month commitment.',mem3_ribbon:'Flexible',mem3_title:'Direct debit 6 mo',mem3_price:'699 SEK / mo',mem3_desc:'Unlimited. 6-month commitment.',mem4_ribbon:'Youth',mem4_title:'Junior',mem4_price:'599 SEK / mo',mem4_desc:'Discounted for young athletes.',mem5_ribbon:'10 classes',mem5_title:'Class pack',mem5_price:'1 500 SEK',mem5_desc:'10 classes, no expiry.',mem5_btn:'Buy class pack →',mem6_ribbon:'Full year',mem6_title:'Annual pass',mem6_price:'7 750 SEK',mem6_desc:'Pay upfront and save.',mem6_btn:'Buy annual pass →',join_gymcontrol:'Join now →',mem_cta_text:'Not sure? Come in for a trial class for 200 SEK.',corp_label:'For companies',corp_h2:'TRAIN TOGETHER. PERFORM BETTER.',corp_p1:'Tailored training solutions for companies and teams.',corp_p2:'Morning sessions, team building and venue hire.',corp_f1_title:'Morning training',corp_f1_text:'Breakfast included.',corp_f2_title:'Team building',corp_f2_text:'Stag dos, hen parties, celebrations.',corp_f3_title:'Venue hire',corp_f3_text:'Rent the gym.',corp_f4_title:'Group classes',corp_f4_text:'We adapt to your needs.',corp_cta:'Contact us for a quote',kids_label:'Kids & junior',kids_h2:'TRAINING FOR YOUNG ATHLETES',kids_tab_barn:'Kids 6–11 years',kids_tab_junior:'Junior 12–15 years',kids_p1:'Structured training with respect and discipline.',kids_p2:'Safe environment with experienced coaches.',kids_junior_p1:'For young people aged 12–15.',kids_junior_p2:'Opportunity to advance towards competition.',kids_age1:'Kids 6–11 years',kids_age2:'Junior 12–15 years',kids_age3:'Term passes',kids_cta:'Register your child',news_label:'News',news_h2:'LATEST NEWS',social_h2:'FROM THE GYM',social_ig:'Instagram →',social_fb:'Facebook →',social_tt:'TikTok →',contact_h2:'CONTACT',contact_sub:'Come train with us in Kungsholmen.',contact_addr_label:'Address',contact_metro_label:'Metro',contact_metro:'Rådhuset (Red line)',contact_phone_label:'Phone',contact_social_label:'Social media',contact_hours_label:'Opening hours',contact_hours:'30 min before first class and 30 min after last',open_maps:'Open in Maps',footer_sub:'Stockholm · Kickboxing & Muay Thai · Est. 2016',footer_nav:'Navigate',footer_contact:'Contact',footer_copy:'© Masters Gym Stockholm 2026',footer_built:'Built by Stormie Performance'}};
+const translations={sv:{nav_tagline:'Kick- & Thaiboxning · Stockholm 2016',nav_about:'Om oss',nav_classes:'Våra pass',nav_kids:'Barn & Junior',nav_schedule:'Schema',nav_memberships:'Medlemskap',nav_corporate:'Företag',nav_contact:'Kontakt',nav_cta_trial:'Boka provpass',nav_cta_member:'Bli medlem',modal_title:'BOKA PROVPASS',modal_sub:'Prova ditt första pass för 200 kr. Vi återkommer inom 24 timmar.',modal_name:'Ditt namn',modal_email:'E-postadress',modal_phone:'Telefonnummer (valfritt)',modal_select:'Vilket pass intresserar dig?',modal_opt1:'Kickboxning — nybörjare',modal_opt2:'Thaiboxning — nybörjare',modal_opt3:'Boxning',modal_opt4:'Fyspass',modal_opt5:'Barnträning',modal_opt6:'Företagsträning',modal_opt7:'Vet inte ännu',modal_submit:'Skicka förfrågan →',modal_note:'Ingen bindningstid. Ingen utrustning behövs.',modal_sent:'Skickat! Vi hör av oss snart.',hero_eyebrow:'Stockholm · Kungsholmen · Est. 2016',hero_everybody:'EVERYBODY',hero_desc:'Kick- och thaiboxning för alla nivåer. Från nybörjare till världsmästare.',scroll:'Scroll',mq1:'HARD WORK • RESPECT • COMMUNITY • EVERYBODY IS EQUAL •',mq2:'MASTERS GYM STOCKHOLM • NORRA AGNEGATAN 36 • KUNGSHOLMEN • GRUNDAT 2016 •',values_label:'Våra värderingar',values_h2:'DISCIPLINE.\nRESPECT.\nCOMMUNITY.',val1_title:'HARD WORK',val1_text:'Oavsett vad ditt mål är hjälper vi dig att nå det.',val2_title:'RESPECT',val2_text:'Alla är välkomna oavsett nivå eller bakgrund.',val3_title:'COMMUNITY',val3_text:'Kom och skaffa vänner för livet.',about_bar:'MASTERS GYM · STOCKHOLM · 2016',about_label:'Om Masters Gym',about_h2:'MER ÄN ETT GYM',about_tagline:'"See you soon, champion!"',about_p1:'Masters Gym grundades 2016 i Kungsholmen och utnämndes till bästa klubb av Svenska Kickboxningsförbundet både 2017 och 2018.',about_p2:'Vi har några av Sveriges bästa tränare. Vår Sofia är landslagsfighter.',about_p3:'Norra Agnegatan 36, 10 min från Centralstationen. T-bana: Rådhuset.',stat1:'Grundat',stat2:'Bästa klubb',stat3_num:'Alla',stat3:'Nivåer välkomna',test1_quote:'"Masters Gym är som min extra familj."',test1_author:'— Medlem',test2_quote:'"Min son önskar att det var barnträning varje dag."',test2_author:'— Mamma till en av våra yngsta',coach_bar:'MASTERS GYM · HEAD COACH',coach_label:'Head Coach',coach_text:'Thamer är huvudtränaren på Masters Gym med imponerande internationell meritlista.',coach_quote:'"Jag älskar kickboxning. Det ger självförtroende och vänner för livet!"',ct1:'Iraq Champion',ct2:'Arabian Champion',ct3:'Fighter of the Year',ct4:'World Cup Champion — Pro Muay Thai',ct5:'World Cup Champion — Amatör Kickboxning',ct6:'Master of Muay Thai (Ajarn)',coach_intl:'Internationella tävlingar i Thailand, Ukraina, Italien, Serbien m.fl.',coaches_link:'Se alla instruktörer →',coaches_label:'Instruktörer',coaches_h2:'VÅRT TEAM',coach_badge_head:'Head Coach',coach_badge_coach:'Coach',coach_role_thamer:'Grundare & Head Coach',coach_bio_thamer:'Grundare av Masters Gym. Iraq Champion, Arabian Champion, World Cup 2003, Ajarn 2009.',coach_role_andy:'Kickboxning & Thaiboxning',coach_bio_andy:'Andy har tränat kampsport i snart 10 år.',coach_role_christian:'Instruktör',coach_bio_christian:'Mer info kommer snart.',coach_role_tanja:'Instruktör',coach_bio_tanja:'Mer info kommer snart.',coach_role_joonas:'Barnträning',coach_bio_joonas:'Ansvarig för barnträningen sedan 2014.',fight_label:'Tävling',fight_h2:'FIGHT TEAM',fight1_tag:'Medaljer',fight1_title:'CHAMPIONS',fight1_text:'Bästa klubb 2017 & 2018.',fight2_tag:'Fighters',fight2_title:'FIGHT TEAM',fight2_text:'Sofia — landslagsfighter.',fight3_tag:'Events',fight3_title:'GALOR',fight3_text:'Vi arrangerar tävlingar och galor.',classes_label:'Träning',classes_h2:'VÅRA PASS',class1_tag:'Nivå 1 & 2 · Alla välkomna',class1_title:'NYBÖRJARPASS',class1_text:'Grunderna — sparkar, slag, fotarbete och kondition.',class1_equip:'Handskar finns att låna.',class2_tag:'Min. 2 terminer',class2_title:'FORTSÄTTNINGSPASS',class2_text:'Längre kombinationer och lätt sparring.',class2_equip:'Egna handskar och benskydd.',class3_tag:'På inbjudan',class3_title:'TÄVLINGSGRUPP',class3_text:'Prata med Thamer.',class3_equip:'',class4_tag:'Alla nivåer',class4_title:'FYSPASS',class4_text:'Funktionell träning för alla.',class4_equip:'Träningen sker barfota.',class5_tag:'Personlig träning',class5_title:'PT MED THAMER',class5_text:'Från amatör till elitnivå.',pt1_label:'1 timme',pt2_label:'5 × 1 timme',pt3_label:'10 × 1 timme',pt_kids_label:'PT för barn',pt4_label:'1 timme',pt5_label:'5 × 1 timme',pt6_label:'10 × 1 timme',pt_cta:'Boka PT-pass',book_trial:'Boka provpass',book_arrow:'Boka →',schedule_h2:'SCHEMA',schedule_loading:'Laddar schema...',schedule_note:'Schemat uppdateras varje säsong.',schedule_full:'Se fullständigt schema →',memberships_label:'Priser',memberships_h2:'MEDLEMSKAP',mem1_ribbon:'Prova på',mem1_title:'Provpass',mem1_price:'200 kr',mem1_desc:'Prova utan att binda dig.',mem2_ribbon:'Bäst värde',mem2_title:'Autogiro 12 mån',mem2_price:'649 kr / mån',mem2_desc:'Obegränsat. 12 mån.',mem3_ribbon:'Flexibelt',mem3_title:'Autogiro 6 mån',mem3_price:'699 kr / mån',mem3_desc:'Obegränsat. 6 mån.',mem4_ribbon:'Ungdom',mem4_title:'Junior',mem4_price:'599 kr / mån',mem4_desc:'Rabatterat för ungdomar.',mem5_ribbon:'10 pass',mem5_title:'Klippkort',mem5_price:'1 500 kr',mem5_desc:'10 pass utan slutdatum.',mem5_btn:'Köp klippkort →',mem6_ribbon:'Helår',mem6_title:'Årskort',mem6_price:'7 750 kr',mem6_desc:'Ett år i förskott.',mem6_btn:'Köp årskort →',join_gymcontrol:'Bli medlem →',mem_cta_text:'Osäker? Kom in på ett provpass för 200 kr.',corp_label:'För företag',corp_h2:'TRÄNA TILLSAMMANS. PRESTERA BÄTTRE.',corp_p1:'Skräddarsydda träningslösningar för företag och team.',corp_p2:'Morgonpass, teambuilding och lokalhyra.',corp_f1_title:'Morgonträning',corp_f1_text:'Frukost ingår.',corp_f2_title:'Teambuilding',corp_f2_text:'Svensexor, möhippor, kalas.',corp_f3_title:'Lokalhyra',corp_f3_text:'Hyr gymmet.',corp_f4_title:'Gruppass',corp_f4_text:'Vi anpassar.',corp_cta:'Kontakta oss för offert',kids_label:'Barn & junior',kids_h2:'TRÄNING FÖR UNGA UTÖVARE',kids_tab_barn:'Barn 6–11 år',kids_tab_junior:'Junior 12–15 år',kids_p1:'Strukturerad träning med respekt och disciplin.',kids_p2:'Säker miljö med erfarna tränare.',kids_junior_p1:'För ungdomar 12–15 år.',kids_junior_p2:'Möjlighet att avancera mot tävling.',kids_age1:'Barn 6–11 år',kids_age2:'Junior 12–15 år',kids_age3:'Terminskort',kids_cta:'Anmäl ditt barn',news_label:'Nyheter',news_h2:'SENASTE NYTT',social_h2:'FRÅN GYMMET',social_ig:'Instagram →',social_fb:'Facebook →',social_tt:'TikTok →',contact_h2:'KONTAKT',contact_sub:'Välkommen till oss i Kungsholmen.',contact_addr_label:'Adress',contact_metro_label:'T-bana',contact_metro:'Rådhuset (Röda linjen)',contact_phone_label:'Telefon',contact_social_label:'Sociala medier',contact_hours_label:'Öppettider',contact_hours:'30 min innan första passet och 30 min efter sista',open_maps:'Öppna i Maps',footer_sub:'Stockholm · Kick- & Thaiboxning · Est. 2016',footer_nav:'Navigera',footer_contact:'Kontakt',footer_copy:'© Masters Gym Stockholm 2026',footer_built:'Built by Stormie Performance'},en:{nav_tagline:'Kickboxing & Muay Thai · Stockholm 2016',nav_about:'About',nav_classes:'Classes',nav_kids:'Kids & Junior',nav_schedule:'Schedule',nav_memberships:'Memberships',nav_corporate:'Corporate',nav_contact:'Contact',nav_cta_trial:'Book trial class',nav_cta_member:'Join now',modal_title:'BOOK A TRIAL CLASS',modal_sub:'Try your first class for 200 SEK. We\'ll get back to you within 24 hours.',modal_name:'Your name',modal_email:'Email address',modal_phone:'Phone (optional)',modal_select:'Which class interests you?',modal_opt1:'Kickboxing — beginner',modal_opt2:'Muay Thai — beginner',modal_opt3:'Boxing',modal_opt4:'Fitness class',modal_opt5:'Kids training',modal_opt6:'Corporate training',modal_opt7:"Not sure yet",modal_submit:'Send request →',modal_note:'No commitment. No equipment needed.',modal_sent:"Sent! We'll be in touch soon.",hero_eyebrow:'Stockholm · Kungsholmen · Est. 2016',hero_everybody:'EVERYBODY',hero_desc:'Kickboxing and Muay Thai for all levels. From beginner to world champion.',scroll:'Scroll',mq1:'HARD WORK • RESPECT • COMMUNITY • EVERYBODY IS EQUAL •',mq2:'MASTERS GYM STOCKHOLM • NORRA AGNEGATAN 36 • KUNGSHOLMEN • FOUNDED 2016 •',values_label:'Our values',values_h2:'DISCIPLINE.\nRESPECT.\nCOMMUNITY.',val1_title:'HARD WORK',val1_text:'No matter your goal, we help you achieve it.',val2_title:'RESPECT',val2_text:'Everyone is welcome regardless of background.',val3_title:'COMMUNITY',val3_text:'Come and make friends for life.',about_bar:'MASTERS GYM · STOCKHOLM · 2016',about_label:'About Masters Gym',about_h2:'MORE THAN A GYM',about_tagline:'"See you soon, champion!"',about_p1:'Founded in 2016 in Kungsholmen. Named best club by the Swedish Kickboxing Federation in 2017 and 2018.',about_p2:"Some of Sweden's best coaches. Sofia is a national team fighter.",about_p3:'Norra Agnegatan 36, 10 min from Central Station. Metro: Rådhuset.',stat1:'Founded',stat2:'Best club',stat3_num:'All',stat3:'Levels welcome',test1_quote:'"Masters Gym is like my second family."',test1_author:'— Member',test2_quote:'"My son wishes there was kids training every day."',test2_author:'— Mother of one of our youngest',coach_bar:'MASTERS GYM · HEAD COACH',coach_label:'Head Coach',coach_text:'Thamer is the head coach with an impressive international record.',coach_quote:'"I love kickboxing. It builds confidence and friends for life!"',ct1:'Iraq Champion',ct2:'Arabian Champion',ct3:'Fighter of the Year',ct4:'World Cup Champion — Pro Muay Thai',ct5:'World Cup Champion — Amateur Kickboxing',ct6:'Master of Muay Thai (Ajarn)',coach_intl:'International competitions in Thailand, Ukraine, Italy, Serbia and more.',coaches_link:'Meet all coaches →',coaches_label:'Coaches',coaches_h2:'OUR TEAM',coach_badge_head:'Head Coach',coach_badge_coach:'Coach',coach_role_thamer:'Founder & Head Coach',coach_bio_thamer:'Founder with an impressive international record.',coach_role_andy:'Kickboxing & Muay Thai',coach_bio_andy:'Andy has trained martial arts for nearly 10 years.',coach_role_christian:'Coach',coach_bio_christian:'More info coming soon.',coach_role_tanja:'Coach',coach_bio_tanja:'More info coming soon.',coach_role_joonas:'Kids Training',coach_bio_joonas:'Responsible for kids training since 2014.',fight_label:'Competition',fight_h2:'FIGHT TEAM',fight1_tag:'Medals',fight1_title:'CHAMPIONS',fight1_text:'Best club 2017 & 2018.',fight2_tag:'Fighters',fight2_title:'FIGHT TEAM',fight2_text:'Sofia — national team fighter.',fight3_tag:'Events',fight3_title:'GALAS',fight3_text:'We organise competitions all season.',classes_label:'Training',classes_h2:'OUR CLASSES',class1_tag:'Level 1 & 2 · All welcome',class1_title:'BEGINNER CLASS',class1_text:'Fundamentals — kicks, punches, footwork and conditioning.',class1_equip:'Gloves available to borrow.',class2_tag:'Min. 2 terms',class2_title:'INTERMEDIATE CLASS',class2_text:'Longer combinations and light sparring.',class2_equip:'Own gloves and shin guards required.',class3_tag:'By invitation',class3_title:'COMPETITION GROUP',class3_text:'Talk to Thamer.',class3_equip:'',class4_tag:'All levels',class4_title:'FITNESS CLASS',class4_text:'Functional training for everyone.',class4_equip:'Training done barefoot.',class5_tag:'Personal training',class5_title:'PT WITH THAMER',class5_text:'Amateur to elite. Book via contact form.',pt1_label:'1 hour',pt2_label:'5 × 1 hour',pt3_label:'10 × 1 hour',pt_kids_label:'PT for kids',pt4_label:'1 hour',pt5_label:'5 × 1 hour',pt6_label:'10 × 1 hour',pt_cta:'Book PT session',book_trial:'Book trial class',book_arrow:'Book →',schedule_h2:'SCHEDULE',schedule_loading:'Loading schedule...',schedule_note:'Schedule changes each season.',schedule_full:'View full schedule →',memberships_label:'Pricing',memberships_h2:'MEMBERSHIPS',mem1_ribbon:'Trial',mem1_title:'Trial class',mem1_price:'200 SEK',mem1_desc:'Try a class with no commitment.',mem2_ribbon:'Best value',mem2_title:'Direct debit 12 mo',mem2_price:'649 SEK / mo',mem2_desc:'Unlimited. 12-month commitment.',mem3_ribbon:'Flexible',mem3_title:'Direct debit 6 mo',mem3_price:'699 SEK / mo',mem3_desc:'Unlimited. 6-month commitment.',mem4_ribbon:'Youth',mem4_title:'Junior',mem4_price:'599 SEK / mo',mem4_desc:'Discounted for young athletes.',mem5_ribbon:'10 classes',mem5_title:'Class pack',mem5_price:'1 500 SEK',mem5_desc:'10 classes, no expiry.',mem5_btn:'Buy class pack →',mem6_ribbon:'Full year',mem6_title:'Annual pass',mem6_price:'7 750 SEK',mem6_desc:'Pay upfront and save.',mem6_btn:'Buy annual pass →',join_gymcontrol:'Join now →',mem_cta_text:'Not sure? Come in for a trial class for 200 SEK.',corp_label:'For companies',corp_h2:'TRAIN TOGETHER. PERFORM BETTER.',corp_p1:'Tailored training solutions for companies and teams.',corp_p2:'Morning sessions, team building and venue hire.',corp_f1_title:'Morning training',corp_f1_text:'Breakfast included.',corp_f2_title:'Team building',corp_f2_text:'Stag dos, hen parties, celebrations.',corp_f3_title:'Venue hire',corp_f3_text:'Rent the gym.',corp_f4_title:'Group classes',corp_f4_text:'We adapt to your needs.',corp_cta:'Contact us for a quote',kids_label:'Kids & junior',kids_h2:'TRAINING FOR YOUNG ATHLETES',kids_tab_barn:'Kids 6–11 years',kids_tab_junior:'Junior 12–15 years',kids_p1:'Structured training with respect and discipline.',kids_p2:'Safe environment with experienced coaches.',kids_junior_p1:'For young people aged 12–15.',kids_junior_p2:'Opportunity to advance towards competition.',kids_age1:'Kids 6–11 years',kids_age2:'Junior 12–15 years',kids_age3:'Term passes',kids_cta:'Register your child',news_label:'News',news_h2:'LATEST NEWS',social_h2:'FROM THE GYM',social_ig:'Instagram →',social_fb:'Facebook →',social_tt:'TikTok →',contact_h2:'CONTACT',contact_sub:'Come train with us in Kungsholmen.',contact_addr_label:'Address',contact_metro_label:'Metro',contact_metro:'Rådhuset (Red line)',contact_phone_label:'Phone',contact_social_label:'Social media',contact_hours_label:'Opening hours',contact_hours:'30 min before first class and 30 min after last',open_maps:'Open in Maps',footer_sub:'Stockholm · Kickboxing & Muay Thai · Est. 2016',footer_nav:'Navigate',footer_contact:'Contact',footer_copy:'© Masters Gym Stockholm 2026',footer_built:'Built by Stormie Performance'}};
 
 let currentLang='sv';
 function toggleLang(){
@@ -998,12 +1135,43 @@ function applyTranslations(){
   if(select){select.querySelectorAll('option[data-i18n]').forEach(opt=>{const key=opt.getAttribute('data-i18n');if(t[key]!==undefined)opt.textContent=t[key];});}
 }
 
+function toggleTheme(){
+  const dark=document.body.classList.toggle('dark');
+  const icon=dark?'☀️':'🌙';
+  document.getElementById('theme-btn').textContent=icon;
+  const mob=document.getElementById('theme-btn-mobile');
+  if(mob)mob.textContent=icon;
+  localStorage.setItem('mg-theme',dark?'dark':'light');
+}
+// Apply saved theme on load
+(function(){
+  if(localStorage.getItem('mg-theme')==='dark'){
+    document.body.classList.add('dark');
+    document.addEventListener('DOMContentLoaded',function(){
+      const b=document.getElementById('theme-btn');
+      if(b)b.textContent='☀️';
+      const m=document.getElementById('theme-btn-mobile');
+      if(m)m.textContent='☀️';
+    });
+  }
+})();
+
 document.querySelectorAll('.kids-tab').forEach(tab=>{
   tab.addEventListener('click',()=>{
     document.querySelectorAll('.kids-tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
     document.querySelectorAll('.kids-panel').forEach(p=>p.style.display='none');
     document.getElementById('kids-panel-'+tab.dataset.tab).style.display='block';
+  });
+});
+
+// ACCORDION — class cards
+document.querySelectorAll('.class-card .class-card-header').forEach(header=>{
+  header.addEventListener('click',()=>{
+    const card=header.closest('.class-card');
+    const isOpen=card.classList.contains('open');
+    document.querySelectorAll('.class-card').forEach(c=>c.classList.remove('open'));
+    if(!isOpen)card.classList.add('open');
   });
 });
 </script>
