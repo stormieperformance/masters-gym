@@ -415,6 +415,19 @@ button{cursor:pointer;font-family:var(--sans)}
 .schedule-view-toggle{display:flex;gap:2px;margin-left:auto}
 .view-btn{background:var(--bg3);border:1px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 18px;font-family:var(--sans);cursor:pointer;transition:all .2s}
 .view-btn.active,.view-btn:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
+
+/* ACCORDION — class cards */
+.class-card-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px;cursor:pointer;user-select:none}
+.class-card-header-left{flex:1}
+.class-card-chevron{flex-shrink:0;color:var(--muted);transition:transform .3s ease,color .2s}
+.class-card.open .class-card-chevron{transform:rotate(180deg);color:var(--teal)}
+.class-card-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(0.22,1,0.36,1)}
+.class-card.open .class-card-body{max-height:600px}
+.class-card-inner{padding:0 24px 24px}
+.class-card-inner p{font-size:13px;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:16px}
+.class-card-inner .btn{width:100%}
+/* Override existing class-card img height for accordion */
+.class-card img{height:180px}
 </style>
 </head>
 <body>
@@ -492,7 +505,7 @@ button{cursor:pointer;font-family:var(--sans)}
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-eyebrow" data-i18n="hero_eyebrow">Stockholm · Kungsholmen · Est. 2016</p>
-    <h1>WHERE<br><span data-i18n="hero_everybody">EVERYBODY</span><br>IS EQUAL</h1>
+    <h1>A PLACE WHERE<br><span data-i18n="hero_everybody">EVERYBODY</span><br>IS EQUAL</h1>
     <p class="hero-desc" data-i18n="hero_desc">Kick- och thaiboxning för alla nivåer. Från nybörjare till världsmästare. Välkommen till Masters Gym.</p>
     <div class="hero-btns">
       <button class="btn btn-primary open-modal" data-i18n="nav_cta_trial">Boka provpass</button>
@@ -657,11 +670,105 @@ button{cursor:pointer;font-family:var(--sans)}
     <p class="section-label" data-i18n="classes_label">Träning</p>
     <h2 class="section-title reveal" data-i18n="classes_h2">VÅRA PASS</h2>
     <div class="classes-grid reveal-stagger">
-      <div class="class-card"><img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&q=80&fit=crop" alt=""><div class="class-card-body"><span class="class-card-tag" data-i18n="class1_tag">Nivå 1 & 2 · Alla välkomna</span><h3 data-i18n="class1_title">NYBÖRJARPASS</h3><p data-i18n="class1_text">Fokus på grunderna — sparkar, slag och fotarbete, blandat med kondition, styrka och smidighet.</p><div class="class-equipment" data-i18n="class1_equip">Handskar finns att låna. Lindor rekommenderas.</div><button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button></div></div>
-      <div class="class-card"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt=""><div class="class-card-body"><span class="class-card-tag" data-i18n="class2_tag">Min. 2 terminer</span><h3 data-i18n="class2_title">FORTSÄTTNINGSPASS</h3><p data-i18n="class2_text">Längre kombinationer, sparringövningar och lätt fri sparring.</p><div class="class-equipment" data-i18n="class2_equip">Egna handskar, benskydd och lindor krävs.</div><button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button></div></div>
-      <div class="class-card"><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt=""><div class="class-card-body"><span class="class-card-tag" data-i18n="class3_tag">På inbjudan</span><h3 data-i18n="class3_title">TÄVLINGSGRUPP</h3><p data-i18n="class3_text">Prata med Thamer om hur du bäst når dina mål att tävla.</p><div class="class-equipment" data-i18n="class3_equip"></div><button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button></div></div>
-      <div class="class-card"><img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=80&fit=crop" alt=""><div class="class-card-body"><span class="class-card-tag" data-i18n="class4_tag">Alla nivåer</span><h3 data-i18n="class4_title">FYSPASS</h3><p data-i18n="class4_text">Funktionell träning med fokus på hela kroppen — du kommer svettas och ha roligt!</p><div class="class-equipment" data-i18n="class4_equip">Träningen sker barfota. Ta med vattenflaska.</div><button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button></div></div>
-      <div class="class-card class-card-pt"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80&fit=crop" alt=""><div class="class-card-body"><span class="class-card-tag" data-i18n="class5_tag">Personlig träning</span><h3 data-i18n="class5_title">PT MED THAMER</h3><p data-i18n="class5_text">Från amatör till elitnivå. Boka via kontaktformuläret.</p><div class="pt-prices"><div class="pt-price-row"><span data-i18n="pt1_label">1 timme</span><strong>1 000 kr</strong></div><div class="pt-price-row"><span data-i18n="pt2_label">5 × 1 timme</span><strong>4 750 kr</strong></div><div class="pt-price-row"><span data-i18n="pt3_label">10 × 1 timme</span><strong>9 000 kr</strong></div><div class="pt-divider"></div><div class="pt-sub" data-i18n="pt_kids_label">PT för barn</div><div class="pt-price-row"><span data-i18n="pt4_label">1 timme</span><strong>450 kr</strong></div><div class="pt-price-row"><span data-i18n="pt5_label">5 × 1 timme</span><strong>2 000 kr</strong></div><div class="pt-price-row"><span data-i18n="pt6_label">10 × 1 timme</span><strong>3 500 kr</strong></div></div><button class="btn btn-ghost open-modal" data-i18n="pt_cta">Boka PT-pass</button></div></div>
+
+      <div class="class-card">
+        <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&q=80&fit=crop" alt="">
+        <div class="class-card-header">
+          <div class="class-card-header-left">
+            <span class="class-card-tag" data-i18n="class1_tag">Nivå 1 &amp; 2 · Alla välkomna</span>
+            <h3 data-i18n="class1_title">NYBÖRJARPASS</h3>
+          </div>
+          <svg class="class-card-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="class-card-body">
+          <div class="class-card-inner">
+            <p data-i18n="class1_text">Fokus på grunderna — sparkar, slag och fotarbete, blandat med kondition, styrka och smidighet.</p>
+            <div class="class-equipment" data-i18n="class1_equip">Handskar finns att låna. Lindor rekommenderas.</div>
+            <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="class-card">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt="">
+        <div class="class-card-header">
+          <div class="class-card-header-left">
+            <span class="class-card-tag" data-i18n="class2_tag">Min. 2 terminer</span>
+            <h3 data-i18n="class2_title">FORTSÄTTNINGSPASS</h3>
+          </div>
+          <svg class="class-card-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="class-card-body">
+          <div class="class-card-inner">
+            <p data-i18n="class2_text">Längre kombinationer, sparringövningar och lätt fri sparring.</p>
+            <div class="class-equipment" data-i18n="class2_equip">Egna handskar, benskydd och lindor krävs.</div>
+            <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="class-card">
+        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt="">
+        <div class="class-card-header">
+          <div class="class-card-header-left">
+            <span class="class-card-tag" data-i18n="class3_tag">På inbjudan</span>
+            <h3 data-i18n="class3_title">TÄVLINGSGRUPP</h3>
+          </div>
+          <svg class="class-card-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="class-card-body">
+          <div class="class-card-inner">
+            <p data-i18n="class3_text">Prata med Thamer om hur du bäst når dina mål att tävla.</p>
+            <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="class-card">
+        <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&q=80&fit=crop" alt="">
+        <div class="class-card-header">
+          <div class="class-card-header-left">
+            <span class="class-card-tag" data-i18n="class4_tag">Alla nivåer</span>
+            <h3 data-i18n="class4_title">FYSPASS</h3>
+          </div>
+          <svg class="class-card-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="class-card-body">
+          <div class="class-card-inner">
+            <p data-i18n="class4_text">Funktionell träning med fokus på hela kroppen — du kommer svettas och ha roligt!</p>
+            <div class="class-equipment" data-i18n="class4_equip">Träningen sker barfota. Ta med vattenflaska.</div>
+            <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="class-card class-card-pt">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80&fit=crop" alt="">
+        <div class="class-card-header">
+          <div class="class-card-header-left">
+            <span class="class-card-tag" data-i18n="class5_tag">Personlig träning</span>
+            <h3 data-i18n="class5_title">PT MED THAMER</h3>
+          </div>
+          <svg class="class-card-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="class-card-body">
+          <div class="class-card-inner">
+            <p data-i18n="class5_text">Från amatör till elitnivå. Boka via kontaktformuläret.</p>
+            <div class="pt-prices">
+              <div class="pt-price-row"><span data-i18n="pt1_label">1 timme</span><strong>1 000 kr</strong></div>
+              <div class="pt-price-row"><span data-i18n="pt2_label">5 × 1 timme</span><strong>4 750 kr</strong></div>
+              <div class="pt-price-row"><span data-i18n="pt3_label">10 × 1 timme</span><strong>9 000 kr</strong></div>
+              <div class="pt-divider"></div>
+              <div class="pt-sub" data-i18n="pt_kids_label">PT för barn</div>
+              <div class="pt-price-row"><span data-i18n="pt4_label">1 timme</span><strong>450 kr</strong></div>
+              <div class="pt-price-row"><span data-i18n="pt5_label">5 × 1 timme</span><strong>2 000 kr</strong></div>
+              <div class="pt-price-row"><span data-i18n="pt6_label">10 × 1 timme</span><strong>3 500 kr</strong></div>
+            </div>
+            <button class="btn btn-ghost open-modal" data-i18n="pt_cta">Boka PT-pass</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -784,6 +891,20 @@ button{cursor:pointer;font-family:var(--sans)}
         <div class="contact-row"><span class="contact-label" data-i18n="contact_phone_label">Telefon</span><p><a href="tel:+46709427280" style="color:var(--text);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text)'">0709-42 72 80</a></p></div>
         <div class="contact-row"><span class="contact-label">Mail</span><p><a href="mailto:repan@mastersgym.se" style="color:var(--text);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text)'">repan@mastersgym.se</a></p></div>
         <div class="contact-row"><span class="contact-label" data-i18n="contact_hours_label">Öppettider</span><p data-i18n="contact_hours">Öppet 30 min innan första passet och 30 min efter sista passet</p></div>
+      </div>
+      <div class="contact-social-row" style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:24px">
+        <a href="https://instagram.com/mastersgymstockholm" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.facebook.com/mastersgymsweden" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+        <a href="https://www.tiktok.com/@mastersgym" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+          TikTok
+        </a>
       </div>
       <div class="contact-btns">
         <button class="btn btn-primary open-modal" data-i18n="book_trial">Boka provpass</button>
@@ -1004,6 +1125,16 @@ document.querySelectorAll('.kids-tab').forEach(tab=>{
     tab.classList.add('active');
     document.querySelectorAll('.kids-panel').forEach(p=>p.style.display='none');
     document.getElementById('kids-panel-'+tab.dataset.tab).style.display='block';
+  });
+});
+
+// ACCORDION — class cards
+document.querySelectorAll('.class-card .class-card-header').forEach(header=>{
+  header.addEventListener('click',()=>{
+    const card=header.closest('.class-card');
+    const isOpen=card.classList.contains('open');
+    document.querySelectorAll('.class-card').forEach(c=>c.classList.remove('open'));
+    if(!isOpen)card.classList.add('open');
   });
 });
 </script>
