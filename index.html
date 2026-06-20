@@ -1101,7 +1101,7 @@ const mapEl=document.getElementById('map');
 if(mapEl){
   const map=L.map('map',{scrollWheelZoom:false}).setView([59.3293,18.0440],15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
-  const icon=L.divIcon({className:'',html:'<div style="width:14px;height:14px;background:#35B3A8;border-radius:50%;border:2px solid #080808;box-shadow:0 0 0 4px rgba(53,179,168,0.3);"></div>',iconSize:[14,14],iconAnchor:[7,7]});
+  const icon=L.divIcon({className:'',html:'<div style="width:14px;height:14px;background:#5EA6A2;border-radius:50%;border:2px solid #080808;box-shadow:0 0 0 4px rgba(53,179,168,0.3);"></div>',iconSize:[14,14],iconAnchor:[7,7]});
   L.marker([59.3293,18.0440],{icon}).addTo(map).bindPopup('<strong>Masters Gym Stockholm</strong><br>Norra Agnegatan 36').openPopup();
 }
 
