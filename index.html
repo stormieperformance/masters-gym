@@ -454,6 +454,61 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 /* THEME TOGGLE */
 .theme-btn{background:transparent;border:1px solid var(--line);color:var(--text);font-size:15px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s;flex-shrink:0}
 .theme-btn:hover{border-color:var(--teal)}
+
+/* ── COACHES 3D CAROUSEL ── */
+.coaches-section{padding:100px 0 80px}
+.coaches-section .coaches-container{max-width:1200px;margin:0 auto}
+.coaches-section .section-label,.coaches-section .section-title{padding:0 40px}
+.coach3d-wrap{position:relative;width:100%;overflow:hidden;padding:20px 0 20px}
+.coach3d-stage{
+  position:relative;
+  height:calc(var(--card-h) + 60px);
+  display:flex;align-items:center;justify-content:center;
+  perspective:2000px;perspective-origin:50% 40%;
+  touch-action:pan-y;cursor:grab;
+  --card-h:480px;--card-w:300px;
+}
+.coach3d-stage:active{cursor:grabbing}
+.coach3d-card{
+  position:absolute;width:var(--card-w);height:var(--card-h);
+  border:1px solid var(--line);overflow:hidden;cursor:pointer;
+  transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .55s ease,border-color .3s;
+  user-select:none;-webkit-user-select:none;will-change:transform;
+}
+.coach3d-card img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(25%);transition:filter .4s ease;pointer-events:none;display:block}
+.coach3d-card.active img{filter:grayscale(0%)}
+.coach3d-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.92) 0%,rgba(8,8,8,.15) 50%,transparent 75%);pointer-events:none}
+.coach3d-card-info{position:absolute;bottom:0;left:0;right:0;padding:18px 20px 22px}
+.coach3d-card-discipline{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:5px}
+.coach3d-card-name{font-family:var(--display);font-size:30px;letter-spacing:.06em;color:#f0ede6;line-height:1}
+.coach3d-card.active{border-color:rgba(116,194,188,0.4)}
+.coach3d-prev,.coach3d-next{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:20;
+  background:var(--bg3);border:1px solid var(--line);color:var(--muted);
+  width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .2s;font-size:18px;flex-shrink:0;
+}
+.coach3d-prev{left:20px}.coach3d-next{right:20px}
+.coach3d-prev:hover,.coach3d-next:hover{border-color:var(--teal);color:var(--teal)}
+.coach3d-info{max-width:680px;margin:0 auto;padding:44px 40px 0;text-align:center;min-height:180px}
+.coach3d-pill{display:inline-block;border:1px solid rgba(116,194,188,.35);color:var(--teal);font-size:9px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;padding:6px 18px;margin-bottom:18px;transition:opacity .3s ease}
+.coach3d-big-name{font-family:var(--display);font-size:clamp(52px,8vw,96px);letter-spacing:.04em;line-height:.88;margin-bottom:18px;transition:opacity .3s ease}
+.coach3d-bio{font-size:14px;font-weight:300;color:var(--muted);line-height:1.85;max-width:500px;margin:0 auto 28px;transition:opacity .3s ease}
+.coach3d-ctabtn{background:transparent;border:1px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:13px 28px;cursor:pointer;font-family:var(--sans);transition:all .2s}
+.coach3d-ctabtn:hover{border-color:var(--teal);color:var(--teal)}
+.coach3d-thumbs{display:flex;align-items:center;justify-content:center;gap:10px;padding:36px 20px 0;flex-wrap:wrap}
+.coach3d-thumb{width:48px;height:48px;border-radius:50%;overflow:hidden;border:2px solid transparent;cursor:pointer;transition:border-color .25s,transform .25s,opacity .25s;flex-shrink:0}
+.coach3d-thumb img{width:100%;height:100%;object-fit:cover;object-position:center top;pointer-events:none;display:block}
+.coach3d-thumb.active{border-color:var(--teal);transform:scale(1.14);opacity:1}
+.coach3d-thumb:not(.active){opacity:.4}
+.coach3d-thumb:not(.active):hover{opacity:.75;transform:scale(1.06)}
+@media(max-width:768px){
+  .coaches-section{padding:60px 0 60px}
+  .coaches-section .section-label,.coaches-section .section-title{padding:0 20px}
+  .coach3d-stage{--card-h:380px;--card-w:230px}
+  .coach3d-info{padding:32px 20px 0}
+  .coach3d-bio{font-size:13px}
+}
 </style>
 </head>
 <body class="dark">
@@ -645,28 +700,19 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
   <div class="coaches-container">
     <p class="section-label" data-i18n="coaches_label">Instruktörer</p>
     <h2 class="section-title reveal" data-i18n="coaches_h2">VÅRT TEAM</h2>
-    <div class="coaches-grid reveal-stagger">
-      <div class="coach-card">
-        <div class="coach-img-wrap"><img src="IMG_8269_2.jpg" alt="Thamer"><div class="coach-badge" data-i18n="coach_badge_head">Head Coach</div></div>
-        <div class="coach-card-body"><h3 class="coach-name">THAMER</h3><p class="coach-role" data-i18n="coach_role_thamer">Grundare & Head Coach</p><p class="coach-bio" data-i18n="coach_bio_thamer">Grundare av Masters Gym med en imponerande internationell meritlista — både som tävlande och coach.</p></div>
-      </div>
-      <div class="coach-card">
-        <div class="coach-img-wrap"><img src="Coach-Andy.jpg" alt="Andy"><div class="coach-badge" data-i18n="coach_badge_coach">Coach</div></div>
-        <div class="coach-card-body"><h3 class="coach-name">ANDY</h3><p class="coach-role" data-i18n="coach_role_andy">Kickboxning & Thaiboxning</p><p class="coach-bio" data-i18n="coach_bio_andy">Andy har tränat kampsport i snart 10 år med ursprung från Thaiboxning.</p></div>
-      </div>
-      <div class="coach-card">
-        <div class="coach-img-wrap"><img src="Coach-Christian.jpg" alt="Christian"><div class="coach-badge" data-i18n="coach_badge_coach">Coach</div></div>
-        <div class="coach-card-body"><h3 class="coach-name">CHRISTIAN</h3><p class="coach-role" data-i18n="coach_role_christian">Instruktör</p><p class="coach-bio" data-i18n="coach_bio_christian">Mer info kommer snart.</p></div>
-      </div>
-      <div class="coach-card">
-        <div class="coach-img-wrap"><img src="Coach-Tanja.jpg" alt="Tanja"><div class="coach-badge" data-i18n="coach_badge_coach">Coach</div></div>
-        <div class="coach-card-body"><h3 class="coach-name">TANJA</h3><p class="coach-role" data-i18n="coach_role_tanja">Instruktör</p><p class="coach-bio" data-i18n="coach_bio_tanja">Mer info kommer snart.</p></div>
-      </div>
-      <div class="coach-card">
-        <div class="coach-img-wrap"><img src="Coach-Joonas.jpg" alt="Joonas"><div class="coach-badge" data-i18n="coach_badge_coach">Coach</div></div>
-        <div class="coach-card-body"><h3 class="coach-name">JOONAS</h3><p class="coach-role" data-i18n="coach_role_joonas">Barnträning</p><p class="coach-bio" data-i18n="coach_bio_joonas">Ansvarig för barnträningen sedan 2014.</p></div>
+    <div class="coach3d-wrap">
+      <div class="coach3d-stage" id="coach3dStage">
+        <button class="coach3d-prev" id="coach3dPrev" aria-label="Föregående">&#8592;</button>
+        <button class="coach3d-next" id="coach3dNext" aria-label="Nästa">&#8594;</button>
       </div>
     </div>
+    <div class="coach3d-info" id="coach3dInfo">
+      <div class="coach3d-pill" id="coach3dPill"></div>
+      <h2 class="coach3d-big-name" id="coach3dName"></h2>
+      <p class="coach3d-bio" id="coach3dBio"></p>
+      <button class="coach3d-ctabtn open-modal" data-i18n="book_trial">Boka provpass</button>
+    </div>
+    <div class="coach3d-thumbs" id="coach3dThumbs"></div>
   </div>
 </section>
 
@@ -914,7 +960,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <div class="contact-row"><span class="contact-label" data-i18n="contact_addr_label">Adress</span><p>Norra Agnegatan 36, Stockholm</p></div>
         <div class="contact-row"><span class="contact-label" data-i18n="contact_metro_label">T-bana</span><p data-i18n="contact_metro">Rådhuset (Röda linjen)</p></div>
         <div class="contact-row"><span class="contact-label" data-i18n="contact_phone_label">Telefon</span><p><a href="tel:+46709427280" style="color:var(--text);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text)'">0709-42 72 80</a></p></div>
-        <div class="contact-row"><span class="contact-label">Mail</span><p><a href="mailto:repan@mastersgym.se" style="color:var(--text);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text)'">repan@mastersgym.se</a></p></div>
+        <div class="contact-row"><span class="contact-label">Mail</span><p><a href="mailto:repan@mastersgym.se" style="color:var(--text);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">repan@mastersgym.se</a></p></div>
         <div class="contact-row"><span class="contact-label" data-i18n="contact_hours_label">Öppettider</span><p data-i18n="contact_hours">Öppet 30 min innan första passet och 30 min efter sista passet</p></div>
       </div>
       <div class="contact-social-row" style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:24px">
@@ -1144,9 +1190,6 @@ function applyTranslations(){
 }
 
 // ── THEME TOGGLE ──
-// Dark is the default (body starts with class="dark").
-// localStorage 'mg-theme' = 'light' means user overrode to light.
-// localStorage 'mg-theme' = 'dark' or absent = dark (default).
 const SUN_ICON=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
 const MOON_ICON=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
 
@@ -1164,12 +1207,10 @@ function toggleTheme(){
   localStorage.setItem('mg-theme',dark?'dark':'light');
 }
 
-// On load: apply saved preference (if user chose light, remove dark class)
 (function(){
   if(localStorage.getItem('mg-theme')==='light'){
     document.body.classList.remove('dark');
   }
-  // Icon update after DOM ready (body already has correct class from HTML)
   document.addEventListener('DOMContentLoaded',function(){
     setThemeIcon(document.body.classList.contains('dark'));
   });
@@ -1193,6 +1234,180 @@ document.querySelectorAll('.class-card .class-card-header').forEach(header=>{
     if(!isOpen)card.classList.add('open');
   });
 });
+
+
+// ── COACHES 3D CAROUSEL ──
+(function(){
+  var COACHES_SV = [
+    {name:'THAMER',discipline:'Grundare & Head Coach',bio:'Grundare av Masters Gym med imponerande internationell meritlista — Iraq Champion, Arabian Champion och World Cup 2003. Ajarn sedan 2009.',img:'IMG_8269_2.jpg',badge:'Head Coach'},
+    {name:'ANDY',discipline:'Kickboxning & Thaiboxning',bio:'Andy har tränat kampsport i snart 10 år med ursprung från Thaiboxning. En central del av Masters Gyms tränarteam.',img:'Coach-Andy.jpg',badge:'Coach'},
+    {name:'CHRISTIAN',discipline:'Instruktör',bio:'Mer info kommer snart.',img:'Coach-Christian.jpg',badge:'Coach'},
+    {name:'TANJA',discipline:'Instruktör',bio:'Mer info kommer snart.',img:'Coach-Tanja.jpg',badge:'Coach'},
+    {name:'JOONAS',discipline:'Barnträning',bio:'Ansvarig för barnträningen sedan 2014. Engagerad och erfaren tränare för våra yngsta utövare.',img:'Coach-Joonas.jpg',badge:'Coach'}
+  ];
+  var COACHES_EN = [
+    {name:'THAMER',discipline:'Founder & Head Coach',bio:'Founder of Masters Gym with an impressive international record — Iraq Champion, Arabian Champion and World Cup 2003. Ajarn since 2009.',img:'IMG_8269_2.jpg',badge:'Head Coach'},
+    {name:'ANDY',discipline:'Kickboxing & Muay Thai',bio:'Andy has trained martial arts for nearly 10 years, rooted in Muay Thai. A central part of the Masters Gym coaching team.',img:'Coach-Andy.jpg',badge:'Coach'},
+    {name:'CHRISTIAN',discipline:'Coach',bio:'More info coming soon.',img:'Coach-Christian.jpg',badge:'Coach'},
+    {name:'TANJA',discipline:'Coach',bio:'More info coming soon.',img:'Coach-Tanja.jpg',badge:'Coach'},
+    {name:'JOONAS',discipline:'Kids Training',bio:'Responsible for kids training since 2014. Dedicated and experienced coach for our youngest athletes.',img:'Coach-Joonas.jpg',badge:'Coach'}
+  ];
+
+  var stage = document.getElementById('coach3dStage');
+  var thumbsEl = document.getElementById('coach3dThumbs');
+  var nameEl = document.getElementById('coach3dName');
+  var bioEl = document.getElementById('coach3dBio');
+  var pillEl = document.getElementById('coach3dPill');
+  if (!stage) return;
+
+  var current = 0;
+  var animating = false;
+  var cards = [];
+  var thumbEls = [];
+
+  function getCoaches() {
+    return (typeof currentLang !== 'undefined' && currentLang === 'en') ? COACHES_EN : COACHES_SV;
+  }
+
+  function buildCarousel() {
+    var coaches = getCoaches();
+    var N = coaches.length;
+    // Clear existing cards/thumbs (keep buttons)
+    cards.forEach(function(c){ c.remove(); });
+    thumbEls.forEach(function(t){ t.remove(); });
+    cards = [];
+    thumbEls = [];
+    thumbsEl.innerHTML = '';
+
+    coaches.forEach(function(c, i){
+      // Card
+      var el = document.createElement('div');
+      el.className = 'coach3d-card';
+      el.innerHTML = '<img src="'+c.img+'" alt="'+c.name+'" loading="lazy"><div class="coach3d-card-overlay"></div><div class="coach3d-card-info"><div class="coach3d-card-discipline">'+c.discipline+'</div><div class="coach3d-card-name">'+c.name+'</div></div>';
+      el.addEventListener('click', (function(idx){ return function(){ if(!animating) goTo(idx); }; })(i));
+      stage.appendChild(el);
+      cards.push(el);
+
+      // Thumb
+      var t = document.createElement('div');
+      t.className = 'coach3d-thumb';
+      t.innerHTML = '<img src="'+c.img+'" alt="'+c.name+'">';
+      t.addEventListener('click', (function(idx){ return function(){ if(!animating) goTo(idx); }; })(i));
+      thumbsEl.appendChild(t);
+      thumbEls.push(t);
+    });
+
+    layout(current);
+    updateInfo(current);
+  }
+
+  function layout(idx) {
+    var N = cards.length;
+    var cardW = stage.querySelector('.coach3d-card') ? stage.querySelector('.coach3d-card').offsetWidth : 300;
+    var gap = 36;
+    cards.forEach(function(card, i){
+      var offset = i - idx;
+      if (offset > N/2) offset -= N;
+      if (offset < -N/2) offset += N;
+      var absOff = Math.abs(offset);
+      var isCenter = offset === 0;
+      if (absOff > 3) {
+        card.style.opacity = '0';
+        card.style.pointerEvents = 'none';
+        card.style.zIndex = '0';
+        return;
+      }
+      var x = offset * (cardW + gap);
+      var rotateY = offset * -10;
+      var scale = isCenter ? 1 : Math.max(0.7, 1 - absOff * 0.13);
+      var z = isCenter ? 0 : -absOff * 70;
+      var opacity = isCenter ? 1 : Math.max(0.28, 1 - absOff * 0.28);
+      card.style.transform = 'translateX('+x+'px) translateZ('+z+'px) rotateY('+rotateY+'deg) scale('+scale+')';
+      card.style.opacity = String(opacity);
+      card.style.zIndex = String(10 - absOff);
+      card.style.pointerEvents = isCenter ? 'none' : 'all';
+      card.classList.toggle('active', isCenter);
+    });
+    thumbEls.forEach(function(t, i){ t.classList.toggle('active', i === idx); });
+  }
+
+  function updateInfo(idx) {
+    var coaches = getCoaches();
+    var c = coaches[idx];
+    nameEl.style.opacity = '0';
+    bioEl.style.opacity = '0';
+    pillEl.style.opacity = '0';
+    setTimeout(function(){
+      nameEl.textContent = c.name;
+      bioEl.textContent = c.bio;
+      pillEl.textContent = c.badge + ' — ' + c.discipline;
+      nameEl.style.transition = 'opacity .35s ease';
+      bioEl.style.transition = 'opacity .35s ease';
+      pillEl.style.transition = 'opacity .35s ease';
+      nameEl.style.opacity = '1';
+      bioEl.style.opacity = '1';
+      pillEl.style.opacity = '1';
+    }, 140);
+  }
+
+  function goTo(idx) {
+    if (animating) return;
+    animating = true;
+    var N = cards.length;
+    current = ((idx % N) + N) % N;
+    layout(current);
+    updateInfo(current);
+    setTimeout(function(){ animating = false; }, 580);
+  }
+
+  document.getElementById('coach3dPrev').addEventListener('click', function(e){ e.stopPropagation(); goTo(current - 1); });
+  document.getElementById('coach3dNext').addEventListener('click', function(e){ e.stopPropagation(); goTo(current + 1); });
+
+  document.addEventListener('keydown', function(e){
+    if (document.activeElement && document.activeElement.closest && document.activeElement.closest('#coaches')) {
+      if (e.key === 'ArrowLeft') goTo(current - 1);
+      if (e.key === 'ArrowRight') goTo(current + 1);
+    }
+  });
+
+  // Touch / drag
+  var dragStartX = 0, dragging = false;
+  stage.addEventListener('pointerdown', function(e){ dragStartX = e.clientX; dragging = true; stage.setPointerCapture(e.pointerId); });
+  stage.addEventListener('pointerup', function(e){
+    if (!dragging) return; dragging = false;
+    var dx = e.clientX - dragStartX;
+    if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+  });
+  stage.addEventListener('pointercancel', function(){ dragging = false; });
+
+  // Re-layout on resize
+  var resizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){ layout(current); }, 120);
+  });
+
+  // Hook into lang toggle to update coach text
+  var _origToggleLang = typeof toggleLang === 'function' ? toggleLang : null;
+  if (_origToggleLang) {
+    window._coach3dLangHook = function(){ updateInfo(current); };
+  }
+
+  buildCarousel();
+
+  // Patch toggleLang to also refresh coach info
+  var _patchLang = setInterval(function(){
+    if (typeof toggleLang === 'function') {
+      clearInterval(_patchLang);
+      var orig = toggleLang;
+      toggleLang = function(){
+        orig();
+        setTimeout(function(){ updateInfo(current); }, 50);
+      };
+    }
+  }, 100);
+})();
+
 </script>
 </body>
 </html>
