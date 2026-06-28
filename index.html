@@ -483,10 +483,11 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 .coach3d-card-name{font-family:var(--display);font-size:30px;letter-spacing:.06em;color:#f0ede6;line-height:1}
 .coach3d-card.active{border-color:rgba(116,194,188,0.4)}
 .coach3d-prev,.coach3d-next{
-  position:absolute;top:50%;transform:translateY(-50%);z-index:20;
+  position:absolute;top:50%;transform:translateY(-50%);z-index:50;
   background:var(--bg3);border:1px solid var(--line);color:var(--muted);
   width:44px;height:44px;display:flex;align-items:center;justify-content:center;
   cursor:pointer;transition:all .2s;font-size:18px;flex-shrink:0;
+  pointer-events:all;
 }
 .coach3d-prev{left:20px}.coach3d-next{right:20px}
 .coach3d-prev:hover,.coach3d-next:hover{border-color:var(--teal);color:var(--teal)}
