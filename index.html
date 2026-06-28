@@ -384,7 +384,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
   .btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(116,194,188,0.35)}
   .btn-ghost:hover{border-color:rgba(240,237,230,0.6);background:rgba(240,237,230,0.05);transform:translateY(-2px)}
 }
-@media(prefers-reduced-motion:reduce){.reveal,.reveal-left,.reveal-right,.reveal-stagger>*{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}}
+@media(prefers-reduced-motion:reduce){.reveal,.reveal-left,.reveal-right,.reveal-stagger>*,.reveal-h2{opacity:1!important;transform:none!important;filter:none!important;transition:none!important;animation:none!important}}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;will-change:opacity,transform}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .7s ease,transform .7s ease;will-change:opacity,transform}
@@ -398,6 +398,8 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 .reveal-stagger.visible>*:nth-child(4){opacity:1;transform:translateY(0);transition-delay:.22s}
 .reveal-stagger.visible>*:nth-child(5){opacity:1;transform:translateY(0);transition-delay:.28s}
 .reveal-stagger.visible>*:nth-child(6){opacity:1;transform:translateY(0);transition-delay:.34s}
+.reveal-h2{opacity:0;transform:translateY(32px);filter:blur(6px);transition:opacity .8s cubic-bezier(0.22,1,0.36,1),transform .8s cubic-bezier(0.22,1,0.36,1),filter .8s cubic-bezier(0.22,1,0.36,1);will-change:opacity,transform,filter}
+.reveal-h2.visible{opacity:1;transform:translateY(0);filter:blur(0)}
 .hero-content{animation:heroSlideUp .9s cubic-bezier(.22,.61,.36,1) .15s both}
 @keyframes heroSlideUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
 .hero-eyebrow{animation:fadeInDown .7s ease .35s both}
@@ -644,7 +646,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
     </div>
     <div class="about-content reveal-right">
       <span class="about-label" data-i18n="about_label">Om Masters Gym</span>
-      <h2 data-i18n="about_h2">MER ÄN ETT GYM</h2>
+      <h2 class="reveal-h2" data-i18n="about_h2">MER ÄN ETT GYM</h2>
       <p class="about-tagline" data-i18n="about_tagline">"See you soon, champion!"</p>
       <p data-i18n="about_p1">Masters Gym grundades 2016 i Kungsholmen och utnämndes till bästa klubb av Svenska Kickboxningsförbundet både 2017 och 2018. Vi är kända för vår höga andel kvinnliga utövare och vår varma, välkomnande atmosfär.</p>
       <p data-i18n="about_p2">Vi har några av Sveriges absolut bästa och mest meriterade tränare inom kick- och thaiboxning. Vår egen Sofia är uttagen som landslagsfighter av Svenska Kickboxningsförbundet. Tillsammans hjälper vi varandra att nå våra mål — oavsett om det handlar om att komma i bättre form eller att komma hem med en guldmedalj.</p>
@@ -679,7 +681,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
     </div>
     <div>
       <p class="founder-label" data-i18n="coach_label">Head Coach</p>
-      <h2 class="founder-h2">THAMER</h2>
+      <h2 class="founder-h2 reveal-h2">THAMER</h2>
       <p class="founder-text" data-i18n="coach_text">Thamer är huvudtränaren på Masters Gym. Han har en lång och imponerande meritlista med stora internationella framgångar — både som tävlande och som coach.</p>
       <blockquote class="coach-quote" data-i18n="coach_quote">"Jag älskar kickboxning. Det ger självförtroende, är socialt och ger vänner för livet. Man kan ta det till tävlingsnivå om man vill och man kan alltid bli sitt bästa jag!"</blockquote>
       <div class="coach-titles">
@@ -719,7 +721,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 <section class="fight-section">
   <div class="fight-container">
     <p class="fight-label" data-i18n="fight_label">Tävling</p>
-    <h2 class="fight-h2" data-i18n="fight_h2">FIGHT TEAM</h2>
+    <h2 class="fight-h2 reveal-h2" data-i18n="fight_h2">FIGHT TEAM</h2>
     <div class="fight-grid reveal-stagger">
       <div class="fight-card"><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt=""><div class="fight-card-body"><span class="fight-card-tag" data-i18n="fight1_tag">Medaljer</span><h3 data-i18n="fight1_title">CHAMPIONS</h3><p data-i18n="fight1_text">Bästa klubb 2017 & 2018. Flertalet SM-medaljer och internationella titlar.</p></div></div>
       <div class="fight-card"><img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=600&q=80&fit=crop" alt=""><div class="fight-card-body"><span class="fight-card-tag" data-i18n="fight2_tag">Fighters</span><h3 data-i18n="fight2_title">FIGHT TEAM</h3><p data-i18n="fight2_text">Sofia — landslagsfighter, Svenska Kickboxningsförbundet.</p></div></div>
@@ -847,7 +849,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 <section class="schedule" id="schedule">
   <div class="schedule-container">
     <div class="schedule-header">
-      <div><h2 data-i18n="schedule_h2">SCHEMA</h2></div>
+      <div><h2 class="reveal-h2" data-i18n="schedule_h2">SCHEMA</h2></div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
         <div class="schedule-tabs" id="schedule-tabs"></div>
         <div class="schedule-view-toggle">
@@ -867,7 +869,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 <section class="memberships" id="memberships">
   <div class="memberships-container">
     <p class="section-label" data-i18n="memberships_label">Priser</p>
-    <h2 class="section-title" data-i18n="memberships_h2">MEDLEMSKAP</h2>
+    <h2 class="section-title reveal-h2" data-i18n="memberships_h2">MEDLEMSKAP</h2>
     <div class="memberships-grid reveal-stagger">
       <div class="membership-card"><div class="membership-ribbon" data-i18n="mem1_ribbon">Prova på</div><h3 data-i18n="mem1_title">Provpass</h3><p class="price" data-i18n="mem1_price">200 kr</p><p class="desc" data-i18n="mem1_desc">Prova ett pass utan att binda dig.</p><button class="btn open-modal" data-i18n="book_trial">Boka provpass</button></div>
       <div class="membership-card featured"><div class="membership-ribbon" data-i18n="mem2_ribbon">Bäst värde</div><h3 data-i18n="mem2_title">Autogiro 12 mån</h3><p class="price" data-i18n="mem2_price">649 kr / mån</p><p class="desc" data-i18n="mem2_desc">Obegränsat antal pass. 12 månaders bindningstid.</p><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn" data-i18n="join_gymcontrol" style="text-decoration:none">Bli medlem →</a></div>
@@ -887,7 +889,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
   <div class="corporate-container">
     <div class="corporate-content">
       <p class="section-label" data-i18n="corp_label">För företag</p>
-      <h2 data-i18n="corp_h2">TRÄNA TILLSAMMANS. PRESTERA BÄTTRE.</h2>
+      <h2 class="reveal-h2" data-i18n="corp_h2">TRÄNA TILLSAMMANS. PRESTERA BÄTTRE.</h2>
       <p data-i18n="corp_p1">Masters Gym erbjuder skräddarsydda träningslösningar för företag och team.</p>
       <p data-i18n="corp_p2">Morgonpass med frukost, privata gruppass, teambuilding-events och lokalhyra.</p>
       <div class="corporate-features">
@@ -1154,7 +1156,7 @@ if(mapEl){
 }
 
 const revealObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-stagger').forEach(el=>revealObserver.observe(el));
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-stagger,.reveal-h2').forEach(el=>revealObserver.observe(el));
 
 function animateCounter(el,target,duration=1800){const num=parseInt(target);if(isNaN(num))return;const start=performance.now();function update(now){const p=Math.min((now-start)/duration,1);const e=1-Math.pow(1-p,3);el.textContent=Math.floor(e*num);if(p<1)requestAnimationFrame(update);else el.textContent=target;}requestAnimationFrame(update);}
 const counterObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){animateCounter(e.target,e.target.getAttribute('data-target'));counterObserver.unobserve(e.target);}});},{threshold:0.5});
