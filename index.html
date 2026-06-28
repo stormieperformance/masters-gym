@@ -77,6 +77,8 @@ body:not(.dark) .nav-logo img{filter:none}
 @media(max-width:980px){.nav-logo-main{display:none}}
 .lang-btn{background:transparent;border:1px solid rgba(116,194,188,0.4);color:var(--teal);font-size:10px;font-weight:700;letter-spacing:.14em;padding:8px 14px;cursor:pointer;font-family:var(--sans);transition:all .2s}
 .lang-btn:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
+.nav-cta{background:var(--teal);color:#080808;border:none;font-size:10px;font-weight:700;letter-spacing:.14em;padding:9px 18px;cursor:pointer;font-family:var(--sans);text-transform:uppercase;transition:all .2s}
+.nav-cta:hover{background:var(--teal-dark);color:#fff}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;z-index:200}
 .hamburger span{display:block;width:24px;height:1.5px;background:var(--text);transition:all .3s ease;transform-origin:center}
 .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
@@ -349,6 +351,7 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
   .hamburger{display:flex}
   .mobile-menu{display:flex}
   .navbar .lang-btn{display:none}
+  .nav-cta{display:none}
   .navbar .theme-btn{display:none}
   .hero-content{padding:0 20px 60px}
   .hero h1{font-size:clamp(60px,18vw,100px)}
@@ -560,6 +563,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
     <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:10px">
+    <button class="nav-cta open-modal" data-i18n="nav_cta_trial">Boka provpass</button>
     <button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
     <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Växla mörkt/ljust"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
   </div>
@@ -673,70 +677,41 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
   </div>
 </section>
 
-<section class="founder-section">
-  <div class="founder-container">
-    <div class="founder-img-wrap">
-      <img src="IMG_8269_2.jpg" alt="Thamer — Head Coach, Masters Gym">
-      <div class="founder-bar"><span data-i18n="coach_bar">MASTERS GYM · HEAD COACH</span></div>
-    </div>
-    <div>
-      <p class="founder-label" data-i18n="coach_label">Head Coach</p>
-      <h2 class="founder-h2 reveal-h2">THAMER</h2>
-      <p class="founder-text" data-i18n="coach_text">Thamer är huvudtränaren på Masters Gym. Han har en lång och imponerande meritlista med stora internationella framgångar — både som tävlande och som coach.</p>
-      <blockquote class="coach-quote" data-i18n="coach_quote">"Jag älskar kickboxning. Det ger självförtroende, är socialt och ger vänner för livet. Man kan ta det till tävlingsnivå om man vill och man kan alltid bli sitt bästa jag!"</blockquote>
-      <div class="coach-titles">
-        <div class="coach-title-item"><span class="coach-title-year">1985–1994</span><span class="coach-title-name" data-i18n="ct1">Iraq Champion</span></div>
-        <div class="coach-title-item"><span class="coach-title-year">1992–1997</span><span class="coach-title-name" data-i18n="ct2">Arabian Champion</span></div>
-        <div class="coach-title-item"><span class="coach-title-year">1992</span><span class="coach-title-name" data-i18n="ct3">Fighter of the Year</span></div>
-        <div class="coach-title-item"><span class="coach-title-year">2003</span><span class="coach-title-name" data-i18n="ct4">World Cup Champion — Pro Muay Thai</span></div>
-        <div class="coach-title-item"><span class="coach-title-year">2003</span><span class="coach-title-name" data-i18n="ct5">World Cup Champion — Amateur Kickboxing</span></div>
-        <div class="coach-title-item"><span class="coach-title-year">2009</span><span class="coach-title-name" data-i18n="ct6">Master of Muay Thai (Ajarn)</span></div>
-      </div>
-      <p class="coach-intl" data-i18n="coach_intl">Internationella tävlingar i Thailand, Ukraina, Italien, Serbien, Georgien, Kroatien, Marocko, Ryssland, Tunisien, Jordanien m.fl.</p>
-      <a href="#coaches" class="coaches-link" data-i18n="coaches_link">Se alla instruktörer →</a>
-    </div>
-  </div>
-</section>
-
-<section class="coaches-section" id="coaches">
-  <div class="coaches-container">
-    <p class="section-label" data-i18n="coaches_label">Instruktörer</p>
-    <h2 class="section-title reveal" data-i18n="coaches_h2">VÅRT TEAM</h2>
-    <div class="coach3d-wrap">
-      <div class="coach3d-stage" id="coach3dStage">
-        <button class="coach3d-prev" id="coach3dPrev" aria-label="Föregående">&#8592;</button>
-        <button class="coach3d-next" id="coach3dNext" aria-label="Nästa">&#8594;</button>
+<section class="schedule" id="schedule">
+  <div class="schedule-container">
+    <div class="schedule-header">
+      <div><h2 class="reveal-h2" data-i18n="schedule_h2">SCHEMA</h2></div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <div class="schedule-tabs" id="schedule-tabs"></div>
+        <div class="schedule-view-toggle">
+          <button class="view-btn" id="view-week" onclick="setScheduleView('week')">Veckoöversikt</button>
+          <button class="view-btn active" id="view-day" onclick="setScheduleView('day')">Dag för dag</button>
+        </div>
       </div>
     </div>
-    <div class="coach3d-info" id="coach3dInfo">
-      <div class="coach3d-pill" id="coach3dPill"></div>
-      <h2 class="coach3d-big-name" id="coach3dName"></h2>
-      <p class="coach3d-bio" id="coach3dBio"></p>
-      <button class="coach3d-ctabtn open-modal" data-i18n="book_trial">Boka provpass</button>
+    <div id="schedule-content" style="min-height:200px;display:flex;align-items:center;justify-content:center">
+      <p style="color:var(--muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase" data-i18n="schedule_loading">Laddar schema...</p>
     </div>
-    <div class="coach3d-thumbs" id="coach3dThumbs"></div>
+    <p class="schedule-note" data-i18n="schedule_note">Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.</p>
+    <a href="https://www.mastersgym.se/schema" target="_blank" class="btn btn-ghost" data-i18n="schedule_full">Se fullständigt schema →</a>
   </div>
 </section>
 
-<section class="fight-section">
-  <div class="fight-container">
-    <p class="fight-label" data-i18n="fight_label">Tävling</p>
-    <h2 class="fight-h2 reveal-h2" data-i18n="fight_h2">FIGHT TEAM</h2>
-    <div class="fight-grid reveal-stagger">
-      <div class="fight-card"><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt=""><div class="fight-card-body"><span class="fight-card-tag" data-i18n="fight1_tag">Medaljer</span><h3 data-i18n="fight1_title">CHAMPIONS</h3><p data-i18n="fight1_text">Bästa klubb 2017 & 2018. Flertalet SM-medaljer och internationella titlar.</p></div></div>
-      <div class="fight-card"><img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=600&q=80&fit=crop" alt=""><div class="fight-card-body"><span class="fight-card-tag" data-i18n="fight2_tag">Fighters</span><h3 data-i18n="fight2_title">FIGHT TEAM</h3><p data-i18n="fight2_text">Sofia — landslagsfighter, Svenska Kickboxningsförbundet.</p></div></div>
-      <div class="fight-card"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt=""><div class="fight-card-body"><span class="fight-card-tag" data-i18n="fight3_tag">Events</span><h3 data-i18n="fight3_title">GALOR</h3><p data-i18n="fight3_text">Vi arrangerar och deltar i tävlingar och galor genom hela säsongen.</p></div></div>
+<section class="memberships" id="memberships">
+  <div class="memberships-container">
+    <p class="section-label" data-i18n="memberships_label">Priser</p>
+    <h2 class="section-title reveal-h2" data-i18n="memberships_h2">MEDLEMSKAP</h2>
+    <div class="memberships-grid reveal-stagger">
+      <div class="membership-card"><div class="membership-ribbon" data-i18n="mem1_ribbon">Prova på</div><h3 data-i18n="mem1_title">Provpass</h3><p class="price" data-i18n="mem1_price">200 kr</p><p class="desc" data-i18n="mem1_desc">Prova ett pass utan att binda dig.</p><button class="btn open-modal" data-i18n="book_trial">Boka provpass</button></div>
+      <div class="membership-card featured"><div class="membership-ribbon" data-i18n="mem2_ribbon">Bäst värde</div><h3 data-i18n="mem2_title">Autogiro 12 mån</h3><p class="price" data-i18n="mem2_price">649 kr / mån</p><p class="desc" data-i18n="mem2_desc">Obegränsat antal pass. 12 månaders bindningstid.</p><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn" data-i18n="join_gymcontrol" style="text-decoration:none">Bli medlem →</a></div>
+      <div class="membership-card"><div class="membership-ribbon" data-i18n="mem3_ribbon">Flexibelt</div><h3 data-i18n="mem3_title">Autogiro 6 mån</h3><p class="price" data-i18n="mem3_price">699 kr / mån</p><p class="desc" data-i18n="mem3_desc">6 månaders bindningstid.</p><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn" data-i18n="join_gymcontrol" style="text-decoration:none">Bli medlem →</a></div>
+      <div class="membership-card"><div class="membership-ribbon" data-i18n="mem4_ribbon">Ungdom</div><h3 data-i18n="mem4_title">Junior</h3><p class="price" data-i18n="mem4_price">599 kr / mån</p><p class="desc" data-i18n="mem4_desc">Rabatterat pris för ungdomar.</p><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn" data-i18n="join_gymcontrol" style="text-decoration:none">Bli medlem →</a></div>
+      <div class="membership-card"><div class="membership-ribbon" data-i18n="mem5_ribbon">10 pass</div><h3 data-i18n="mem5_title">Klippkort</h3><p class="price" data-i18n="mem5_price">1 500 kr</p><p class="desc" data-i18n="mem5_desc">10 pass utan slutdatum.</p><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn" data-i18n="mem5_btn" style="text-decoration:none">Köp klippkort →</a></div>
+      <div class="membership-card"><div class="membership-ribbon" data-i18n="mem6_ribbon">Helår</div><h3 data-i18n="mem6_title">Årskort</h3><p class="price" data-i18n="mem6_price">7 750 kr</p><p class="desc" data-i18n="mem6_desc">Ett år i förskott. Obegränsat antal pass.</p><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn" data-i18n="mem6_btn" style="text-decoration:none">Köp årskort →</a></div>
     </div>
-  </div>
-</section>
-
-<!-- NEWS — text-only -->
-<section class="news-section">
-  <div class="news-container">
-    <p class="section-label" data-i18n="news_label">Nyheter</p>
-    <h2 class="section-title reveal" data-i18n="news_h2">SENASTE NYTT</h2>
-    <div class="news-grid reveal-stagger" id="news-grid">
-      <p style="color:var(--muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase">Laddar nyheter...</p>
+    <div class="membership-cta">
+      <p data-i18n="mem_cta_text"><strong>Osäker?</strong> Kom in på ett provpass för 200 kr. Ingen utrustning behövs.</p>
+      <button class="btn btn-primary open-modal" data-i18n="book_trial">Boka provpass</button>
     </div>
   </div>
 </section>
@@ -846,41 +821,70 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
   </div>
 </section>
 
-<section class="schedule" id="schedule">
-  <div class="schedule-container">
-    <div class="schedule-header">
-      <div><h2 class="reveal-h2" data-i18n="schedule_h2">SCHEMA</h2></div>
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <div class="schedule-tabs" id="schedule-tabs"></div>
-        <div class="schedule-view-toggle">
-          <button class="view-btn" id="view-week" onclick="setScheduleView('week')">Veckoöversikt</button>
-          <button class="view-btn active" id="view-day" onclick="setScheduleView('day')">Dag för dag</button>
-        </div>
+<section class="founder-section">
+  <div class="founder-container">
+    <div class="founder-img-wrap">
+      <img src="IMG_8269_2.jpg" alt="Thamer — Head Coach, Masters Gym">
+      <div class="founder-bar"><span data-i18n="coach_bar">MASTERS GYM · HEAD COACH</span></div>
+    </div>
+    <div>
+      <p class="founder-label" data-i18n="coach_label">Head Coach</p>
+      <h2 class="founder-h2 reveal-h2">THAMER</h2>
+      <p class="founder-text" data-i18n="coach_text">Thamer är huvudtränaren på Masters Gym. Han har en lång och imponerande meritlista med stora internationella framgångar — både som tävlande och som coach.</p>
+      <blockquote class="coach-quote" data-i18n="coach_quote">"Jag älskar kickboxning. Det ger självförtroende, är socialt och ger vänner för livet. Man kan ta det till tävlingsnivå om man vill och man kan alltid bli sitt bästa jag!"</blockquote>
+      <div class="coach-titles">
+        <div class="coach-title-item"><span class="coach-title-year">1985–1994</span><span class="coach-title-name" data-i18n="ct1">Iraq Champion</span></div>
+        <div class="coach-title-item"><span class="coach-title-year">1992–1997</span><span class="coach-title-name" data-i18n="ct2">Arabian Champion</span></div>
+        <div class="coach-title-item"><span class="coach-title-year">1992</span><span class="coach-title-name" data-i18n="ct3">Fighter of the Year</span></div>
+        <div class="coach-title-item"><span class="coach-title-year">2003</span><span class="coach-title-name" data-i18n="ct4">World Cup Champion — Pro Muay Thai</span></div>
+        <div class="coach-title-item"><span class="coach-title-year">2003</span><span class="coach-title-name" data-i18n="ct5">World Cup Champion — Amateur Kickboxing</span></div>
+        <div class="coach-title-item"><span class="coach-title-year">2009</span><span class="coach-title-name" data-i18n="ct6">Master of Muay Thai (Ajarn)</span></div>
       </div>
+      <p class="coach-intl" data-i18n="coach_intl">Internationella tävlingar i Thailand, Ukraina, Italien, Serbien, Georgien, Kroatien, Marocko, Ryssland, Tunisien, Jordanien m.fl.</p>
+      <a href="#coaches" class="coaches-link" data-i18n="coaches_link">Se alla instruktörer →</a>
     </div>
-    <div id="schedule-content" style="min-height:200px;display:flex;align-items:center;justify-content:center">
-      <p style="color:var(--muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase" data-i18n="schedule_loading">Laddar schema...</p>
-    </div>
-    <p class="schedule-note" data-i18n="schedule_note">Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.</p>
-    <a href="https://www.mastersgym.se/schema" target="_blank" class="btn btn-ghost" data-i18n="schedule_full">Se fullständigt schema →</a>
   </div>
 </section>
 
-<section class="memberships" id="memberships">
-  <div class="memberships-container">
-    <p class="section-label" data-i18n="memberships_label">Priser</p>
-    <h2 class="section-title reveal-h2" data-i18n="memberships_h2">MEDLEMSKAP</h2>
-    <div class="memberships-grid reveal-stagger">
-      <div class="membership-card"><div class="membership-ribbon" data-i18n="mem1_ribbon">Prova på</div><h3 data-i18n="mem1_title">Provpass</h3><p class="price" data-i18n="mem1_price">200 kr</p><p class="desc" data-i18n="mem1_desc">Prova ett pass utan att binda dig.</p><button class="btn open-modal" data-i18n="book_trial">Boka provpass</button></div>
-      <div class="membership-card featured"><div class="membership-ribbon" data-i18n="mem2_ribbon">Bäst värde</div><h3 data-i18n="mem2_title">Autogiro 12 mån</h3><p class="price" data-i18n="mem2_price">649 kr / mån</p><p class="desc" data-i18n="mem2_desc">Obegränsat antal pass. 12 månaders bindningstid.</p><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn" data-i18n="join_gymcontrol" style="text-decoration:none">Bli medlem →</a></div>
-      <div class="membership-card"><div class="membership-ribbon" data-i18n="mem3_ribbon">Flexibelt</div><h3 data-i18n="mem3_title">Autogiro 6 mån</h3><p class="price" data-i18n="mem3_price">699 kr / mån</p><p class="desc" data-i18n="mem3_desc">6 månaders bindningstid.</p><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn" data-i18n="join_gymcontrol" style="text-decoration:none">Bli medlem →</a></div>
-      <div class="membership-card"><div class="membership-ribbon" data-i18n="mem4_ribbon">Ungdom</div><h3 data-i18n="mem4_title">Junior</h3><p class="price" data-i18n="mem4_price">599 kr / mån</p><p class="desc" data-i18n="mem4_desc">Rabatterat pris för ungdomar.</p><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn" data-i18n="join_gymcontrol" style="text-decoration:none">Bli medlem →</a></div>
-      <div class="membership-card"><div class="membership-ribbon" data-i18n="mem5_ribbon">10 pass</div><h3 data-i18n="mem5_title">Klippkort</h3><p class="price" data-i18n="mem5_price">1 500 kr</p><p class="desc" data-i18n="mem5_desc">10 pass utan slutdatum.</p><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn" data-i18n="mem5_btn" style="text-decoration:none">Köp klippkort →</a></div>
-      <div class="membership-card"><div class="membership-ribbon" data-i18n="mem6_ribbon">Helår</div><h3 data-i18n="mem6_title">Årskort</h3><p class="price" data-i18n="mem6_price">7 750 kr</p><p class="desc" data-i18n="mem6_desc">Ett år i förskott. Obegränsat antal pass.</p><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn" data-i18n="mem6_btn" style="text-decoration:none">Köp årskort →</a></div>
+<section class="coaches-section" id="coaches">
+  <div class="coaches-container">
+    <p class="section-label" data-i18n="coaches_label">Instruktörer</p>
+    <h2 class="section-title reveal" data-i18n="coaches_h2">VÅRT TEAM</h2>
+    <div class="coach3d-wrap">
+      <div class="coach3d-stage" id="coach3dStage">
+        <button class="coach3d-prev" id="coach3dPrev" aria-label="Föregående">&#8592;</button>
+        <button class="coach3d-next" id="coach3dNext" aria-label="Nästa">&#8594;</button>
+      </div>
     </div>
-    <div class="membership-cta">
-      <p data-i18n="mem_cta_text"><strong>Osäker?</strong> Kom in på ett provpass för 200 kr. Ingen utrustning behövs.</p>
-      <button class="btn btn-primary open-modal" data-i18n="book_trial">Boka provpass</button>
+    <div class="coach3d-info" id="coach3dInfo">
+      <div class="coach3d-pill" id="coach3dPill"></div>
+      <h2 class="coach3d-big-name" id="coach3dName"></h2>
+      <p class="coach3d-bio" id="coach3dBio"></p>
+      <button class="coach3d-ctabtn open-modal" data-i18n="book_trial">Boka provpass</button>
+    </div>
+    <div class="coach3d-thumbs" id="coach3dThumbs"></div>
+  </div>
+</section>
+
+<section class="fight-section">
+  <div class="fight-container">
+    <p class="fight-label" data-i18n="fight_label">Tävling</p>
+    <h2 class="fight-h2 reveal-h2" data-i18n="fight_h2">FIGHT TEAM</h2>
+    <div class="fight-grid reveal-stagger">
+      <div class="fight-card"><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt=""><div class="fight-card-body"><span class="fight-card-tag" data-i18n="fight1_tag">Medaljer</span><h3 data-i18n="fight1_title">CHAMPIONS</h3><p data-i18n="fight1_text">Bästa klubb 2017 & 2018. Flertalet SM-medaljer och internationella titlar.</p></div></div>
+      <div class="fight-card"><img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=600&q=80&fit=crop" alt=""><div class="fight-card-body"><span class="fight-card-tag" data-i18n="fight2_tag">Fighters</span><h3 data-i18n="fight2_title">FIGHT TEAM</h3><p data-i18n="fight2_text">Sofia — landslagsfighter, Svenska Kickboxningsförbundet.</p></div></div>
+      <div class="fight-card"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt=""><div class="fight-card-body"><span class="fight-card-tag" data-i18n="fight3_tag">Events</span><h3 data-i18n="fight3_title">GALOR</h3><p data-i18n="fight3_text">Vi arrangerar och deltar i tävlingar och galor genom hela säsongen.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS — text-only -->
+<section class="news-section">
+  <div class="news-container">
+    <p class="section-label" data-i18n="news_label">Nyheter</p>
+    <h2 class="section-title reveal" data-i18n="news_h2">SENASTE NYTT</h2>
+    <div class="news-grid reveal-stagger" id="news-grid">
+      <p style="color:var(--muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase">Laddar nyheter...</p>
     </div>
   </div>
 </section>
