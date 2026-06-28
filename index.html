@@ -1372,7 +1372,10 @@ document.querySelectorAll('.class-card .class-card-header').forEach(header=>{
 
   // Touch / drag
   var dragStartX = 0, dragging = false;
-  stage.addEventListener('pointerdown', function(e){ dragStartX = e.clientX; dragging = true; stage.setPointerCapture(e.pointerId); });
+  stage.addEventListener('pointerdown', function(e){
+    if (e.target.closest && e.target.closest('.coach3d-prev,.coach3d-next')) return;
+    dragStartX = e.clientX; dragging = true; stage.setPointerCapture(e.pointerId);
+  });
   stage.addEventListener('pointerup', function(e){
     if (!dragging) return; dragging = false;
     var dx = e.clientX - dragStartX;
