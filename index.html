@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.modal-form input:focus-visible,.modal-form select:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 :root{
   --bg:#F0EEEA;--bg2:#E5E2DC;--bg3:#D8D4CE;
   --text:#0A0A08;--muted:rgba(10,10,8,0.55);--muted2:rgba(10,10,8,0.28);
@@ -557,9 +559,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 <body class="dark">
 
 <div class="modal-overlay" id="modal">
-  <div class="modal-box">
-    <button class="modal-close" id="modal-close">&times;</button>
-    <h3 data-i18n="modal_title">BOKA PROVPASS</h3>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+    <button class="modal-close" id="modal-close" aria-label="Stäng">&times;</button>
+    <h3 id="modal-title-text" data-i18n="modal_title">BOKA PROVPASS</h3>
     <p class="modal-sub" data-i18n="modal_sub">Prova ditt första pass för 200 kr. Vi återkommer inom 24 timmar.</p>
     <form class="modal-form" name="provpass" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="netlify-form">
       <input type="hidden" name="form-name" value="provpass"/>
@@ -603,8 +605,8 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
   </ul>
   <div style="display:flex;align-items:center;gap:10px">
     <button class="nav-cta open-modal" data-i18n="nav_cta_trial">Boka provpass</button>
-    <button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
-    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Växla mörkt/ljust"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()" aria-label="Byt språk / Switch language">EN</button>
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Växla mörkt/ljust" aria-label="Växla mörkt och ljust läge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
   </div>
   <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
 </nav>
@@ -612,8 +614,8 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 <div class="mobile-menu" id="mobile-menu">
   <button class="mobile-menu-close" id="mobile-close">&times;</button>
   <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
-    <button class="lang-btn" style="font-size:12px;padding:10px 20px" onclick="toggleLang()">EN</button>
-    <button class="theme-btn" id="theme-btn-mobile" onclick="toggleTheme()" title="Växla mörkt/ljust"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+    <button class="lang-btn" style="font-size:12px;padding:10px 20px" onclick="toggleLang()" aria-label="Byt språk / Switch language">EN</button>
+    <button class="theme-btn" id="theme-btn-mobile" onclick="toggleTheme()" title="Växla mörkt/ljust" aria-label="Växla mörkt och ljust läge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
   </div>
   <a href="#about" class="mobile-link" data-i18n="nav_about">Om oss</a>
   <a href="#classes" class="mobile-link" data-i18n="nav_classes">Våra pass</a>
@@ -1139,11 +1141,31 @@ hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');mobil
 document.getElementById('mobile-close').addEventListener('click',closeMobile);
 document.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',closeMobile));
 const modal=document.getElementById('modal');
-function openModal(){modal.classList.add('active');document.body.style.overflow='hidden';}
-function closeModal(){modal.classList.remove('active');document.body.style.overflow='';}
+let lastFocusedBeforeModal=null;
+function openModal(){
+  lastFocusedBeforeModal=document.activeElement;
+  modal.classList.add('active');document.body.style.overflow='hidden';
+  const firstField=modal.querySelector('input,select,button');
+  if(firstField)firstField.focus();
+}
+function closeModal(){
+  modal.classList.remove('active');document.body.style.overflow='';
+  if(lastFocusedBeforeModal&&lastFocusedBeforeModal.focus)lastFocusedBeforeModal.focus();
+}
 document.querySelectorAll('.open-modal').forEach(b=>b.addEventListener('click',openModal));
 document.getElementById('modal-close').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+document.addEventListener('keydown',e=>{
+  if(!modal.classList.contains('active'))return;
+  if(e.key==='Escape'){closeModal();return;}
+  if(e.key==='Tab'){
+    const focusable=modal.querySelectorAll('input,select,button,a[href]');
+    if(!focusable.length)return;
+    const first=focusable[0],last=focusable[focusable.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
+});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 document.getElementById('netlify-form').addEventListener('submit',function(e){
   e.preventDefault();
