@@ -11,7 +11,8 @@ export default {
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      description: 'The headline shown on the news card, e.g. "Höstschema 2026"',
+      validation: (Rule) => Rule.required().max(80).warning('Keep it short, long titles get cut off on the card'),
     },
     {
       name: 'tag',
@@ -19,11 +20,13 @@ export default {
       type: 'string',
       description: 'Short label shown on the card, e.g. "Nyhet", "Event", "Schema"',
       initialValue: 'Nyhet',
+      validation: (Rule) => Rule.max(20),
     },
     {
       name: 'publishedAt',
       title: 'Published date',
       type: 'datetime',
+      description: 'The post won\'t appear on the site until this date and time. Set it in the future to schedule a post in advance.',
       validation: (Rule) => Rule.required(),
     },
     {
@@ -31,21 +34,44 @@ export default {
       title: 'Short teaser',
       type: 'text',
       rows: 3,
-      description: 'The short summary shown on the news card',
-      validation: (Rule) => Rule.required().max(220),
+      description: 'The short summary shown on the news card. Keep it to 1-2 sentences.',
+      validation: (Rule) => Rule.required().min(10).max(220),
     },
     {
       name: 'body',
       title: 'Full text (optional)',
       type: 'text',
       rows: 10,
-      description: 'Longer version, for when a full article view is added later',
+      description: 'The longer version, shown when someone clicks "Läs mer" on the card. Leave empty to only show the short teaser.',
     },
     {
       name: 'mainImage',
       title: 'Image (optional)',
       type: 'image',
+      description: 'Shown at the top of the news card. Landscape photos work best.',
       options: { hotspot: true },
+      fields: [
+        {
+          name: 'alt',
+          title: 'Image description',
+          type: 'string',
+          description: 'Describe what\'s in the photo, for people using screen readers, e.g. "Members training on the mats". Required if an image is added.',
+          validation: (Rule) => Rule.custom((alt, context) => {
+            if (context.parent?.asset && !alt) {
+              return 'Please add a short description for this image'
+            }
+            return true
+          }),
+        },
+      ],
+    },
+    {
+      name: 'seoDescription',
+      title: 'Search engine description (optional)',
+      type: 'text',
+      rows: 2,
+      description: 'What shows up in Google search results and when this post is shared on social media. If left empty, the short teaser is used instead.',
+      validation: (Rule) => Rule.max(160).warning('Google usually cuts this off after ~160 characters'),
     },
   ],
   orderings: [
