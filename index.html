@@ -1191,14 +1191,23 @@ document.addEventListener('keydown',e=>{
   }
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+function track(eventName,props){
+  if(typeof window.plausible==='function'){window.plausible(eventName,props?{props}:undefined);}
+  else{console.debug('[analytics] would track:',eventName,props||'');}
+}
+document.addEventListener('click',function(e){
+  if(e.target.closest('.open-modal'))track('Trial booking opened');
+  const memberLink=e.target.closest('a[href*="gymcontrol.se"]');
+  if(memberLink)track('Membership link clicked',{url:memberLink.href});
+});
 document.getElementById('netlify-form').addEventListener('submit',function(e){
   e.preventDefault();
   const btn=document.getElementById('modal-submit');
   btn.textContent='...';btn.disabled=true;
   const formData=new FormData(this);
   fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(formData).toString()})
-  .then(()=>{btn.textContent='Skickat! Vi hör av oss snart.';btn.style.background='rgba(116,194,188,0.2)';btn.style.color='var(--teal)';setTimeout(closeModal,2200);})
-  .catch(()=>{btn.textContent='Skickat! Vi hör av oss snart.';btn.style.background='rgba(116,194,188,0.2)';btn.style.color='var(--teal)';setTimeout(closeModal,2200);});
+  .then(()=>{track('Trial booking submitted');btn.textContent='Skickat! Vi hör av oss snart.';btn.style.background='rgba(116,194,188,0.2)';btn.style.color='var(--teal)';setTimeout(closeModal,2200);})
+  .catch(()=>{btn.textContent='Något gick fel. Försök igen eller maila oss direkt.';btn.style.background='rgba(220,80,80,0.15)';btn.style.color='#e05a5a';btn.disabled=false;});
 });
 
 function parseCSV(text){
