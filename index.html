@@ -1188,6 +1188,10 @@ function sanityImageUrl(ref,width){
 }
 const dagOrder=['Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag','Söndag'];
 
+function esc(v){
+  if(v===null||v===undefined)return'';
+  return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
 let scheduleView='day';
 let scheduleData={byDay:{},days:[]};
 function setScheduleView(view){
@@ -1203,12 +1207,12 @@ function renderSchedule(){
   content.style.cssText='display:block;min-height:auto';
   if(scheduleView==='week'){
     tabsEl.style.display='none';
-    content.innerHTML=`<div class="week-grid">${days.map(day=>`<div class="week-col"><div class="week-day-header">${day}</div><div class="week-day-slots">${byDay[day].map(r=>`<div class="week-slot" onclick="openModal()"><div class="week-slot-time">${r.Tid}</div><div class="week-slot-name">${r.Pass}</div><div class="week-slot-level">${r['Nivå']||r['Niv\u00e5']||''}</div></div>`).join('')}</div></div>`).join('')}</div>`;
+    content.innerHTML=`<div class="week-grid">${days.map(day=>`<div class="week-col"><div class="week-day-header">${esc(day)}</div><div class="week-day-slots">${byDay[day].map(r=>`<div class="week-slot" onclick="openModal()"><div class="week-slot-time">${esc(r.Tid)}</div><div class="week-slot-name">${esc(r.Pass)}</div><div class="week-slot-level">${esc(r['Nivå']||r['Niv\u00e5']||'')}</div></div>`).join('')}</div></div>`).join('')}</div>`;
   }else{
     tabsEl.style.display='flex';
-    tabsEl.innerHTML=days.map((d,i)=>`<button class="schedule-tab ${i===0?'active':''}" data-day="${d}">${d}</button>`).join('');
+    tabsEl.innerHTML=days.map((d,i)=>`<button class="schedule-tab ${i===0?'active':''}" data-day="${esc(d)}">${esc(d)}</button>`).join('');
     function renderDay(day){
-      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(r=>`<div class="schedule-card"><div class="schedule-time">${r.Tid}</div><div class="schedule-info"><h3>${r.Pass}</h3><p>${r['Nivå']||r['Niv\u00e5']||''}</p></div><button class="schedule-book open-modal">Boka →</button></div>`).join('')}</div>`;
+      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(r=>`<div class="schedule-card"><div class="schedule-time">${esc(r.Tid)}</div><div class="schedule-info"><h3>${esc(r.Pass)}</h3><p>${esc(r['Nivå']||r['Niv\u00e5']||'')}</p></div><button class="schedule-book open-modal">Boka →</button></div>`).join('')}</div>`;
       content.querySelectorAll('.open-modal').forEach(b=>b.addEventListener('click',openModal));
       addScheduleAnimations();
     }
@@ -1255,12 +1259,12 @@ async function loadNews(){
       return `<div class="news-card">
         ${imgUrl?`<img class="news-card-img" src="${imgUrl}" alt="" loading="lazy" />`:''}
         <div class="news-meta">
-          <span class="news-tag">${tag}</span>
-          ${date?`<span class="news-date">${date}</span>`:''}
+          <span class="news-tag">${esc(tag)}</span>
+          ${date?`<span class="news-date">${esc(date)}</span>`:''}
         </div>
-        <h3 class="news-title">${title}</h3>
-        <p class="news-teaser">${teaser}</p>
-        ${body?`<button type="button" class="news-card-footer clickable" onclick="const el=document.getElementById('${footerId}');el.classList.toggle('open');this.textContent=el.classList.contains('open')?'Visa mindre ←':'Läs mer →';">Läs mer →</button><p class="news-card-body" id="${footerId}">${body}</p>`:''}
+        <h3 class="news-title">${esc(title)}</h3>
+        <p class="news-teaser">${esc(teaser)}</p>
+        ${body?`<button type="button" class="news-card-footer clickable" onclick="const el=document.getElementById('${footerId}');el.classList.toggle('open');this.textContent=el.classList.contains('open')?'Visa mindre ←':'Läs mer →';">Läs mer →</button><p class="news-card-body" id="${footerId}">${esc(body)}</p>`:''}
       </div>`;
     }).join('');
   }catch(err){
