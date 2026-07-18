@@ -247,6 +247,9 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .schedule-tab.active,.schedule-tab:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
 .schedule-grid{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
 .schedule-card{background:var(--bg2);border:1px solid var(--line);display:flex;align-items:center;gap:24px;padding:20px 24px;transition:border-color .2s,background .2s}
+.schedule-card.is-cancelled{opacity:.55}
+.schedule-card.is-cancelled .schedule-info h3{text-decoration:line-through}
+.schedule-cancelled-badge{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#c0392b;border:1px solid #c0392b;padding:2px 8px;margin-left:8px}
 .schedule-card:hover{border-color:var(--teal);background:var(--teal-dim)}
 .schedule-time{font-family:var(--display);font-style:italic;font-weight:800;font-size:28px;letter-spacing:.06em;color:var(--teal);min-width:90px}
 .schedule-info{flex:1}
@@ -463,6 +466,8 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 .week-day-header{font-family:var(--display);font-style:italic;font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);padding:12px 14px 10px;border-bottom:1px solid var(--line);background:var(--bg3)}
 .week-day-slots{display:flex;flex-direction:column;gap:2px;padding:6px;flex:1}
 .week-slot{background:var(--bg);border:1px solid var(--line);padding:10px 12px;cursor:pointer;transition:border-color .2s,background .2s}
+.week-slot.is-cancelled{opacity:.5}
+.week-slot.is-cancelled .week-slot-name{text-decoration:line-through}
 .week-slot:hover{border-color:var(--teal);background:var(--teal-dim)}
 .week-slot-time{font-family:var(--display);font-style:italic;font-weight:800;font-size:18px;letter-spacing:.06em;color:var(--teal);line-height:1;margin-bottom:4px}
 .week-slot-name{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px}
@@ -1192,6 +1197,9 @@ function esc(v){
   if(v===null||v===undefined)return'';
   return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
+function isCancelled(r){
+  return /inställ/i.test(r.Status||'');
+}
 let scheduleView='day';
 let scheduleData={byDay:{},days:[]};
 function setScheduleView(view){
@@ -1207,12 +1215,12 @@ function renderSchedule(){
   content.style.cssText='display:block;min-height:auto';
   if(scheduleView==='week'){
     tabsEl.style.display='none';
-    content.innerHTML=`<div class="week-grid">${days.map(day=>`<div class="week-col"><div class="week-day-header">${esc(day)}</div><div class="week-day-slots">${byDay[day].map(r=>`<div class="week-slot" onclick="openModal()"><div class="week-slot-time">${esc(r.Tid)}</div><div class="week-slot-name">${esc(r.Pass)}</div><div class="week-slot-level">${esc(r['Nivå']||r['Niv\u00e5']||'')}</div></div>`).join('')}</div></div>`).join('')}</div>`;
+    content.innerHTML=`<div class="week-grid">${days.map(day=>`<div class="week-col"><div class="week-day-header">${esc(day)}</div><div class="week-day-slots">${byDay[day].map(r=>`<div class="week-slot${isCancelled(r)?' is-cancelled':''}" onclick="openModal()"><div class="week-slot-time">${esc(r.Tid)}</div><div class="week-slot-name">${esc(r.Pass)}</div><div class="week-slot-level">${esc(r['Nivå']||r['Niv\u00e5']||'')}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</div></div>`).join('')}</div></div>`).join('')}</div>`;
   }else{
     tabsEl.style.display='flex';
     tabsEl.innerHTML=days.map((d,i)=>`<button class="schedule-tab ${i===0?'active':''}" data-day="${esc(d)}">${esc(d)}</button>`).join('');
     function renderDay(day){
-      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(r=>`<div class="schedule-card"><div class="schedule-time">${esc(r.Tid)}</div><div class="schedule-info"><h3>${esc(r.Pass)}</h3><p>${esc(r['Nivå']||r['Niv\u00e5']||'')}</p></div><button class="schedule-book open-modal">Boka →</button></div>`).join('')}</div>`;
+      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(r=>`<div class="schedule-card${isCancelled(r)?' is-cancelled':''}"><div class="schedule-time">${esc(r.Tid)}</div><div class="schedule-info"><h3>${esc(r.Pass)}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</h3><p>${esc(r['Nivå']||r['Niv\u00e5']||'')}</p></div>${isCancelled(r)?'':'<button class="schedule-book open-modal">Boka →</button>'}</div>`).join('')}</div>`;
       content.querySelectorAll('.open-modal').forEach(b=>b.addEventListener('click',openModal));
       addScheduleAnimations();
     }
@@ -1226,13 +1234,34 @@ function renderSchedule(){
 }
 async function loadSchedule(){
   try{
-    const res=await fetch(CSV_SCHEMA);const text=await res.text();
-    const rows=parseCSV(text).filter(r=>r.Dag);
+    const res=await fetch(CSV_SCHEMA);
+    if(!res.ok)throw new Error('bad response');
+    const text=await res.text();
+    const allRows=parseCSV(text);
+    const rows=allRows.filter(r=>{
+      const day=(r.Dag||'').trim();
+      const time=(r.Tid||'').trim();
+      const name=(r.Pass||'').trim();
+      const validDay=dagOrder.includes(day);
+      if(!validDay||!time||!name){
+        if(day||time||name)console.warn('Skipping malformed schedule row:',r);
+        return false;
+      }
+      return true;
+    });
+    if(!allRows.length){
+      document.getElementById('schedule-content').innerHTML='<p style="color:var(--muted);font-size:13px;padding:20px 0">Schemat är tomt just nu.</p>';
+      return;
+    }
+    if(!rows.length){
+      document.getElementById('schedule-content').innerHTML='<p style="color:var(--muted);font-size:13px;padding:20px 0">Schemat kunde inte tolkas. Kontrollera kalkylbladets format.</p>';
+      return;
+    }
     const byDay={};rows.forEach(r=>{if(!byDay[r.Dag])byDay[r.Dag]=[];byDay[r.Dag].push(r);});
     const days=Object.keys(byDay).sort((a,b)=>dagOrder.indexOf(a)-dagOrder.indexOf(b));
     scheduleData={byDay,days};renderSchedule();
   }catch(err){
-    document.getElementById('schedule-content').innerHTML='<p style="color:var(--muted);font-size:13px;padding:20px 0">Kunde inte ladda schemat.</p>';
+    document.getElementById('schedule-content').innerHTML='<p style="color:var(--muted);font-size:13px;padding:20px 0">Kunde inte ladda schemat. Kontrollera din internetanslutning och försök igen.</p>';
   }
 }
 loadSchedule();
