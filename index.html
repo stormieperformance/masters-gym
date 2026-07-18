@@ -1497,16 +1497,24 @@ document.querySelectorAll('.class-card .class-card-header').forEach(header=>{
       // Card
       var el = document.createElement('div');
       el.className = 'coach3d-card';
+      el.setAttribute('tabindex','0');
+      el.setAttribute('role','button');
+      el.setAttribute('aria-label',c.name+', '+c.discipline);
       el.innerHTML = '<img src="'+c.img+'" alt="'+c.name+'" loading="lazy"><div class="coach3d-card-overlay"></div><div class="coach3d-card-info"><div class="coach3d-card-discipline">'+c.discipline+'</div><div class="coach3d-card-name">'+c.name+'</div></div>';
       el.addEventListener('click', (function(idx){ return function(){ if(!animating) goTo(idx); }; })(i));
+      el.addEventListener('keydown', (function(idx){ return function(e){ if((e.key==='Enter'||e.key===' ')&&!animating){ e.preventDefault(); goTo(idx); } }; })(i));
       stage.appendChild(el);
       cards.push(el);
 
       // Thumb
       var t = document.createElement('div');
       t.className = 'coach3d-thumb';
+      t.setAttribute('tabindex','0');
+      t.setAttribute('role','button');
+      t.setAttribute('aria-label',c.name);
       t.innerHTML = '<img src="'+c.img+'" alt="'+c.name+'">';
       t.addEventListener('click', (function(idx){ return function(){ if(!animating) goTo(idx); }; })(i));
+      t.addEventListener('keydown', (function(idx){ return function(e){ if((e.key==='Enter'||e.key===' ')&&!animating){ e.preventDefault(); goTo(idx); } }; })(i));
       thumbsEl.appendChild(t);
       thumbEls.push(t);
     });
