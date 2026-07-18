@@ -360,6 +360,7 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
 }
 .news-card:hover{border-color:var(--muted2);transform:translateY(-4px)}
 .news-card:hover::before{transform:scaleX(1)}
+.news-card-img{width:100%;height:180px;object-fit:cover;margin-bottom:20px}
 .news-meta{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .news-tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:700}
 .news-date{font-size:10px;color:var(--muted2);letter-spacing:.08em}
@@ -1169,7 +1170,18 @@ function parseCSV(text){
 }
 
 const CSV_SCHEMA='https://docs.google.com/spreadsheets/d/e/2PACX-1vRb-OaHSzncTmm3MpQGyfTa5VOVuPFLA9OsrKNCtr5ktsAF1RHgcuBLO1QE2sUnewxJ9UGK4cnjzkDX/pub?gid=0&single=true&output=csv';
-const CSV_NYHETER='https://docs.google.com/spreadsheets/d/e/2PACX-1vRb-OaHSzncTmm3MpQGyfTa5VOVuPFLA9OsrKNCtr5ktsAF1RHgcuBLO1QE2sUnewxJ9UGK4cnjzkDX/pub?gid=1145388468&single=true&output=csv';
+// News now runs on Sanity instead of the old news CSV — fill these in after creating the Sanity project (see setup notes).
+const SANITY_PROJECT_ID='YOUR_PROJECT_ID';
+const SANITY_DATASET='production';
+const SANITY_API_VERSION='2024-01-01';
+function sanityImageUrl(ref,width){
+  if(!ref)return null;
+  const parts=ref.replace('image-','').split('-');
+  const dims=parts[parts.length-2];
+  const format=parts[parts.length-1];
+  const assetId=parts.slice(0,parts.length-2).join('-');
+  return `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${assetId}-${dims}.${format}${width?`?w=${width}`:''}`;
+}
 const dagOrder=['Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag','Söndag'];
 
 let scheduleView='day';
@@ -1220,18 +1232,22 @@ loadSchedule();
 async function loadNews(){
   const newsGrid=document.getElementById('news-grid');
   if(!newsGrid)return;
+  const query=encodeURIComponent('*[_type == "newsPost"] | order(publishedAt desc){title, tag, publishedAt, teaser, mainImage}');
+  const url=`https://${SANITY_PROJECT_ID}.apicdn.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
   try{
-    const res=await fetch(CSV_NYHETER);
-    const text=await res.text();
-    const rows=parseCSV(text).filter(r=>r.Rubrik&&r.Rubrik.trim());
+    const res=await fetch(url);
+    const json=await res.json();
+    const rows=(json.result||[]);
     if(!rows.length){newsGrid.innerHTML='<p style="color:var(--muted);font-size:14px">Inga nyheter just nu.</p>';return;}
-    newsGrid.innerHTML=[...rows].reverse().map(r=>{
-      const tag=(r.Tagg||'Nyhet').trim();
-      const date=(r.Datum||'').trim();
-      const title=(r.Rubrik||'').trim();
-      const fullText=(r.Text||'').trim();
-      const teaser=fullText.split(/\n\n/)[0].replace(/\n/g,' ');
+    newsGrid.innerHTML=rows.map(r=>{
+      const tag=(r.tag||'Nyhet').trim();
+      const date=r.publishedAt?new Date(r.publishedAt).toLocaleDateString('sv-SE',{year:'numeric',month:'long',day:'numeric'}):'';
+      const title=(r.title||'').trim();
+      const teaser=(r.teaser||'').trim();
+      const imgRef=r.mainImage&&r.mainImage.asset?r.mainImage.asset._ref:null;
+      const imgUrl=sanityImageUrl(imgRef,600);
       return `<div class="news-card">
+        ${imgUrl?`<img class="news-card-img" src="${imgUrl}" alt="" loading="lazy" />`:''}
         <div class="news-meta">
           <span class="news-tag">${tag}</span>
           ${date?`<span class="news-date">${date}</span>`:''}
