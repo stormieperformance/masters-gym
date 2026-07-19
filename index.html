@@ -285,6 +285,10 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .schedule-book{background:transparent;border:1px solid var(--line);color:var(--muted);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:8px 16px;transition:all .2s;font-family:var(--sans);cursor:pointer;white-space:nowrap}
 .schedule-card:hover .schedule-book{border-color:var(--teal);color:var(--teal)}
 .schedule-note{font-size:12px;color:var(--muted);margin-bottom:20px;letter-spacing:.06em;margin-top:8px}
+.schedule-info-box{display:flex;gap:14px;align-items:flex-start;background:var(--bg2);border:1px solid var(--line);border-left:2px solid var(--teal);padding:16px 20px;margin-bottom:20px}
+.schedule-info-icon{width:18px;height:18px;flex-shrink:0;border-radius:50%;border:1px solid var(--teal);color:var(--teal);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.schedule-info-text{font-size:12px;color:var(--muted);line-height:1.7}
+.schedule-info-label{display:block;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
 .memberships{padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)}
 .memberships-container{max-width:1200px;margin:0 auto}
 .memberships-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
@@ -831,6 +835,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
     <div id="schedule-content" style="min-height:200px;display:flex;align-items:center;justify-content:center">
       <p style="color:var(--muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase" data-i18n="schedule_loading">Laddar schema...</p>
     </div>
+    <div id="schedule-info-box" class="schedule-info-box" style="display:none"></div>
     <p class="schedule-note" data-i18n="schedule_note">Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.</p>
     <a href="https://www.mastersgym.se/schema" target="_blank" class="btn btn-ghost" data-i18n="schedule_full">Se fullständigt schema →</a>
   </div>
@@ -1278,6 +1283,14 @@ async function loadSchedule(){
     const byDay={};rows.forEach(r=>{if(!byDay[r.Dag])byDay[r.Dag]=[];byDay[r.Dag].push(r);});
     const days=Object.keys(byDay).sort((a,b)=>dagOrder.indexOf(a)-dagOrder.indexOf(b));
     scheduleData={byDay,days};renderSchedule();
+    const infoBox=document.getElementById('schedule-info-box');
+    const infoMsgs=[...new Set(allRows.map(r=>(r.Info||'').trim()).filter(Boolean))];
+    if(infoMsgs.length){
+      infoBox.style.display='flex';
+      infoBox.innerHTML=`<span class="schedule-info-icon">i</span><span class="schedule-info-text"><span class="schedule-info-label">Viktig information</span>${infoMsgs.map(esc).join('<br>')}</span>`;
+    }else{
+      infoBox.style.display='none';
+    }
   }catch(err){
     document.getElementById('schedule-content').innerHTML='<p style="color:var(--muted);font-size:13px;padding:20px 0">Kunde inte ladda schemat. Kontrollera din internetanslutning och försök igen.</p>';
   }
@@ -1634,6 +1647,7 @@ document.querySelectorAll('.class-card .class-card-header').forEach(header=>{
 </script>
 </body>
 </html>
+
 
 
 
