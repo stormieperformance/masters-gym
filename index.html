@@ -406,6 +406,14 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
 .news-card-footer.clickable:hover{color:var(--text)}
 .news-card-body{max-height:0;overflow:hidden;transition:max-height .3s ease,padding-top .3s;font-size:13px;font-weight:300;color:var(--muted);line-height:1.75;white-space:pre-line}
 .news-card-body.open{max-height:600px;padding-top:16px}
+.news-interest-form{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.news-interest-label{font-size:11px;font-weight:500;color:var(--text);margin-bottom:2px}
+.news-interest-form input,.news-interest-form textarea{background:var(--bg);border:1px solid var(--line);color:var(--text);padding:10px 12px;font-family:var(--sans);font-size:13px;transition:border-color .2s;resize:vertical}
+.news-interest-form input:focus,.news-interest-form textarea:focus{outline:none;border-color:var(--teal)}
+.news-interest-submit{background:var(--teal);color:#080808;border:none;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:12px 20px;cursor:pointer;font-family:var(--sans);transition:background .2s}
+.news-interest-submit:hover{background:var(--teal-dark)}
+.news-interest-submit:disabled{opacity:.6;cursor:default}
+.news-interest-sent{font-size:12px;color:var(--teal);font-weight:500}
 
 @media(max-width:768px){
   .news-section{padding:60px 20px}
@@ -1204,6 +1212,7 @@ function parseCSV(text){
 }
 
 const CSV_SCHEMA='https://docs.google.com/spreadsheets/d/e/2PACX-1vRb-OaHSzncTmm3MpQGyfTa5VOVuPFLA9OsrKNCtr5ktsAF1RHgcuBLO1QE2sUnewxJ9UGK4cnjzkDX/pub?gid=0&single=true&output=csv';
+const FORMSPREE_ENDPOINT='';
 // News now runs on Sanity instead of the old news CSV — fill these in after creating the Sanity project (see setup notes).
 const SANITY_PROJECT_ID='9hvgh1q1';
 const SANITY_DATASET='production';
@@ -1309,7 +1318,7 @@ loadSchedule();
 async function loadNews(){
   const newsGrid=document.getElementById('news-grid');
   if(!newsGrid)return;
-  const query=encodeURIComponent('*[_type == "newsPost" && publishedAt <= now()] | order(publishedAt desc){title, tag, publishedAt, teaser, body, mainImage}');
+  const query=encodeURIComponent('*[_type == "newsPost" && publishedAt <= now()] | order(publishedAt desc){title, tag, publishedAt, teaser, body, mainImage, interestForm, interestFormQuestion, interestFormButtonText}');
   const url=`https://${SANITY_PROJECT_ID}.apicdn.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
   try{
     const res=await fetch(url);
@@ -1326,6 +1335,16 @@ async function loadNews(){
       const imgUrl=sanityImageUrl(imgRef,600);
       const imgAlt=(r.mainImage&&r.mainImage.alt)?r.mainImage.alt:'';
       const footerId=`news-body-${i}`;
+      const formId=`news-form-${i}`;
+      const formHtml=r.interestForm?`
+        <form class="news-interest-form" id="${formId}" onsubmit="return submitNewsForm(event,'${formId}','${esc(title).replace(/'/g,"\\'")}')">
+          <p class="news-interest-label">${esc(r.interestFormQuestion||'')}</p>
+          <input type="text" name="namn" placeholder="Namn" required>
+          <input type="email" name="epost" placeholder="E-post" required>
+          <textarea name="svar" placeholder="${esc(r.interestFormQuestion||'Ditt svar')}" rows="2" required></textarea>
+          <button type="submit" class="news-interest-submit">${esc(r.interestFormButtonText||'Skicka')}</button>
+          <p class="news-interest-sent" style="display:none">Tack! Vi hör av oss.</p>
+        </form>`:'';
       return `<div class="news-card">
         ${imgUrl?`<img class="news-card-img" src="${imgUrl}" alt="${esc(imgAlt)}" loading="lazy" />`:''}
         <div class="news-meta">
@@ -1335,6 +1354,7 @@ async function loadNews(){
         <h3 class="news-title">${esc(title)}</h3>
         <p class="news-teaser">${esc(teaser)}</p>
         ${body?`<button type="button" class="news-card-footer clickable" onclick="const el=document.getElementById('${footerId}');el.classList.toggle('open');this.textContent=el.classList.contains('open')?'Visa mindre ←':'Läs mer →';">Läs mer →</button><p class="news-card-body" id="${footerId}">${esc(body)}</p>`:''}
+        ${formHtml}
       </div>`;
     }).join('');
   }catch(err){
@@ -1342,6 +1362,33 @@ async function loadNews(){
   }
 }
 loadNews();
+
+function submitNewsForm(e,formId,postTitle){
+  e.preventDefault();
+  const form=document.getElementById(formId);
+  if(!FORMSPREE_ENDPOINT){
+    console.warn('FORMSPREE_ENDPOINT is not set — form submissions have nowhere to go yet.');
+    alert('Formuläret är inte klart att skicka ännu. Kontakta oss direkt under tiden.');
+    return false;
+  }
+  const fd=new FormData(form);
+  fd.append('inlägg',postTitle);
+  const btn=form.querySelector('.news-interest-submit');
+  const sent=form.querySelector('.news-interest-sent');
+  btn.disabled=true;
+  fetch(FORMSPREE_ENDPOINT,{method:'POST',body:fd,headers:{'Accept':'application/json'}})
+    .then(res=>{
+      if(res.ok){
+        form.querySelectorAll('input,textarea,button.news-interest-submit').forEach(el=>el.style.display='none');
+        sent.style.display='block';
+      }else{
+        btn.disabled=false;
+        alert('Något gick fel. Försök igen eller kontakta oss direkt.');
+      }
+    })
+    .catch(()=>{btn.disabled=false;alert('Något gick fel. Försök igen eller kontakta oss direkt.');});
+  return false;
+}
 
 const mapEl=document.getElementById('map');
 if(mapEl){
