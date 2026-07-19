@@ -39,8 +39,8 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :focus-visible{outline:2px solid var(--teal);outline-offset:2px}
@@ -655,7 +655,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 </div>
 
 <section class="hero">
-  <div class="hero-bg"><img src="IMG_8384.jpg" alt="Masters Gym Stockholm"></div>
+  <div class="hero-bg"><img src="IMG_8384.jpg" alt="Masters Gym Stockholm" fetchpriority="high"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-eyebrow" data-i18n="hero_eyebrow">Stockholm · Kungsholmen · Est. 2016</p>
@@ -1154,6 +1154,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
   </div>
 </footer>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" media="print" onload="this.media='all'">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const navbar=document.getElementById('navbar');
@@ -1669,3 +1670,4 @@ document.querySelectorAll('.class-card .class-card-header').forEach(header=>{
 </script>
 </body>
 </html>
+
