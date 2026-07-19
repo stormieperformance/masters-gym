@@ -269,21 +269,22 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .schedule-container{max-width:900px;margin:0 auto}
 .schedule-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:16px;flex-wrap:wrap}
 .schedule-header h2{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(48px,6vw,80px);letter-spacing:.04em;line-height:1;margin:0}
-.schedule-tabs{display:flex;gap:2px}
-.schedule-tab{background:var(--bg3);border:1px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:10px 20px;transition:all .2s;font-family:var(--sans);cursor:pointer}
-.schedule-tab.active,.schedule-tab:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
-.schedule-grid{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
-.schedule-card{background:var(--bg2);border:1px solid var(--line);display:flex;align-items:center;gap:24px;padding:20px 24px;transition:border-color .2s,background .2s}
+.schedule-tabs{position:relative;display:flex;gap:2px;background:var(--bg3);border-radius:999px;padding:4px}
+.schedule-tab-pill{position:absolute;top:4px;bottom:4px;left:4px;background:var(--teal);border-radius:999px;transition:transform .35s cubic-bezier(.16,1,.3,1),width .35s cubic-bezier(.16,1,.3,1);z-index:0}
+.schedule-tab{position:relative;z-index:1;background:none;border:none;color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:9px 18px;transition:color .3s;font-family:var(--sans);font-weight:600;cursor:pointer}
+.schedule-tab.active{color:#062420}
+.schedule-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.schedule-card{position:relative;overflow:hidden;background:var(--bg2);border:1px solid var(--line);display:flex;align-items:center;gap:24px;padding:20px 24px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
 .schedule-card.is-cancelled{opacity:.55}
 .schedule-card.is-cancelled .schedule-info h3{text-decoration:line-through}
 .schedule-cancelled-badge{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#c0392b;border:1px solid #c0392b;padding:2px 8px;margin-left:8px}
-.schedule-card:hover{border-color:var(--teal);background:var(--teal-dim)}
+.schedule-card-line{position:absolute;bottom:0;left:0;height:1.5px;width:0;background:var(--teal);transition:width .35s ease}
+.schedule-card:hover{transform:translateY(-3px);border-color:var(--teal);box-shadow:0 0 0 1px var(--teal-dim),0 10px 24px rgba(0,0,0,0.12)}
+.schedule-card:hover .schedule-card-line{width:100%}
 .schedule-time{font-family:var(--display);font-style:italic;font-weight:800;font-size:28px;letter-spacing:.06em;color:var(--teal);min-width:90px}
 .schedule-info{flex:1}
-.schedule-info h3{font-size:15px;font-weight:500;margin-bottom:3px}
-.schedule-info p{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2)}
-.schedule-book{background:transparent;border:1px solid var(--line);color:var(--muted);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:8px 16px;transition:all .2s;font-family:var(--sans);cursor:pointer;white-space:nowrap}
-.schedule-card:hover .schedule-book{border-color:var(--teal);color:var(--teal)}
+.schedule-info h3{font-size:15px;font-weight:500;margin-bottom:6px}
+.schedule-level{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);background:var(--teal-dim);border:1px solid rgba(116,194,188,0.35);padding:4px 12px;border-radius:999px}
 .schedule-note{font-size:12px;color:var(--muted);margin-bottom:20px;letter-spacing:.06em;margin-top:8px}
 .schedule-info-box{display:flex;gap:14px;align-items:flex-start;background:var(--bg2);border:1px solid var(--line);border-left:2px solid var(--teal);padding:16px 20px;margin-bottom:20px}
 .schedule-info-icon{width:18px;height:18px;flex-shrink:0;border-radius:50%;border:1px solid var(--teal);color:var(--teal);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
@@ -479,8 +480,8 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 @media(hover:hover){
   .value-card{transition:border-color .25s,transform .25s ease,background .25s}
   .value-card:hover{transform:translateY(-5px);background:rgba(116,194,188,0.06)}
-  .schedule-card{transition:border-color .2s,background .2s,transform .2s ease}
-  .schedule-card:hover{transform:translateX(5px)}
+  .schedule-card{transition:border-color .2s,box-shadow .2s,transform .2s ease}
+  .schedule-card:hover{transform:translateY(-2px)}
   .class-card{transition:border-color .2s,transform .25s ease}
   .class-card:hover{transform:translateY(-5px)}
   .marquee:hover .marquee-track{animation-play-state:paused}
@@ -488,7 +489,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 .about-teal-bar{transform:translateY(100%);transition:transform .6s ease .3s}
 .reveal-left.visible .about-teal-bar{transform:translateY(0)}
 @media(max-width:768px){
-  .btn,.mobile-cta,.schedule-book,.membership-card .btn{min-height:48px}
+  .btn,.mobile-cta,.membership-card .btn{min-height:48px}
   .schedule-card:active{background:var(--teal-dim)}
   .value-card:active{background:rgba(116,194,188,0.06)}
 }
@@ -496,13 +497,15 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 .week-col{background:var(--bg2);display:flex;flex-direction:column}
 .week-day-header{font-family:var(--display);font-style:italic;font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);padding:12px 14px 10px;border-bottom:1px solid var(--line);background:var(--bg3)}
 .week-day-slots{display:flex;flex-direction:column;gap:2px;padding:6px;flex:1}
-.week-slot{background:var(--bg);border:1px solid var(--line);padding:10px 12px;transition:border-color .2s,background .2s}
+.week-slot{position:relative;overflow:hidden;background:var(--bg);border:1px solid var(--line);padding:10px 12px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.week-slot-line{position:absolute;bottom:0;left:0;height:1.5px;width:0;background:var(--teal);transition:width .35s ease}
 .week-slot.is-cancelled{opacity:.5}
 .week-slot.is-cancelled .week-slot-name{text-decoration:line-through}
-.week-slot:hover{border-color:var(--teal);background:var(--teal-dim)}
+.week-slot:hover{transform:translateY(-2px);border-color:var(--teal);box-shadow:0 0 0 1px var(--teal-dim),0 6px 16px rgba(0,0,0,0.1)}
+.week-slot:hover .week-slot-line{width:100%}
 .week-slot-time{font-family:var(--display);font-style:italic;font-weight:800;font-size:18px;letter-spacing:.06em;color:var(--teal);line-height:1;margin-bottom:4px}
-.week-slot-name{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px}
-.week-slot-level{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)}
+.week-slot-name{font-size:12px;font-weight:500;color:var(--text);margin-bottom:6px}
+.week-slot-level{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:var(--teal-dim);border:1px solid rgba(116,194,188,0.35);padding:3px 9px;border-radius:999px}
 @media(max-width:900px){.week-grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:600px){.week-grid{grid-template-columns:repeat(2,1fr)}}
 .schedule-view-toggle{display:flex;gap:2px;margin-left:auto}
@@ -837,7 +840,6 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
     </div>
     <div id="schedule-info-box" class="schedule-info-box" style="display:none"></div>
     <p class="schedule-note" data-i18n="schedule_note">Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.</p>
-    <a href="https://www.mastersgym.se/schema" target="_blank" class="btn btn-ghost" data-i18n="schedule_full">Se fullständigt schema →</a>
   </div>
 </section>
 
@@ -1238,20 +1240,28 @@ function renderSchedule(){
   content.style.cssText='display:block;min-height:auto';
   if(scheduleView==='week'){
     tabsEl.style.display='none';
-    content.innerHTML=`<div class="week-grid">${days.map(day=>`<div class="week-col"><div class="week-day-header">${esc(day)}</div><div class="week-day-slots">${byDay[day].map(r=>`<div class="week-slot${isCancelled(r)?' is-cancelled':''}"><div class="week-slot-time">${esc(r.Tid)}</div><div class="week-slot-name">${esc(r.Pass)}</div><div class="week-slot-level">${esc(r['Nivå']||r['Niv\u00e5']||'')}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</div></div>`).join('')}</div></div>`).join('')}</div>`;
+    content.innerHTML=`<div class="week-grid">${days.map(day=>`<div class="week-col"><div class="week-day-header">${esc(day)}</div><div class="week-day-slots">${byDay[day].map(r=>`<div class="week-slot${isCancelled(r)?' is-cancelled':''}"><span class="week-slot-line"></span><div class="week-slot-time">${esc(r.Tid)}</div><div class="week-slot-name">${esc(r.Pass)}</div><span class="week-slot-level">${esc(r['Nivå']||r['Niv\u00e5']||'')}</span>${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</div>`).join('')}</div></div>`).join('')}</div>`;
   }else{
     tabsEl.style.display='flex';
-    tabsEl.innerHTML=days.map((d,i)=>`<button class="schedule-tab ${i===0?'active':''}" data-day="${esc(d)}">${esc(d)}</button>`).join('');
+    tabsEl.innerHTML='<div class="schedule-tab-pill"></div>'+days.map((d,i)=>`<button class="schedule-tab ${i===0?'active':''}" data-day="${esc(d)}">${esc(d)}</button>`).join('');
+    function positionPill(activeBtn){
+      const pill=tabsEl.querySelector('.schedule-tab-pill');
+      if(!pill||!activeBtn)return;
+      pill.style.width=activeBtn.offsetWidth+'px';
+      pill.style.transform='translateX('+activeBtn.offsetLeft+'px)';
+    }
     function renderDay(day){
-      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(r=>`<div class="schedule-card${isCancelled(r)?' is-cancelled':''}"><div class="schedule-time">${esc(r.Tid)}</div><div class="schedule-info"><h3>${esc(r.Pass)}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</h3><p>${esc(r['Nivå']||r['Niv\u00e5']||'')}</p></div></div>`).join('')}</div>`;
+      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(r=>`<div class="schedule-card${isCancelled(r)?' is-cancelled':''}"><span class="schedule-card-line"></span><div class="schedule-time">${esc(r.Tid)}</div><div class="schedule-info"><h3>${esc(r.Pass)}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</h3><span class="schedule-level">${esc(r['Nivå']||r['Niv\u00e5']||'')}</span></div></div>`).join('')}</div>`;
       addScheduleAnimations();
     }
     renderDay(days[0]);
+    positionPill(tabsEl.querySelector('.schedule-tab.active'));
     tabsEl.addEventListener('click',e=>{
       const tab=e.target.closest('.schedule-tab');if(!tab)return;
       tabsEl.querySelectorAll('.schedule-tab').forEach(t=>t.classList.remove('active'));
-      tab.classList.add('active');renderDay(tab.dataset.day);
+      tab.classList.add('active');renderDay(tab.dataset.day);positionPill(tab);
     });
+    window.addEventListener('resize',()=>positionPill(tabsEl.querySelector('.schedule-tab.active')));
   }
 }
 async function loadSchedule(){
@@ -1646,6 +1656,7 @@ document.querySelectorAll('.class-card .class-card-header').forEach(header=>{
 </script>
 </body>
 </html>
+
 
 
 
