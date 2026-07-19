@@ -1365,7 +1365,9 @@ if(mapEl){
   const map=L.map('map',{scrollWheelZoom:false}).setView([59.3293,18.0440],15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
   const icon=L.divIcon({className:'',html:'<div style="width:14px;height:14px;background:#74C1BB;border-radius:50%;border:2px solid #080808;box-shadow:0 0 0 4px rgba(116,194,188,0.3);"></div>',iconSize:[14,14],iconAnchor:[7,7]});
-  L.marker([59.3293,18.0440],{icon}).addTo(map).bindPopup('<strong>Masters Gym Stockholm</strong><br>Norra Agnegatan 36').openPopup();
+  const marker=L.marker([59.3293,18.0440],{icon,alt:'Masters Gym Stockholm, Norra Agnegatan 36',title:'Masters Gym Stockholm'}).addTo(map).bindPopup('<strong>Masters Gym Stockholm</strong><br>Norra Agnegatan 36').openPopup();
+  const markerEl=marker.getElement();
+  if(markerEl) markerEl.setAttribute('aria-label','Masters Gym Stockholm, Norra Agnegatan 36');
 }
 
 const revealObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
@@ -1671,6 +1673,7 @@ document.querySelectorAll('.class-card .class-card-header').forEach(header=>{
 </script>
 </body>
 </html>
+
 
 
 
