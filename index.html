@@ -496,7 +496,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 .week-col{background:var(--bg2);display:flex;flex-direction:column}
 .week-day-header{font-family:var(--display);font-style:italic;font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);padding:12px 14px 10px;border-bottom:1px solid var(--line);background:var(--bg3)}
 .week-day-slots{display:flex;flex-direction:column;gap:2px;padding:6px;flex:1}
-.week-slot{background:var(--bg);border:1px solid var(--line);padding:10px 12px;cursor:pointer;transition:border-color .2s,background .2s}
+.week-slot{background:var(--bg);border:1px solid var(--line);padding:10px 12px;transition:border-color .2s,background .2s}
 .week-slot.is-cancelled{opacity:.5}
 .week-slot.is-cancelled .week-slot-name{text-decoration:line-through}
 .week-slot:hover{border-color:var(--teal);background:var(--teal-dim)}
@@ -1238,13 +1238,12 @@ function renderSchedule(){
   content.style.cssText='display:block;min-height:auto';
   if(scheduleView==='week'){
     tabsEl.style.display='none';
-    content.innerHTML=`<div class="week-grid">${days.map(day=>`<div class="week-col"><div class="week-day-header">${esc(day)}</div><div class="week-day-slots">${byDay[day].map(r=>`<div class="week-slot${isCancelled(r)?' is-cancelled':''}" onclick="openModal()"><div class="week-slot-time">${esc(r.Tid)}</div><div class="week-slot-name">${esc(r.Pass)}</div><div class="week-slot-level">${esc(r['Nivå']||r['Niv\u00e5']||'')}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</div></div>`).join('')}</div></div>`).join('')}</div>`;
+    content.innerHTML=`<div class="week-grid">${days.map(day=>`<div class="week-col"><div class="week-day-header">${esc(day)}</div><div class="week-day-slots">${byDay[day].map(r=>`<div class="week-slot${isCancelled(r)?' is-cancelled':''}"><div class="week-slot-time">${esc(r.Tid)}</div><div class="week-slot-name">${esc(r.Pass)}</div><div class="week-slot-level">${esc(r['Nivå']||r['Niv\u00e5']||'')}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</div></div>`).join('')}</div></div>`).join('')}</div>`;
   }else{
     tabsEl.style.display='flex';
     tabsEl.innerHTML=days.map((d,i)=>`<button class="schedule-tab ${i===0?'active':''}" data-day="${esc(d)}">${esc(d)}</button>`).join('');
     function renderDay(day){
-      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(r=>`<div class="schedule-card${isCancelled(r)?' is-cancelled':''}"><div class="schedule-time">${esc(r.Tid)}</div><div class="schedule-info"><h3>${esc(r.Pass)}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</h3><p>${esc(r['Nivå']||r['Niv\u00e5']||'')}</p></div>${isCancelled(r)?'':'<button class="schedule-book open-modal">Boka →</button>'}</div>`).join('')}</div>`;
-      content.querySelectorAll('.open-modal').forEach(b=>b.addEventListener('click',openModal));
+      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(r=>`<div class="schedule-card${isCancelled(r)?' is-cancelled':''}"><div class="schedule-time">${esc(r.Tid)}</div><div class="schedule-info"><h3>${esc(r.Pass)}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</h3><p>${esc(r['Nivå']||r['Niv\u00e5']||'')}</p></div></div>`).join('')}</div>`;
       addScheduleAnimations();
     }
     renderDay(days[0]);
@@ -1647,6 +1646,7 @@ document.querySelectorAll('.class-card .class-card-header').forEach(header=>{
 </script>
 </body>
 </html>
+
 
 
 
