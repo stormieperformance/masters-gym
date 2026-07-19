@@ -307,7 +307,7 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .corporate-content p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:14px}
 .corporate-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0}
 .corp-feature{background:var(--bg2);border:1px solid var(--line);padding:16px 18px}
-.corp-feature h4{font-size:12px;font-weight:600;letter-spacing:.08em;margin-bottom:4px;text-transform:uppercase}
+.corp-feature h3{font-size:12px;font-weight:600;letter-spacing:.08em;margin-bottom:4px;text-transform:uppercase}
 .corp-feature p{font-size:12px;color:var(--muted);line-height:1.5}
 .corporate-media img{width:100%;height:520px;object-fit:cover;filter:grayscale(20%)}
 .kids{padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)}
@@ -594,7 +594,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
       <input type="text" name="namn" data-i18n-placeholder="modal_name" placeholder="Ditt namn" autocomplete="name" required/>
       <input type="email" name="email" data-i18n-placeholder="modal_email" placeholder="E-postadress" autocomplete="email" required/>
       <input type="tel" name="telefon" data-i18n-placeholder="modal_phone" placeholder="Telefonnummer (valfritt)" autocomplete="tel"/>
-      <select name="pass" id="modal-select" required>
+      <select name="pass" id="modal-select" required aria-label="Vilket pass intresserar dig? / Which class interests you?">
         <option value="" disabled selected data-i18n="modal_select">Vilket pass intresserar dig?</option>
         <option data-i18n="modal_opt1">Kickboxning — nybörjare</option>
         <option data-i18n="modal_opt2">Thaiboxning — nybörjare</option>
@@ -633,7 +633,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
     <button class="lang-btn" id="lang-btn" onclick="toggleLang()" aria-label="Byt språk / Switch language">EN</button>
     <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Växla mörkt/ljust" aria-label="Växla mörkt och ljust läge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
   </div>
-  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  <button class="hamburger" id="hamburger" aria-label="Meny / Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
@@ -876,9 +876,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
       <p data-i18n="corp_p1">Masters Gym erbjuder skräddarsydda träningslösningar för företag och team.</p>
       <p data-i18n="corp_p2">Morgonpass med frukost, privata gruppass och teambuilding-events.</p>
       <div class="corporate-features">
-        <div class="corp-feature"><h4 data-i18n="corp_f1_title">Morgonträning</h4><p data-i18n="corp_f1_text">Kickstart dagen. Frukost ingår.</p></div>
-        <div class="corp-feature"><h4 data-i18n="corp_f2_title">Teambuilding</h4><p data-i18n="corp_f2_text">Svensexor, möhippor, kalas.</p></div>
-        <div class="corp-feature"><h4 data-i18n="corp_f4_title">Gruppass</h4><p data-i18n="corp_f4_text">Regelbunden träning för era medarbetare.</p></div>
+        <div class="corp-feature"><h3 data-i18n="corp_f1_title">Morgonträning</h3><p data-i18n="corp_f1_text">Kickstart dagen. Frukost ingår.</p></div>
+        <div class="corp-feature"><h3 data-i18n="corp_f2_title">Teambuilding</h3><p data-i18n="corp_f2_text">Svensexor, möhippor, kalas.</p></div>
+        <div class="corp-feature"><h3 data-i18n="corp_f4_title">Gruppass</h3><p data-i18n="corp_f4_text">Regelbunden träning för era medarbetare.</p></div>
       </div>
       <p class="corp-cta-note" data-i18n="corp_cta_note">Skräddarsydd offert inom 24 timmar. Inga bindande avtal.</p>
       <button class="btn btn-corp open-modal" data-i18n="corp_cta">Boka företagsträning</button>
@@ -1029,10 +1029,10 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
       </div>
     </div>
     <div class="social-grid reveal-stagger">
-      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card"><img src="IMG_8386.jpg" alt="Masters Gym Stockholm"></a>
-      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card"><img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=400&q=80&fit=crop" alt=""></a>
-      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card"><img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&q=80&fit=crop" alt=""></a>
-      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80&fit=crop" alt=""></a>
+      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card" aria-label="Instagram"><img src="IMG_8386.jpg" alt="Masters Gym Stockholm"></a>
+      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card" aria-label="Instagram"><img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=400&q=80&fit=crop" alt=""></a>
+      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card" aria-label="Instagram"><img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&q=80&fit=crop" alt=""></a>
+      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card" aria-label="Instagram"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80&fit=crop" alt=""></a>
     </div>
   </div>
 </section>
@@ -1671,5 +1671,6 @@ document.querySelectorAll('.class-card .class-card-header').forEach(header=>{
 </script>
 </body>
 </html>
+
 
 
