@@ -73,6 +73,27 @@ export default {
       description: 'What shows up in Google search results and when this post is shared on social media. If left empty, the short teaser is used instead.',
       validation: (Rule) => Rule.max(160).warning('Google usually cuts this off after ~160 characters'),
     },
+    {
+      name: 'interestForm',
+      title: 'Add a signup / interest form?',
+      type: 'boolean',
+      description: 'Turn this on to add a short form at the bottom of this post, e.g. to gauge interest in a comeback class or event. Submissions are emailed to you.',
+      initialValue: false,
+    },
+    {
+      name: 'interestFormQuestion',
+      title: 'Form question',
+      type: 'string',
+      description: 'The question asked in the form, e.g. "Vilket morgonpass passar dig?" Only shown if the form above is turned on.',
+      hidden: ({parent}) => !parent?.interestForm,
+    },
+    {
+      name: 'interestFormButtonText',
+      title: 'Submit button text (optional)',
+      type: 'string',
+      description: 'Defaults to "Skicka" if left empty.',
+      hidden: ({parent}) => !parent?.interestForm,
+    },
   ],
   orderings: [
     {
@@ -85,3 +106,4 @@ export default {
     select: { title: 'title', subtitle: 'tag', media: 'mainImage' },
   },
 }
+
