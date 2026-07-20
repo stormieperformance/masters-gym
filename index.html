@@ -290,7 +290,9 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .timeline-content{padding:20px 24px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;flex:1;position:relative}
 .timeline-badge{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:700;border:1px solid rgba(116,194,188,.35);padding:4px 10px}
 .timeline-content h4{font-family:var(--display);font-style:italic;font-weight:800;font-size:19px;letter-spacing:.03em;color:var(--text);margin:4px 0 0}
-.timeline-content p{font-size:12.5px;font-weight:300;color:var(--muted);line-height:1.5;margin:0 0 8px;max-width:400px}
+.timeline-content p{font-size:12.5px;font-weight:300;color:var(--muted);line-height:1.6;margin:0 0 10px;max-width:520px}
+.timeline-format{font-size:11.5px;font-style:italic;color:var(--muted2);line-height:1.5;margin:0 0 8px;max-width:480px}
+.timeline-equip{font-size:11px;color:var(--muted2);line-height:1.6;margin:0 0 12px;max-width:480px;padding-left:10px;border-left:2px solid rgba(116,194,188,0.3)}
 .timeline-next{font-size:10.5px;color:var(--teal);background:var(--teal-dim);border:1px solid rgba(116,194,188,0.3);padding:5px 10px;margin-bottom:6px}
 .timeline-next:empty{display:none}
 .timeline-cta{
@@ -823,7 +825,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
           <div class="timeline-content">
             <span class="timeline-badge" data-i18n="class1_tag">Nivå 1 &amp; 2 · Alla välkomna</span>
             <h4 data-i18n="class1_title">NYBÖRJARPASS</h4>
-            <p data-i18n="class1_tagline">Grunderna i kick- och thaiboxning. Inga förkunskaper krävs.</p>
+            <p data-i18n="class1_text">Alla som är nyfikna på kampsport och vill testa är välkomna, ingen tidigare erfarenhet krävs. Vi går igenom grunderna, värmer upp och stretchar för att sedan gå vidare till teknik. Nybörjarpassen är både roliga och jobbiga där vi mixar nya kunskaper med effektiv träning för att bygga upp teknik, koordination, kondition och självförtroende. Lånehandskar finns för de som vill prova på.</p>
+            <p class="timeline-format" data-i18n="class1_format">60 minuters pass med grundtekniker, enklare kombinationer och blockträning blandat med kortare fysträning och stretch.</p>
+            <div class="timeline-equip" data-i18n="class1_equip">Handskar finns att låna. När du känner att du får till lite mer tryck i slagen kan det vara bra att skaffa lindor som stöd för handlederna — de finns att köpa hos oss i receptionen. Vi hjälper gärna till och visar hur man bäst lindar händerna innan passen.</div>
             <span class="timeline-next"></span>
             <button type="button" class="timeline-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
@@ -836,7 +840,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
           <div class="timeline-content">
             <span class="timeline-badge" data-i18n="class2_tag">Min. 2 terminer</span>
             <h4 data-i18n="class2_title">FORTSÄTTNINGSPASS</h4>
-            <p data-i18n="class2_tagline">Längre kombinationer, teknisk utveckling och sparring.</p>
+            <p data-i18n="class2_text">När man har klarat av nivå 1 och 2 av nybörjarpassen är man redo att gå vidare till fortsättningsgruppen. I fortsättningspassen fokuserar vi på taktik, teknik samt sparring med full kontroll av coach. På den här nivån utvecklar vi tekniken ytterligare genom att träna längre kombinationer med slag, sparkar och knän. Vi arbetar mer med timing, distans, rörelse och försvar, samtidigt som tempot blir högre. Du får även lära dig att läsa motståndaren, skapa öppningar och använda teknikerna i olika situationer.</p>
+            <p class="timeline-format" data-i18n="class2_format">60 minuters pass med tekniker och mer avancerade kombinationer med mits, sparringövningar, lätt fri sparring, blandat med fysträning och stretch.</p>
+            <div class="timeline-equip" data-i18n="class2_equip">Egna handskar, benskydd och lindor. Tandskydd, hjälm och suspensoar vid sparring.</div>
             <span class="timeline-next"></span>
             <button type="button" class="timeline-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
@@ -849,7 +855,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
           <div class="timeline-content">
             <span class="timeline-badge" data-i18n="class3_tag">På inbjudan</span>
             <h4 data-i18n="class3_title">TÄVLINGSGRUPP</h4>
-            <p data-i18n="class3_tagline">För dig som vill tävla. Bestäms av huvudtränaren.</p>
+            <p data-i18n="class3_text">Det är huvudtränaren som bestämmer vem som får ingå i tävlingsgruppen. Prata med Thamer och hör efter hur du bäst når dina mål att tävla och ingå i Masters Gyms tävlingsgrupp.</p>
             <span class="timeline-next"></span>
             <a href="#contact" class="timeline-cta" data-i18n="finder_r3_cta">Kontakta oss</a>
           </div>
@@ -866,7 +872,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
           <div class="timeline-content">
             <span class="timeline-badge" data-i18n="class6_tag">Alla nivåer</span>
             <h4 data-i18n="class6_title">BOXNING</h4>
-            <p data-i18n="class6_tagline">Rena boxningspass med fokus på teknik. Motionsträning, ej tävling.</p>
+            <p data-i18n="class6_text">Rena boxningspass med mycket fokus på teknik. Boxningspassen är för alla nivåer med inriktning motionsträning, ej tävling.</p>
             <span class="timeline-next"></span>
             <button type="button" class="timeline-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
@@ -879,7 +885,8 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
           <div class="timeline-content">
             <span class="timeline-badge" data-i18n="class4_tag">Alla nivåer</span>
             <h4 data-i18n="class4_title">FYSPASS</h4>
-            <p data-i18n="class4_tagline">Funktionell träning för hela kroppen. Du kommer svettas!</p>
+            <p data-i18n="class4_text">Fyspassen är ett komplement till de övriga passen för att förbättra styrka och kondition. Passen är cirkelfyspass med blandade stationer. Alla nivåer är välkomna.</p>
+            <div class="timeline-equip" data-i18n="class4_equip">Träningen sker barfota. Ta med lätta kläder, liten handduk och vattenflaska.</div>
             <span class="timeline-next"></span>
             <button type="button" class="timeline-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
@@ -892,7 +899,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
           <div class="timeline-content">
             <span class="timeline-badge" data-i18n="class7_tag">Alla nivåer</span>
             <h4 data-i18n="class7_title">MORGON/LUNCH</h4>
-            <p data-i18n="class7_tagline">Träning som passar in i ett hektiskt arbetsschema.</p>
+            <p data-i18n="class7_text">Perfekta pass för att få in träning i ett hektiskt arbetsschema. Både morgon- och lunchpassen är för alla nivåer för de som vill ha tuff träning.</p>
             <span class="timeline-next"></span>
             <button type="button" class="timeline-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
@@ -1849,6 +1856,7 @@ try{(function(){
 </script>
 </body>
 </html>
+
 
 
 
