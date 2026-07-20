@@ -265,8 +265,8 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .finder-result h4{font-size:16px;font-weight:600;margin-bottom:8px;color:var(--teal)}
 .finder-result p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;max-width:480px}
 .classes-carousel-wrap{position:relative;padding:0 50px}
-.swiper{overflow:hidden;position:relative;z-index:1;padding:20px 0 40px}
-.swiper-wrapper{position:relative;width:100%;height:100%;display:flex;transition-property:transform;box-sizing:content-box}
+.swiper{overflow:hidden;position:relative;z-index:1;padding:20px 0 40px;perspective:1200px}
+.swiper-wrapper{position:relative;width:100%;height:100%;display:flex;transition-property:transform;box-sizing:content-box;transform-style:preserve-3d}
 .swiper-slide{flex-shrink:0;width:100%;height:100%;position:relative;transform-style:preserve-3d}
 .class-poster{width:210px;height:290px;background:var(--bg3);border:1.5px solid var(--line);border-radius:14px;overflow:hidden;text-align:left;cursor:pointer;font-family:var(--sans);transition:border-color .2s}
 .class-poster:hover,.class-poster.active{border-color:var(--teal)}
@@ -1819,6 +1819,7 @@ document.querySelectorAll('.kids-tab').forEach(tab=>{
 </script>
 </body>
 </html>
+
 
 
 
