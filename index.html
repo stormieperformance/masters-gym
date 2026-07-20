@@ -268,13 +268,7 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .finder-btn::after{content:'→';position:absolute;bottom:14px;right:16px;color:var(--teal);font-size:14px;opacity:.55;transition:transform .25s ease,opacity .25s ease}
 .finder-btn:hover::after{opacity:1;transform:translateX(3px)}
 .finder-sub{font-size:11px;color:var(--muted2);letter-spacing:.06em;margin:-6px 0 16px}
-.finder-wrap{display:grid;grid-template-columns:1fr;gap:0;margin-bottom:56px}
-.finder-photo{display:none}
-@media(min-width:900px){
-  .finder-wrap{grid-template-columns:1.3fr 0.9fr;gap:36px;align-items:stretch}
-  .finder-photo{display:block;position:relative;overflow:hidden;border:1px solid var(--line);min-height:100%}
-  .finder-photo img{width:100%;height:100%;object-fit:cover;display:block}
-}
+.finder{margin-bottom:56px}
 .timeline-heading{font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;letter-spacing:.03em;color:var(--teal);margin:0 0 24px}
 .timeline{position:relative;margin-bottom:56px}
 .timeline::before{content:'';position:absolute;left:19px;top:10px;bottom:10px;width:2px;background:var(--line)}
@@ -778,50 +772,45 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
     <h2 class="section-title reveal" data-i18n="classes_h2">VÅRA PASS</h2>
     <p class="classes-intro" data-i18n="classes_intro">På Masters Gym delar motionärer matta med aktiva fighters på hög nivå. Klubben har vunnit pris för "bästa klubb" samt har flera medaljer.</p>
 
-    <div class="finder-wrap">
-      <div class="finder" id="finder">
-        <h3 class="finder-title" data-i18n="finder_title">Vilket pass passar dig?</h3>
-        <p class="finder-sub" data-i18n="finder_sub">Klicka på ett alternativ</p>
-        <div class="finder-options reveal-stagger">
-          <button type="button" class="finder-btn" data-class-index="0">
-            <span class="fline"></span>
-            <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-            <span data-i18n="finder_q1">Helt ny på kick-/thaiboxning</span>
-          </button>
-          <button type="button" class="finder-btn" data-class-index="1">
-            <span class="fline"></span>
-            <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 17l6-6 4 4 6-8"/><path d="M14 7h6v6"/></svg>
-            <span data-i18n="finder_q2">Har tränat kampsport förut</span>
-          </button>
-          <button type="button" class="finder-btn" data-class-index="2">
-            <span class="fline"></span>
-            <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"/><path d="M5 4H3v2a4 4 0 004 4M19 4h2v2a4 4 0 01-4 4"/></svg>
-            <span data-i18n="finder_q3">Vill tävla</span>
-          </button>
-          <button type="button" class="finder-btn" data-class-index="6">
-            <span class="fline"></span>
-            <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="7" r="3"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/></svg>
-            <span data-i18n="finder_q4">Vill ha personlig träning</span>
-          </button>
-          <button type="button" class="finder-btn" data-class-index="3">
-            <span class="fline"></span>
-            <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 21c-4-3-7-6-7-10a7 7 0 0114 0c0 4-3 7-7 10z"/></svg>
-            <span data-i18n="finder_q5">Vill bara röra på mig, ingen tävling</span>
-          </button>
-          <button type="button" class="finder-btn finder-btn-route" data-route="corporate">
-            <span class="fline"></span>
-            <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
-            <span data-i18n="finder_q6">Vill träna med mitt företag →</span>
-          </button>
-          <button type="button" class="finder-btn finder-btn-route" data-route="kids">
-            <span class="fline"></span>
-            <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="6" r="3"/><path d="M7 20c0-3.5 2.2-6 5-6s5 2.5 5 6"/></svg>
-            <span data-i18n="finder_q7">Mitt barn ska träna →</span>
-          </button>
-        </div>
-      </div>
-      <div class="finder-photo">
-        <img src="masters-gym-logo-wall.jpg" alt="Masters Gym logotyp på väggen i klubbens lokaler">
+    <div class="finder" id="finder">
+      <h3 class="finder-title" data-i18n="finder_title">Vilket pass passar dig?</h3>
+      <p class="finder-sub" data-i18n="finder_sub">Klicka på ett alternativ</p>
+      <div class="finder-options reveal-stagger">
+        <button type="button" class="finder-btn" data-class-index="0">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span data-i18n="finder_q1">Helt ny på kick-/thaiboxning</span>
+        </button>
+        <button type="button" class="finder-btn" data-class-index="1">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 17l6-6 4 4 6-8"/><path d="M14 7h6v6"/></svg>
+          <span data-i18n="finder_q2">Har tränat kampsport förut</span>
+        </button>
+        <button type="button" class="finder-btn" data-class-index="2">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"/><path d="M5 4H3v2a4 4 0 004 4M19 4h2v2a4 4 0 01-4 4"/></svg>
+          <span data-i18n="finder_q3">Vill tävla</span>
+        </button>
+        <button type="button" class="finder-btn" data-class-index="6">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="7" r="3"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/></svg>
+          <span data-i18n="finder_q4">Vill ha personlig träning</span>
+        </button>
+        <button type="button" class="finder-btn" data-class-index="3">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 21c-4-3-7-6-7-10a7 7 0 0114 0c0 4-3 7-7 10z"/></svg>
+          <span data-i18n="finder_q5">Vill bara röra på mig, ingen tävling</span>
+        </button>
+        <button type="button" class="finder-btn finder-btn-route" data-route="corporate">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+          <span data-i18n="finder_q6">Vill träna med mitt företag →</span>
+        </button>
+        <button type="button" class="finder-btn finder-btn-route" data-route="kids">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="6" r="3"/><path d="M7 20c0-3.5 2.2-6 5-6s5 2.5 5 6"/></svg>
+          <span data-i18n="finder_q7">Mitt barn ska träna →</span>
+        </button>
       </div>
     </div>
 
@@ -1860,6 +1849,7 @@ try{(function(){
 </script>
 </body>
 </html>
+
 
 
 
