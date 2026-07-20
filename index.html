@@ -256,12 +256,18 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .path-arrow{color:var(--teal);font-size:18px;padding:0 16px;flex-shrink:0}
 .finder{background:var(--bg2);border:1px solid var(--line);padding:32px 28px;margin-bottom:56px}
 .finder-title{font-size:18px;font-weight:600;margin-bottom:18px}
-.finder-options{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:4px}
-.finder-btn{background:var(--bg);border:1px solid var(--line);color:var(--text);font-size:12px;font-weight:500;padding:11px 18px;cursor:pointer;font-family:var(--sans);transition:border-color .2s,background .2s}
-.finder-btn:hover{border-color:var(--teal)}
-.finder-btn.active{background:var(--teal);color:#080808;border-color:var(--teal)}
+@keyframes fpop{0%{transform:scale(1)}40%{transform:scale(0.95)}100%{transform:scale(1)}}
+.finder-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:4px}
+.finder-btn{position:relative;overflow:hidden;background:var(--bg);border:1px solid var(--line);color:var(--text);font-size:12.5px;font-weight:500;text-align:left;line-height:1.35;padding:18px 16px 16px;cursor:pointer;font-family:var(--sans);display:flex;flex-direction:column;gap:10px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.finder-btn .fline{position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--teal);transition:width .3s ease}
+.finder-icon{stroke:var(--teal);width:20px;height:20px;flex-shrink:0}
+.finder-btn:hover{transform:translateY(-3px);border-color:var(--teal);box-shadow:0 0 0 1px var(--teal-dim),0 10px 20px rgba(0,0,0,0.15)}
+.finder-btn:hover .fline{width:100%}
+.finder-btn.active{border-color:var(--teal);background:var(--teal-dim);animation:fpop .35s ease}
 .finder-btn-route{border-style:dashed;color:var(--muted)}
+.finder-btn-route .finder-icon{stroke:var(--muted)}
 .finder-btn-route:hover{color:var(--teal)}
+.finder-btn-route:hover .finder-icon{stroke:var(--teal)}
 .class3d-wrap{position:relative;width:100%;overflow:hidden;padding:20px 0}
 .class3d-stage{
   position:relative;
@@ -767,14 +773,42 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 
     <div class="finder" id="finder">
       <h3 class="finder-title" data-i18n="finder_title">Vilket pass passar dig?</h3>
-      <div class="finder-options">
-        <button type="button" class="finder-btn" data-class-index="0" data-i18n="finder_q1">Helt ny på kick-/thaiboxning</button>
-        <button type="button" class="finder-btn" data-class-index="1" data-i18n="finder_q2">Har tränat kampsport förut</button>
-        <button type="button" class="finder-btn" data-class-index="2" data-i18n="finder_q3">Vill tävla</button>
-        <button type="button" class="finder-btn" data-class-index="6" data-i18n="finder_q4">Vill ha personlig träning</button>
-        <button type="button" class="finder-btn" data-class-index="3" data-i18n="finder_q5">Vill bara röra på mig, ingen tävling</button>
-        <button type="button" class="finder-btn finder-btn-route" data-route="corporate" data-i18n="finder_q6">Vill träna med mitt företag →</button>
-        <button type="button" class="finder-btn finder-btn-route" data-route="kids" data-i18n="finder_q7">Mitt barn ska träna →</button>
+      <div class="finder-options reveal-stagger">
+        <button type="button" class="finder-btn" data-class-index="0">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span data-i18n="finder_q1">Helt ny på kick-/thaiboxning</span>
+        </button>
+        <button type="button" class="finder-btn" data-class-index="1">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 17l6-6 4 4 6-8"/><path d="M14 7h6v6"/></svg>
+          <span data-i18n="finder_q2">Har tränat kampsport förut</span>
+        </button>
+        <button type="button" class="finder-btn" data-class-index="2">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"/><path d="M5 4H3v2a4 4 0 004 4M19 4h2v2a4 4 0 01-4 4"/></svg>
+          <span data-i18n="finder_q3">Vill tävla</span>
+        </button>
+        <button type="button" class="finder-btn" data-class-index="6">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="7" r="3"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/></svg>
+          <span data-i18n="finder_q4">Vill ha personlig träning</span>
+        </button>
+        <button type="button" class="finder-btn" data-class-index="3">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 21c-4-3-7-6-7-10a7 7 0 0114 0c0 4-3 7-7 10z"/></svg>
+          <span data-i18n="finder_q5">Vill bara röra på mig, ingen tävling</span>
+        </button>
+        <button type="button" class="finder-btn finder-btn-route" data-route="corporate">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+          <span data-i18n="finder_q6">Vill träna med mitt företag →</span>
+        </button>
+        <button type="button" class="finder-btn finder-btn-route" data-route="kids">
+          <span class="fline"></span>
+          <svg class="finder-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="6" r="3"/><path d="M7 20c0-3.5 2.2-6 5-6s5 2.5 5 6"/></svg>
+          <span data-i18n="finder_q7">Mitt barn ska träna →</span>
+        </button>
       </div>
     </div>
 
@@ -1923,6 +1957,7 @@ try{(function(){
 </script>
 </body>
 </html>
+
 
 
 
