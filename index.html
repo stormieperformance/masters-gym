@@ -274,7 +274,7 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .finder-btn:hover::after{opacity:1;transform:translateX(3px)}
 .finder-sub{font-size:11px;color:var(--muted2);letter-spacing:.06em;margin:-6px 0 16px}
 .finder{margin-bottom:56px}
-.timeline-heading{font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;letter-spacing:.03em;color:var(--teal);margin:0 0 24px}
+.timeline-heading{font-family:var(--display);font-style:italic;font-weight:800;font-size:34px;letter-spacing:.03em;color:var(--text);margin:0 0 24px}
 .timeline{position:relative;margin-bottom:56px}
 .timeline::before{content:'';position:absolute;left:19px;top:10px;bottom:10px;width:2px;background:var(--line)}
 .timeline-item{position:relative;display:flex;gap:24px;margin-bottom:20px}
@@ -285,20 +285,21 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
   display:flex;align-items:center;justify-content:center;
   font-family:var(--display);font-style:italic;font-weight:800;font-size:14px;
 }
-.timeline-dot{width:14px;height:14px;margin:13px;border:none;background:var(--teal)}
+.timeline-dot{visibility:hidden}
 .timeline-flat::before{display:none}
 .timeline-card{flex:1;display:flex;background:var(--bg2);border:1px solid var(--line);overflow:hidden;transition:border-color .25s,transform .25s}
 .timeline-card:hover{border-color:var(--teal);transform:translateY(-2px)}
 .timeline-highlight{animation:timelineHighlight 1.6s ease}
 @keyframes timelineHighlight{0%{box-shadow:0 0 0 0 rgba(116,194,188,0.6)}30%{box-shadow:0 0 0 8px rgba(116,194,188,0)}100%{box-shadow:0 0 0 0 rgba(116,194,188,0)}}
-.timeline-card img{width:200px;flex-shrink:0;object-fit:cover;filter:grayscale(25%)}
+.timeline-card img{width:300px;flex-shrink:0;object-fit:contain;background:var(--bg);filter:grayscale(25%)}
 .timeline-content{padding:20px 24px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;flex:1;position:relative}
 .timeline-badge{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:700;border:1px solid rgba(116,194,188,.35);padding:4px 10px}
 .timeline-content h4{font-family:var(--display);font-style:italic;font-weight:800;font-size:19px;letter-spacing:.03em;color:var(--text);margin:4px 0 0}
 .timeline-content p{font-size:12.5px;font-weight:300;color:var(--muted);line-height:1.6;margin:0 0 10px;max-width:520px}
 .timeline-format{font-size:11.5px;font-style:italic;color:var(--muted2);line-height:1.5;margin:0 0 8px;max-width:480px}
 .timeline-equip{font-size:11px;color:var(--muted2);line-height:1.6;margin:0 0 12px;max-width:480px;padding-left:10px;border-left:2px solid rgba(116,194,188,0.3)}
-.timeline-next{font-size:10.5px;color:var(--teal);background:var(--teal-dim);border:1px solid rgba(116,194,188,0.3);padding:5px 10px;margin-bottom:6px}
+.timeline-next{display:inline-block;font-size:10.5px;color:var(--teal);background:var(--teal-dim);border:1px solid rgba(116,194,188,0.3);padding:5px 10px;margin-bottom:6px;text-decoration:none;cursor:pointer;transition:background .2s,border-color .2s}
+.timeline-next:hover{background:rgba(116,194,188,0.25);border-color:var(--teal)}
 .timeline-next:empty{display:none}
 .timeline-cta{
   background:var(--teal);color:#080808;border:none;font-size:10.5px;font-weight:700;
@@ -833,7 +834,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             <p data-i18n="class1_text">Alla som är nyfikna på kampsport och vill testa är välkomna, ingen tidigare erfarenhet krävs. Vi går igenom grunderna, värmer upp och stretchar för att sedan gå vidare till teknik. Nybörjarpassen är både roliga och jobbiga där vi mixar nya kunskaper med effektiv träning för att bygga upp teknik, koordination, kondition och självförtroende. Lånehandskar finns för de som vill prova på.</p>
             <p class="timeline-format" data-i18n="class1_format">60 minuters pass med grundtekniker, enklare kombinationer och blockträning blandat med kortare fysträning och stretch.</p>
             <div class="timeline-equip" data-i18n="class1_equip">Handskar finns att låna. När du känner att du får till lite mer tryck i slagen kan det vara bra att skaffa lindor som stöd för handlederna — de finns att köpa hos oss i receptionen. Vi hjälper gärna till och visar hur man bäst lindar händerna innan passen.</div>
-            <span class="timeline-next"></span>
+            <a href="#schedule" class="timeline-next"></a>
             <button type="button" class="timeline-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
         </div>
@@ -848,7 +849,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             <p data-i18n="class2_text">När man har klarat av nivå 1 och 2 av nybörjarpassen är man redo att gå vidare till fortsättningsgruppen. I fortsättningspassen fokuserar vi på taktik, teknik samt sparring med full kontroll av coach. På den här nivån utvecklar vi tekniken ytterligare genom att träna längre kombinationer med slag, sparkar och knän. Vi arbetar mer med timing, distans, rörelse och försvar, samtidigt som tempot blir högre. Du får även lära dig att läsa motståndaren, skapa öppningar och använda teknikerna i olika situationer.</p>
             <p class="timeline-format" data-i18n="class2_format">60 minuters pass med tekniker och mer avancerade kombinationer med mits, sparringövningar, lätt fri sparring, blandat med fysträning och stretch.</p>
             <div class="timeline-equip" data-i18n="class2_equip">Egna handskar, benskydd och lindor. Tandskydd, hjälm och suspensoar vid sparring.</div>
-            <span class="timeline-next"></span>
+            <a href="#schedule" class="timeline-next"></a>
             <button type="button" class="timeline-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
         </div>
@@ -861,7 +862,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             <span class="timeline-badge" data-i18n="class3_tag">På inbjudan</span>
             <h4 data-i18n="class3_title">TÄVLINGSGRUPP</h4>
             <p data-i18n="class3_text">Det är huvudtränaren som bestämmer vem som får ingå i tävlingsgruppen. Prata med Thamer och hör efter hur du bäst når dina mål att tävla och ingå i Masters Gyms tävlingsgrupp.</p>
-            <span class="timeline-next"></span>
+            <a href="#schedule" class="timeline-next"></a>
             <a href="#contact" class="timeline-cta" data-i18n="finder_r3_cta">Kontakta oss</a>
           </div>
         </div>
@@ -878,7 +879,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             <span class="timeline-badge" data-i18n="class6_tag">Alla nivåer</span>
             <h4 data-i18n="class6_title">BOXNING</h4>
             <p data-i18n="class6_text">Rena boxningspass med mycket fokus på teknik. Boxningspassen är för alla nivåer med inriktning motionsträning, ej tävling.</p>
-            <span class="timeline-next"></span>
+            <a href="#schedule" class="timeline-next"></a>
             <button type="button" class="timeline-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
         </div>
@@ -892,7 +893,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             <h4 data-i18n="class4_title">FYSPASS</h4>
             <p data-i18n="class4_text">Fyspassen är ett komplement till de övriga passen för att förbättra styrka och kondition. Passen är cirkelfyspass med blandade stationer. Alla nivåer är välkomna.</p>
             <div class="timeline-equip" data-i18n="class4_equip">Träningen sker barfota. Ta med lätta kläder, liten handduk och vattenflaska.</div>
-            <span class="timeline-next"></span>
+            <a href="#schedule" class="timeline-next"></a>
             <button type="button" class="timeline-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
         </div>
@@ -905,7 +906,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             <span class="timeline-badge" data-i18n="class7_tag">Alla nivåer</span>
             <h4 data-i18n="class7_title">MORGON/LUNCH</h4>
             <p data-i18n="class7_text">Perfekta pass för att få in träning i ett hektiskt arbetsschema. Både morgon- och lunchpassen är för alla nivåer för de som vill ha tuff träning.</p>
-            <span class="timeline-next"></span>
+            <a href="#schedule" class="timeline-next"></a>
             <button type="button" class="timeline-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
         </div>
@@ -1051,6 +1052,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <span class="timeline-badge" data-i18n="class5_tag">Personlig träning</span>
         <h3 class="coach-pt-title" data-i18n="class5_title">PT MED THAMER</h3>
         <p class="coach-pt-text" data-i18n="class5_tagline">Skräddarsydd träning från amatör till elitnivå.</p>
+        <a href="#schedule" class="timeline-next"></a>
         <div class="pt-prices">
           <div class="pt-price-row"><span data-i18n="pt1_label">1 timme</span><strong>1 000 kr</strong></div>
           <div class="pt-price-row"><span data-i18n="pt2_label">5 × 1 timme</span><strong>4 750 kr</strong></div>
@@ -1635,7 +1637,16 @@ try{(function(){
   function findNextSession(keyword){
     if(!keyword||typeof scheduleData==='undefined'||!scheduleData.days||!scheduleData.days.length)return null;
     const kw=keyword.toLowerCase();
-    for(const day of scheduleData.days){
+    const dayNames=['söndag','måndag','tisdag','onsdag','torsdag','fredag','lördag'];
+    const todayIdx=new Date().getDay();
+    const orderedDays=scheduleData.days.slice().sort((a,b)=>{
+      const ai=dayNames.indexOf((a||'').toLowerCase());
+      const bi=dayNames.indexOf((b||'').toLowerCase());
+      const aOffset=ai>=0?(ai-todayIdx+7)%7:99;
+      const bOffset=bi>=0?(bi-todayIdx+7)%7:99;
+      return aOffset-bOffset;
+    });
+    for(const day of orderedDays){
       const rows=scheduleData.byDay[day]||[];
       for(const r of rows){
         const pass=(r.Pass||'').toLowerCase();
@@ -1856,6 +1867,7 @@ try{(function(){
 </script>
 </body>
 </html>
+
 
 
 
