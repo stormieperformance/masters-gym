@@ -162,6 +162,7 @@ body:not(.dark) .nav-logo-light{display:block}
 .values-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
 .values h2{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(48px,6vw,88px);letter-spacing:.04em;line-height:.92;margin-bottom:64px}
 .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.values-dots{display:none}
 .value-card{background:var(--bg3);padding:40px 32px;border:1px solid var(--line)}
 .value-icon{width:72px;height:72px;margin-bottom:20px;opacity:.65}
 .value-icon img{width:100%;height:100%;object-fit:contain;transition:opacity .3s ease,filter .3s ease}
@@ -542,7 +543,14 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
   .navbar .theme-btn{display:none}
   .hero-content{padding:0 20px 60px}
   .hero h1{font-size:clamp(60px,18vw,100px)}
-  .values{padding:60px 20px}.values-grid{grid-template-columns:1fr}
+  .values{padding:60px 20px}
+  .values-grid{position:relative;display:block;min-height:300px}
+  #valuesGrid .value-card{position:absolute;top:0;left:0;right:0;opacity:0;transform:translate3d(40px,0,0);will-change:transform,opacity;transition:transform 1s cubic-bezier(.45,0,.15,1),opacity 1s cubic-bezier(.45,0,.15,1),border-color .3s ease,box-shadow .3s ease;pointer-events:none}
+  #valuesGrid .value-card.active{position:relative;opacity:1;transform:translate3d(0,0,0);pointer-events:auto;border-color:var(--teal);box-shadow:0 10px 32px rgba(116,194,188,0.18)}
+  #valuesGrid .value-card.prev{transform:translate3d(-40px,0,0)}
+  .values-dots{display:flex;justify-content:center;gap:9px;margin-top:24px}
+  .values-dots span{width:8px;height:8px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .3s ease,width .3s ease}
+  .values-dots span.active{background:var(--teal);width:24px;border-radius:4px}
   .about{padding:60px 20px}.about-container{grid-template-columns:1fr;gap:40px}.about-media img{height:380px}
   .testimonials{padding:60px 20px}.testimonials-carousel{padding:0}
   .founder-section{padding:60px 20px}.founder-container{grid-template-columns:1fr;gap:40px}
@@ -1292,7 +1300,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
   <div class="values-container">
     <p class="values-label reveal" data-i18n="values_label">Våra värderingar</p>
     <h2 class="reveal" data-i18n="values_h2">DISCIPLINE.<br>RESPECT.<br>COMMUNITY.</h2>
-    <div class="values-grid reveal-stagger">
+    <div class="values-grid reveal-stagger" id="valuesGrid">
       <div class="value-card">
         <div class="value-icon"><img src="logo_figure_only.png" alt="" aria-hidden="true"></div>
         <h3 data-i18n="val1_title">HARD WORK</h3>
@@ -1309,6 +1317,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <p data-i18n="val3_text">Masters Gym är en plats där människor kan vara sig själva, arbeta med dedikation och respekt för att nå sina mål. Kom och skaffa vänner för livet.</p>
       </div>
     </div>
+    <div class="values-dots" id="valuesDots"></div>
   </div>
 </section>
 
@@ -1948,6 +1957,79 @@ try{(function(){
 })();}catch(err){console.error('Testimonials carousel failed to initialize, rest of page unaffected:',err);}
 
 
+// ── VALUES CAROUSEL (mobile only) ──
+try{(function(){
+  const isMobile=window.matchMedia&&window.matchMedia('(max-width:768px)').matches;
+  if(!isMobile)return;
+
+  const grid=document.getElementById('valuesGrid');
+  const dotsWrap=document.getElementById('valuesDots');
+  if(!grid||!dotsWrap)return;
+  const cards=Array.from(grid.querySelectorAll('.value-card'));
+  if(!cards.length)return;
+
+  const prefersReducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let current=0;
+  let autoplayTimer=null;
+  let resumeTimer=null;
+
+  cards.forEach((c,i)=>{
+    const dot=document.createElement('span');
+    if(i===0)dot.classList.add('active');
+    dot.addEventListener('click',()=>{goTo(i);pauseThenResume();});
+    dotsWrap.appendChild(dot);
+  });
+  const dots=Array.from(dotsWrap.children);
+
+  function render(){
+    cards.forEach((c,i)=>{
+      c.classList.remove('active','prev');
+      if(i===current)c.classList.add('active');
+      else if(i===(current-1+cards.length)%cards.length)c.classList.add('prev');
+    });
+    dots.forEach((d,i)=>d.classList.toggle('active',i===current));
+  }
+
+  function goTo(i){
+    current=((i%cards.length)+cards.length)%cards.length;
+    render();
+  }
+  function next(){goTo(current+1);}
+  function prev(){goTo(current-1);}
+
+  function startAutoplay(){
+    if(prefersReducedMotion)return;
+    clearInterval(autoplayTimer);
+    autoplayTimer=setInterval(next,8000);
+  }
+  function stopAutoplay(){clearInterval(autoplayTimer);}
+  function pauseThenResume(){
+    stopAutoplay();
+    clearTimeout(resumeTimer);
+    resumeTimer=setTimeout(startAutoplay,5000);
+  }
+
+  let dragStartX=0,dragging=false;
+  grid.addEventListener('pointerdown',e=>{
+    dragStartX=e.clientX;dragging=true;
+    stopAutoplay();
+    try{grid.setPointerCapture(e.pointerId);}catch(e2){}
+  });
+  grid.addEventListener('pointerup',e=>{
+    if(!dragging)return;dragging=false;
+    const dx=e.clientX-dragStartX;
+    if(Math.abs(dx)>40){
+      if(dx<0)next();else prev();
+    }
+    pauseThenResume();
+  });
+  grid.addEventListener('pointercancel',()=>{dragging=false;pauseThenResume();});
+
+  render();
+  startAutoplay();
+})();}catch(err){console.error('Values carousel failed to initialize, rest of page unaffected:',err);}
+
+
 // ── COACHES 3D CAROUSEL ──
 (function(){
   var COACHES_SV = [
@@ -2134,6 +2216,7 @@ try{(function(){
 </script>
 </body>
 </html>
+
 
 
 
