@@ -264,17 +264,16 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .finder-result.visible{display:block}
 .finder-result h4{font-size:16px;font-weight:600;margin-bottom:8px;color:var(--teal)}
 .finder-result p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;max-width:480px}
-.classes-carousel-wrap{position:relative;padding:0 50px}
-.swiper{overflow:hidden;position:relative;z-index:1;padding:20px 0 40px;perspective:1200px}
-.swiper-wrapper{position:relative;width:100%;height:100%;display:flex;transition-property:transform;box-sizing:content-box;transform-style:preserve-3d}
-.swiper-slide{flex-shrink:0;width:100%;height:100%;position:relative;transform-style:preserve-3d}
-.class-poster{width:210px;height:290px;background:var(--bg3);border:1.5px solid var(--line);border-radius:14px;overflow:hidden;text-align:left;cursor:pointer;font-family:var(--sans);transition:border-color .2s}
+.classes-carousel-wrap{position:relative}
+.classes-carousel{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.classes-carousel::-webkit-scrollbar{display:none}
+.class-poster{scroll-snap-align:start;flex:0 0 240px;background:var(--bg3);border:1px solid var(--line);overflow:hidden;text-align:left;cursor:pointer;font-family:var(--sans);padding:0;transition:border-color .2s;position:relative}
 .class-poster:hover,.class-poster.active{border-color:var(--teal)}
-.class-poster img{width:100%;height:75%;object-fit:cover;filter:grayscale(30%);display:block;transition:filter .3s}
+.class-poster img{width:100%;height:150px;object-fit:cover;filter:grayscale(30%);display:block;transition:filter .3s}
 .class-poster:hover img,.class-poster.active img{filter:grayscale(0%)}
-.poster-num{position:absolute;top:10px;left:10px;font-family:var(--display);font-style:italic;font-weight:800;font-size:13px;color:var(--teal);background:rgba(10,10,8,0.7);padding:2px 8px;z-index:2}
-.class-poster h3{font-family:var(--display);font-style:italic;font-weight:800;font-size:17px;letter-spacing:.04em;margin:12px 14px 4px;color:var(--text)}
-.poster-tag{font-size:10.5px;font-weight:300;color:var(--muted);line-height:1.4;margin:0 14px 12px}
+.poster-num{position:absolute;top:10px;left:10px;font-family:var(--display);font-style:italic;font-weight:800;font-size:13px;color:var(--teal);background:rgba(10,10,8,0.7);padding:2px 8px}
+.class-poster h3{font-family:var(--display);font-style:italic;font-weight:800;font-size:18px;letter-spacing:.04em;margin:14px 16px 6px;color:var(--text)}
+.poster-tag{font-size:11.5px;font-weight:300;color:var(--muted);line-height:1.5;margin:0 16px 16px}
 .classes-carousel-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px}
 .classes-carousel-arrow{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--teal);cursor:pointer;transition:border-color .2s,background .2s;font-family:var(--sans);font-size:14px}
 .classes-carousel-arrow:hover{border-color:var(--teal);background:var(--teal-dim)}
@@ -471,7 +470,7 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
   .testimonials{padding:60px 20px}.testimonials-grid{grid-template-columns:1fr;gap:40px}
   .founder-section{padding:60px 20px}.founder-container{grid-template-columns:1fr;gap:40px}
   .fight-section{padding:60px 20px}
-  .classes{padding:60px 20px}.class-poster{width:170px;height:240px}.classes-carousel-wrap{padding:0 40px}
+  .classes{padding:60px 20px}.class-poster{flex-basis:200px}
   .path-ladder{flex-direction:column;align-items:stretch}
   .path-arrow{transform:rotate(90deg);padding:6px 0;align-self:center}
   .schedule{padding:60px 20px}.schedule-header{flex-direction:column;align-items:flex-start}
@@ -799,10 +798,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
     </div>
 
     <div class="classes-carousel-wrap">
-      <div class="swiper classes-swiper" id="classesCarousel">
-        <div class="swiper-wrapper">
+      <div class="classes-carousel reveal-stagger" id="classesCarousel">
 
-        <div class="swiper-slide class-poster active" data-index="0">
+        <button type="button" class="class-poster active" data-index="0">
           <img src="class-nybörjare.jpg" alt="Nybörjarpass — Masters Gym Stockholm" style="object-position:center 15%">
           <span class="poster-num">01</span>
           <h3 data-i18n="class1_title">NYBÖRJARPASS</h3>
@@ -814,9 +812,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             <div class="class-equipment" data-i18n="class1_equip">Handskar finns att låna. När du känner att du får till lite mer tryck i slagen kan det vara bra att skaffa lindor som stöd för handlederna — de finns att köpa hos oss i receptionen. Vi hjälper gärna till och visar hur man bäst lindar händerna innan passen.</div>
             <button type="button" class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
-        </div>
+        </button>
 
-        <div class="swiper-slide class-poster" data-index="1">
+        <button type="button" class="class-poster" data-index="1">
           <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt="">
           <span class="poster-num">02</span>
           <h3 data-i18n="class2_title">FORTSÄTTNINGSPASS</h3>
@@ -828,9 +826,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             <div class="class-equipment" data-i18n="class2_equip">Egna handskar, benskydd och lindor. Tandskydd, hjälm och suspensoar vid sparring.</div>
             <button type="button" class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
-        </div>
+        </button>
 
-        <div class="swiper-slide class-poster" data-index="2">
+        <button type="button" class="class-poster" data-index="2">
           <img src="IMG_5588.JPG" alt="Tävlingsgrupp — Masters Gym Stockholm">
           <span class="poster-num">03</span>
           <h3 data-i18n="class3_title">TÄVLINGSGRUPP</h3>
@@ -840,9 +838,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             <p data-i18n="class3_text">Det är huvudtränaren som bestämmer vem som får ingå i tävlingsgruppen. Prata med Thamer och hör efter hur du bäst når dina mål att tävla och ingå i Masters Gyms tävlingsgrupp.</p>
             <button type="button" class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
-        </div>
+        </button>
 
-        <div class="swiper-slide class-poster" data-index="3">
+        <button type="button" class="class-poster" data-index="3">
           <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt="Boxningspass — Masters Gym Stockholm">
           <span class="poster-num">04</span>
           <h3 data-i18n="class6_title">BOXNING</h3>
@@ -852,9 +850,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             <p data-i18n="class6_text">Rena boxningspass med mycket fokus på teknik. Boxningspassen är för alla nivåer med inriktning motionsträning, ej tävling.</p>
             <button type="button" class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
-        </div>
+        </button>
 
-        <div class="swiper-slide class-poster" data-index="4">
+        <button type="button" class="class-poster" data-index="4">
           <img src="class-fyspass.jpg" alt="Fyspass — Masters Gym Stockholm" style="object-position:center 30%">
           <span class="poster-num">05</span>
           <h3 data-i18n="class4_title">FYSPASS</h3>
@@ -865,9 +863,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             <div class="class-equipment" data-i18n="class4_equip">Träningen sker barfota. Ta med lätta kläder, liten handduk och vattenflaska.</div>
             <button type="button" class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
-        </div>
+        </button>
 
-        <div class="swiper-slide class-poster" data-index="5">
+        <button type="button" class="class-poster" data-index="5">
           <img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=600&q=80&fit=crop" alt="Morgon- och lunchpass — Masters Gym Stockholm">
           <span class="poster-num">06</span>
           <h3 data-i18n="class7_title">MORGON/LUNCH</h3>
@@ -877,9 +875,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             <p data-i18n="class7_text">Perfekta pass för att få in träning i ett hektiskt arbetsschema. Både morgon- och lunchpassen är för alla nivåer för de som vill ha tuff träning.</p>
             <button type="button" class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
-        </div>
+        </button>
 
-        <div class="swiper-slide class-poster poster-pt" data-index="6">
+        <button type="button" class="class-poster poster-pt" data-index="6">
           <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80&fit=crop" alt="">
           <span class="poster-num">07</span>
           <h3 data-i18n="class5_title">PT MED THAMER</h3>
@@ -899,9 +897,8 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
             </div>
             <button type="button" class="btn btn-ghost open-modal" data-i18n="pt_cta">Boka PT-pass</button>
           </div>
-        </div>
+        </button>
 
-        </div>
       </div>
       <div class="classes-carousel-nav">
         <button type="button" class="classes-carousel-arrow" id="classesPrev" aria-label="Föregående">←</button>
@@ -1216,7 +1213,6 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" media="print" onload="this.media='all'">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.1.4/swiper-bundle.min.js"></script>
 <script>
 const navbar=document.getElementById('navbar');
 window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>60));
@@ -1599,37 +1595,44 @@ document.querySelectorAll('.kids-tab').forEach(tab=>{
   update();
 })();
 
-// CLASSES CAROUSEL — Swiper coverflow
+// CLASSES CAROUSEL
 (function(){
+  const track=document.getElementById('classesCarousel');
   const detail=document.getElementById('classesDetail');
   const dotsWrap=document.getElementById('classesDots');
-  if(!document.getElementById('classesCarousel')||!detail)return;
+  const prevBtn=document.getElementById('classesPrev');
+  const nextBtn=document.getElementById('classesNext');
+  if(!track||!detail)return;
+  const posters=Array.from(track.querySelectorAll('.class-poster'));
+  if(!posters.length)return;
 
-  function updateDetail(slide){
-    const body=slide.querySelector('.class-card-body');
+  posters.forEach((p,i)=>{
+    const dot=document.createElement('span');
+    if(i===0)dot.classList.add('active');
+    dot.addEventListener('click',()=>select(i,true));
+    dotsWrap.appendChild(dot);
+  });
+  const dots=Array.from(dotsWrap.children);
+
+  function select(i,scroll){
+    posters.forEach(p=>p.classList.remove('active'));
+    dots.forEach(d=>d.classList.remove('active'));
+    posters[i].classList.add('active');
+    if(dots[i])dots[i].classList.add('active');
+    const body=posters[i].querySelector('.class-card-body');
     detail.innerHTML=body?body.innerHTML:'';
     detail.querySelectorAll('.open-modal').forEach(b=>b.addEventListener('click',openModal));
+    if(scroll)posters[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'});
   }
 
-  const classesSwiper=new Swiper('#classesCarousel',{
-    effect:'coverflow',
-    grabCursor:true,
-    centeredSlides:true,
-    slidesPerView:'auto',
-    spaceBetween:-40,
-    loop:true,
-    coverflowEffect:{rotate:55,stretch:0,depth:320,modifier:1.4,slideShadows:false},
-    navigation:{nextEl:'#classesNext',prevEl:'#classesPrev'},
-    pagination:{el:'#classesDots',clickable:true,bulletClass:'classes-dot',bulletActiveClass:'active'},
-    on:{
-      slideChangeTransitionEnd:function(){
-        const active=this.slides[this.activeIndex];
-        if(active)updateDetail(active);
-      }
-    }
+  posters.forEach((p,i)=>{
+    p.addEventListener('click',()=>select(i,true));
   });
 
-  updateDetail(classesSwiper.slides[classesSwiper.activeIndex]);
+  prevBtn.addEventListener('click',()=>{track.scrollBy({left:-260,behavior:'smooth'});});
+  nextBtn.addEventListener('click',()=>{track.scrollBy({left:260,behavior:'smooth'});});
+
+  select(0,false);
 })();
 
 
@@ -1819,8 +1822,6 @@ document.querySelectorAll('.kids-tab').forEach(tab=>{
 </script>
 </body>
 </html>
-
-
 
 
 
