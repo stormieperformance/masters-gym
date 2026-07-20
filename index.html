@@ -187,8 +187,22 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .about-stat-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
 .testimonials{padding:100px 40px;background:var(--bg2);position:relative;overflow:hidden}
 .testimonials::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:420px;height:374px;max-width:70%;max-height:80%;background-image:url('MastersGymLogo.png');background-size:contain;background-repeat:no-repeat;background-position:center;opacity:.1;pointer-events:none;z-index:0}
-.testimonials-grid{position:relative;z-index:1;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px}
-.testimonial-quote{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(28px,3vw,42px);letter-spacing:.04em;line-height:1.2;color:var(--text);margin-bottom:20px}
+.testimonials-carousel{position:relative;z-index:1;max-width:820px;margin:0 auto;text-align:center;padding:0 20px}
+.testimonials-track{position:relative;min-height:160px}
+.testimonial-slide{
+  position:absolute;top:0;left:0;right:0;
+  opacity:0;
+  transform:translate3d(40px,0,0);
+  will-change:transform,opacity;
+  transition:transform 1s cubic-bezier(.45,0,.15,1),opacity 1s cubic-bezier(.45,0,.15,1);
+  pointer-events:none;
+}
+.testimonial-slide.active{position:relative;opacity:1;transform:translate3d(0,0,0);pointer-events:auto}
+.testimonial-slide.prev{transform:translate3d(-40px,0,0)}
+.testimonials-dots{display:flex;justify-content:center;gap:9px;margin-top:40px}
+.testimonials-dots span{width:8px;height:8px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .3s ease,width .3s ease}
+.testimonials-dots span.active{background:var(--teal);width:24px;border-radius:4px}
+.testimonial-quote{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(26px,3vw,42px);letter-spacing:.04em;line-height:1.25;color:var(--text);margin-bottom:22px}
 .testimonial-author{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
 .founder-section{padding:100px 40px;border-top:1px solid var(--line)}
 .founder-container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:center}
@@ -530,7 +544,7 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
   .hero h1{font-size:clamp(60px,18vw,100px)}
   .values{padding:60px 20px}.values-grid{grid-template-columns:1fr}
   .about{padding:60px 20px}.about-container{grid-template-columns:1fr;gap:40px}.about-media img{height:380px}
-  .testimonials{padding:60px 20px}.testimonials-grid{grid-template-columns:1fr;gap:40px}
+  .testimonials{padding:60px 20px}.testimonials-carousel{padding:0}
   .founder-section{padding:60px 20px}.founder-container{grid-template-columns:1fr;gap:40px}
   .fight-section{padding:60px 20px}
   .classes{padding:60px 20px}
@@ -1107,16 +1121,19 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
   </div>
 </section>
 
-<section class="testimonials">
-  <div class="testimonials-grid">
-    <div>
-      <p class="testimonial-quote" data-i18n="test1_quote">"Masters Gym är som min extra familj. Så mycket värme, gemenskap och tillit till dem man tränar med."</p>
-      <p class="testimonial-author" data-i18n="test1_author">— Medlem</p>
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-carousel">
+    <div class="testimonials-track" id="testimonialsTrack">
+      <div class="testimonial-slide">
+        <p class="testimonial-quote" data-i18n="test1_quote">"Masters Gym är som min extra familj. Så mycket värme, gemenskap och tillit till dem man tränar med."</p>
+        <p class="testimonial-author" data-i18n="test1_author">— Medlem</p>
+      </div>
+      <div class="testimonial-slide">
+        <p class="testimonial-quote" data-i18n="test2_quote">"Min son önskar att det var barnträning varje dag och ser fram emot att få avancera när han blir äldre."</p>
+        <p class="testimonial-author" data-i18n="test2_author">— Mamma till en av våra yngsta i klubben</p>
+      </div>
     </div>
-    <div>
-      <p class="testimonial-quote" data-i18n="test2_quote">"Min son önskar att det var barnträning varje dag och ser fram emot att få avancera när han blir äldre."</p>
-      <p class="testimonial-author" data-i18n="test2_author">— Mamma till en av våra yngsta i klubben</p>
-    </div>
+    <div class="testimonials-dots" id="testimonialsDots"></div>
   </div>
 </section>
 
@@ -1858,6 +1875,79 @@ try{
 }catch(err){console.error('Timeline expand toggle failed, rest of page unaffected:',err);}
 
 
+// ── TESTIMONIALS CAROUSEL ──
+try{(function(){
+  const track=document.getElementById('testimonialsTrack');
+  const dotsWrap=document.getElementById('testimonialsDots');
+  if(!track||!dotsWrap)return;
+  const slides=Array.from(track.querySelectorAll('.testimonial-slide'));
+  if(!slides.length)return;
+
+  const prefersReducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let current=0;
+  let autoplayTimer=null;
+  let resumeTimer=null;
+
+  slides.forEach((s,i)=>{
+    const dot=document.createElement('span');
+    if(i===0)dot.classList.add('active');
+    dot.addEventListener('click',()=>{goTo(i);pauseThenResume();});
+    dotsWrap.appendChild(dot);
+  });
+  const dots=Array.from(dotsWrap.children);
+
+  function render(){
+    slides.forEach((s,i)=>{
+      s.classList.remove('active','prev');
+      if(i===current)s.classList.add('active');
+      else if(i===(current-1+slides.length)%slides.length)s.classList.add('prev');
+    });
+    dots.forEach((d,i)=>d.classList.toggle('active',i===current));
+  }
+
+  function goTo(i){
+    current=((i%slides.length)+slides.length)%slides.length;
+    render();
+  }
+  function next(){goTo(current+1);}
+  function prev(){goTo(current-1);}
+
+  function startAutoplay(){
+    if(prefersReducedMotion)return;
+    clearInterval(autoplayTimer);
+    autoplayTimer=setInterval(next,8000);
+  }
+  function stopAutoplay(){
+    clearInterval(autoplayTimer);
+  }
+  function pauseThenResume(){
+    stopAutoplay();
+    clearTimeout(resumeTimer);
+    resumeTimer=setTimeout(startAutoplay,5000);
+  }
+
+  // Swipe / drag support — pauses autoplay during interaction, resumes after
+  let dragStartX=0,dragging=false;
+  track.addEventListener('pointerdown',e=>{
+    dragStartX=e.clientX;dragging=true;
+    stopAutoplay();
+    try{track.setPointerCapture(e.pointerId);}catch(e2){}
+  });
+  track.addEventListener('pointerup',e=>{
+    if(!dragging)return;dragging=false;
+    const dx=e.clientX-dragStartX;
+    if(Math.abs(dx)>40){
+      if(dx<0)next();else prev();
+    }
+    pauseThenResume();
+  });
+  track.addEventListener('pointercancel',()=>{dragging=false;pauseThenResume();});
+
+  render();
+  startAutoplay();
+})();}catch(err){console.error('Testimonials carousel failed to initialize, rest of page unaffected:',err);}
+
+
 // ── COACHES 3D CAROUSEL ──
 (function(){
   var COACHES_SV = [
@@ -2044,6 +2134,7 @@ try{
 </script>
 </body>
 </html>
+
 
 
 
