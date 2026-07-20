@@ -275,7 +275,7 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
   display:flex;align-items:center;justify-content:center;
   perspective:2200px;perspective-origin:50% 40%;
   touch-action:pan-y;cursor:grab;
-  --c3-h:440px;--c3-w:320px;
+  --c3-h:560px;--c3-w:400px;
 }
 .class3d-stage:active{cursor:grabbing}
 .class3d-card{
@@ -290,7 +290,8 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .class3d-card-info{position:absolute;bottom:0;left:0;right:0;padding:16px 18px 20px}
 .class3d-card-tag{font-size:10.5px;font-weight:300;color:rgba(240,237,230,.7);line-height:1.4;margin-bottom:5px}
 .class3d-card-name{font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;letter-spacing:.04em;color:#f0ede6;line-height:1}
-.class3d-card-cta{display:inline-block;margin-top:10px;background:var(--teal);color:#080808;border:none;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:9px 16px;cursor:pointer;font-family:var(--sans);text-decoration:none;position:relative;z-index:5;pointer-events:auto}
+.class3d-card-cta{position:absolute;top:16px;right:16px;background:var(--teal);color:#080808;border:none;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:12px 18px;cursor:pointer;font-family:var(--sans);text-decoration:none;z-index:8;pointer-events:auto;box-shadow:0 10px 24px rgba(0,0,0,0.5);transition:transform .2s ease,box-shadow .2s ease}
+.class3d-card-cta:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 14px 28px rgba(0,0,0,0.55)}
 .class3d-card-cta:hover{background:var(--teal-dark)}
 .class3d-card.active{border-color:rgba(116,194,188,0.4)}
 .class3d-prev,.class3d-next{
@@ -495,7 +496,7 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
   .testimonials{padding:60px 20px}.testimonials-grid{grid-template-columns:1fr;gap:40px}
   .founder-section{padding:60px 20px}.founder-container{grid-template-columns:1fr;gap:40px}
   .fight-section{padding:60px 20px}
-  .classes{padding:60px 20px}.class3d-stage{--c3-h:340px;--c3-w:250px}
+  .classes{padding:60px 20px}.class3d-stage{--c3-h:400px;--c3-w:290px}
   .path-ladder{flex-direction:column;align-items:stretch}
   .path-arrow{transform:rotate(90deg);padding:6px 0;align-self:center}
   .schedule{padding:60px 20px}.schedule-header{flex-direction:column;align-items:flex-start}
@@ -819,10 +820,10 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <div class="class3d-card active" data-index="0">
           <img src="class-nybörjare.jpg" alt="Nybörjarpass — Masters Gym Stockholm" style="object-position:center 15%">
           <div class="class3d-card-overlay"></div>
+          <button type="button" class="class3d-card-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           <div class="class3d-card-info">
             <div class="class3d-card-tag" data-i18n="class1_tagline">Grunderna i kick- och thaiboxning. Inga förkunskaper krävs.</div>
             <div class="class3d-card-name" data-i18n="class1_title">NYBÖRJARPASS</div>
-            <button type="button" class="class3d-card-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
           <div class="class-card-body" hidden>
             <span class="class-card-tag" data-i18n="class1_tag">Nivå 1 &amp; 2 · Alla välkomna</span>
@@ -835,10 +836,10 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <div class="class3d-card" data-index="1">
           <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt="">
           <div class="class3d-card-overlay"></div>
+          <button type="button" class="class3d-card-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           <div class="class3d-card-info">
             <div class="class3d-card-tag" data-i18n="class2_tagline">Längre kombinationer, teknisk utveckling och sparring.</div>
             <div class="class3d-card-name" data-i18n="class2_title">FORTSÄTTNINGSPASS</div>
-            <button type="button" class="class3d-card-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
           <div class="class-card-body" hidden>
             <span class="class-card-tag" data-i18n="class2_tag">Min. 2 terminer</span>
@@ -851,10 +852,10 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <div class="class3d-card" data-index="2">
           <img src="IMG_5588.JPG" alt="Tävlingsgrupp — Masters Gym Stockholm">
           <div class="class3d-card-overlay"></div>
+          <a href="#contact" class="class3d-card-cta" data-i18n="finder_r3_cta">Kontakta oss</a>
           <div class="class3d-card-info">
             <div class="class3d-card-tag" data-i18n="class3_tagline">För dig som vill tävla. Bestäms av huvudtränaren.</div>
             <div class="class3d-card-name" data-i18n="class3_title">TÄVLINGSGRUPP</div>
-            <a href="#contact" class="class3d-card-cta" data-i18n="finder_r3_cta">Kontakta oss</a>
           </div>
           <div class="class-card-body" hidden>
             <span class="class-card-tag" data-i18n="class3_tag">På inbjudan</span>
@@ -865,10 +866,10 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <div class="class3d-card" data-index="3">
           <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt="Boxningspass — Masters Gym Stockholm">
           <div class="class3d-card-overlay"></div>
+          <button type="button" class="class3d-card-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           <div class="class3d-card-info">
             <div class="class3d-card-tag" data-i18n="class6_tagline">Rena boxningspass med fokus på teknik. Motionsträning, ej tävling.</div>
             <div class="class3d-card-name" data-i18n="class6_title">BOXNING</div>
-            <button type="button" class="class3d-card-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
           <div class="class-card-body" hidden>
             <span class="class-card-tag" data-i18n="class6_tag">Alla nivåer</span>
@@ -879,10 +880,10 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <div class="class3d-card" data-index="4">
           <img src="class-fyspass.jpg" alt="Fyspass — Masters Gym Stockholm" style="object-position:center 30%">
           <div class="class3d-card-overlay"></div>
+          <button type="button" class="class3d-card-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           <div class="class3d-card-info">
             <div class="class3d-card-tag" data-i18n="class4_tagline">Funktionell träning för hela kroppen. Du kommer svettas!</div>
             <div class="class3d-card-name" data-i18n="class4_title">FYSPASS</div>
-            <button type="button" class="class3d-card-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
           <div class="class-card-body" hidden>
             <span class="class-card-tag" data-i18n="class4_tag">Alla nivåer</span>
@@ -894,10 +895,10 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <div class="class3d-card" data-index="5">
           <img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=600&q=80&fit=crop" alt="Morgon- och lunchpass — Masters Gym Stockholm">
           <div class="class3d-card-overlay"></div>
+          <button type="button" class="class3d-card-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           <div class="class3d-card-info">
             <div class="class3d-card-tag" data-i18n="class7_tagline">Träning som passar in i ett hektiskt arbetsschema.</div>
             <div class="class3d-card-name" data-i18n="class7_title">MORGON/LUNCH</div>
-            <button type="button" class="class3d-card-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
           <div class="class-card-body" hidden>
             <span class="class-card-tag" data-i18n="class7_tag">Alla nivåer</span>
@@ -908,10 +909,10 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <div class="class3d-card" data-index="6">
           <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80&fit=crop" alt="">
           <div class="class3d-card-overlay"></div>
+          <button type="button" class="class3d-card-cta open-modal" data-i18n="pt_cta_card">Boka PT-timme</button>
           <div class="class3d-card-info">
             <div class="class3d-card-tag" data-i18n="class5_tagline">Skräddarsydd träning från amatör till elitnivå.</div>
             <div class="class3d-card-name" data-i18n="class5_title">PT MED THAMER</div>
-            <button type="button" class="class3d-card-cta open-modal" data-i18n="pt_cta_card">Boka PT-timme</button>
           </div>
           <div class="class-card-body" hidden>
             <span class="class-card-tag" data-i18n="class5_tag">Personlig träning</span>
@@ -1958,6 +1959,7 @@ try{(function(){
 </script>
 </body>
 </html>
+
 
 
 
