@@ -446,6 +446,8 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .kids-panel.prev{transform:translate3d(-40px,0,0)}
 .kids-panel p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:14px}
 .kids-age-tag{background:var(--teal-dim);border:1px solid rgba(116,194,188,.3);padding:8px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:600}
+.kids-age-tag-link{text-decoration:none;cursor:pointer;transition:background .2s ease,border-color .2s ease}
+.kids-age-tag-link:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
 .social{padding:100px 40px;border-top:1px solid var(--line)}
 .social-container{max-width:1200px;margin:0 auto}
 .social-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
@@ -1192,17 +1194,17 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <div class="kids-panel active" id="kids-panel-barn">
           <p data-i18n="kids_p1">Strukturerad och trygg träning. Vi lär ut respekt, disciplin och självförtroende.</p>
           <p data-i18n="kids_p2">Säker miljö med erfarna tränare.</p>
-          <div class="kids-ages"><span class="kids-age-tag" data-i18n="kids_age1">Barn 6–11 år</span><span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span></div>
+          <div class="kids-ages"><span class="kids-age-tag" data-i18n="kids_age1">Barn 6–11 år</span><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" rel="noopener noreferrer" class="kids-age-tag kids-age-tag-link" data-i18n="kids_age3">Terminskort</a></div>
         </div>
         <div class="kids-panel" id="kids-panel-junior1">
           <p data-i18n="kids_junior1_p1">För ungdomar 12–14 år som vill ta sin träning till nästa nivå.</p>
           <p data-i18n="kids_junior1_p2">Möjlighet att avancera mot tävling.</p>
-          <div class="kids-ages"><span class="kids-age-tag" data-i18n="kids_age2">Junior 12–14 år</span><span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span></div>
+          <div class="kids-ages"><span class="kids-age-tag" data-i18n="kids_age2">Junior 12–14 år</span><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" rel="noopener noreferrer" class="kids-age-tag kids-age-tag-link" data-i18n="kids_age3">Terminskort</a></div>
         </div>
         <div class="kids-panel" id="kids-panel-junior2">
           <p data-i18n="kids_junior2_p1">För ungdomar 15–17 år som vill ta sin träning till nästa nivå.</p>
           <p data-i18n="kids_junior2_p2">Möjlighet att avancera mot tävling.</p>
-          <div class="kids-ages"><span class="kids-age-tag" data-i18n="kids_age4">Junior 15–17 år</span><span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span></div>
+          <div class="kids-ages"><span class="kids-age-tag" data-i18n="kids_age4">Junior 15–17 år</span><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" rel="noopener noreferrer" class="kids-age-tag kids-age-tag-link" data-i18n="kids_age3">Terminskort</a></div>
         </div>
       </div>
       <button class="btn btn-primary open-modal" style="margin-top:8px" data-i18n="kids_cta">Anmäl ditt barn</button>
@@ -2247,6 +2249,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
