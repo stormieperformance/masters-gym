@@ -162,7 +162,6 @@ body:not(.dark) .nav-logo-light{display:block}
 .values-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
 .values h2{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(48px,6vw,88px);letter-spacing:.04em;line-height:.92;margin-bottom:64px}
 .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.values-dots{display:none}
 .value-card{background:var(--bg3);padding:40px 32px;border:1px solid var(--line)}
 .value-icon{width:72px;height:72px;margin-bottom:20px;opacity:.65}
 .value-icon img{width:100%;height:100%;object-fit:contain;transition:opacity .3s ease,filter .3s ease}
@@ -392,6 +391,7 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .memberships-sub{font-size:14px;color:var(--muted);max-width:480px;margin-top:12px;line-height:1.6}
 .memberships-tier-label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:700;border-left:2px solid var(--teal);padding-left:10px;margin:48px 0 20px}
 .memberships-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.carousel-dots{display:none}
 .memberships-grid-secondary{margin-top:24px}
 .membership-card{background:var(--bg3);border:1px solid var(--line);padding:32px 28px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;display:flex;flex-direction:column}
 .membership-card:hover{border-color:var(--muted2);transform:translateY(-3px)}
@@ -544,13 +544,7 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
   .hero-content{padding:0 20px 60px}
   .hero h1{font-size:clamp(60px,18vw,100px)}
   .values{padding:60px 20px}
-  .values-grid{position:relative;display:block;min-height:300px}
-  #valuesGrid .value-card{position:absolute;top:0;left:0;right:0;opacity:0;transform:translate3d(40px,0,0);will-change:transform,opacity;transition:transform 1s cubic-bezier(.45,0,.15,1),opacity 1s cubic-bezier(.45,0,.15,1),border-color .3s ease,box-shadow .3s ease;pointer-events:none}
-  #valuesGrid .value-card.active{position:relative;opacity:1;transform:translate3d(0,0,0);pointer-events:auto;border-color:var(--teal);box-shadow:0 10px 32px rgba(116,194,188,0.18)}
-  #valuesGrid .value-card.prev{transform:translate3d(-40px,0,0)}
-  .values-dots{display:flex;justify-content:center;gap:9px;margin-top:24px}
-  .values-dots span{width:8px;height:8px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .3s ease,width .3s ease}
-  .values-dots span.active{background:var(--teal);width:24px;border-radius:4px}
+  .values-grid{grid-template-columns:1fr}
   .about{padding:60px 20px}.about-container{grid-template-columns:1fr;gap:40px}.about-media img{height:380px}
   .testimonials{padding:100px 20px 160px}.testimonials-carousel{padding:0}
   .founder-section{padding:60px 20px}.founder-container{grid-template-columns:1fr;gap:40px}
@@ -563,7 +557,15 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
   .path-ladder{flex-direction:column;align-items:stretch}
   .path-arrow{transform:rotate(90deg);padding:6px 0;align-self:center}
   .schedule{padding:60px 20px}.schedule-header{flex-direction:column;align-items:flex-start}
-  .memberships{padding:60px 20px}.memberships-grid{grid-template-columns:1fr}.memberships-features{grid-template-columns:1fr}.membership-cta{flex-direction:column;align-items:flex-start}.membership-cta-actions{align-items:flex-start;width:100%}.membership-cta-actions .btn{width:100%}
+  .memberships{padding:60px 20px}.memberships-features{grid-template-columns:1fr}.membership-cta{flex-direction:column;align-items:flex-start}.membership-cta-actions{align-items:flex-start;width:100%}.membership-cta-actions .btn{width:100%}
+  .memberships-grid{position:relative;display:block;min-height:340px}
+  #membershipsFeatured,#membershipsSecondary{min-height:380px}
+  #membershipsFeatured .membership-card,#membershipsSecondary .membership-card{position:absolute;top:0;left:0;right:0;opacity:0;transform:translate3d(40px,0,0);will-change:transform,opacity;transition:transform 1s cubic-bezier(.45,0,.15,1),opacity 1s cubic-bezier(.45,0,.15,1),border-color .3s ease;pointer-events:none}
+  #membershipsFeatured .membership-card.active,#membershipsSecondary .membership-card.active{position:relative;opacity:1;transform:translate3d(0,0,0);pointer-events:auto}
+  #membershipsFeatured .membership-card.prev,#membershipsSecondary .membership-card.prev{transform:translate3d(-40px,0,0)}
+  .carousel-dots{display:flex;justify-content:center;gap:9px;margin:20px 0 8px}
+  .carousel-dots span{width:8px;height:8px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .3s ease,width .3s ease}
+  .carousel-dots span.active{background:var(--teal);width:24px;border-radius:4px}
   .corporate{padding:60px 20px}.corporate::before{display:none}.corporate-container{grid-template-columns:1fr;gap:40px}.corporate-media{order:-1}.corporate-media img{height:300px}
   .kids{padding:60px 20px}.kids-container{grid-template-columns:1fr;gap:40px}.kids-media img{height:300px}
   .social{padding:60px 20px}.social-grid{grid-template-columns:repeat(2,1fr)}
@@ -1021,7 +1023,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
     <p class="memberships-sub" data-i18n="memberships_sub">Flera betalningsalternativ och medlemskap för alla nivåer — hitta det som passar dig bäst.</p>
 
     <p class="memberships-tier-label" data-i18n="memberships_tier1">Mest populära medlemskap</p>
-    <div class="memberships-grid memberships-grid-featured reveal-stagger">
+    <div class="memberships-grid memberships-grid-featured reveal-stagger" id="membershipsFeatured">
       <div class="membership-card featured">
         <div class="membership-ribbon" data-i18n="mem2_ribbon">Bäst värde</div>
         <svg class="membership-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17 2l4 4-4 4M3 12a9 9 0 0115-6.7M7 22l-4-4 4-4M21 12a9 9 0 01-15 6.7"/></svg>
@@ -1060,8 +1062,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn" data-i18n="join_gymcontrol" style="text-decoration:none">Bli medlem →</a>
       </div>
     </div>
+    <div class="carousel-dots" id="membershipsFeaturedDots"></div>
 
-    <div class="memberships-grid memberships-grid-secondary reveal-stagger">
+    <div class="memberships-grid memberships-grid-secondary reveal-stagger" id="membershipsSecondary">
       <div class="membership-card compact">
         <svg class="membership-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2l2.4 6.9L21 11l-6.6 2.1L12 20l-2.4-6.9L3 11l6.6-2.1z"/></svg>
         <h3 data-i18n="mem5_title">Klippkort 10x</h3>
@@ -1096,6 +1099,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <button class="btn btn-ghost open-modal" data-i18n="book_trial">Boka provpass →</button>
       </div>
     </div>
+    <div class="carousel-dots" id="membershipsSecondaryDots"></div>
 
     <div class="memberships-features">
       <div class="memberships-feature">
@@ -1957,77 +1961,81 @@ try{(function(){
 })();}catch(err){console.error('Testimonials carousel failed to initialize, rest of page unaffected:',err);}
 
 
-// ── VALUES CAROUSEL (mobile only) ──
-try{(function(){
-  const isMobile=window.matchMedia&&window.matchMedia('(max-width:768px)').matches;
-  if(!isMobile)return;
+// ── REUSABLE MOBILE CAROUSEL (one card at a time, autoplay, swipe, dots) ──
+function initMobileCarousel(gridId,dotsId,cardSelector){
+  try{
+    const isMobile=window.matchMedia&&window.matchMedia('(max-width:768px)').matches;
+    if(!isMobile)return;
 
-  const grid=document.getElementById('valuesGrid');
-  const dotsWrap=document.getElementById('valuesDots');
-  if(!grid||!dotsWrap)return;
-  const cards=Array.from(grid.querySelectorAll('.value-card'));
-  if(!cards.length)return;
+    const grid=document.getElementById(gridId);
+    const dotsWrap=document.getElementById(dotsId);
+    if(!grid||!dotsWrap)return;
+    const cards=Array.from(grid.querySelectorAll(cardSelector));
+    if(!cards.length)return;
 
-  const prefersReducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let current=0;
-  let autoplayTimer=null;
-  let resumeTimer=null;
+    const prefersReducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current=0;
+    let autoplayTimer=null;
+    let resumeTimer=null;
 
-  cards.forEach((c,i)=>{
-    const dot=document.createElement('span');
-    if(i===0)dot.classList.add('active');
-    dot.addEventListener('click',()=>{goTo(i);pauseThenResume();});
-    dotsWrap.appendChild(dot);
-  });
-  const dots=Array.from(dotsWrap.children);
-
-  function render(){
     cards.forEach((c,i)=>{
-      c.classList.remove('active','prev');
-      if(i===current)c.classList.add('active');
-      else if(i===(current-1+cards.length)%cards.length)c.classList.add('prev');
+      const dot=document.createElement('span');
+      if(i===0)dot.classList.add('active');
+      dot.addEventListener('click',()=>{goTo(i);pauseThenResume();});
+      dotsWrap.appendChild(dot);
     });
-    dots.forEach((d,i)=>d.classList.toggle('active',i===current));
-  }
+    const dots=Array.from(dotsWrap.children);
 
-  function goTo(i){
-    current=((i%cards.length)+cards.length)%cards.length;
-    render();
-  }
-  function next(){goTo(current+1);}
-  function prev(){goTo(current-1);}
-
-  function startAutoplay(){
-    if(prefersReducedMotion)return;
-    clearInterval(autoplayTimer);
-    autoplayTimer=setInterval(next,8000);
-  }
-  function stopAutoplay(){clearInterval(autoplayTimer);}
-  function pauseThenResume(){
-    stopAutoplay();
-    clearTimeout(resumeTimer);
-    resumeTimer=setTimeout(startAutoplay,5000);
-  }
-
-  let dragStartX=0,dragging=false;
-  grid.addEventListener('pointerdown',e=>{
-    dragStartX=e.clientX;dragging=true;
-    stopAutoplay();
-    try{grid.setPointerCapture(e.pointerId);}catch(e2){}
-  });
-  grid.addEventListener('pointerup',e=>{
-    if(!dragging)return;dragging=false;
-    const dx=e.clientX-dragStartX;
-    if(Math.abs(dx)>40){
-      if(dx<0)next();else prev();
+    function render(){
+      cards.forEach((c,i)=>{
+        c.classList.remove('active','prev');
+        if(i===current)c.classList.add('active');
+        else if(i===(current-1+cards.length)%cards.length)c.classList.add('prev');
+      });
+      dots.forEach((d,i)=>d.classList.toggle('active',i===current));
     }
-    pauseThenResume();
-  });
-  grid.addEventListener('pointercancel',()=>{dragging=false;pauseThenResume();});
 
-  render();
-  startAutoplay();
-})();}catch(err){console.error('Values carousel failed to initialize, rest of page unaffected:',err);}
+    function goTo(i){
+      current=((i%cards.length)+cards.length)%cards.length;
+      render();
+    }
+    function next(){goTo(current+1);}
+    function prev(){goTo(current-1);}
+
+    function startAutoplay(){
+      if(prefersReducedMotion)return;
+      clearInterval(autoplayTimer);
+      autoplayTimer=setInterval(next,8000);
+    }
+    function stopAutoplay(){clearInterval(autoplayTimer);}
+    function pauseThenResume(){
+      stopAutoplay();
+      clearTimeout(resumeTimer);
+      resumeTimer=setTimeout(startAutoplay,5000);
+    }
+
+    let dragStartX=0,dragging=false;
+    grid.addEventListener('pointerdown',e=>{
+      dragStartX=e.clientX;dragging=true;
+      stopAutoplay();
+      try{grid.setPointerCapture(e.pointerId);}catch(e2){}
+    });
+    grid.addEventListener('pointerup',e=>{
+      if(!dragging)return;dragging=false;
+      const dx=e.clientX-dragStartX;
+      if(Math.abs(dx)>40){
+        if(dx<0)next();else prev();
+      }
+      pauseThenResume();
+    });
+    grid.addEventListener('pointercancel',()=>{dragging=false;pauseThenResume();});
+
+    render();
+    startAutoplay();
+  }catch(err){console.error('Mobile carousel ('+gridId+') failed to initialize, rest of page unaffected:',err);}
+}
+initMobileCarousel('membershipsFeatured','membershipsFeaturedDots','.membership-card');
+initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membership-card');
 
 
 // ── COACHES 3D CAROUSEL ──
@@ -2216,6 +2224,7 @@ try{(function(){
 </script>
 </body>
 </html>
+
 
 
 
