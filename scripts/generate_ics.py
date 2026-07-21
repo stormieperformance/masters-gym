@@ -52,23 +52,37 @@ def fetch_rows():
     req = urllib.request.Request(CSV_URL, headers={'User-Agent': 'Mozilla/5.0'})
     with urllib.request.urlopen(req, timeout=20) as resp:
         raw = resp.read().decode('utf-8-sig')
+
+    print('--- DEBUG: raw CSV length:', len(raw), 'chars ---', file=sys.stderr)
+    print('--- DEBUG: first 500 chars of raw CSV ---', file=sys.stderr)
+    print(raw[:500], file=sys.stderr)
+    print('--- DEBUG: end raw preview ---', file=sys.stderr)
+
     reader = csv.DictReader(io.StringIO(raw))
+    print('--- DEBUG: detected fieldnames:', reader.fieldnames, '---', file=sys.stderr)
+
     rows = []
+    skipped_missing = 0
+    skipped_cancelled = 0
+    raw_rows_seen = 0
     for r in reader:
+        raw_rows_seen += 1
+        if raw_rows_seen <= 5:
+            print(f'--- DEBUG: raw row {raw_rows_seen}:', dict(r), '---', file=sys.stderr)
         day = (r.get('Dag') or '').strip().lower()
         time_str = (r.get('Tid') or '').strip()
         name = (r.get('Pass') or '').strip()
         status = (r.get('Status') or '').strip()
         level = (r.get('Nivå') or r.get('Niv\u00e5') or '').strip()
         if not day or not time_str or not name:
+            skipped_missing += 1
             continue
         if 'inställ' in status.lower():
-            # Skip rows explicitly marked cancelled in the sheet. Note: this
-            # only affects generation time, not already-subscribed calendars
-            # for that instance's date, since RRULE is a repeating template
-            # rather than a list of dated exceptions.
+            skipped_cancelled += 1
             continue
         rows.append({'day': day, 'time': time_str, 'name': name, 'level': level})
+
+    print(f'--- DEBUG: raw_rows_seen={raw_rows_seen} skipped_missing={skipped_missing} skipped_cancelled={skipped_cancelled} kept={len(rows)} ---', file=sys.stderr)
     return rows
 
 
