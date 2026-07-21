@@ -393,9 +393,10 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .memberships-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
 .carousel-dots{display:none}
 .memberships-grid-secondary{margin-top:24px}
-.membership-card{background:var(--bg3);border:1px solid var(--line);padding:32px 28px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;display:flex;flex-direction:column}
-.membership-card:hover{border-color:var(--muted2);transform:translateY(-3px)}
-.membership-card.featured{border-color:var(--teal);background:var(--teal-dim)}
+.membership-card{background:linear-gradient(155deg,rgba(255,255,255,0.04),rgba(255,255,255,0) 45%),var(--bg3);border:1px solid var(--line);padding:32px 28px;position:relative;overflow:hidden;transition:border-color .3s ease,transform .35s cubic-bezier(.2,.8,.3,1),box-shadow .35s ease;display:flex;flex-direction:column;box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 14px 30px -18px rgba(0,0,0,.55),0 4px 10px -6px rgba(0,0,0,.4);transform-style:preserve-3d}
+.membership-card:hover{border-color:var(--muted2);transform:perspective(900px) rotateX(2deg) translateY(-6px);box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 30px 50px -20px rgba(0,0,0,.6),0 10px 20px -8px rgba(0,0,0,.45)}
+.membership-card.featured{border-color:var(--teal);background:linear-gradient(155deg,rgba(255,255,255,.05),rgba(255,255,255,0) 45%),var(--teal-dim);box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 20px 40px -18px rgba(116,194,188,.25),0 6px 14px -8px rgba(0,0,0,.4)}
+.membership-card.featured:hover{box-shadow:0 1px 0 rgba(255,255,255,.07) inset,0 34px 56px -20px rgba(116,194,188,.32),0 12px 22px -8px rgba(0,0,0,.45)}
 .membership-card.compact{padding:24px 22px}
 .membership-icon{stroke:var(--teal);margin-bottom:14px}
 .membership-ribbon{position:absolute;top:0;right:0;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#080808;font-weight:700;background:var(--teal);padding:6px 12px}
@@ -2224,6 +2225,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
