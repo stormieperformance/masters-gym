@@ -32,7 +32,6 @@ TIMEZONE = 'Europe/Stockholm'
 # that also happen to contain "box". Leave keywords empty for "everything".
 CATEGORIES = [
     {'id': 'full',      'name_sv': 'Fullständigt schema', 'name_en': 'Full schedule',   'keywords': [],              'exclude': []},
-    {'id': 'muaythai',  'name_sv': 'Thaiboxning',          'name_en': 'Muay Thai',        'keywords': ['thai'],        'exclude': []},
     {'id': 'boxning',   'name_sv': 'Boxning',              'name_en': 'Boxing',           'keywords': ['box'],         'exclude': ['kick', 'thai']},
     {'id': 'nyborjare', 'name_sv': 'Nybörjarpass',         'name_en': 'Beginner classes', 'keywords': ['nybörjar'],    'exclude': []},
 ]
@@ -224,3 +223,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
