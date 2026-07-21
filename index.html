@@ -841,7 +841,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
           <p data-i18n="sub_full_desc">Få alla pass automatiskt.</p>
         </div>
         <div class="sub-option-actions">
-          <a href="/feeds/full.ics" class="btn btn-primary sub-subscribe-btn" data-feed="full" data-i18n="sub_subscribe_btn">Prenumerera</a>
+          <a href="feeds/full.ics" class="btn btn-primary sub-subscribe-btn" data-feed="full" data-i18n="sub_subscribe_btn">Prenumerera</a>
           <button type="button" class="sub-copy-btn" data-feed="full" data-i18n="sub_copy_btn">Kopiera länk</button>
         </div>
       </div>
@@ -1602,7 +1602,7 @@ try{
   // Convert https:// subscribe links to webcal:// so Apple/most calendar
   // apps offer a direct "Subscribe" flow instead of downloading a file.
   document.querySelectorAll('.sub-subscribe-btn').forEach(btn=>{
-    const absoluteUrl=new URL(btn.getAttribute('href'),window.location.origin).href;
+    const absoluteUrl=new URL(btn.getAttribute('href'),window.location.href).href;
     btn.href=absoluteUrl.replace(/^https?:\/\//,'webcal://');
     btn.addEventListener('click',()=>track('schedule_subscribe',{feed:btn.dataset.feed}));
   });
@@ -1610,7 +1610,7 @@ try{
   document.querySelectorAll('.sub-copy-btn').forEach(btn=>{
     btn.addEventListener('click',async()=>{
       const feed=btn.dataset.feed;
-      const url=new URL('/feeds/'+feed+'.ics',window.location.origin).href;
+      const url=new URL('feeds/'+feed+'.ics',window.location.href).href;
       try{
         await navigator.clipboard.writeText(url);
         const original=btn.textContent;
@@ -2419,6 +2419,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
