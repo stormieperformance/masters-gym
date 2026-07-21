@@ -32,8 +32,11 @@ TIMEZONE = 'Europe/Stockholm'
 # that also happen to contain "box". Leave keywords empty for "everything".
 CATEGORIES = [
     {'id': 'full',      'name_sv': 'Fullständigt schema', 'name_en': 'Full schedule',   'keywords': [],              'exclude': []},
-    {'id': 'boxning',   'name_sv': 'Boxning',              'name_en': 'Boxing',           'keywords': ['box'],         'exclude': ['kick', 'thai']},
-    {'id': 'nyborjare', 'name_sv': 'Nybörjarpass',         'name_en': 'Beginner classes', 'keywords': ['nybörjar'],    'exclude': []},
+    # Removed from the site's subscribe modal for now (only Fullstandigt schema is
+    # offered). Left here, commented, so re-adding a category later is a one-line
+    # uncomment rather than rebuilding the logic:
+    # {'id': 'boxning',   'name_sv': 'Boxning',              'name_en': 'Boxing',           'keywords': ['box'],         'exclude': ['kick', 'thai']},
+    # {'id': 'nyborjare', 'name_sv': 'Nybörjarpass',         'name_en': 'Beginner classes', 'keywords': ['nybörjar'],    'exclude': []},
 ]
 
 SWEDISH_DAY_TO_ICAL = {
@@ -223,4 +226,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
