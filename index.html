@@ -290,21 +290,21 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .path-step-title{font-size:15px;font-weight:600;margin-bottom:6px}
 .path-step-text{font-size:12px;color:var(--muted);line-height:1.6}
 .path-arrow{color:var(--teal);font-size:18px;padding:0 16px;flex-shrink:0}
-.finder{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius-lg);padding:36px 32px;margin-bottom:56px;box-shadow:var(--shadow-card)}
-.finder-title{font-size:18px;font-weight:600;margin-bottom:18px;display:inline-block;background:linear-gradient(100deg,var(--text) 40%,rgba(255,255,255,0.95) 50%,var(--text) 60%);background-size:250% 100%;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:textShine 3.5s ease-in-out infinite}
+.finder{margin-bottom:64px}
+.finder-title{font-size:21px;font-weight:600;margin-bottom:20px;display:inline-block;background:linear-gradient(100deg,var(--text) 40%,rgba(255,255,255,0.95) 50%,var(--text) 60%);background-size:250% 100%;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:textShine 3.5s ease-in-out infinite}
 @keyframes textShine{0%{background-position:200% 0}100%{background-position:-100% 0}}
 @keyframes fpop{0%{transform:scale(1)}40%{transform:scale(0.95)}100%{transform:scale(1)}}
-.finder-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:4px}
-.finder-btn{position:relative;overflow:hidden;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-md);color:var(--text);font-size:12.5px;font-weight:500;text-align:left;line-height:1.35;padding:20px 34px 18px 18px;cursor:pointer;font-family:var(--sans);display:flex;flex-direction:column;gap:10px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.finder-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;margin-bottom:4px}
+.finder-btn{position:relative;overflow:hidden;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius-md);color:var(--text);font-size:14px;font-weight:500;line-height:1.45;text-align:left;padding:28px 40px 26px 26px;cursor:pointer;font-family:var(--sans);display:flex;flex-direction:column;gap:16px;transition:transform .3s cubic-bezier(.2,.8,.3,1),border-color .3s ease,box-shadow .3s ease,background .3s ease;box-shadow:var(--shadow-card)}
 .finder-btn .fline{position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--teal);transition:width .3s ease}
-.finder-icon{stroke:var(--teal);width:20px;height:20px;flex-shrink:0}
-.finder-btn:hover{transform:translateY(-3px);border-color:var(--teal);box-shadow:0 0 0 1px var(--teal-dim),0 10px 20px rgba(0,0,0,0.15)}
+.finder-icon{stroke:var(--teal);width:22px;height:22px;flex-shrink:0;opacity:.75;transition:opacity .3s ease,filter .3s ease}
+.finder-btn:hover{transform:translateY(-4px);border-color:var(--teal);box-shadow:0 0 0 1px rgba(116,194,188,.25),0 16px 32px -12px rgba(116,194,188,.2),var(--shadow-card-hover);background:var(--bg3)}
 .finder-btn:hover .fline{width:100%}
+.finder-btn:hover .finder-icon{opacity:1;filter:drop-shadow(0 0 6px rgba(116,194,188,.5))}
 .finder-btn.active{border-color:var(--teal);background:var(--teal-dim);animation:fpop .35s ease}
-.finder-btn::after{content:'→';position:absolute;bottom:14px;right:16px;color:var(--teal);font-size:14px;opacity:.55;transition:transform .25s ease,opacity .25s ease}
-.finder-btn:hover::after{opacity:1;transform:translateX(3px)}
-.finder-sub{font-size:11px;color:var(--muted2);letter-spacing:.06em;margin:-6px 0 16px}
-.finder{margin-bottom:56px}
+.finder-btn::after{content:'→';position:absolute;bottom:18px;right:20px;color:var(--teal);font-size:15px;opacity:.55;transition:transform .3s ease,opacity .3s ease}
+.finder-btn:hover::after{opacity:1;transform:translateX(5px)}
+.finder-sub{font-size:13.5px;color:var(--muted);letter-spacing:.03em;margin:-8px 0 22px}
 .timeline-heading{font-family:var(--display);font-style:italic;font-weight:800;font-size:34px;letter-spacing:.03em;color:var(--text);margin:0 0 24px}
 .timeline{position:relative;margin-bottom:56px}
 .timeline::before{content:'';position:absolute;left:19px;top:10px;bottom:10px;width:2px;background:var(--line)}
@@ -2257,6 +2257,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
