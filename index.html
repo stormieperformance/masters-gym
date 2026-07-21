@@ -562,7 +562,7 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
   .schedule{padding:60px 20px}.schedule-header{flex-direction:column;align-items:flex-start}
   .memberships{padding:60px 20px}.memberships-features{grid-template-columns:1fr}.membership-cta{flex-direction:column;align-items:flex-start}.membership-cta-actions{align-items:flex-start;width:100%}.membership-cta-actions .btn{width:100%}
   .memberships-grid{position:relative;display:block;min-height:340px}
-  #membershipsFeatured,#membershipsSecondary{min-height:380px}
+  #membershipsFeatured,#membershipsSecondary{min-height:380px;touch-action:pan-y;cursor:grab}
   #membershipsFeatured .membership-card,#membershipsSecondary .membership-card{position:absolute;top:0;left:0;right:0;opacity:0;transform:translate3d(40px,0,0);will-change:transform,opacity;transition:transform 1s cubic-bezier(.45,0,.15,1),opacity 1s cubic-bezier(.45,0,.15,1),border-color .3s ease;pointer-events:none}
   #membershipsFeatured .membership-card.active,#membershipsSecondary .membership-card.active{position:relative;opacity:1;transform:translate3d(0,0,0);pointer-events:auto}
   #membershipsFeatured .membership-card.prev,#membershipsSecondary .membership-card.prev{transform:translate3d(-40px,0,0)}
@@ -1975,6 +1975,8 @@ function initMobileCarousel(gridId,dotsId,cardSelector){
     if(!grid||!dotsWrap)return;
     const cards=Array.from(grid.querySelectorAll(cardSelector));
     if(!cards.length)return;
+    grid.style.touchAction='pan-y';
+    grid.style.cursor='grab';
 
     const prefersReducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let current=0;
@@ -2227,6 +2229,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
