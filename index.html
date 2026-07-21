@@ -47,18 +47,13 @@
 :focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 .modal-form input:focus-visible,.modal-form select:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 :root{
-  --bg:#F0EEEA;--bg2:#E5E2DC;--bg3:#D8D4CE;
-  --text:#0A0A08;--muted:rgba(10,10,8,0.55);--muted2:rgba(10,10,8,0.28);
-  --line:rgba(10,10,8,0.1);--teal:#74C1BB;--teal-dim:rgba(116,194,188,0.12);
+  --bg:#0A0A08;--bg2:#111111;--bg3:#1A1A1A;
+  --text:#f0ede6;--muted:rgba(240,237,230,0.45);--muted2:rgba(240,237,230,0.18);
+  --line:rgba(240,237,230,0.08);--teal:#74C1BB;--teal-dim:rgba(116,194,188,0.12);
   --teal-dark:#42908A;--sans:'DM Sans',sans-serif;--display:'Barlow Condensed',sans-serif;
   --radius-lg:20px;--radius-md:14px;--radius-sm:10px;--radius-pill:999px;
   --shadow-card:0 1px 0 rgba(255,255,255,.04) inset,0 12px 28px -14px rgba(0,0,0,.35);
   --shadow-card-hover:0 1px 0 rgba(255,255,255,.05) inset,0 20px 40px -16px rgba(0,0,0,.4);
-}
-body.dark{
-  --bg:#0A0A08;--bg2:#111111;--bg3:#1A1A1A;
-  --text:#f0ede6;--muted:rgba(240,237,230,0.45);--muted2:rgba(240,237,230,0.18);
-  --line:rgba(240,237,230,0.08);
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
@@ -95,20 +90,9 @@ button{cursor:pointer;font-family:var(--sans)}
 .modal-note{font-size:11px;color:var(--muted2);text-align:center;margin:4px 0 0}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:100;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;transition:background .4s cubic-bezier(.4,0,.2,1),border-bottom .4s cubic-bezier(.4,0,.2,1),box-shadow .4s cubic-bezier(.4,0,.2,1);background:transparent}
 .navbar.scrolled{backdrop-filter:blur(12px);border-bottom:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.12)}
-body:not(.dark) .navbar{background:rgba(245,245,240,0.97);border-bottom:1px solid var(--line)}
-body:not(.dark) .navbar .nav-links a{color:var(--muted)}
-body:not(.dark) .navbar .nav-links a:hover{color:var(--text)}
-body:not(.dark) .navbar .nav-logo-main{color:var(--text)}
-body:not(.dark) .hamburger span{background:var(--text)}
-body:not(.dark) .lang-btn{border-color:rgba(116,194,188,0.5)}
-body:not(.dark) .theme-btn{border-color:var(--line);color:var(--text)}
-body:not(.dark) .navbar.scrolled{background:rgba(245,245,240,0.95)}
-body.dark .navbar.scrolled{background:rgba(8,8,8,0.95)}
+.navbar.scrolled{background:rgba(8,8,8,0.95)}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
 .nav-logo img{height:36px;width:auto;flex-shrink:0;transition:filter .3s}
-.nav-logo-light{display:none}
-body:not(.dark) .nav-logo-dark{display:none}
-body:not(.dark) .nav-logo-light{display:block}
 .nav-logo-text{display:flex;flex-direction:column;line-height:1}
 .nav-logo-main{font-family:var(--display);font-style:italic;font-weight:800;font-size:18px;letter-spacing:.13em;color:var(--text);white-space:nowrap}
 .nav-logo-sub{font-size:8.5px;letter-spacing:.15em;color:var(--teal);font-weight:500;text-transform:uppercase;margin-top:3px;white-space:nowrap}
@@ -181,7 +165,6 @@ body:not(.dark) .nav-logo-light{display:block}
 .values-composition{display:grid;grid-template-columns:1fr 1.15fr;gap:24px 64px;align-items:center}
 .values-illustration{grid-column:1;grid-row:1/4;display:flex;align-items:center;justify-content:center}
 .values-illustration img{width:100%;max-width:320px;height:auto;opacity:.92;transition:opacity .3s ease,filter .3s ease}
-body:not(.dark) .values-illustration img{filter:invert(65%) sepia(40%) saturate(400%) hue-rotate(140deg) brightness(0.9)}
 .values-item{grid-column:2}
 .values-item h3{font-family:var(--display);font-style:italic;font-weight:800;font-size:32px;letter-spacing:.06em;margin-bottom:14px}
 .values-item p{font-size:14px;font-weight:300;color:var(--muted);line-height:1.8;max-width:480px}
@@ -519,8 +502,7 @@ body:not(.dark) .values-illustration img{filter:invert(65%) sepia(40%) saturate(
 .contact-social-row a{font-size:13px;color:var(--muted);transition:color .2s}
 .contact-social-row a:hover{color:var(--teal)}
 .contact-btns{display:flex;gap:10px;flex-wrap:wrap}
-#map{height:420px;width:100%;border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;filter:grayscale(40%) contrast(90%)}
-body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
+#map{height:420px;width:100%;border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;filter:grayscale(80%) invert(88%) contrast(85%)}
 .footer{padding:60px 40px 32px;border-top:1px solid var(--line)}
 .footer-container{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;gap:40px;margin-bottom:48px}
 .footer-logo{font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;letter-spacing:.14em;margin-bottom:4px}
@@ -598,7 +580,6 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
   .mobile-menu{display:flex}
   .navbar .lang-btn{display:none}
   .nav-cta{display:none}
-  .navbar .theme-btn{display:none}
   .hero-content{padding:0 20px 60px}
   .hero h1{font-size:clamp(60px,18vw,100px)}
   .modal-box{padding:32px 24px}
@@ -648,10 +629,8 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
 .btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transform:skewX(-20deg);animation:shineSweep 3.5s ease-in-out infinite}
 @keyframes shineSweep{0%{left:-100%}40%{left:140%}100%{left:140%}}
 .btn-primary:active{transform:scale(0.96);animation:none;box-shadow:none}
-.btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(10,10,8,0.4);transition:border-color .25s,background .25s,transform .2s}
-body.dark .btn-ghost{border-color:rgba(240,237,230,0.22)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(240,237,230,0.22);transition:border-color .25s,background .25s,transform .2s}
 .hero-btns .btn-ghost{color:#F0EEEA;border-color:rgba(240,237,230,0.5)}
-body:not(.dark) .hero-btns .btn-primary{color:#080808}
 .btn-ghost:active{transform:scale(0.96)}
 @media(hover:hover){
   .btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(116,194,188,0.35)}
@@ -732,8 +711,6 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 .class-card img{height:260px;object-position:center 25%}
 
 /* THEME TOGGLE */
-.theme-btn{background:transparent;border:1px solid var(--line);color:var(--text);font-size:15px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s;flex-shrink:0}
-.theme-btn:hover{border-color:var(--teal)}
 
 /* ── COACHES 3D CAROUSEL ── */
 .coaches-section{padding:100px 0 80px}
@@ -791,7 +768,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 }
 </style>
 </head>
-<body class="dark">
+<body>
 
 <div class="modal-overlay" id="modal">
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
@@ -853,8 +830,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
 
 <nav class="navbar" id="navbar">
   <a href="#" class="nav-logo">
-    <img src="MastersGymLogo.png" alt="Masters Gym" class="nav-logo-dark" style="height:44px;width:auto">
-    <img src="MastersGymLogo.png" alt="Masters Gym" class="nav-logo-light" style="height:44px;width:auto">
+    <img src="MastersGymLogo.png" alt="Masters Gym" style="height:44px;width:auto">
     <div class="nav-logo-text">
       <span class="nav-logo-main">MASTERS GYM</span>
       <span class="nav-logo-sub" data-i18n="nav_tagline">Kick- & Thaiboxning · Stockholm 2016</span>
@@ -872,7 +848,6 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
   <div style="display:flex;align-items:center;gap:10px">
     <button class="nav-cta open-modal" data-i18n="nav_cta_trial">Boka provpass</button>
     <button class="lang-btn" id="lang-btn" onclick="toggleLang()" aria-label="Byt språk / Switch language">EN</button>
-    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Växla mörkt/ljust" aria-label="Växla mörkt och ljust läge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
   </div>
   <button class="hamburger" id="hamburger" aria-label="Meny / Menu"><span></span><span></span><span></span></button>
 </nav>
@@ -881,7 +856,6 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
   <button class="mobile-menu-close" id="mobile-close">&times;</button>
   <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
     <button class="lang-btn" style="font-size:12px;padding:10px 20px" onclick="toggleLang()" aria-label="Byt språk / Switch language">EN</button>
-    <button class="theme-btn" id="theme-btn-mobile" onclick="toggleTheme()" title="Växla mörkt/ljust" aria-label="Växla mörkt och ljust läge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
   </div>
   <a href="#about" class="mobile-link" data-i18n="nav_about">Om oss</a>
   <a href="#classes" class="mobile-link" data-i18n="nav_classes">Våra pass</a>
@@ -1904,33 +1878,6 @@ function applyTranslations(){
   if(select){select.querySelectorAll('option[data-i18n]').forEach(opt=>{const key=opt.getAttribute('data-i18n');if(t[key]!==undefined)opt.textContent=t[key];});}
 }
 
-// ── THEME TOGGLE ──
-const SUN_ICON=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
-const MOON_ICON=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
-
-function setThemeIcon(isDark){
-  const icon=isDark?SUN_ICON:MOON_ICON;
-  const btn=document.getElementById('theme-btn');
-  const mob=document.getElementById('theme-btn-mobile');
-  if(btn)btn.innerHTML=icon;
-  if(mob)mob.innerHTML=icon;
-}
-
-function toggleTheme(){
-  const dark=document.body.classList.toggle('dark');
-  setThemeIcon(dark);
-  localStorage.setItem('mg-theme',dark?'dark':'light');
-}
-
-(function(){
-  if(localStorage.getItem('mg-theme')==='light'){
-    document.body.classList.remove('dark');
-  }
-  document.addEventListener('DOMContentLoaded',function(){
-    setThemeIcon(document.body.classList.contains('dark'));
-  });
-})();
-
 try{
   const kidsTabs=['barn','junior1','junior2'];
   document.querySelectorAll('.kids-tab').forEach(tab=>{
@@ -2420,6 +2367,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
