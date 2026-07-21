@@ -440,6 +440,10 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .kids-tabs{display:flex;gap:2px;margin-bottom:24px}
 .kids-tab{background:var(--bg3);border:1px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:10px 20px;transition:all .2s;font-family:var(--sans);cursor:pointer}
 .kids-tab.active,.kids-tab:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
+.kids-panels{position:relative;min-height:170px}
+.kids-panel{position:absolute;top:0;left:0;right:0;opacity:0;transform:translate3d(40px,0,0);will-change:transform,opacity;transition:transform .8s cubic-bezier(.45,0,.15,1),opacity .8s cubic-bezier(.45,0,.15,1);pointer-events:none}
+.kids-panel.active{position:relative;opacity:1;transform:translate3d(0,0,0);pointer-events:auto}
+.kids-panel.prev{transform:translate3d(-40px,0,0)}
 .kids-panel p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:14px}
 .kids-age-tag{background:var(--teal-dim);border:1px solid rgba(116,194,188,.3);padding:8px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:600}
 .social{padding:100px 40px;border-top:1px solid var(--line)}
@@ -1184,20 +1188,22 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <button class="kids-tab" data-tab="junior1" data-i18n="kids_tab_junior1">Junior 12–14 år</button>
         <button class="kids-tab" data-tab="junior2" data-i18n="kids_tab_junior2">Junior 15–17 år</button>
       </div>
-      <div class="kids-panel" id="kids-panel-barn">
-        <p data-i18n="kids_p1">Strukturerad och trygg träning. Vi lär ut respekt, disciplin och självförtroende.</p>
-        <p data-i18n="kids_p2">Säker miljö med erfarna tränare.</p>
-        <div class="kids-ages"><span class="kids-age-tag" data-i18n="kids_age1">Barn 6–11 år</span><span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span></div>
-      </div>
-      <div class="kids-panel" id="kids-panel-junior1" style="display:none">
-        <p data-i18n="kids_junior1_p1">För ungdomar 12–14 år som vill ta sin träning till nästa nivå.</p>
-        <p data-i18n="kids_junior1_p2">Möjlighet att avancera mot tävling.</p>
-        <div class="kids-ages"><span class="kids-age-tag" data-i18n="kids_age2">Junior 12–14 år</span><span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span></div>
-      </div>
-      <div class="kids-panel" id="kids-panel-junior2" style="display:none">
-        <p data-i18n="kids_junior2_p1">För ungdomar 15–17 år som vill ta sin träning till nästa nivå.</p>
-        <p data-i18n="kids_junior2_p2">Möjlighet att avancera mot tävling.</p>
-        <div class="kids-ages"><span class="kids-age-tag" data-i18n="kids_age4">Junior 15–17 år</span><span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span></div>
+      <div class="kids-panels" id="kidsPanels">
+        <div class="kids-panel active" id="kids-panel-barn">
+          <p data-i18n="kids_p1">Strukturerad och trygg träning. Vi lär ut respekt, disciplin och självförtroende.</p>
+          <p data-i18n="kids_p2">Säker miljö med erfarna tränare.</p>
+          <div class="kids-ages"><span class="kids-age-tag" data-i18n="kids_age1">Barn 6–11 år</span><span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span></div>
+        </div>
+        <div class="kids-panel" id="kids-panel-junior1">
+          <p data-i18n="kids_junior1_p1">För ungdomar 12–14 år som vill ta sin träning till nästa nivå.</p>
+          <p data-i18n="kids_junior1_p2">Möjlighet att avancera mot tävling.</p>
+          <div class="kids-ages"><span class="kids-age-tag" data-i18n="kids_age2">Junior 12–14 år</span><span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span></div>
+        </div>
+        <div class="kids-panel" id="kids-panel-junior2">
+          <p data-i18n="kids_junior2_p1">För ungdomar 15–17 år som vill ta sin träning till nästa nivå.</p>
+          <p data-i18n="kids_junior2_p2">Möjlighet att avancera mot tävling.</p>
+          <div class="kids-ages"><span class="kids-age-tag" data-i18n="kids_age4">Junior 15–17 år</span><span class="kids-age-tag" data-i18n="kids_age3">Terminskort</span></div>
+        </div>
       </div>
       <button class="btn btn-primary open-modal" style="margin-top:8px" data-i18n="kids_cta">Anmäl ditt barn</button>
     </div>
@@ -1779,14 +1785,24 @@ function toggleTheme(){
   });
 })();
 
-document.querySelectorAll('.kids-tab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    document.querySelectorAll('.kids-tab').forEach(t=>t.classList.remove('active'));
-    tab.classList.add('active');
-    document.querySelectorAll('.kids-panel').forEach(p=>p.style.display='none');
-    document.getElementById('kids-panel-'+tab.dataset.tab).style.display='block';
+try{
+  const kidsTabs=['barn','junior1','junior2'];
+  document.querySelectorAll('.kids-tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.querySelectorAll('.kids-tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      const targetId='kids-panel-'+tab.dataset.tab;
+      const panels=Array.from(document.querySelectorAll('.kids-panel'));
+      const currentActive=panels.find(p=>p.classList.contains('active'));
+      panels.forEach(p=>{
+        p.classList.remove('prev');
+        if(p===currentActive&&p.id!==targetId)p.classList.add('prev');
+      });
+      panels.forEach(p=>p.classList.toggle('active',p.id===targetId));
+      setTimeout(()=>{panels.forEach(p=>{if(p.classList.contains('prev'))p.classList.remove('prev');});},800);
+    });
   });
-});
+}catch(err){console.error('Kids tab transition failed, rest of page unaffected:',err);}
 
 // EVENT CAROUSEL — slide with arrows
 (function(){
@@ -2231,6 +2247,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
