@@ -48,41 +48,52 @@ SWEDISH_DAY_TO_PYTHON_WEEKDAY = {
 
 
 def fetch_rows():
-    """Fetch and parse the published schedule CSV. Returns list of dict rows."""
+    """Fetch and parse the published schedule CSV. Returns list of dict rows.
+
+    NOTE: the sheet's header labels (Dag,Tid,Pass,Niv\u00e5) do not reliably
+    match their actual column contents (confirmed against real data: column 3
+    holds the END time despite being headed \'Pass\', and column 4 holds
+    \'ClassName \u2013 Level\' combined despite being headed \'Niv\u00e5\').
+    Parsing by position instead of header name avoids depending on labels
+    that may be inconsistent or renamed in the sheet.
+    """
     req = urllib.request.Request(CSV_URL, headers={'User-Agent': 'Mozilla/5.0'})
     with urllib.request.urlopen(req, timeout=20) as resp:
         raw = resp.read().decode('utf-8-sig')
 
-    print('--- DEBUG: raw CSV length:', len(raw), 'chars ---', file=sys.stderr)
-    print('--- DEBUG: first 500 chars of raw CSV ---', file=sys.stderr)
-    print(raw[:500], file=sys.stderr)
-    print('--- DEBUG: end raw preview ---', file=sys.stderr)
-
-    reader = csv.DictReader(io.StringIO(raw))
-    print('--- DEBUG: detected fieldnames:', reader.fieldnames, '---', file=sys.stderr)
+    reader = csv.reader(io.StringIO(raw))
+    all_rows = list(reader)
+    if not all_rows:
+        return []
+    all_rows = all_rows[1:]  # drop header row
 
     rows = []
-    skipped_missing = 0
-    skipped_cancelled = 0
-    raw_rows_seen = 0
-    for r in reader:
-        raw_rows_seen += 1
-        if raw_rows_seen <= 5:
-            print(f'--- DEBUG: raw row {raw_rows_seen}:', dict(r), '---', file=sys.stderr)
-        day = (r.get('Dag') or '').strip().lower()
-        time_str = (r.get('Tid') or '').strip()
-        name = (r.get('Pass') or '').strip()
-        status = (r.get('Status') or '').strip()
-        level = (r.get('Nivå') or r.get('Niv\u00e5') or '').strip()
-        if not day or not time_str or not name:
-            skipped_missing += 1
+    skipped = 0
+    for cols in all_rows:
+        cols = [c.strip() for c in cols] + [''] * 4  # pad in case of short rows
+        day = cols[0].lower()
+        start_time = cols[1]
+        end_time = cols[2]
+        name_and_level = cols[3]
+        if not day or not start_time or not name_and_level:
+            skipped += 1
             continue
-        if 'inställ' in status.lower():
-            skipped_cancelled += 1
-            continue
-        rows.append({'day': day, 'time': time_str, 'name': name, 'level': level})
 
-    print(f'--- DEBUG: raw_rows_seen={raw_rows_seen} skipped_missing={skipped_missing} skipped_cancelled={skipped_cancelled} kept={len(rows)} ---', file=sys.stderr)
+        # Split "Lunchpass – Alla nivåer" into name + level. Handles
+        # both en-dash and hyphen separators defensively.
+        for sep in (' \u2013 ', ' - '):
+            if sep in name_and_level:
+                name, level = name_and_level.split(sep, 1)
+                break
+        else:
+            name, level = name_and_level, ''
+
+        time_str = f'{start_time}-{end_time}' if end_time else start_time
+        rows.append({'day': day, 'time': time_str, 'name': name.strip(), 'level': level.strip()})
+
+    print(f'--- DEBUG: total_data_rows={len(all_rows)} skipped={skipped} kept={len(rows)} ---', file=sys.stderr)
+    if rows:
+        print('--- DEBUG: sample parsed row:', rows[0], '---', file=sys.stderr)
     return rows
 
 
