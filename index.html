@@ -111,7 +111,9 @@ body:not(.dark) .nav-logo-light{display:block}
 .corp-cta-note{font-size:13px;color:var(--muted);margin-bottom:16px;font-weight:300}
 .hero-corp-link{display:inline-block;margin-top:20px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(116,194,188,0.7);text-decoration:none;border-bottom:1px solid rgba(116,194,188,0.3);padding-bottom:2px;transition:color .2s,border-color .2s}
 .hero-corp-link:hover{color:var(--teal);border-color:var(--teal)}
-.btn-corp{background:var(--teal);color:#080808;border:none;font-size:11px;font-weight:700;letter-spacing:.16em;padding:16px 32px;cursor:pointer;font-family:var(--sans);text-transform:uppercase;transition:all .25s;display:inline-block}
+.btn-corp{background:var(--teal);color:#080808;border:none;font-size:11px;font-weight:700;letter-spacing:.16em;padding:16px 32px;cursor:pointer;font-family:var(--sans);text-transform:uppercase;transition:all .25s;display:inline-block;position:relative;overflow:hidden;animation:ctaPulse 2.8s ease-in-out infinite}
+.btn-corp::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transform:skewX(-20deg);animation:shineSweep 3.5s ease-in-out infinite}
+.btn-corp:active{transform:scale(0.96);animation:none;box-shadow:none}
 .btn-corp:hover{background:var(--teal-dark);color:#fff;transform:translateY(-1px)}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;z-index:200}
 .hamburger span{display:block;width:24px;height:1.5px;background:var(--text);transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .25s cubic-bezier(.4,0,.2,1);transform-origin:center}
@@ -2229,6 +2231,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
