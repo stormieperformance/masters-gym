@@ -179,7 +179,9 @@ def main():
     try:
         rows = fetch_rows()
     except Exception as e:
+        import traceback
         print(f'ERROR fetching schedule CSV: {e}', file=sys.stderr)
+        traceback.print_exc()
         sys.exit(1)
 
     if not rows:
