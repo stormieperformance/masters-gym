@@ -511,6 +511,7 @@ body.dark #map{filter:grayscale(80%) invert(88%) contrast(85%)}
 .news-card:hover::before{transform:scaleX(1)}
 .news-card-img{width:100%;height:280px;object-fit:contain;background:var(--bg);margin-bottom:20px}
 .news-card-img-fallback{padding:70px 90px;opacity:.5}
+.img-placeholder-logo{object-fit:contain!important;background:var(--bg)!important;padding:14%;opacity:.5;filter:none!important}
 .news-meta{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .news-tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:700}
 .news-date{font-size:10px;color:var(--muted2);letter-spacing:.08em}
@@ -907,7 +908,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
       <div class="timeline-item" id="tl-1">
         <div class="timeline-marker">02</div>
         <div class="timeline-card">
-          <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop" alt="">
+          <img class="img-placeholder-logo" src="MastersGymLogo.png" alt="Masters Gym">
           <div class="timeline-content">
             <span class="timeline-badge" data-i18n="class2_tag">Min. 2 terminer</span>
             <h4 data-i18n="class2_title">FORTSÄTTNINGSPASS</h4>
@@ -946,7 +947,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
       <div class="timeline-item" id="tl-3">
         <div class="timeline-marker timeline-dot"></div>
         <div class="timeline-card">
-          <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&q=80&fit=crop" alt="Boxningspass — Masters Gym Stockholm">
+          <img class="img-placeholder-logo" src="MastersGymLogo.png" alt="Masters Gym">
           <div class="timeline-content">
             <span class="timeline-badge" data-i18n="class6_tag">Alla nivåer</span>
             <h4 data-i18n="class6_title">BOXNING</h4>
@@ -973,7 +974,7 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
       <div class="timeline-item" id="tl-5">
         <div class="timeline-marker timeline-dot"></div>
         <div class="timeline-card">
-          <img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=600&q=80&fit=crop" alt="Morgon- och lunchpass — Masters Gym Stockholm">
+          <img class="img-placeholder-logo" src="MastersGymLogo.png" alt="Masters Gym">
           <div class="timeline-content">
             <span class="timeline-badge" data-i18n="class7_tag">Alla nivåer</span>
             <h4 data-i18n="class7_title">MORGON/LUNCH</h4>
@@ -1166,13 +1167,13 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
       <p class="corp-cta-note" data-i18n="corp_cta_note">Skräddarsydd offert inom 24 timmar. Inga bindande avtal.</p>
       <button class="btn btn-corp open-modal" data-i18n="corp_cta">Boka företagsträning</button>
     </div>
-    <div class="corporate-media"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80&fit=crop" alt=""></div>
+    <div class="corporate-media"><img class="img-placeholder-logo" src="MastersGymLogo.png" alt="Masters Gym"></div>
   </div>
 </section>
 
 <section class="kids" id="kids">
   <div class="kids-container">
-    <div class="kids-media"><img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=800&q=80&fit=crop" alt=""></div>
+    <div class="kids-media"><img class="img-placeholder-logo" src="MastersGymLogo.png" alt="Masters Gym"></div>
     <div class="kids-content">
       <p class="section-label" data-i18n="kids_label">Barn & junior</p>
       <h2 data-i18n="kids_h2">TRÄNING FÖR UNGA UTÖVARE</h2>
@@ -1295,9 +1296,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
     </div>
     <div class="social-grid reveal-stagger">
       <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card" aria-label="Instagram"><img src="IMG_8386.jpg" alt="Masters Gym Stockholm"></a>
-      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card" aria-label="Instagram"><img src="https://images.unsplash.com/photo-1517438984742-1262db08379e?w=400&q=80&fit=crop" alt=""></a>
-      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card" aria-label="Instagram"><img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&q=80&fit=crop" alt=""></a>
-      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card" aria-label="Instagram"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80&fit=crop" alt=""></a>
+      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card" aria-label="Instagram"><img class="img-placeholder-logo" src="MastersGymLogo.png" alt="Masters Gym"></a>
+      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card" aria-label="Instagram"><img class="img-placeholder-logo" src="MastersGymLogo.png" alt="Masters Gym"></a>
+      <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="social-card" aria-label="Instagram"><img class="img-placeholder-logo" src="MastersGymLogo.png" alt="Masters Gym"></a>
     </div>
   </div>
 </section>
@@ -2226,6 +2227,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
