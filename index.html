@@ -230,18 +230,17 @@ body:not(.dark) .value-card:hover .value-icon img{filter:invert(65%) sepia(40%) 
 .coach-pt{margin-top:28px}
 .coach-pt-title{font-family:var(--display);font-style:italic;font-weight:800;font-size:26px;letter-spacing:.03em;color:var(--text);margin:10px 0 8px}
 .coach-pt-value{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:20px;max-width:420px}
-.coach-pt-checklist{list-style:none;display:flex;flex-direction:column;gap:9px;margin:0 0 32px;padding:0}
+.coach-pt-checklist{list-style:none;display:flex;flex-direction:column;gap:9px;margin:0 0 40px;padding:0}
 .coach-pt-checklist li{font-size:13.5px;color:var(--text);padding-left:26px;position:relative}
 .coach-pt-checklist li::before{content:'✓';position:absolute;left:0;top:0;color:var(--teal);font-weight:700}
-.coach-pt-divider-thin{height:1px;background:var(--line);margin-bottom:26px;max-width:340px}
-.pt-pricing-panel{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-md);padding:4px 26px;margin-bottom:32px;max-width:340px;box-shadow:var(--shadow-card)}
-.pt-price-row-new{display:flex;justify-content:space-between;align-items:baseline;padding:15px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
-.pt-price-row-new:last-child{border-bottom:none}
-.pt-price-row-new strong{font-size:20px;color:var(--teal);font-weight:700}
-.pt-price-group-kids{border-top:1px solid rgba(116,194,188,.25);margin-top:2px}
-.pt-price-group-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:600;padding-top:18px;padding-bottom:2px}
-.pt-price-group-kids .pt-price-row-new{padding:11px 0;font-size:13px}
-.pt-price-group-kids .pt-price-row-new strong{font-size:16px}
+.coach-pt-divider-thin{display:none}
+.pt-pricing-panel{margin-bottom:40px;max-width:360px}
+.pt-price-row-new{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;font-size:13.5px;color:var(--muted)}
+.pt-price-row-new strong{font-size:15px;color:var(--text);font-weight:600}
+.pt-price-group-kids{margin-top:22px;padding-top:22px;border-top:1px solid var(--line)}
+.pt-price-group-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:600;margin-bottom:8px}
+.pt-price-group-kids .pt-price-row-new{padding:6px 0;font-size:12.5px}
+.pt-price-group-kids .pt-price-row-new strong{font-size:13.5px}
 .coach-pt-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 .coach-pt .timeline-next{margin-bottom:16px}
 .coach-pt .btn{width:auto}
@@ -1252,9 +1251,9 @@ body:not(.dark) .hero-btns .btn-primary{color:#080808}
         <p class="coach-pt-value" data-i18n="pt_value">Träna med en världsmästare och huvudtränare på Masters Gym.</p>
 
         <ul class="coach-pt-checklist">
-          <li data-i18n="pt_check1">Lära dig snabbare</li>
-          <li data-i18n="pt_check2">Förbereda tävling</li>
-          <li data-i18n="pt_check3">Komma i form</li>
+          <li data-i18n="pt_check1">Lär dig snabbare</li>
+          <li data-i18n="pt_check2">Förbered inför tävling</li>
+          <li data-i18n="pt_check3">Kom i form</li>
           <li data-i18n="pt_check4">Förbättra tekniken</li>
         </ul>
 
@@ -2263,6 +2262,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
