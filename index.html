@@ -1903,6 +1903,14 @@ try{(function(){
   }
 
   function populateTimelineNext(){
+    if(typeof scheduleData==='undefined'||!scheduleData.days||!scheduleData.days.length){
+      console.warn('[schedule-debug] scheduleData not loaded yet at this attempt.');
+      return;
+    }
+    console.log('[schedule-debug] scheduleData.days:',scheduleData.days);
+    const allPassValues=[];
+    scheduleData.days.forEach(day=>{(scheduleData.byDay[day]||[]).forEach(r=>allPassValues.push(day+' | '+r.Pass+' | '+r.Tid));});
+    console.log('[schedule-debug] All rows (day | Pass | Tid):',allPassValues);
     for(let i=0;i<CARD_KEYWORDS.length;i++){
       const item=document.getElementById('tl-'+i);
       if(!item)continue;
@@ -1912,8 +1920,11 @@ try{(function(){
       const session=keyword?findNextSession(keyword):null;
       if(session){
         badge.textContent=session.day+' '+session.time;
+        console.log('[schedule-debug] card '+i+' (keyword: '+keyword+') MATCHED:',session);
       }else if(CARD_STATIC_TIME[i]){
         badge.textContent=CARD_STATIC_TIME[i];
+      }else if(keyword){
+        console.warn('[schedule-debug] card '+i+' (keyword: "'+keyword+'") found NO match in any row above.');
       }
     }
   }
@@ -2280,6 +2291,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
