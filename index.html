@@ -284,7 +284,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .event-prev{left:-22px}
 .event-next{right:-22px}
 @media(max-width:768px){.event-card{flex:0 0 100%}.event-carousel{padding:0 34px}.event-prev{left:-6px}.event-next{right:-6px}.event-nav{width:36px;height:36px;top:calc(50% - 18px)}}
-.classes{padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)}
+.classes{padding:100px 40px;background:#F0EEEA;border-top:1px solid var(--line)}
 .classes-container{max-width:1200px;margin:0 auto}
 .section-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
 .section-title{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(48px,6vw,88px);letter-spacing:.04em;line-height:.92;margin-bottom:56px}
@@ -417,12 +417,12 @@ button{cursor:pointer;font-family:var(--sans)}
 .memberships-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
 .carousel-dots{display:none}
 .memberships-grid-secondary{margin-top:24px}
-.membership-card{background:radial-gradient(ellipse 70% 60% at 100% 0%,rgba(116,194,188,0.14),transparent 70%),radial-gradient(ellipse 140% 90% at 50% 0%,rgba(255,255,255,0.035),transparent 65%),linear-gradient(rgba(116,194,188,0.028),rgba(116,194,188,0.028)),var(--bg3);border:1px solid var(--line);border-radius:var(--radius-lg);padding:40px 34px;position:relative;overflow:hidden;transition:border-color .3s ease,transform .3s ease,box-shadow .3s ease;display:flex;flex-direction:column;box-shadow:var(--shadow-card)}
+.membership-card{background:radial-gradient(ellipse 140% 90% at 50% 0%,rgba(255,255,255,0.035),transparent 65%),linear-gradient(rgba(116,194,188,0.028),rgba(116,194,188,0.028)),var(--bg3);border:1px solid var(--line);border-radius:var(--radius-lg);padding:40px 34px;position:relative;overflow:hidden;transition:border-color .3s ease,transform .3s ease,box-shadow .3s ease;display:flex;flex-direction:column;box-shadow:var(--shadow-card)}
 .membership-card::before{content:'';position:absolute;bottom:10px;right:10px;width:150px;height:134px;background-image:url('MastersGymLogo.png');background-size:contain;background-repeat:no-repeat;background-position:center;opacity:.055;pointer-events:none;z-index:0}
 .membership-card::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.025;mix-blend-mode:overlay;pointer-events:none;z-index:0}
 .membership-card>*{position:relative;z-index:1}
 .membership-card:hover{border-color:var(--muted2);transform:translateY(-4px);box-shadow:var(--shadow-card-hover)}
-.membership-card.featured{border-color:rgba(116,194,188,.4);background:radial-gradient(ellipse 70% 60% at 100% 0%,rgba(116,194,188,0.14),transparent 70%),radial-gradient(ellipse 140% 90% at 50% 0%,rgba(255,255,255,0.04),transparent 65%),var(--teal-dim);box-shadow:var(--shadow-card),0 0 0 1px rgba(116,194,188,.15)}
+.membership-card.featured{border-color:rgba(116,194,188,.4);background:radial-gradient(ellipse 140% 90% at 50% 0%,rgba(255,255,255,0.04),transparent 65%),var(--teal-dim);box-shadow:var(--shadow-card),0 0 0 1px rgba(116,194,188,.15)}
 .membership-card.featured:hover{box-shadow:var(--shadow-card-hover),0 0 0 1px rgba(116,194,188,.2)}
 .membership-card.compact{padding:28px 26px;border-radius:var(--radius-md)}
 .membership-icon{stroke:var(--teal);margin-bottom:20px}
@@ -2367,6 +2367,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
