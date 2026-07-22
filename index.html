@@ -410,10 +410,10 @@ button{cursor:pointer;font-family:var(--sans)}
 .schedule-card-line{position:absolute;bottom:0;left:0;height:1.5px;width:0;background:var(--teal);transition:width .35s ease}
 .schedule-card:hover{transform:translateY(-3px);border-color:var(--teal);box-shadow:0 0 0 1px var(--teal-dim),0 10px 24px rgba(0,0,0,0.12)}
 .schedule-card:hover .schedule-card-line{width:100%}
-.schedule-time{font-family:var(--display);font-style:italic;font-weight:800;font-size:19px;letter-spacing:.03em;color:var(--teal);min-width:130px}
+.schedule-time{font-family:var(--display);font-style:italic;font-weight:800;font-size:28px;letter-spacing:.06em;color:var(--teal);min-width:90px}
 .schedule-info{flex:1}
 .schedule-info h3{font-size:15px;font-weight:500;margin-bottom:6px;color:var(--text)}
-.schedule-level{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);background:var(--teal-dim);border:1px solid rgba(116,194,188,0.35);padding:4px 12px;border-radius:999px}
+.schedule-level{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text);background:var(--teal-dim);border:1px solid rgba(116,194,188,0.35);padding:4px 12px;border-radius:999px}
 .schedule-note{font-size:12px;color:var(--muted);margin-bottom:20px;letter-spacing:.06em;margin-top:8px}
 .schedule-info-box{display:flex;gap:14px;align-items:flex-start;background:var(--bg2);border:1px solid var(--line);border-left:2px solid var(--teal);border-radius:var(--radius-md);padding:18px 22px;margin-bottom:20px}
 .schedule-info-icon{width:18px;height:18px;flex-shrink:0;border-radius:50%;border:1px solid var(--teal);color:var(--teal);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
@@ -694,9 +694,9 @@ button{cursor:pointer;font-family:var(--sans)}
 .week-slot.is-cancelled .week-slot-name{text-decoration:line-through}
 .week-slot:hover{transform:translateY(-2px);border-color:var(--teal);box-shadow:0 0 0 1px var(--teal-dim),0 6px 16px rgba(0,0,0,0.1)}
 .week-slot:hover .week-slot-line{width:100%}
-.week-slot-time{font-family:var(--display);font-style:italic;font-weight:800;font-size:13px;letter-spacing:.03em;color:var(--teal);line-height:1;margin-bottom:4px}
+.week-slot-time{font-family:var(--display);font-style:italic;font-weight:800;font-size:18px;letter-spacing:.06em;color:var(--teal);line-height:1;margin-bottom:4px}
 .week-slot-name{font-size:12px;font-weight:500;color:var(--text);margin-bottom:6px}
-.week-slot-level{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:var(--teal-dim);border:1px solid rgba(116,194,188,0.35);padding:3px 9px;border-radius:999px}
+.week-slot-level{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text);background:var(--teal-dim);border:1px solid rgba(116,194,188,0.35);padding:3px 9px;border-radius:999px}
 @media(max-width:900px){.week-grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:600px){.week-grid{grid-template-columns:repeat(2,1fr)}}
 .schedule-view-toggle{display:flex;gap:2px;margin-left:auto}
@@ -1681,18 +1681,6 @@ function esc(v){
   if(v===null||v===undefined)return'';
   return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-function splitPassLevel(str){
-  // The sheet's "Nivå" column actually holds "ClassName – Level" combined
-  // (same quirk documented for the .ics feed generator). Split it here so
-  // the class name shows as the heading and the level as the small badge.
-  str=str||'';
-  const seps=[' – ',' - '];
-  for(const sep of seps){
-    const idx=str.indexOf(sep);
-    if(idx!==-1)return{name:str.slice(0,idx).trim(),level:str.slice(idx+sep.length).trim()};
-  }
-  return{name:str.trim(),level:''};
-}
 function isCancelled(r){
   return /inställ/i.test(r.Status||'');
 }
@@ -1711,7 +1699,7 @@ function renderSchedule(){
   content.style.cssText='display:block;min-height:auto';
   if(scheduleView==='week'){
     tabsEl.style.display='none';
-    content.innerHTML=`<div class="week-grid">${days.map(day=>`<div class="week-col"><div class="week-day-header">${esc(day)}</div><div class="week-day-slots">${byDay[day].map(r=>{const pl=splitPassLevel(r['Nivå']||r['Niv\u00e5']||'');return `<div class="week-slot${isCancelled(r)?' is-cancelled':''}"><span class="week-slot-line"></span><div class="week-slot-time">${esc(r.Tid)}${r.Pass?'–'+esc(r.Pass):''}</div><div class="week-slot-name">${esc(pl.name)}</div><span class="week-slot-level">${esc(pl.level)}</span>${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</div>`}).join('')}</div></div>`).join('')}</div>`;
+    content.innerHTML=`<div class="week-grid">${days.map(day=>`<div class="week-col"><div class="week-day-header">${esc(day)}</div><div class="week-day-slots">${byDay[day].map(r=>`<div class="week-slot${isCancelled(r)?' is-cancelled':''}"><span class="week-slot-line"></span><div class="week-slot-time">${esc(r.Tid)}</div><div class="week-slot-name">${esc(r.Pass)}</div><span class="week-slot-level">${esc(r['Nivå']||r['Niv\u00e5']||'')}</span>${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</div>`).join('')}</div></div>`).join('')}</div>`;
   }else{
     tabsEl.style.display='flex';
     tabsEl.innerHTML='<div class="schedule-tab-pill"></div>'+days.map((d,i)=>`<button class="schedule-tab ${i===0?'active':''}" data-day="${esc(d)}">${esc(d)}</button>`).join('');
@@ -1722,7 +1710,7 @@ function renderSchedule(){
       pill.style.transform='translateX('+activeBtn.offsetLeft+'px)';
     }
     function renderDay(day){
-      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(r=>{const pl=splitPassLevel(r['Nivå']||r['Niv\u00e5']||'');return `<div class="schedule-card${isCancelled(r)?' is-cancelled':''}"><span class="schedule-card-line"></span><div class="schedule-time">${esc(r.Tid)}${r.Pass?'–'+esc(r.Pass):''}</div><div class="schedule-info"><h3>${esc(pl.name)}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</h3><span class="schedule-level">${esc(pl.level)}</span></div></div>`}).join('')}</div>`;
+      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(r=>`<div class="schedule-card${isCancelled(r)?' is-cancelled':''}"><span class="schedule-card-line"></span><div class="schedule-time">${esc(r.Tid)}</div><div class="schedule-info"><h3>${esc(r.Pass)}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</h3><span class="schedule-level">${esc(r['Nivå']||r['Niv\u00e5']||'')}</span></div></div>`).join('')}</div>`;
       addScheduleAnimations();
     }
     renderDay(days[0]);
@@ -2387,6 +2375,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
