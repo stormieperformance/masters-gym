@@ -378,6 +378,13 @@ button{cursor:pointer;font-family:var(--sans)}
   position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .25s ease;
   box-shadow:0 1px 0 rgba(255,255,255,.1) inset,0 1px 2px rgba(0,0,0,.5),0 6px 14px -6px rgba(0,0,0,.6);
 }
+.mem-cta-all-btn{
+  background:linear-gradient(155deg,rgba(255,255,255,0.12),rgba(255,255,255,0) 45%),#0a0a0a;color:var(--text);border:1px solid rgba(116,194,188,.5);border-radius:var(--radius-sm);
+  position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .25s ease;
+  box-shadow:0 1px 0 rgba(255,255,255,.1) inset,0 1px 2px rgba(0,0,0,.5),0 6px 14px -6px rgba(0,0,0,.6);
+}
+.mem-cta-all-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transform:skewX(-20deg);animation:shineSweep 3.5s ease-in-out infinite}
+.mem-cta-all-btn:hover{transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 2px 4px rgba(0,0,0,.5),0 10px 20px -8px rgba(0,0,0,.65)}
 .timeline-cta::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transform:skewX(-20deg);animation:shineSweep 3.5s ease-in-out infinite}
 .timeline-cta:hover{transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 2px 4px rgba(0,0,0,.5),0 10px 20px -8px rgba(0,0,0,.65)}
 .timeline-pt{display:flex;background:linear-gradient(90deg,var(--teal-dim),transparent);border:1px solid rgba(116,194,188,0.35);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)}
@@ -537,7 +544,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .footer-bottom a:hover{color:var(--teal)}
 
 /* ── NEWS — text-only cards ── */
-.news-section{padding:100px 40px;border-top:1px solid var(--line);background:radial-gradient(circle 320px at 50% 10%,rgba(116,194,188,0.18),transparent 70%),radial-gradient(circle 320px at 50% 90%,rgba(116,194,188,0.18),transparent 70%),var(--bg)}
+.news-section{padding:100px 40px;border-top:1px solid var(--line);background:radial-gradient(ellipse 120% 70% at 50% 0%,rgba(116,194,188,0.14),transparent 70%),radial-gradient(circle 320px at 50% 90%,rgba(116,194,188,0.18),transparent 70%),var(--bg)}
 .news-container{max-width:1200px;margin:0 auto}
 .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
 .news-card{
@@ -1217,7 +1224,7 @@ button{cursor:pointer;font-family:var(--sans)}
         <p data-i18n="mem_cta_text">Faktura, kontantbetalning, återkommande kortbetalning eller kort med startdatum hittar du i vår fullständiga shop.</p>
       </div>
       <div class="membership-cta-actions">
-        <a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn btn-primary" data-i18n="mem_cta_all" style="text-decoration:none">Visa alla medlemskap →</a>
+        <a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" class="btn mem-cta-all-btn" data-i18n="mem_cta_all" style="text-decoration:none">Visa alla medlemskap →</a>
         <p class="membership-cta-secure" data-i18n="mem_cta_secure">🔒 Säker betalning via Gymcontrol</p>
       </div>
     </div>
@@ -2450,6 +2457,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
