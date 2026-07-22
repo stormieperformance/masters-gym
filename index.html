@@ -173,6 +173,9 @@ button{cursor:pointer;font-family:var(--sans)}
 .hero-scroll{position:absolute;bottom:32px;right:40px;z-index:2;display:flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2)}
 .hero-scroll-line{width:40px;height:1px;background:var(--muted2)}
 .marquee{overflow:hidden;padding:14px 0;white-space:nowrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.marquee-black-test{background:var(--bg)}
+.marquee-black-test .marquee-item{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--text);padding:0 24px}
+.marquee-black-test .marquee-sep{color:var(--teal);font-size:12px;opacity:.7;padding:0}
 .marquee-teal{background:var(--teal)}
 .marquee-teal .marquee-track span{color:#080808}
 .marquee-dark{background:var(--bg2)}
@@ -949,10 +952,10 @@ button{cursor:pointer;font-family:var(--sans)}
   <div class="hero-scroll"><div class="hero-scroll-line"></div><span data-i18n="scroll">Scroll</span></div>
 </section>
 
-<div class="marquee marquee-teal">
+<div class="marquee marquee-black-test">
   <div class="marquee-track">
-    <span data-i18n="mq1">HARD WORK • RESPECT • COMMUNITY • EVERYBODY IS EQUAL •</span>
-    <span data-i18n="mq1">HARD WORK • RESPECT • COMMUNITY • EVERYBODY IS EQUAL •</span>
+    <span class="marquee-item">HARD WORK</span><span class="marquee-sep">•</span><span class="marquee-item">RESPECT</span><span class="marquee-sep">•</span><span class="marquee-item">COMMUNITY</span><span class="marquee-sep">•</span><span class="marquee-item">EVERYBODY IS EQUAL</span><span class="marquee-sep">•</span>
+    <span class="marquee-item">HARD WORK</span><span class="marquee-sep">•</span><span class="marquee-item">RESPECT</span><span class="marquee-sep">•</span><span class="marquee-item">COMMUNITY</span><span class="marquee-sep">•</span><span class="marquee-item">EVERYBODY IS EQUAL</span><span class="marquee-sep">•</span>
   </div>
 </div>
 
@@ -2510,6 +2513,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
