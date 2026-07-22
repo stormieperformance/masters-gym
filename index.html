@@ -55,7 +55,7 @@
   --shadow-card:0 1px 0 rgba(255,255,255,.04) inset,0 12px 28px -14px rgba(0,0,0,.35);
   --shadow-card-hover:0 1px 0 rgba(255,255,255,.05) inset,0 20px 40px -16px rgba(0,0,0,.4);
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden;width:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
@@ -162,7 +162,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.95) 0%,rgba(8,8,8,.4) 50%,rgba(8,8,8,.15) 100%);z-index:1}
 .hero-content{position:relative;z-index:2;padding:0 40px 80px;max-width:900px}
 .hero-eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;font-weight:500}
-@media(min-width:769px){.hero-eyebrow{display:none}}
+@media(min-width:769px){.hero-eyebrow{display:none}.dropin-shared-cta{display:none}}
 .hero h1{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(72px,11vw,150px);line-height:.88;letter-spacing:.04em;margin-bottom:24px;color:#f0ede6}
 .hero h1 span{color:var(--teal)}
 .hero-desc{font-size:16px;font-weight:300;color:rgba(240,237,230,0.75);line-height:1.8;margin-bottom:36px;max-width:420px}
@@ -345,9 +345,10 @@ button{cursor:pointer;font-family:var(--sans)}
 .finder-sub{font-size:13.5px;color:var(--muted);letter-spacing:.03em;margin:-8px 0 22px}
 .timeline-heading{font-family:var(--display);font-style:italic;font-weight:800;font-size:34px;letter-spacing:.03em;color:var(--text);margin:0 0 14px}
 .dropin-intro{font-size:14px;color:var(--muted);line-height:1.6;max-width:560px;margin:0 0 24px;font-weight:300}
-.dropin-wrap{display:grid;grid-template-columns:280px 1fr;grid-template-areas:"heading cards" "button cards";gap:0 48px;align-items:start}
+.dropin-wrap{display:grid;grid-template-columns:280px 1fr;grid-template-areas:"heading cards";gap:0 48px;align-items:start}
 .dropin-heading-block{grid-area:heading}
 .dropin-heading-block .dropin-intro{margin-bottom:0}
+.dropin-cta-desktop{margin-top:20px;padding:9px 16px;font-size:9.5px}
 .dropin-shared-cta{grid-area:button;align-self:start;margin-top:16px;padding:9px 16px;font-size:9.5px}
 .dropin-carousel-outer{grid-area:cards;position:relative;display:flex;align-items:center;gap:12px}
 .dropin-cards{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -364,7 +365,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .timeline-item:last-child{margin-bottom:0}
 .timeline-marker{
   position:relative;z-index:2;flex-shrink:0;width:40px;height:40px;border-radius:50%;
-  background:var(--bg2);border:2px solid var(--teal);color:var(--teal);
+  background:var(--bg2);border:2px solid var(--teal);color:var(--text);
   display:flex;align-items:center;justify-content:center;
   font-family:var(--display);font-style:italic;font-weight:800;font-size:14px;
 }
@@ -432,9 +433,9 @@ button{cursor:pointer;font-family:var(--sans)}
 .schedule-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:16px;flex-wrap:wrap}
 .schedule-intro{font-size:13.5px;color:var(--muted);margin-top:8px;max-width:360px;line-height:1.6;font-weight:300}
 .schedule-header h2{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(48px,6vw,80px);letter-spacing:.04em;line-height:1;margin:0}
-.schedule-tabs{position:relative;display:flex;gap:2px;background:var(--bg3);border-radius:999px;padding:4px}
+.schedule-tabs{position:relative;display:flex;flex:1;min-width:0;gap:2px;background:var(--bg3);border-radius:999px;padding:4px}
 .schedule-tab-pill{position:absolute;top:4px;bottom:4px;left:4px;background:linear-gradient(155deg,rgba(255,255,255,0.12),rgba(255,255,255,0) 45%),#0a0a0a;border:1px solid rgba(116,194,188,.5);border-radius:999px;box-shadow:0 1px 0 rgba(255,255,255,.1) inset,0 2px 6px -2px rgba(0,0,0,.5);transition:transform .35s cubic-bezier(.16,1,.3,1),width .35s cubic-bezier(.16,1,.3,1);z-index:0}
-.schedule-tab{position:relative;z-index:1;background:none;border:none;color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:12px 24px;transition:color .3s;font-family:var(--sans);font-weight:600;cursor:pointer}
+.schedule-tab{position:relative;z-index:1;flex:1;background:none;border:none;color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:12px 20px;transition:color .3s;font-family:var(--sans);font-weight:600;cursor:pointer;white-space:nowrap}
 .schedule-tab.active{color:var(--text)}
 .schedule-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
 .schedule-card{position:relative;overflow:hidden;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius-md);display:flex;align-items:center;gap:24px;padding:22px 26px;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;box-shadow:var(--shadow-card)}
@@ -497,8 +498,8 @@ button{cursor:pointer;font-family:var(--sans)}
 .corporate-content h2{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(44px,5vw,72px);letter-spacing:.04em;line-height:.92;margin-bottom:24px}
 .corporate-content p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:14px}
 .corporate-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0}
-.corp-feature{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius-md);padding:18px 20px;box-shadow:var(--shadow-card)}
-.corp-feature h3{font-size:12px;font-weight:600;letter-spacing:.08em;margin-bottom:4px;text-transform:uppercase;color:var(--teal)}
+.corp-feature{background:var(--bg2);border:1px solid var(--teal);border-radius:var(--radius-md);padding:18px 20px;box-shadow:var(--shadow-card)}
+.corp-feature h3{font-size:12px;font-weight:600;letter-spacing:.08em;margin-bottom:4px;text-transform:uppercase;color:var(--text)}
 .corp-feature p{font-size:12px;color:var(--muted);line-height:1.5}
 .corporate-media img{width:100%;height:520px;object-fit:cover;object-position:70% center;filter:grayscale(20%)}
 .kids{padding:100px 40px;background:var(--bg2);border-top:1px solid var(--line)}
@@ -511,14 +512,14 @@ button{cursor:pointer;font-family:var(--sans)}
 .kids-content .btn{border-radius:0}
 .kids-tabs{display:flex;gap:2px;margin-bottom:24px}
 .kids-tab{background:var(--bg3);border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--muted);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:10px 20px;transition:all .2s;font-family:var(--sans);cursor:pointer}
-.kids-tab.active{background:var(--teal-dim);color:var(--teal);border-color:rgba(116,194,188,.5)}
+.kids-tab.active{background:var(--teal-dim);color:var(--text);border-color:rgba(116,194,188,.5)}
 .kids-tab:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
 .kids-panels{position:relative;min-height:170px}
 .kids-panel{position:absolute;top:0;left:0;right:0;opacity:0;transform:translate3d(40px,0,0);will-change:transform,opacity;transition:transform .8s cubic-bezier(.45,0,.15,1),opacity .8s cubic-bezier(.45,0,.15,1);pointer-events:none}
 .kids-panel.active{position:relative;opacity:1;transform:translate3d(0,0,0);pointer-events:auto}
 .kids-panel.prev{transform:translate3d(-40px,0,0)}
 .kids-panel p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:14px}
-.kids-age-tag{background:transparent;border:1px solid rgba(116,194,188,.3);border-radius:var(--radius-pill);padding:8px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:600}
+.kids-age-tag{background:transparent;border:1px solid rgba(116,194,188,.3);border-radius:var(--radius-pill);padding:8px 16px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text);font-weight:600}
 .kids-age-tag-link{text-decoration:none;cursor:pointer;transition:background .2s ease,border-color .2s ease}
 .kids-age-tag-link:hover{background:var(--teal);color:#080808;border-color:var(--teal)}
 .social{padding:100px 40px;border-top:1px solid var(--line)}
@@ -629,6 +630,7 @@ button{cursor:pointer;font-family:var(--sans)}
   .hero h1{font-size:clamp(60px,18vw,100px)}
   .dropin-wrap{grid-template-columns:1fr;grid-template-areas:"heading" "cards" "dots" "button";text-align:center;gap:20px}
   .dropin-heading-block,.dropin-intro{margin-left:auto;margin-right:auto}
+  .dropin-cta-desktop{display:none}
   .dropin-shared-cta{justify-self:center;margin-top:0;padding:11px 18px;font-size:10.5px}
   .dropin-carousel-outer{gap:6px}
   .dropin-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:0 4%;scrollbar-width:none;-ms-overflow-style:none}
@@ -660,7 +662,7 @@ button{cursor:pointer;font-family:var(--sans)}
   .timeline-pt img{width:100%;height:180px}
   .path-ladder{flex-direction:column;align-items:stretch}
   .path-arrow{transform:rotate(90deg);padding:6px 0;align-self:center}
-  .schedule{padding:60px 20px}.schedule-header{flex-direction:column;align-items:flex-start}
+  .schedule{padding:60px 20px}.schedule-header{flex-direction:column;align-items:flex-start;width:100%}
   .memberships{padding:60px 20px}.memberships-features{grid-template-columns:1fr}.membership-cta{flex-direction:column;align-items:flex-start}.membership-cta-actions{align-items:flex-start;width:100%}.membership-cta-actions .btn{width:100%}
   .memberships-grid{position:relative;display:block;min-height:340px}
   #membershipsFeatured,#membershipsSecondary{min-height:380px;touch-action:pan-y;cursor:grab}
@@ -677,7 +679,7 @@ button{cursor:pointer;font-family:var(--sans)}
   #map{height:260px}
   .footer{padding:40px 20px 24px}.footer-container{flex-direction:column;gap:32px}.footer-right{gap:32px}.footer-bottom{flex-direction:column;gap:12px;text-align:center}
   .hero-scroll{display:none}
-  .schedule-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;border-radius:var(--radius-md)}
+  .schedule-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;border-radius:var(--radius-md);width:100%}
   .schedule-tab{padding:10px 8px;text-align:center}
 }
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 26px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:none;border-radius:var(--radius-sm);cursor:pointer;font-family:var(--sans);position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
@@ -1068,6 +1070,7 @@ button{cursor:pointer;font-family:var(--sans)}
       <div class="dropin-heading-block">
         <h3 class="timeline-heading" data-i18n="timeline_h2">Pass för alla</h3>
         <p class="dropin-intro" data-i18n="dropin_intro">Vi erbjuder träning som passar in i vardagen, oavsett mål eller schema.</p>
+        <button type="button" class="timeline-cta dropin-cta-desktop open-modal" data-i18n="book_trial">Boka provpass</button>
       </div>
       <button type="button" class="timeline-cta dropin-shared-cta open-modal" data-i18n="book_trial">Boka provpass</button>
       <div class="dropin-carousel-outer">
