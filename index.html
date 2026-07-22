@@ -187,7 +187,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .values h2{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(48px,6vw,88px);letter-spacing:.04em;line-height:.92;margin-bottom:64px}
 .values-composition{display:grid;grid-template-columns:1fr 1.15fr;gap:24px 64px;align-items:center}
 .values-illustration{grid-column:1;grid-row:1/4;display:flex;align-items:center;justify-content:center}
-.values-illustration img{width:100%;max-width:320px;height:auto;opacity:.92;transition:opacity .3s ease,filter .3s ease}
+.values-illustration img{width:100%;max-width:380px;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-lg);opacity:.92;filter:grayscale(15%);box-shadow:var(--shadow-card);transition:opacity .3s ease,filter .3s ease}
 .values-item{grid-column:2}
 .values-item h3{font-family:var(--display);font-style:italic;font-weight:800;font-size:32px;letter-spacing:.06em;margin-bottom:14px}
 .values-item p{font-size:14px;font-weight:300;color:var(--muted);line-height:1.8;max-width:480px}
@@ -646,7 +646,7 @@ button{cursor:pointer;font-family:var(--sans)}
   .values{padding:60px 20px}
   .values-composition{grid-template-columns:1fr;gap:36px}
   .values-illustration{grid-column:1;grid-row:auto}
-  .values-illustration img{max-width:180px;margin:0 auto}
+  .values-illustration img{max-width:260px;margin:0 auto}
   .values-item{grid-column:1}
   .values-grid{grid-template-columns:1fr}
   .about{padding:60px 20px}.about-container{grid-template-columns:1fr;gap:40px}.about-media img{height:380px}
@@ -1443,7 +1443,7 @@ button{cursor:pointer;font-family:var(--sans)}
     <h2 class="reveal" data-i18n="values_h2">DISCIPLINE.<br>RESPECT.<br>COMMUNITY.</h2>
     <div class="values-composition" id="valuesComposition">
       <div class="values-illustration">
-        <img src="logo_figure_only.png" alt="" aria-hidden="true">
+        <img src="values-community.jpg" alt="Medlemmar på Masters Gym Stockholm">
       </div>
       <div class="values-item">
         <h3 data-i18n="val1_title">HARD WORK</h3>
