@@ -429,9 +429,9 @@ button{cursor:pointer;font-family:var(--sans)}
 .membership-card::before{content:'';position:absolute;bottom:10px;right:10px;width:150px;height:134px;background-image:url('MastersGymLogo.png');background-size:contain;background-repeat:no-repeat;background-position:center;opacity:.055;pointer-events:none;z-index:0}
 .membership-card::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.025;mix-blend-mode:overlay;pointer-events:none;z-index:0}
 .membership-card>*{position:relative;z-index:1}
-.membership-card:hover{border-color:var(--teal);transform:translateY(-6px);box-shadow:0 0 0 1px rgba(116,194,188,.25),0 20px 40px -16px rgba(116,194,188,.25),var(--shadow-card-hover)}
+.membership-card:hover{border-color:var(--teal);transform:translateY(2px) scale(.99);box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 4px 10px -6px rgba(0,0,0,.4)}
 .membership-card.featured{border-color:rgba(116,194,188,.4);background:radial-gradient(ellipse 140% 90% at 50% 0%,rgba(255,255,255,0.04),transparent 65%),var(--teal-dim);box-shadow:var(--shadow-card),0 0 0 1px rgba(116,194,188,.15)}
-.membership-card.featured:hover{transform:translateY(-6px);box-shadow:0 0 0 1px rgba(116,194,188,.3),0 24px 44px -16px rgba(116,194,188,.3),var(--shadow-card-hover)}
+.membership-card.featured:hover{transform:translateY(2px) scale(.99);box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 4px 10px -6px rgba(0,0,0,.4)}
 .membership-card.compact{padding:28px 26px;border-radius:var(--radius-md)}
 .membership-icon{stroke:var(--teal);margin-bottom:20px}
 .membership-ribbon{position:absolute;top:22px;right:22px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#080808;font-weight:700;background:var(--teal);padding:6px 14px;border-radius:var(--radius-pill)}
@@ -2373,6 +2373,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
