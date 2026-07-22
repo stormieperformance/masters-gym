@@ -325,10 +325,10 @@ button{cursor:pointer;font-family:var(--sans)}
 .finder-sub{font-size:13.5px;color:var(--muted);letter-spacing:.03em;margin:-8px 0 22px}
 .timeline-heading{font-family:var(--display);font-style:italic;font-weight:800;font-size:34px;letter-spacing:.03em;color:var(--text);margin:0 0 14px}
 .dropin-intro{font-size:14px;color:var(--muted);line-height:1.6;max-width:560px;margin:0 0 24px;font-weight:300}
-.dropin-shared-cta{margin-bottom:36px}
-.dropin-wrap{display:grid;grid-template-columns:280px 1fr;grid-template-areas:"heading cards" "button cards";gap:8px 48px;align-items:start}
+.dropin-wrap{display:grid;grid-template-columns:280px 1fr;grid-template-areas:"heading cards" "button cards";gap:0 48px;align-items:start}
 .dropin-heading-block{grid-area:heading}
-.dropin-shared-cta{grid-area:button;align-self:start;margin-top:8px}
+.dropin-heading-block .dropin-intro{margin-bottom:0}
+.dropin-shared-cta{grid-area:button;align-self:start;margin-top:16px;padding:9px 16px;font-size:9.5px}
 .dropin-carousel-outer{grid-area:cards;position:relative;display:flex;align-items:center;gap:12px}
 .dropin-cards{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .dropin-card{position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:3/4;box-shadow:var(--shadow-card);transition:transform .3s ease,box-shadow .3s ease}
@@ -601,11 +601,11 @@ button{cursor:pointer;font-family:var(--sans)}
   .hero h1{font-size:clamp(60px,18vw,100px)}
   .dropin-wrap{grid-template-columns:1fr;grid-template-areas:"heading" "cards" "dots" "button";text-align:center;gap:20px}
   .dropin-heading-block,.dropin-intro{margin-left:auto;margin-right:auto}
-  .dropin-shared-cta{justify-self:center;margin-top:0}
+  .dropin-shared-cta{justify-self:center;margin-top:0;padding:11px 18px;font-size:10.5px}
   .dropin-carousel-outer{gap:6px}
-  .dropin-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:0 8%;scrollbar-width:none;-ms-overflow-style:none}
+  .dropin-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:0 4%;scrollbar-width:none;-ms-overflow-style:none}
   .dropin-cards::-webkit-scrollbar{display:none}
-  .dropin-card{flex:0 0 84%;scroll-snap-align:center;aspect-ratio:3/4}
+  .dropin-card{flex:0 0 92%;scroll-snap-align:center;aspect-ratio:3/4}
   .dropin-prev,.dropin-next{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--bg2);border:1px solid var(--line);color:var(--text);font-size:18px;cursor:pointer;transition:border-color .2s ease,color .2s ease}
   .dropin-prev:hover,.dropin-next:hover{border-color:var(--teal);color:var(--teal)}
   .dropin-dots{display:flex;justify-content:center;gap:8px}
@@ -1042,7 +1042,7 @@ button{cursor:pointer;font-family:var(--sans)}
         <button type="button" class="dropin-prev" id="dropinPrev" aria-label="Föregående">&#8249;</button>
         <div class="dropin-cards" id="dropinCards">
           <div class="dropin-card" id="tl-3">
-            <img src="https://images.unsplash.com/photo-1731955138970-fc88fd48b80f?auto=format&fit=crop&w=900&q=80" alt="Boxning" class="dropin-card-img" loading="lazy">
+            <img src="MastersGymLogo.png" alt="Boxning" class="dropin-card-img img-placeholder-logo" loading="lazy">
             <div class="dropin-card-overlay">
               <span class="timeline-badge" data-i18n="class6_tag">Alla nivåer</span>
               <h4 class="dropin-card-title" data-i18n="class6_title">BOXNING</h4>
@@ -1050,7 +1050,7 @@ button{cursor:pointer;font-family:var(--sans)}
             </div>
           </div>
           <div class="dropin-card" id="tl-4">
-            <img src="https://images.unsplash.com/photo-1758875569136-9936939e6179?auto=format&fit=crop&w=900&q=80" alt="Fyspass" class="dropin-card-img" loading="lazy">
+            <img src="MastersGymLogo.png" alt="Fyspass" class="dropin-card-img img-placeholder-logo" loading="lazy">
             <div class="dropin-card-overlay">
               <span class="timeline-badge" data-i18n="class4_tag">Alla nivåer</span>
               <h4 class="dropin-card-title" data-i18n="class4_title">FYSPASS</h4>
@@ -1058,7 +1058,7 @@ button{cursor:pointer;font-family:var(--sans)}
             </div>
           </div>
           <div class="dropin-card" id="tl-5">
-            <img src="https://images.unsplash.com/photo-1534258936925-c58bed479fcb?auto=format&fit=crop&w=900&q=80" alt="Morgon/Lunch" class="dropin-card-img" loading="lazy">
+            <img src="MastersGymLogo.png" alt="Morgon/Lunch" class="dropin-card-img img-placeholder-logo" loading="lazy">
             <div class="dropin-card-overlay">
               <span class="timeline-badge" data-i18n="class7_tag">Alla nivåer</span>
               <h4 class="dropin-card-title" data-i18n="class7_title">MORGON/LUNCH</h4>
@@ -2448,6 +2448,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
