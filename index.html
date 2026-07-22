@@ -301,11 +301,19 @@ button{cursor:pointer;font-family:var(--sans)}
 @keyframes textShine{0%{background-position:200% 0}100%{background-position:-100% 0}}
 @keyframes fpop{0%{transform:scale(1)}40%{transform:scale(0.95)}100%{transform:scale(1)}}
 .finder-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;margin-bottom:4px}
-.finder-btn{position:relative;overflow:hidden;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-md);color:var(--text);font-size:14px;font-weight:500;line-height:1.45;text-align:left;padding:28px 40px 26px 26px;cursor:pointer;font-family:var(--sans);display:flex;flex-direction:column;gap:16px;transition:transform .3s cubic-bezier(.2,.8,.3,1),border-color .3s ease,box-shadow .3s ease,background .3s ease;box-shadow:var(--shadow-card)}
+.finder-btn{position:relative;overflow:hidden;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-md);color:var(--text);font-size:14px;font-weight:500;line-height:1.45;text-align:left;padding:28px 40px 26px 26px;cursor:pointer;font-family:var(--sans);display:flex;flex-direction:column;gap:16px;transition:transform .3s cubic-bezier(.2,.8,.3,1),border-color .3s ease,box-shadow .3s ease,background .3s ease;box-shadow:var(--shadow-card);animation:finderPulseGlow 3.4s ease-in-out infinite}
+.finder-btn:nth-child(2){animation-delay:.3s}
+.finder-btn:nth-child(3){animation-delay:.6s}
+.finder-btn:nth-child(4){animation-delay:.9s}
+.finder-btn:nth-child(5){animation-delay:1.2s}
+.finder-btn:nth-child(6){animation-delay:1.5s}
+.finder-btn:nth-child(7){animation-delay:1.8s}
+@keyframes finderPulseGlow{0%,100%{box-shadow:var(--shadow-card),0 0 0 0 rgba(116,194,188,0)}50%{box-shadow:var(--shadow-card),0 0 0 3px rgba(116,194,188,.3),0 0 22px rgba(116,194,188,.22)}}
+@media(prefers-reduced-motion:reduce){.finder-btn{animation:none}}
 .finder-btn::before{content:'';position:absolute;bottom:-50px;right:-50px;width:190px;height:170px;background-image:url('MastersGymLogo.png');background-size:contain;background-repeat:no-repeat;background-position:center;opacity:.018;pointer-events:none;z-index:0}
 .finder-btn .fline{position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--teal);transition:width .3s ease}
 .finder-icon{position:relative;z-index:1;stroke:var(--teal);width:22px;height:22px;flex-shrink:0;opacity:.75;transition:opacity .3s ease,filter .3s ease}
-.finder-btn:hover{transform:translateY(-4px);border-color:var(--teal);box-shadow:0 0 0 1px rgba(116,194,188,.25),0 16px 32px -12px rgba(116,194,188,.2),var(--shadow-card-hover);background:var(--bg3)}
+.finder-btn:hover{transform:translateY(-4px);border-color:var(--teal);box-shadow:0 0 0 1px rgba(116,194,188,.25),0 16px 32px -12px rgba(116,194,188,.2),var(--shadow-card-hover);background:var(--bg3);animation-play-state:paused}
 .finder-btn:hover .fline{width:100%}
 .finder-btn:hover .finder-icon{opacity:1;filter:drop-shadow(0 0 6px rgba(116,194,188,.5))}
 .finder-btn.active{border-color:var(--teal);background:var(--teal-dim);animation:fpop .35s ease}
@@ -2365,6 +2373,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 </script>
 </body>
 </html>
+
 
 
 
