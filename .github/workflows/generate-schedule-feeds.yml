@@ -36,7 +36,22 @@ jobs:
           git add feeds/
           if git diff --cached --quiet; then
             echo "No schedule changes, nothing to commit."
-          else
-            git commit -m "Auto-update schedule calendar feeds"
-            git push origin HEAD:main -v
+            exit 0
           fi
+          git commit -m "Auto-update schedule calendar feeds"
+          # Another commit can land on main between our checkout and our push,
+          # which makes the push non-fast-forward and fails the whole run even
+          # though the feeds generated fine. Rebase onto whatever is on main
+          # now and retry a few times instead of giving up.
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected on attempt $attempt, rebasing onto latest main..."
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; exit 1; }
+            sleep $((attempt * 3))
+          done
+          echo "Could not push updated feeds after 5 attempts." >&2
+          exit 1
