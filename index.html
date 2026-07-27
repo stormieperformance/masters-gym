@@ -155,31 +155,27 @@ button{cursor:pointer;font-family:var(--sans)}
 .mobile-menu.active .mobile-menu-close{opacity:1;transform:scale(1);transition-delay:.28s}
 .mobile-menu-close:hover{color:var(--text);border-color:var(--teal);box-shadow:0 0 0 3px rgba(116,194,188,.14),0 4px 14px -6px rgba(0,0,0,.7)}
 .mobile-menu-close:active{transform:scale(.92)}
-.mobile-link{display:flex;align-items:baseline;justify-content:center;gap:11px;width:100%;padding:4px 0;text-decoration:none;position:relative}
-.mobile-link-num{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--teal);opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s cubic-bezier(.22,1,.36,1)}
+.mobile-link{display:flex;align-items:center;justify-content:center;width:100%;padding:4px 0;text-decoration:none;position:relative;text-align:center}
 .mobile-link-mask{display:block;overflow:hidden;padding-bottom:3px}
 .mobile-link-mask>span{display:block;font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(27px,8.2vw,40px);letter-spacing:.08em;line-height:1.14;color:var(--text);transform:translateY(112%);transition:transform .62s cubic-bezier(.16,1,.3,1),color .25s ease}
 .mobile-menu.active .mobile-link-mask>span{transform:translateY(0)}
-.mobile-menu.active .mobile-link-num{opacity:.55;transform:translateY(0)}
 .mobile-link-mask>span::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--teal);transform:scaleX(0);transform-origin:center;transition:transform .38s cubic-bezier(.16,1,.3,1)}
 .mobile-link-mask>span{position:relative}
 .mobile-link:hover .mobile-link-mask>span,.mobile-link:active .mobile-link-mask>span,.mobile-link.is-tapped .mobile-link-mask>span{color:var(--teal)}
-.mobile-menu.active .mobile-link:hover .mobile-link-num,.mobile-menu.active .mobile-link:active .mobile-link-num,.mobile-menu.active .mobile-link.is-tapped .mobile-link-num{opacity:1;color:var(--teal)}
 .mobile-link:active .mobile-link-mask>span::after,.mobile-link.is-tapped .mobile-link-mask>span::after,.mobile-link:hover .mobile-link-mask>span::after{transform:scaleX(1)}
-.mobile-menu.active .mobile-link.is-tapped .mobile-link-num{transform:translateY(0) scale(1.2)}
-.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(1) .mobile-link-mask>span,.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(1) .mobile-link-num{transition-delay:0.180s}
-.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(2) .mobile-link-mask>span,.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(2) .mobile-link-num{transition-delay:0.235s}
-.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(3) .mobile-link-mask>span,.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(3) .mobile-link-num{transition-delay:0.290s}
-.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(4) .mobile-link-mask>span,.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(4) .mobile-link-num{transition-delay:0.345s}
-.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(5) .mobile-link-mask>span,.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(5) .mobile-link-num{transition-delay:0.400s}
-.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(6) .mobile-link-mask>span,.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(6) .mobile-link-num{transition-delay:0.455s}
-.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(7) .mobile-link-mask>span,.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(7) .mobile-link-num{transition-delay:0.510s}
+.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(1) .mobile-link-mask>span{transition-delay:0.180s}
+.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(2) .mobile-link-mask>span{transition-delay:0.235s}
+.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(3) .mobile-link-mask>span{transition-delay:0.290s}
+.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(4) .mobile-link-mask>span{transition-delay:0.345s}
+.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(5) .mobile-link-mask>span{transition-delay:0.400s}
+.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(6) .mobile-link-mask>span{transition-delay:0.455s}
+.mobile-menu.active .mobile-menu-nav .mobile-link:nth-child(7) .mobile-link-mask>span{transition-delay:0.510s}
 .mobile-menu-foot{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:26px;opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
 .mobile-menu.active .mobile-menu-foot{opacity:1;transform:translateY(0);transition-delay:.58s}
 .mobile-menu-foot .mobile-cta-wrap{margin-top:0}
 @media(prefers-reduced-motion:reduce){
   .mobile-menu{clip-path:none!important}
-  .mobile-menu,.mobile-menu-head,.mobile-menu-close,.mobile-menu-foot,.mobile-link-num,.mobile-link-mask>span{transition-duration:.01ms!important;transition-delay:0s!important}
+  .mobile-menu,.mobile-menu-head,.mobile-menu-close,.mobile-menu-foot,.mobile-link-mask>span{transition-duration:.01ms!important;transition-delay:0s!important}
 }
 .mobile-cta-wrap{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:24px;width:260px}
 .mobile-cta{background:var(--teal) !important;color:#080808 !important;font-size:11px !important;font-weight:700 !important;letter-spacing:.18em !important;text-transform:uppercase !important;padding:16px 0 !important;border:none !important;border-radius:var(--radius-sm) !important;cursor:pointer;font-family:var(--sans) !important;width:100%;text-align:center;text-decoration:none !important;display:flex !important;align-items:center;justify-content:center;position:relative;overflow:hidden;animation:ctaPulse 2.8s ease-in-out infinite;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
@@ -996,13 +992,13 @@ button{cursor:pointer;font-family:var(--sans)}
     <span class="mobile-menu-tagline" data-i18n="nav_tagline">Kick- &amp; Thaiboxning · Stockholm 2016</span>
   </div>
   <nav class="mobile-menu-nav">
-    <a href="#about" class="mobile-link"><span class="mobile-link-num" aria-hidden="true">01</span><span class="mobile-link-mask"><span data-i18n="nav_about">Om oss</span></span></a>
-    <a href="#classes" class="mobile-link"><span class="mobile-link-num" aria-hidden="true">02</span><span class="mobile-link-mask"><span data-i18n="nav_classes">Våra pass</span></span></a>
-    <a href="#kids" class="mobile-link"><span class="mobile-link-num" aria-hidden="true">03</span><span class="mobile-link-mask"><span data-i18n="nav_kids">Barn &amp; Junior</span></span></a>
-    <a href="#schedule" class="mobile-link"><span class="mobile-link-num" aria-hidden="true">04</span><span class="mobile-link-mask"><span data-i18n="nav_schedule">Schema</span></span></a>
-    <a href="#memberships" class="mobile-link"><span class="mobile-link-num" aria-hidden="true">05</span><span class="mobile-link-mask"><span data-i18n="nav_memberships">Medlemskap</span></span></a>
-    <a href="#corporate" class="mobile-link"><span class="mobile-link-num" aria-hidden="true">06</span><span class="mobile-link-mask"><span data-i18n="nav_corporate">Företag</span></span></a>
-    <a href="#contact" class="mobile-link"><span class="mobile-link-num" aria-hidden="true">07</span><span class="mobile-link-mask"><span data-i18n="nav_contact">Kontakt</span></span></a>
+    <a href="#about" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_about">Om oss</span></span></a>
+    <a href="#classes" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_classes">Våra pass</span></span></a>
+    <a href="#kids" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_kids">Barn &amp; Junior</span></span></a>
+    <a href="#schedule" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_schedule">Schema</span></span></a>
+    <a href="#memberships" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_memberships">Medlemskap</span></span></a>
+    <a href="#corporate" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_corporate">Företag</span></span></a>
+    <a href="#contact" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_contact">Kontakt</span></span></a>
   </nav>
   <div class="mobile-menu-foot">
     <div class="mobile-cta-wrap">
