@@ -858,9 +858,9 @@ button{cursor:pointer;font-family:var(--sans)}
     <h3 id="modal-title-text" data-i18n="modal_title">BOKA PROVPASS</h3>
     <p class="modal-sub" data-i18n="modal_sub">Prova ditt första pass för 200 kr. Vi återkommer inom 24 timmar.</p>
     <p class="modal-schedule-hint"><a href="#schedule" onclick="closeModal()"><span data-i18n="modal_schedule_hint_q">Osäker på när du kan träna?</span> <span class="modal-schedule-hint-teal" data-i18n="modal_schedule_hint_link">Se schemat här →</span></a></p>
-    <form class="modal-form" name="provpass" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="netlify-form">
+    <form class="modal-form" name="provpass" method="POST" id="booking-form">
       <input type="hidden" name="form-name" value="provpass"/>
-      <p style="display:none"><label>Fyll inte i detta: <input name="bot-field"/></label></p>
+      <p style="display:none" aria-hidden="true"><label>Fyll inte i detta: <input name="_gotcha" tabindex="-1" autocomplete="off"/></label></p>
       <input type="text" name="namn" data-i18n-placeholder="modal_name" placeholder="Ditt namn" autocomplete="name" required/>
       <input type="email" name="email" data-i18n-placeholder="modal_email" placeholder="E-postadress" autocomplete="email" required/>
       <input type="tel" name="telefon" data-i18n-placeholder="modal_phone" placeholder="Telefonnummer (valfritt)" autocomplete="tel"/>
@@ -1709,14 +1709,28 @@ document.addEventListener('click',function(e){
   const memberLink=e.target.closest('a[href*="gymcontrol.se"]');
   if(memberLink)track('Membership link clicked',{url:memberLink.href});
 });
-document.getElementById('netlify-form').addEventListener('submit',function(e){
+document.getElementById('booking-form').addEventListener('submit',function(e){
   e.preventDefault();
   const btn=document.getElementById('modal-submit');
+  if(!FORMSPREE_ENDPOINT){
+    console.warn('FORMSPREE_ENDPOINT is not set, form submissions have nowhere to go yet.');
+    btn.textContent='Formuläret är inte klart ännu. Maila oss direkt.';
+    btn.style.background='rgba(220,80,80,0.15)';btn.style.color='#e05a5a';
+    return;
+  }
   btn.textContent='...';btn.disabled=true;
-  const formData=new FormData(this);
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(formData).toString()})
-  .then(()=>{track('Trial booking submitted');btn.textContent='Skickat! Vi hör av oss snart.';btn.style.background='rgba(116,194,188,0.2)';btn.style.color='var(--teal)';setTimeout(closeModal,2200);})
-  .catch(()=>{btn.textContent='Något gick fel. Försök igen eller maila oss direkt.';btn.style.background='rgba(220,80,80,0.15)';btn.style.color='#e05a5a';btn.disabled=false;});
+  fetch(FORMSPREE_ENDPOINT,{method:'POST',body:new FormData(this),headers:{'Accept':'application/json'}})
+  .then(res=>{
+    if(!res.ok)throw new Error('bad response');
+    track('Trial booking submitted');
+    btn.textContent='Skickat! Vi hör av oss snart.';
+    btn.style.background='rgba(116,194,188,0.2)';btn.style.color='var(--teal)';
+    setTimeout(closeModal,2200);
+  })
+  .catch(()=>{
+    btn.textContent='Något gick fel. Försök igen eller maila oss direkt.';
+    btn.style.background='rgba(220,80,80,0.15)';btn.style.color='#e05a5a';btn.disabled=false;
+  });
 });
 
 function parseCSV(text){
