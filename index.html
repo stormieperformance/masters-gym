@@ -212,16 +212,19 @@ button{cursor:pointer;font-family:var(--sans)}
 .marquee-track{display:inline-flex;animation:marquee 22s linear infinite}
 .marquee-track span{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;padding:0 40px}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.values{padding:100px 40px;background:var(--bg2);border-bottom:1px solid var(--line)}
+.values{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 .values-container{max-width:1100px;margin:0 auto}
+.values-hero{position:relative;min-height:74vh;display:flex;align-items:flex-end;padding:40px;overflow:hidden}
+.values-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:grayscale(18%) brightness(.7);z-index:0}
+.values-hero::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,10,.42) 0%,rgba(10,10,10,0) 34%,rgba(10,10,10,.55) 72%,var(--bg3) 100%)}
+.values-hero-inner{position:relative;z-index:2;max-width:1100px;margin:0 auto;width:100%}
+.values-body{background:var(--bg3);padding:72px 40px 96px}
 .values-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
-.values h2{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(48px,6vw,88px);letter-spacing:.04em;line-height:.92;margin-bottom:64px}
-.values-composition{display:grid;grid-template-columns:1fr 1.15fr;gap:24px 64px;align-items:center}
-.values-illustration{grid-column:1;grid-row:1/4;display:flex;align-items:center;justify-content:center}
-.values-illustration img{width:100%;max-width:380px;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-lg);opacity:.92;filter:grayscale(20%);box-shadow:var(--shadow-card);transition:opacity .3s ease,filter .3s ease}
-.values-item{grid-column:2}
+.values h2{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(48px,6vw,88px);letter-spacing:.04em;line-height:.92;margin-bottom:0;text-shadow:0 2px 34px rgba(0,0,0,.55)}
+.values-composition{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;align-items:start}
+.values-item{border-left:2px solid rgba(116,194,188,.35);padding-left:20px}
 .values-item h3{font-family:var(--display);font-style:italic;font-weight:800;font-size:32px;letter-spacing:.06em;margin-bottom:14px}
-.values-item p{font-size:14px;font-weight:300;color:var(--muted);line-height:1.8;max-width:480px}
+.values-item p{font-size:14px;font-weight:300;color:rgba(240,237,230,0.56);line-height:1.8;max-width:480px}
 .values-composition>*{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;will-change:opacity,transform}
 .values-composition.visible>*:nth-child(1){opacity:1;transform:translateY(0);transition-delay:0s}
 .values-composition.visible>*:nth-child(2){opacity:1;transform:translateY(0);transition-delay:.15s}
@@ -690,11 +693,9 @@ button{cursor:pointer;font-family:var(--sans)}
   .sub-option{flex-direction:column;align-items:flex-start}
   .sub-option-actions{width:100%}
   .sub-option-actions .btn,.sub-option-actions .sub-copy-btn{flex:1}
-  .values{padding:60px 20px}
-  .values-composition{grid-template-columns:1fr;gap:36px}
-  .values-illustration{grid-column:1;grid-row:auto}
-  .values-illustration img{max-width:260px;margin:0 auto}
-  .values-item{grid-column:1}
+  .values-hero{min-height:70vh;padding:22px}
+  .values-body{padding:48px 20px 64px}
+  .values-composition{grid-template-columns:1fr;gap:30px}
   .values-grid{grid-template-columns:1fr}
   .about{padding:60px 20px}.about-container{grid-template-columns:1fr;gap:40px}.about-media img{height:380px}
   .testimonials{padding:100px 20px 160px}.testimonials-carousel{padding:0}
@@ -1518,13 +1519,16 @@ button{cursor:pointer;font-family:var(--sans)}
 </section>
 
 <section class="values" id="about">
-  <div class="values-container">
-    <p class="values-label reveal" data-i18n="values_label">Våra värderingar</p>
-    <h2 class="reveal" data-i18n="values_h2">DISCIPLINE.<br>RESPECT.<br>COMMUNITY.</h2>
+  <div class="values-hero">
+    <img src="values-community.jpg" alt="Medlemmar på Masters Gym Stockholm">
+    <div class="values-hero-inner">
+      <p class="values-label reveal" data-i18n="values_label">Våra värderingar</p>
+      <h2 class="reveal" data-i18n="values_h2">DISCIPLINE.<br>RESPECT.<br>COMMUNITY.</h2>
+    </div>
+  </div>
+  <div class="values-body">
+   <div class="values-container">
     <div class="values-composition" id="valuesComposition">
-      <div class="values-illustration">
-        <img src="values-community.jpg" alt="Medlemmar på Masters Gym Stockholm">
-      </div>
       <div class="values-item">
         <h3 data-i18n="val1_title">HARD WORK</h3>
         <p data-i18n="val1_text">Oavsett vad ditt mål är hjälper vi dig att nå det. Från att komma i form till att bli världsmästare — vi finns här för dig i din process.</p>
@@ -1538,6 +1542,7 @@ button{cursor:pointer;font-family:var(--sans)}
         <p data-i18n="val3_text">Masters Gym är en plats där människor kan vara sig själva, arbeta med dedikation och respekt för att nå sina mål. Kom och skaffa vänner för livet.</p>
       </div>
     </div>
+   </div>
   </div>
 </section>
 
