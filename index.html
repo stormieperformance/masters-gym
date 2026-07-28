@@ -62,19 +62,20 @@ a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:var(--sans)}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s ease}
 .modal-overlay.active{opacity:1;pointer-events:all}
-.modal-box{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius-lg);width:100%;max-width:460px;padding:44px;position:relative;transform:translateY(20px);transition:transform .25s ease;box-shadow:var(--shadow-card-hover)}
+.modal-box{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius-lg);width:100%;max-width:460px;padding:44px;position:relative;transform:translateY(20px);transition:transform .25s ease;box-shadow:var(--shadow-card-hover);max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .modal-box-wide{max-width:560px}
-.sub-options{display:flex;flex-direction:column;gap:2px;margin:28px 0 20px;background:var(--line)}
-.sub-option{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:var(--bg2);padding:20px 4px}
-.sub-option-text h4{font-family:var(--display);font-style:italic;font-weight:800;font-size:20px;letter-spacing:.04em;margin-bottom:4px}
+.sub-options{display:flex;flex-direction:column;gap:1px;margin:20px 0 16px;background:var(--line)}
+.sub-option{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;background:var(--bg2);padding:15px 4px}
+.sub-option-text{flex:1 1 190px;min-width:0}
+.sub-option-text h4{font-family:var(--display);font-style:italic;font-weight:800;font-size:17px;letter-spacing:.04em;margin-bottom:2px}
 .sub-option-text p{font-size:12.5px;color:var(--muted);font-weight:300}
 .sub-option-actions{display:flex;gap:8px;flex-shrink:0;align-items:center}
 .sub-subscribe-btn{text-decoration:none;padding:11px 18px;font-size:10px}
 .sub-copy-btn{background:none;border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--muted);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:11px 14px;cursor:pointer;font-family:var(--sans);transition:border-color .2s ease,color .2s ease}
 .sub-copy-btn:hover{border-color:var(--teal);color:var(--teal)}
 .sub-copy-btn.copied{border-color:var(--teal);color:var(--teal)}
-.sub-option-classes{font-size:11px;color:rgba(240,237,230,0.4);font-weight:300;margin-top:6px;line-height:1.6}
-.sub-modal-multi{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px;padding-left:14px;border-left:2px solid rgba(116,194,188,.35)}
+.sub-option-classes{font-size:10.5px;color:rgba(240,237,230,0.38);font-weight:300;margin-top:3px;line-height:1.55}
+.sub-modal-multi{font-size:11.5px;color:var(--muted);line-height:1.65;margin-bottom:12px;padding-left:12px;border-left:2px solid rgba(116,194,188,.35)}
 .sub-modal-note{font-size:11px;color:var(--muted2);line-height:1.7}
 .modal-overlay.active .modal-box{transform:translateY(0)}
 .modal-close{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--muted);font-size:28px;line-height:1;cursor:pointer;transition:color .2s}
@@ -687,7 +688,14 @@ button{cursor:pointer;font-family:var(--sans)}
   .dropin-dots{display:flex;justify-content:center;gap:8px}
   .dropin-dots span{width:8px;height:8px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .3s ease}
   .dropin-dots span.active{background:var(--teal)}
-  .modal-box{padding:32px 24px}
+  .modal-box{padding:26px 20px;max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px)}
+  .modal-box h3{font-size:27px}
+  .sub-option{padding:13px 2px;gap:10px}
+  .sub-option-text{flex:1 1 100%}
+  .sub-option-actions{width:100%;gap:14px;align-items:center}
+  .sub-subscribe-btn{flex:0 0 auto;padding:10px 20px}
+  .sub-copy-btn{border:none;padding:10px 0;color:rgba(240,237,230,0.42);letter-spacing:.06em}
+  .sub-copy-btn:hover{border:none}
   .sub-option{flex-direction:column;align-items:flex-start}
   .sub-option-actions{width:100%}
   .sub-option-actions .btn,.sub-option-actions .sub-copy-btn{flex:1}
@@ -956,7 +964,6 @@ button{cursor:pointer;font-family:var(--sans)}
       <div class="sub-option">
         <div class="sub-option-text">
           <h4 data-i18n="sub_nyborjare_title">Nybörjare</h4>
-          <p data-i18n="sub_nyborjare_desc"></p>
           <p class="sub-option-classes" data-cat="Nybörjare"></p>
         </div>
         <div class="sub-option-actions">
@@ -967,7 +974,6 @@ button{cursor:pointer;font-family:var(--sans)}
       <div class="sub-option">
         <div class="sub-option-text">
           <h4 data-i18n="sub_fortsattning_title">Fortsättning</h4>
-          <p data-i18n="sub_fortsattning_desc"></p>
           <p class="sub-option-classes" data-cat="Fortsättning"></p>
         </div>
         <div class="sub-option-actions">
@@ -978,7 +984,6 @@ button{cursor:pointer;font-family:var(--sans)}
       <div class="sub-option">
         <div class="sub-option-text">
           <h4 data-i18n="sub_barn_title">Barn & Junior</h4>
-          <p data-i18n="sub_barn_desc"></p>
           <p class="sub-option-classes" data-cat="Barn & Junior"></p>
         </div>
         <div class="sub-option-actions">
@@ -989,8 +994,7 @@ button{cursor:pointer;font-family:var(--sans)}
       <div class="sub-option">
         <div class="sub-option-text">
           <h4 data-i18n="sub_oppna_title">Alla nivåer</h4>
-          <p data-i18n="sub_oppna_desc"></p>
-          <p class="sub-option-classes" data-cat="Öppna pass"></p>
+          <p class="sub-option-classes" data-cat="Alla nivåer|Öppna pass"></p>
         </div>
         <div class="sub-option-actions">
           <a href="feeds/oppna.ics" class="btn btn-ghost sub-subscribe-btn" data-feed="oppna" data-i18n="sub_subscribe_btn">Prenumerera</a>
@@ -1000,7 +1004,6 @@ button{cursor:pointer;font-family:var(--sans)}
       <div class="sub-option">
         <div class="sub-option-text">
           <h4 data-i18n="sub_sparring_title">Sparring</h4>
-          <p data-i18n="sub_sparring_desc"></p>
           <p class="sub-option-classes" data-cat="Sparring"></p>
         </div>
         <div class="sub-option-actions">
@@ -1994,8 +1997,8 @@ function updateSubscribeCounts(rows){
   // Counts and class lists are read from the sheet at page load rather than
   // hardcoded, so the modal can never drift from the actual schedule.
   document.querySelectorAll('.sub-option-classes').forEach(el=>{
-    const col=el.dataset.cat;
-    const matched=col?rows.filter(r=>isActiveRow({Aktiv:r[col]})):rows;
+    const cols=(el.dataset.cat||'').split('|').filter(Boolean);
+    const matched=cols.length?rows.filter(r=>cols.some(c=>isActiveRow({Aktiv:r[c]}))):rows;
     const names=[...new Set(matched.map(r=>(r._passName||'').trim()).filter(Boolean))];
     if(!matched.length){el.textContent='';el.closest('.sub-option').style.display='none';return;}
     el.closest('.sub-option').style.display='';
