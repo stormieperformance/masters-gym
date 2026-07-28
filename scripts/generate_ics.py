@@ -51,7 +51,6 @@ CATEGORIES = [
     {'id': 'fortsattning', 'columns': ['Fortsättning'],              'name_sv': 'Fortsättning',        'name_en': 'Intermediate'},
     {'id': 'barn',         'columns': ['Barn & Junior'],             'name_sv': 'Barn & Junior',       'name_en': 'Kids & Juniors'},
     {'id': 'oppna',        'columns': ['Alla nivåer', 'Öppna pass'], 'name_sv': 'Alla nivåer',         'name_en': 'All levels'},
-    {'id': 'sparring',     'columns': ['Sparring'],                  'name_sv': 'Sparring',            'name_en': 'Sparring'},
 ]
 CATEGORY_COLUMNS = [c for cat in CATEGORIES for c in cat['columns']]
 
