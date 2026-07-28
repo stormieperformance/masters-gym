@@ -26,6 +26,12 @@ OUTPUT_DIR = 'feeds'
 DEFAULT_DURATION_MINUTES = 60
 TIMEZONE = 'Europe/Stockholm'
 
+# How far ahead the recurrence runs. Without an end date a weekly RRULE repeats
+# forever, so someone scrolling to 2031 still sees gym classes. Because this
+# script re-runs every 30 minutes, the end date moves forward with it: a rolling
+# window that never actually runs out, but never shows more than this either.
+HORIZON_DAYS = 183
+
 # --- Column names, as they appear in the sheet's header row -----------------
 # Parsed by NAME, not position, so columns can be reordered in the sheet
 # without breaking anything. Renaming a header WILL break it.
@@ -183,6 +189,8 @@ def build_vevent(category_id, row):
     anchor = next_date_for_weekday(SWEDISH_DAY_TO_PYTHON_WEEKDAY[day])
     dtstart = datetime(anchor.year, anchor.month, anchor.day, h, m)
     dtend = dtstart + timedelta(minutes=duration_min)
+    # UNTIL must be UTC per RFC 5545; end of day is plenty precise here.
+    until = (dtstart + timedelta(days=HORIZON_DAYS)).strftime('%Y%m%dT235959Z')
     summary = row['name'] + (f" ({row['level']})" if row['level'] else '')
 
     lines = [
@@ -190,7 +198,7 @@ def build_vevent(category_id, row):
         f'UID:{stable_uid(category_id, day, row["time"], row["name"])}',
         f'DTSTART;TZID={TIMEZONE}:{dtstart.strftime("%Y%m%dT%H%M%S")}',
         f'DTEND;TZID={TIMEZONE}:{dtend.strftime("%Y%m%dT%H%M%S")}',
-        f'RRULE:FREQ=WEEKLY;BYDAY={SWEDISH_DAY_TO_ICAL[day]}',
+        f'RRULE:FREQ=WEEKLY;BYDAY={SWEDISH_DAY_TO_ICAL[day]};UNTIL={until}',
         f'SUMMARY:{escape_text(summary)}',
         'LOCATION:Masters Gym\\, Norra Agnegatan 36\\, Stockholm',
         f'DTSTAMP:{datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")}',
