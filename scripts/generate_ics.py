@@ -36,15 +36,18 @@ COL_NAME, COL_LEVEL, COL_ACTIVE = 'Pass', 'Nivå', 'Aktiv'
 # Each category maps to one TRUE/FALSE column in the sheet. 'column': None
 # means "everything", which is how the full feed works. A class may belong to
 # several categories; it simply appears in each of those feeds.
+# 'columns' lists every header this category will accept, so a column can be
+# renamed in the sheet without a flag day: add the new name here first, rename
+# in the sheet afterwards, drop the old name whenever convenient.
 CATEGORIES = [
-    {'id': 'full',         'column': None,             'name_sv': 'Fullständigt schema', 'name_en': 'Full schedule'},
-    {'id': 'nyborjare',    'column': 'Nybörjare',      'name_sv': 'Nybörjare',           'name_en': 'Beginners'},
-    {'id': 'fortsattning', 'column': 'Fortsättning',   'name_sv': 'Fortsättning',        'name_en': 'Intermediate'},
-    {'id': 'barn',         'column': 'Barn & Junior',  'name_sv': 'Barn & Junior',       'name_en': 'Kids & Juniors'},
-    {'id': 'oppna',        'column': 'Öppna pass',     'name_sv': 'Alla nivåer',         'name_en': 'All levels'},
-    {'id': 'sparring',     'column': 'Sparring',       'name_sv': 'Sparring',            'name_en': 'Sparring'},
+    {'id': 'full',         'columns': [],                            'name_sv': 'Fullständigt schema', 'name_en': 'Full schedule'},
+    {'id': 'nyborjare',    'columns': ['Nybörjare'],                 'name_sv': 'Nybörjare',           'name_en': 'Beginners'},
+    {'id': 'fortsattning', 'columns': ['Fortsättning'],              'name_sv': 'Fortsättning',        'name_en': 'Intermediate'},
+    {'id': 'barn',         'columns': ['Barn & Junior'],             'name_sv': 'Barn & Junior',       'name_en': 'Kids & Juniors'},
+    {'id': 'oppna',        'columns': ['Alla nivåer', 'Öppna pass'], 'name_sv': 'Alla nivåer',         'name_en': 'All levels'},
+    {'id': 'sparring',     'columns': ['Sparring'],                  'name_sv': 'Sparring',            'name_en': 'Sparring'},
 ]
-CATEGORY_COLUMNS = [c['column'] for c in CATEGORIES if c['column']]
+CATEGORY_COLUMNS = [c for cat in CATEGORIES for c in cat['columns']]
 
 SWEDISH_DAY_TO_ICAL = {
     'måndag': 'MO', 'tisdag': 'TU', 'onsdag': 'WE', 'torsdag': 'TH',
@@ -197,11 +200,11 @@ def build_vevent(category_id, row):
 
 
 def build_calendar(category, rows):
-    col = category['column']
-    if col is None:
+    cols = category['columns']
+    if not cols:
         matched = rows                                    # full feed: everything active
     else:
-        matched = [r for r in rows if r['categories'].get(col)]
+        matched = [r for r in rows if any(r['categories'].get(c) for c in cols)]
 
     vevents = [v for v in (build_vevent(category['id'], r) for r in matched) if v]
     header = [
