@@ -77,17 +77,21 @@ def parse_csv(raw):
         return []
 
     header = [h.strip() for h in all_rows[0]]
-    missing = [c for c in (COL_DAY, COL_START, COL_NAME) if c not in header]
+    # Match headers case-insensitively and whitespace-tolerantly. Staff retype
+    # these by hand; 'Alla Nivåer' vs 'Alla nivåer' must not silently empty a feed.
+    def norm(h):
+        return ' '.join(str(h).split()).casefold()
+    idx = {norm(name): i for i, name in enumerate(header)}
+    missing = [c for c in (COL_DAY, COL_START, COL_NAME) if norm(c) not in idx]
     if missing:
         raise ValueError(f'Sheet is missing required column(s): {", ".join(missing)}. '
                          f'Found headers: {header}')
-    idx = {name: i for i, name in enumerate(header)}
 
     rows, skipped, inactive, uncategorised = [], 0, 0, []
     for cols in all_rows[1:]:
         if len(cols) < len(header):
             cols = cols + [''] * (len(header) - len(cols))
-        get = lambda name: cols[idx[name]].strip() if name in idx else ''
+        get = lambda name: cols[idx[norm(name)]].strip() if norm(name) in idx else ''
 
         day = get(COL_DAY).lower()
         start, end = get(COL_START), get(COL_END)
@@ -95,11 +99,11 @@ def parse_csv(raw):
         if not day or not start or not name:
             skipped += 1
             continue
-        if COL_ACTIVE in idx and not is_true(get(COL_ACTIVE)):
+        if norm(COL_ACTIVE) in idx and not is_true(get(COL_ACTIVE)):
             inactive += 1
             continue
 
-        cats = {c: is_true(get(c)) for c in CATEGORY_COLUMNS if c in idx}
+        cats = {norm(c): is_true(get(c)) for c in CATEGORY_COLUMNS if norm(c) in idx}
         if not any(cats.values()):
             uncategorised.append(f'{day} {start} {name}')
 
@@ -211,7 +215,8 @@ def build_calendar(category, rows):
     if not cols:
         matched = rows                                    # full feed: everything active
     else:
-        matched = [r for r in rows if any(r['categories'].get(c) for c in cols)]
+        matched = [r for r in rows
+                   if any(r['categories'].get(' '.join(c.split()).casefold()) for c in cols)]
 
     vevents = [v for v in (build_vevent(category['id'], r) for r in matched) if v]
     header = [
