@@ -1930,9 +1930,15 @@ function normalizeScheduleRow(r){
     _passName:name
   });
 }
+function isChecked(v){
+  // Strictly false when the column is absent. Never merge this with
+  // isActiveRow below, which treats a missing value as TRUE on purpose.
+  if(v===undefined||v===null)return false;
+  return ['true','sant','ja','x','1','yes'].includes(String(v).trim().toLowerCase());
+}
 function isActiveRow(r){
-  if(r.Aktiv===undefined)return true;
-  return ['true','sant','ja','x','1','yes'].includes(String(r.Aktiv).trim().toLowerCase());
+  if(r.Aktiv===undefined)return true;   // no Aktiv column at all = everything active
+  return isChecked(r.Aktiv);
 }
 function isCancelled(r){
   return /inställ/i.test(r.Status||'');
@@ -1998,7 +2004,7 @@ function updateSubscribeCounts(rows){
   // hardcoded, so the modal can never drift from the actual schedule.
   document.querySelectorAll('.sub-option-classes').forEach(el=>{
     const cols=(el.dataset.cat||'').split('|').filter(Boolean);
-    const matched=cols.length?rows.filter(r=>cols.some(c=>isActiveRow({Aktiv:r[c]}))):rows;
+    const matched=cols.length?rows.filter(r=>cols.some(c=>isChecked(r[c]))):rows;
     const names=[...new Set(matched.map(r=>(r._passName||'').trim()).filter(Boolean))];
     if(!matched.length){el.textContent='';el.closest('.sub-option').style.display='none';return;}
     el.closest('.sub-option').style.display='';
