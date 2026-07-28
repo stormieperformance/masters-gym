@@ -1993,8 +1993,13 @@ function updateSubscribeCounts(rows){
   // Counts and class lists are read from the sheet at page load rather than
   // hardcoded, so the modal can never drift from the actual schedule.
   document.querySelectorAll('.sub-option-classes').forEach(el=>{
-    const cols=(el.dataset.cat||'').split('|').filter(Boolean);
-    const matched=cols.length?rows.filter(r=>cols.some(c=>isChecked(r[c]))):rows;
+    // Match the sheet's header case-insensitively — staff retype these by hand
+    // and 'Alla Nivåer' must not silently count as zero.
+    const norm=t=>String(t).trim().replace(/\s+/g,' ').toLowerCase();
+    const cols=(el.dataset.cat||'').split('|').filter(Boolean).map(norm);
+    const matched=cols.length?rows.filter(r=>
+      Object.keys(r).some(k=>cols.includes(norm(k))&&isChecked(r[k]))
+    ):rows;
     const names=[...new Set(matched.map(r=>(r._passName||'').trim()).filter(Boolean))];
     if(!matched.length){el.textContent='';el.closest('.sub-option').style.display='none';return;}
     el.closest('.sub-option').style.display='';
