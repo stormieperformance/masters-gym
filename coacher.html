@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Våra tränare — Masters Gym Stockholm</title>
+<meta name="description" content="Möt tränarteamet på Masters Gym Stockholm: Thamer, Andy, Christian, Tanja och Joonas.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:title" content="Våra tränare — Masters Gym Stockholm">
+<meta property="og:description" content="Möt tränarteamet på Masters Gym Stockholm: Thamer, Andy, Christian, Tanja och Joonas.">
+<meta property="og:image" content="https://mastersgym.se/og-image.jpg">
+<meta property="og:url" content="https://mastersgym.se/coacher.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mastersgym.se/og-image.jpg">
+<link rel="canonical" href="https://mastersgym.se/coacher.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/shared.css">
+</head>
+<body>
+<div class="build-banner" id="buildBanner">
+  <span><span data-i18n="banner_notice_prefix">🚧 Sajt under uppbyggnad, framtagen av </span><a href="https://stormiestudios.com" target="_blank" rel="noopener">Stormie Studios</a><span data-i18n="banner_notice_suffix"> — foton och video är platshållare tills klubbens egna är klara.</span></span>
+  <span class="build-banner-features" data-i18n="banner_features">Redan på plats: självbetjänings-nyheter, kalenderprenumeration för schemat, interaktiv träningsguide, 3D-tränarkarusell och medlemskap via GymControl.</span>
+</div>
+<script>
+(function(){
+  var banner=document.getElementById('buildBanner');
+  function syncBannerHeight(){
+    document.documentElement.style.setProperty('--banner-h',banner.offsetHeight+'px');
+  }
+  syncBannerHeight();
+  window.addEventListener('resize',syncBannerHeight);
+  window.addEventListener('load',syncBannerHeight);
+})();
+</script>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+    <button class="modal-close" id="modal-close" aria-label="Stäng">&times;</button>
+    <h3 id="modal-title-text" data-i18n="modal_title">BOKA PROVPASS</h3>
+    <p class="modal-sub" data-i18n="modal_sub">Prova ditt första pass för 200 kr. Vi återkommer inom 24 timmar.</p>
+    <p class="modal-schedule-hint"><a href="#schedule" onclick="closeModal()"><span data-i18n="modal_schedule_hint_q">Osäker på när du kan träna?</span> <span class="modal-schedule-hint-teal" data-i18n="modal_schedule_hint_link">Se schemat här →</span></a></p>
+    <form class="modal-form" name="provpass" method="POST" id="booking-form">
+      <input type="hidden" name="form-name" value="provpass"/>
+      <p style="display:none" aria-hidden="true"><label>Fyll inte i detta: <input name="_gotcha" tabindex="-1" autocomplete="off"/></label></p>
+      <input type="text" name="namn" data-i18n-placeholder="modal_name" placeholder="Ditt namn" autocomplete="name" required/>
+      <input type="email" name="email" data-i18n-placeholder="modal_email" placeholder="E-postadress" autocomplete="email" required/>
+      <input type="tel" name="telefon" data-i18n-placeholder="modal_phone" placeholder="Telefonnummer (valfritt)" autocomplete="tel"/>
+      <select name="pass" id="modal-select" required aria-label="Vilket pass intresserar dig? / Which class interests you?">
+        <option value="" disabled selected data-i18n="modal_select">Vilket pass intresserar dig?</option>
+        <option data-i18n="modal_opt1">Nybörjarpass</option>
+        <option data-i18n="modal_opt2">Fortsättningspass</option>
+        <option data-i18n="modal_opt3">Boxning</option>
+        <option data-i18n="modal_opt4">Fyspass</option>
+        <option data-i18n="modal_opt8">PT-pass</option>
+        <option data-i18n="modal_opt5">Barnträning</option>
+        <option data-i18n="modal_opt6">Företagsträning</option>
+        <option data-i18n="modal_opt7">Vet inte ännu</option>
+      </select>
+      <select name="kalla" id="modal-referral" aria-label="Hur hörde du talas om oss? / How did you hear about us?">
+        <option value="" data-i18n="modal_ref_placeholder">Hur hörde du talas om oss? (valfritt)</option>
+        <option data-i18n="modal_ref1">Instagram</option>
+        <option data-i18n="modal_ref2">Facebook</option>
+        <option data-i18n="modal_ref3">TikTok</option>
+        <option data-i18n="modal_ref4">Google</option>
+        <option data-i18n="modal_ref5">Vän eller medlem</option>
+        <option data-i18n="modal_ref6">Gick förbi</option>
+        <option data-i18n="modal_ref7">Annat</option>
+      </select>
+      <button type="submit" class="modal-submit" id="modal-submit" data-i18n="modal_submit">Skicka förfrågan →</button>
+      <p class="modal-note" data-i18n="modal_note">Ingen bindningstid. Ingen utrustning behövs.</p>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="subscribe-modal">
+  <div class="modal-box modal-box-wide" role="dialog" aria-modal="true" aria-labelledby="subscribe-modal-title">
+    <button class="modal-close" id="subscribe-modal-close" aria-label="Stäng">&times;</button>
+    <h3 id="subscribe-modal-title" data-i18n="sub_modal_title">PRENUMERERA PÅ SCHEMAT</h3>
+    <p class="modal-sub" data-i18n="sub_modal_sub">Ändras något i schemat — ny tid, nytt pass, något ställs in — uppdateras det automatiskt i din kalender. Du behöver aldrig kolla sajten för att veta vad som gäller.</p>
+    <div class="sub-options">
+      <div class="sub-option">
+        <div class="sub-option-text">
+          <h4 data-i18n="sub_full_title">Fullständigt schema</h4>
+          <p data-i18n="sub_full_desc">Hela schemat, alltid aktuellt — utan att du behöver tänka på det.</p>
+          <p class="sub-option-classes"></p>
+        </div>
+        <div class="sub-option-actions">
+          <a href="feeds/full.ics" class="btn btn-primary sub-subscribe-btn" data-feed="full" data-i18n="sub_subscribe_btn">Prenumerera</a>
+          <button type="button" class="sub-copy-btn" data-feed="full" data-i18n="sub_copy_btn">Kopiera länk</button>
+        </div>
+      </div>
+      <div class="sub-option">
+        <div class="sub-option-text">
+          <h4 data-i18n="sub_nyborjare_title">Nybörjare</h4>
+          <p class="sub-option-classes" data-cat="Nybörjare"></p>
+        </div>
+        <div class="sub-option-actions">
+          <a href="feeds/nyborjare.ics" class="btn btn-ghost sub-subscribe-btn" data-feed="nyborjare" data-i18n="sub_subscribe_btn">Prenumerera</a>
+          <button type="button" class="sub-copy-btn" data-feed="nyborjare" data-i18n="sub_copy_btn">Kopiera länk</button>
+        </div>
+      </div>
+      <div class="sub-option">
+        <div class="sub-option-text">
+          <h4 data-i18n="sub_fortsattning_title">Fortsättning</h4>
+          <p class="sub-option-classes" data-cat="Fortsättning"></p>
+        </div>
+        <div class="sub-option-actions">
+          <a href="feeds/fortsattning.ics" class="btn btn-ghost sub-subscribe-btn" data-feed="fortsattning" data-i18n="sub_subscribe_btn">Prenumerera</a>
+          <button type="button" class="sub-copy-btn" data-feed="fortsattning" data-i18n="sub_copy_btn">Kopiera länk</button>
+        </div>
+      </div>
+      <div class="sub-option">
+        <div class="sub-option-text">
+          <h4 data-i18n="sub_barn_title">Barn & Junior</h4>
+          <p class="sub-option-classes" data-cat="Barn & Junior"></p>
+        </div>
+        <div class="sub-option-actions">
+          <a href="feeds/barn.ics" class="btn btn-ghost sub-subscribe-btn" data-feed="barn" data-i18n="sub_subscribe_btn">Prenumerera</a>
+          <button type="button" class="sub-copy-btn" data-feed="barn" data-i18n="sub_copy_btn">Kopiera länk</button>
+        </div>
+      </div>
+      <div class="sub-option">
+        <div class="sub-option-text">
+          <h4 data-i18n="sub_oppna_title">Alla nivåer</h4>
+          <p class="sub-option-classes" data-cat="Alla nivåer|Öppna pass"></p>
+        </div>
+        <div class="sub-option-actions">
+          <a href="feeds/oppna.ics" class="btn btn-ghost sub-subscribe-btn" data-feed="oppna" data-i18n="sub_subscribe_btn">Prenumerera</a>
+          <button type="button" class="sub-copy-btn" data-feed="oppna" data-i18n="sub_copy_btn">Kopiera länk</button>
+        </div>
+      </div>
+    </div>
+    <p class="sub-modal-multi" data-i18n="sub_modal_multi">Du kan prenumerera på flera. Varje val läggs till som en egen kalender som du kan färgsätta och slå av och på var för sig.</p>
+    <p class="sub-modal-note" data-i18n="sub_modal_note">Fungerar med Apple Kalender, Google Kalender och Outlook. På Apple/iPhone öppnar "Prenumerera" kalendern direkt. På Google/Outlook: klicka "Kopiera länk" och klistra in under "Lägg till kalender → Från URL".</p>
+  </div>
+</div>
+
+<button type="button" class="back-to-top" id="backToTop" aria-label="Till toppen" title="Till toppen">
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<nav class="navbar" id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="MastersGymLogo.png" alt="Masters Gym" style="height:44px;width:auto">
+    <div class="nav-logo-text">
+      <span class="nav-logo-main">MASTERS GYM</span>
+      <span class="nav-logo-sub" data-i18n="nav_tagline">Kick- & Thaiboxning · Stockholm 2016</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#about" data-i18n="nav_about">Om oss</a></li>
+    <li><a href="index.html#classes" data-i18n="nav_classes">Våra pass</a></li>
+    <li><a href="junior.html" data-i18n="nav_kids">Barn & Junior</a></li>
+    <li><a href="index.html#schedule" data-i18n="nav_schedule">Schema</a></li>
+    <li><a href="index.html#memberships" data-i18n="nav_memberships">Medlemskap</a></li>
+    <li><a href="foretag.html" data-i18n="nav_corporate">Företag</a></li>
+    <li><a href="pt.html" data-i18n="nav_pt">PT</a></li>
+    <li><a href="coacher.html" data-i18n="nav_coaches">Coacher</a></li>
+    <li><a href="index.html#news" data-i18n="nav_news">Nyheter</a></li>
+    <li><a href="index.html#contact" data-i18n="nav_contact">Kontakt</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="nav-cta open-modal" data-i18n="nav_cta_trial">Boka provpass</button>
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()" aria-label="Byt språk / Switch language">EN</button>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Meny / Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Meny">
+  <img class="mobile-menu-watermark" src="MastersGymLogo.png" alt="" aria-hidden="true">
+  <button class="mobile-menu-close" id="mobile-close" aria-label="Stäng meny / Close menu">&times;</button>
+  <div class="mobile-menu-head">
+    <img class="mobile-menu-logo" src="MastersGymLogo.png" alt="Masters Gym">
+    <span class="mobile-menu-tagline" data-i18n="nav_tagline">Kick- &amp; Thaiboxning · Stockholm 2016</span>
+  </div>
+  <nav class="mobile-menu-nav">
+    <a href="index.html#about" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_about">Om oss</span></span></a>
+    <a href="index.html#classes" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_classes">Våra pass</span></span></a>
+    <a href="junior.html" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_kids">Barn &amp; Junior</span></span></a>
+    <a href="index.html#schedule" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_schedule">Schema</span></span></a>
+    <a href="index.html#memberships" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_memberships">Medlemskap</span></span></a>
+    <a href="foretag.html" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_corporate">Företag</span></span></a>
+    <a href="pt.html" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_pt">PT</span></span></a>
+    <a href="coacher.html" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_coaches">Coacher</span></span></a>
+    <a href="index.html#contact" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_contact">Kontakt</span></span></a>
+  </nav>
+  <div class="mobile-menu-foot">
+    <div class="mobile-cta-wrap">
+      <button class="mobile-cta open-modal" data-i18n="nav_cta_trial">Boka provpass</button>
+      <a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&amp;action=membership" target="_blank" rel="noopener noreferrer" class="mobile-cta ghost" data-i18n="nav_cta_member">Bli medlem</a>
+    </div>
+    <button class="lang-btn" style="font-size:11px;padding:9px 18px" onclick="toggleLang()" aria-label="Byt språk / Switch language">EN</button>
+  </div>
+</div>
+
+<section class="page-intro" style="padding:calc(var(--banner-h,0px) + 130px) 24px 20px;max-width:760px;margin:0 auto;text-align:center">
+  <p class="section-label" style="justify-content:center;display:flex">Instruktörer</p>
+  <h1 class="reveal-h2" style="font-size:clamp(32px,6vw,52px);margin-bottom:6px">VÅRT TEAM</h1>
+  <p style="color:var(--muted);font-size:15px;font-weight:300;max-width:560px;margin:0 auto 8px">Erfarna och engagerade tränare för alla nivåer, från nybörjare till tävlingsgrupp.</p>
+  <a href="index.html" style="display:inline-block;margin-top:6px;font-size:13px;color:var(--teal);text-decoration:none">&larr; Tillbaka till startsidan</a>
+</section>
+<section class="page-content-wrap" style="max-width:1100px;margin:0 auto;padding:0 24px 60px">
+<section class="coaches-section" id="coaches">
+  <div class="coaches-container">
+    <p class="section-label" data-i18n="coaches_label">Instruktörer</p>
+    <h2 class="section-title reveal" data-i18n="coaches_h2">VÅRT TEAM</h2>
+    <div class="coach3d-wrap">
+      <div class="coach3d-stage" id="coach3dStage">
+        <button class="coach3d-prev" id="coach3dPrev" aria-label="Föregående">&#8592;</button>
+        <button class="coach3d-next" id="coach3dNext" aria-label="Nästa">&#8594;</button>
+      </div>
+    </div>
+    <div class="coach3d-info" id="coach3dInfo">
+      <div class="coach3d-pill" id="coach3dPill"></div>
+      <h2 class="coach3d-big-name" id="coach3dName"></h2>
+      <p class="coach3d-bio" id="coach3dBio"></p>
+    </div>
+    <div class="coach3d-thumbs" id="coach3dThumbs"></div>
+  </div>
+</section>
+</section>
+<section class="contact" id="contact">
+  <div class="contact-container">
+    <div>
+      <h2 data-i18n="contact_h2">KONTAKT</h2>
+      <p class="contact-sub" data-i18n="contact_sub">Välkommen till oss i Kungsholmen.</p>
+      <div class="contact-details">
+        <div class="contact-row"><span class="contact-label" data-i18n="contact_addr_label">Adress</span><p>Norra Agnegatan 36, Stockholm</p></div>
+        <div class="contact-row"><span class="contact-label" data-i18n="contact_metro_label">T-bana</span><p data-i18n="contact_metro">Rådhuset (Röda linjen)</p></div>
+        <div class="contact-row"><span class="contact-label" data-i18n="contact_phone_label">Telefon</span><p><a href="tel:+46709427280" style="color:var(--text);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text)'">0709-42 72 80</a></p></div>
+        <div class="contact-row"><span class="contact-label">Mail</span><p><a href="mailto:repan@mastersgym.se" style="color:var(--text);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">repan@mastersgym.se</a></p></div>
+        <div class="contact-row"><span class="contact-label" data-i18n="contact_hours_label">Öppettider</span><p data-i18n="contact_hours">Öppet 30 min innan första passet och 30 min efter sista passet</p></div>
+      </div>
+      <div class="contact-social-row" style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:24px">
+        <a href="https://instagram.com/mastersgymstockholm" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.facebook.com/mastersgymsweden" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+        <a href="https://www.tiktok.com/@mastersgym" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--muted)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+          TikTok
+        </a>
+      </div>
+      <div class="contact-btns">
+        <button class="btn btn-primary open-modal" data-i18n="book_trial">Boka provpass</button>
+        <a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" data-i18n="join_gymcontrol">Bli medlem →</a>
+        <a href="https://maps.google.com/?q=Norra+Agnegatan+36+Stockholm" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" data-i18n="open_maps">Öppna i Maps</a>
+      </div>
+    </div>
+    <div id="map"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <div class="footer-logo">MASTERS GYM</div>
+      <p data-i18n="footer_sub">Stockholm · Kick- & Thaiboxning · Est. 2016</p>
+    </div>
+    <div class="footer-right">
+      <div class="footer-col">
+        <span data-i18n="footer_nav">Navigera</span>
+        <a href="index.html#about" data-i18n="nav_about">Om oss</a>
+        <a href="index.html#classes" data-i18n="nav_classes">Våra pass</a>
+        <a href="index.html#schedule" data-i18n="nav_schedule">Schema</a>
+        <a href="index.html#memberships" data-i18n="nav_memberships">Medlemskap</a>
+        <a href="foretag.html" data-i18n="nav_corporate">Företag</a>
+        <a href="junior.html" data-i18n="nav_kids">Barn & Junior</a>
+        <a href="pt.html" data-i18n="nav_pt">PT</a>
+        <a href="coacher.html" data-i18n="nav_coaches">Coacher</a>
+      </div>
+      <div class="footer-col">
+        <span data-i18n="footer_contact">Kontakt</span>
+        <a href="https://instagram.com/mastersgymstockholm" target="_blank" class="footer-social-link">Instagram</a>
+        <a href="https://www.facebook.com/mastersgymsweden" target="_blank" class="footer-social-link">Facebook</a>
+        <a href="https://www.mastersgym.se" target="_blank">mastersgym.se</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p data-i18n="footer_copy">© Masters Gym Stockholm 2026</p>
+    <a href="https://stormiestudios.com" target="_blank" data-i18n="footer_built">Built by Stormie Studios</a>
+  </div>
+</footer>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" media="print" onload="this.media='all'">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="assets/js/shared.js"></script>
+</body>
+</html>
