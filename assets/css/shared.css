@@ -67,6 +67,11 @@ button{cursor:pointer;font-family:var(--sans)}
 @media(max-width:768px){
   .back-to-top{bottom:40px;right:16px;width:36px;height:36px}
 }
+.build-banner{position:relative;z-index:101;background:#1a1a1a;color:rgba(255,255,255,.72);text-align:center;padding:8px 20px;font-size:11px;letter-spacing:.03em;line-height:1.6;font-family:var(--sans);border-bottom:1px solid rgba(255,255,255,.08)}
+.build-banner strong,.build-banner a{color:rgba(255,255,255,.92);font-weight:600}
+.build-banner a{text-decoration:underline;text-underline-offset:2px}
+.build-banner-features{display:block;color:rgba(255,255,255,.45);font-size:10px;letter-spacing:.02em;margin-top:2px}
+@media(max-width:640px){.build-banner-features{display:none}}
 .navbar{position:relative;z-index:100;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;transition:background .4s cubic-bezier(.4,0,.2,1),border-bottom .4s cubic-bezier(.4,0,.2,1),box-shadow .4s cubic-bezier(.4,0,.2,1);background:transparent}
 .navbar.scrolled{backdrop-filter:blur(12px);border-bottom:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.12)}
 .navbar.scrolled{background:rgba(8,8,8,0.95)}
