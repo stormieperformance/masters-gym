@@ -1317,8 +1317,10 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   var ctaEl = document.getElementById('finder3dCta');
   if (!stage) return;
 
-  var current = 0;
-  var animating = false;
+  var rotation = 0;
+  var targetRotation = 0;
+  var jumping = false;
+  var lastShownIndex = -1;
   var cards = [];
   var thumbEls = [];
 
@@ -1343,12 +1345,12 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
       el.innerHTML = '<img src="'+o.img+'" alt="'+o.title+'" loading="lazy"><div class="finder3d-card-overlay"></div><div class="finder3d-card-info"><div class="finder3d-card-pill">'+o.pill+'</div><div class="finder3d-card-name">'+o.title+'</div></div>';
       el.addEventListener('click', (function(idx){ return function(){
         pauseAutoplay();
-        if(idx===current){ location.href = getOptions()[idx].route; return; }
-        if(!animating) goTo(idx);
+        if(idx===nearestIndex()){ location.href = getOptions()[idx].route; return; }
+        goTo(idx);
       }; })(i));
       el.addEventListener('keydown', (function(idx){ return function(e){
-        if((e.key==='Enter'||e.key===' ')&&!animating){ e.preventDefault(); pauseAutoplay();
-          if(idx===current){ location.href = getOptions()[idx].route; } else { goTo(idx); }
+        if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pauseAutoplay();
+          if(idx===nearestIndex()){ location.href = getOptions()[idx].route; } else { goTo(idx); }
         }
       }; })(i));
       stage.appendChild(el);
@@ -1360,27 +1362,27 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
       t.setAttribute('role','button');
       t.setAttribute('aria-label',o.title);
       t.innerHTML = '<span>'+o.title+'</span>';
-      t.addEventListener('click', (function(idx){ return function(){ pauseAutoplay(); if(!animating) goTo(idx); }; })(i));
-      t.addEventListener('keydown', (function(idx){ return function(e){ if((e.key==='Enter'||e.key===' ')&&!animating){ e.preventDefault(); pauseAutoplay(); goTo(idx); } }; })(i));
+      t.addEventListener('click', (function(idx){ return function(){ pauseAutoplay(); goTo(idx); }; })(i));
+      t.addEventListener('keydown', (function(idx){ return function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pauseAutoplay(); goTo(idx); } }; })(i));
       thumbsEl.appendChild(t);
       thumbEls.push(t);
     });
 
-    layout(current);
-    updateInfo(current);
+    layout(rotation);
+    updateInfo(nearestIndex());
   }
 
-  function layout(idx) {
+  function layout(pos) {
     var N = cards.length;
     var angleStep = 26;
     var radius = 460;
     cards.forEach(function(card, i){
-      var offset = i - idx;
+      var offset = i - pos;
+      offset = ((offset % N) + N) % N;
       if (offset > N/2) offset -= N;
-      if (offset < -N/2) offset += N;
       var absOff = Math.abs(offset);
-      var isCenter = offset === 0;
-      if (absOff > Math.floor(N/2)) {
+      var isCenter = absOff < 0.5;
+      if (absOff > Math.floor(N/2) + 0.5) {
         card.style.opacity = '0';
         card.style.pointerEvents = 'none';
         card.style.zIndex = '0';
@@ -1391,18 +1393,26 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
       var x = Math.sin(rad) * radius;
       var z = (Math.cos(rad) - 1) * radius;
       var rotateY = -angleDeg;
-      var scale = isCenter ? 1 : Math.max(0.6, 1 - absOff * 0.14);
-      var opacity = isCenter ? 1 : Math.max(0.32, 1 - absOff * 0.2);
+      var scale = Math.max(0.6, 1 - absOff * 0.14);
+      var opacity = Math.max(0.32, 1 - absOff * 0.2);
       card.style.transform = 'translateX('+x+'px) translateZ('+z+'px) rotateY('+rotateY+'deg) scale('+scale+')';
       card.style.opacity = String(opacity);
-      card.style.zIndex = String(10 - absOff);
+      card.style.zIndex = String(Math.round(10 - absOff));
       card.style.pointerEvents = 'all';
       card.classList.toggle('active', isCenter);
     });
-    thumbEls.forEach(function(t, i){ t.classList.toggle('active', i === idx); });
+    var nearest = nearestIndex();
+    thumbEls.forEach(function(t, i){ t.classList.toggle('active', i === nearest); });
+  }
+
+  function nearestIndex(){
+    var N = cards.length;
+    return ((Math.round(rotation) % N) + N) % N;
   }
 
   function updateInfo(idx) {
+    if(idx === lastShownIndex) return;
+    lastShownIndex = idx;
     var opts = getOptions();
     var o = opts[idx];
     nameEl.style.opacity = '0';
@@ -1427,62 +1437,87 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   }
 
   function goTo(idx) {
-    if (animating) return;
-    animating = true;
     var N = cards.length;
-    current = ((idx % N) + N) % N;
-    layout(current);
-    updateInfo(current);
-    setTimeout(function(){ animating = false; }, 580);
+    idx = ((idx % N) + N) % N;
+    // shortest path from current rotation to target index
+    var base = Math.round(rotation);
+    var diff = idx - ((base % N) + N) % N;
+    if (diff > N/2) diff -= N;
+    if (diff < -N/2) diff += N;
+    targetRotation = rotation + diff;
+    jumping = true;
   }
 
   var prevBtn = document.getElementById('finder3dPrev');
   var nextBtn = document.getElementById('finder3dNext');
-  if(prevBtn)prevBtn.addEventListener('click', function(e){ e.stopPropagation(); pauseAutoplay(); goTo(current - 1); });
-  if(nextBtn)nextBtn.addEventListener('click', function(e){ e.stopPropagation(); pauseAutoplay(); goTo(current + 1); });
+  if(prevBtn)prevBtn.addEventListener('click', function(e){ e.stopPropagation(); pauseAutoplay(); goTo(nearestIndex() - 1); });
+  if(nextBtn)nextBtn.addEventListener('click', function(e){ e.stopPropagation(); pauseAutoplay(); goTo(nearestIndex() + 1); });
 
   document.addEventListener('keydown', function(e){
     if (document.activeElement && document.activeElement.closest && document.activeElement.closest('#classes')) {
-      if (e.key === 'ArrowLeft') { pauseAutoplay(); goTo(current - 1); }
-      if (e.key === 'ArrowRight') { pauseAutoplay(); goTo(current + 1); }
+      if (e.key === 'ArrowLeft') { pauseAutoplay(); goTo(nearestIndex() - 1); }
+      if (e.key === 'ArrowRight') { pauseAutoplay(); goTo(nearestIndex() + 1); }
     }
   });
 
-  var dragStartX = 0, dragging = false;
+  var dragStartX = 0, dragging = false, dragStartRotation = 0;
   stage.addEventListener('pointerdown', function(e){
     if (e.target.closest && e.target.closest('.finder3d-prev,.finder3d-next')) return;
     pauseAutoplay();
-    dragStartX = e.clientX; dragging = true; stage.setPointerCapture(e.pointerId);
+    jumping = false;
+    dragStartX = e.clientX; dragging = true; dragStartRotation = rotation;
+    stage.setPointerCapture(e.pointerId);
+  });
+  stage.addEventListener('pointermove', function(e){
+    if (!dragging) return;
+    var dx = e.clientX - dragStartX;
+    rotation = dragStartRotation - dx / 140;
   });
   stage.addEventListener('pointerup', function(e){
     if (!dragging) return; dragging = false;
-    var dx = e.clientX - dragStartX;
-    if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+    goTo(nearestIndex());
   });
   stage.addEventListener('pointercancel', function(){ dragging = false; });
 
   var resizeTimer2;
   window.addEventListener('resize', function(){
     clearTimeout(resizeTimer2);
-    resizeTimer2 = setTimeout(function(){ layout(current); }, 120);
+    resizeTimer2 = setTimeout(function(){ layout(rotation); }, 120);
   });
 
-  var autoplayTimer = null;
-  var autoplayPausedUntilResume = false;
-  function startAutoplay(){
-    if(autoplayTimer) return;
-    autoplayTimer = setInterval(function(){
-      if(!animating) goTo(current + 1);
-    }, 4200);
-  }
-  function pauseAutoplay(){
-    if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; }
-  }
+  var autoplayOn = true;
+  function startAutoplay(){ autoplayOn = true; }
+  function pauseAutoplay(){ autoplayOn = false; }
   stage.addEventListener('mouseenter', pauseAutoplay);
   stage.addEventListener('mouseleave', startAutoplay);
 
+  var DRIFT_SPEED = 0.00028; // card-units per ms — super slow continuous drift
+  var lastFrameTime = null;
+  function tick(t){
+    if(lastFrameTime === null) lastFrameTime = t;
+    var dt = t - lastFrameTime;
+    lastFrameTime = t;
+
+    if(jumping){
+      var diff = targetRotation - rotation;
+      if(Math.abs(diff) < 0.002){
+        rotation = targetRotation;
+        jumping = false;
+      }else{
+        rotation += diff * Math.min(1, dt / 220);
+      }
+      layout(rotation);
+    }else if(dragging){
+      layout(rotation);
+    }else if(autoplayOn){
+      rotation += DRIFT_SPEED * dt;
+      layout(rotation);
+    }
+    requestAnimationFrame(tick);
+  }
+
   buildCarousel();
-  startAutoplay();
+  requestAnimationFrame(tick);
 
   var _patchLang2 = setInterval(function(){
     if (typeof toggleLang === 'function') {
