@@ -87,9 +87,20 @@ try{(function(){
       ],
       greeting:'Snabbhjälp',
       back:'Gå tillbaks',
-      offers_title:'Erbjudanden',
-      offers_text:'Just nu har vi inga tidsbegränsade kampanjer — men fråga oss gärna, vi har ofta erbjudanden för nya medlemmar.',
-      offers_cta:'Kontakta oss',
+      offers_title:'Gratis provträning',
+      offers_intro:'Under vecka 34 och 35 tränar du gratis hos oss.',
+      offers_list:[
+        'Vuxna — mån 12.00, 17.00, 19.20',
+        'Vuxna — tis kl. 17.40',
+        'Vuxna — ons 12.00, 19.20',
+        'Vuxna — fre 12.00, 18.00',
+        'Vuxna — sön 11.00, 13.00',
+        'Juniorer (v.35) — tis & tors 16.40',
+        'Barn (v.34) — ons & fre 17.00'
+      ],
+      offers_note:'Boka din plats: skicka SMS till 070-942 72 80 med namn och ålder.',
+      offers_cta:'SMS:a oss',
+      contact_cta:'Kontakta oss',
       pricing_title:'Priser och medlemskap',
       pricing_text:'Vi har flera medlemskap beroende på hur ofta du vill träna, samt ett fördelaktigt provpass för 200 kr.',
       pricing_cta:'Se alla medlemskap',
@@ -110,9 +121,20 @@ try{(function(){
       ],
       greeting:'Quick help',
       back:'Go back',
-      offers_title:'Offers',
-      offers_text:'No time-limited campaigns right now — but feel free to ask us, we often have deals for new members.',
-      offers_cta:'Contact us',
+      offers_title:'Free trial week',
+      offers_intro:'During weeks 34 and 35 you can train with us for free.',
+      offers_list:[
+        'Adults — Mon 12:00, 17:00, 19:20',
+        'Adults — Tue 17:40',
+        'Adults — Wed 12:00, 19:20',
+        'Adults — Fri 12:00, 18:00',
+        'Adults — Sun 11:00, 13:00',
+        'Juniors (wk 35) — Tue & Thu 16:40',
+        'Kids (wk 34) — Wed & Fri 17:00'
+      ],
+      offers_note:'To book your spot, text 070-942 72 80 with your name and age.',
+      offers_cta:'Text us',
+      contact_cta:'Contact us',
       pricing_title:'Pricing & memberships',
       pricing_text:'We have several membership options depending on how often you want to train, plus a 200 SEK trial class.',
       pricing_cta:'See all memberships',
@@ -156,7 +178,8 @@ try{(function(){
     body.appendChild(backBtn());
 
     if(key==='offers'){
-      body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.offers_title+'</div><p class="gymbot-screen-text">'+t.offers_text+'</p><div class="gymbot-screen-actions"><a href="index.html#contact" class="gymbot-cta">'+t.offers_cta+'</a></div>');
+      const listHtml=t.offers_list.map(line=>'<li>'+line+'</li>').join('');
+      body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.offers_title+'</div><p class="gymbot-screen-text">'+t.offers_intro+'</p><ul class="gymbot-offer-list">'+listHtml+'</ul><p class="gymbot-screen-text">'+t.offers_note+'</p><div class="gymbot-screen-actions"><a href="sms:0709427280" class="gymbot-cta">'+t.offers_cta+'</a></div>');
       body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
     }
     else if(key==='pricing'){
@@ -173,7 +196,7 @@ try{(function(){
     }
     else if(key==='schedule'){
       if(SCHEDULE_FALLBACK_ACTIVE){
-        body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div><img class="gymbot-schedule-img" src="'+SCHEDULE_FALLBACK_SRC+'" alt="'+t.schedule_title+'"><p class="gymbot-screen-text">'+t.schedule_note+'</p><div class="gymbot-screen-actions"><a href="index.html#contact" class="gymbot-ghost">'+t.offers_cta+'</a></div>');
+        body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div><img class="gymbot-schedule-img" src="'+SCHEDULE_FALLBACK_SRC+'" alt="'+t.schedule_title+'"><p class="gymbot-screen-text">'+t.schedule_note+'</p><div class="gymbot-screen-actions"><a href="index.html#contact" class="gymbot-ghost">'+t.contact_cta+'</a></div>');
         body.querySelector('.gymbot-ghost').addEventListener('click',closePanel);
       }else{
         body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div><p class="gymbot-screen-text">'+t.schedule_text+'</p><div class="gymbot-screen-actions"><a href="index.html#schedule" class="gymbot-cta">'+t.schedule_cta+'</a></div>');
