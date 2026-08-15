@@ -107,7 +107,7 @@ try{(function(){
         {name:'Autogiro 6 mån',price:'699 kr / mån',note:'Flexibelt · 6 mån bindning'},
         {name:'Junior 13–17 år',price:'599 kr / mån',note:'Rabatterat för ungdomar'}
       ],
-      pricing_cta:'Bli medlem på Gymcontrol',
+      pricing_cta:'Bli medlem →',
       trial_title:'Prova på gratis',
       trial_text:'Boka ett provpass för 200 kr — inga förkunskaper krävs och all utrustning finns att låna.',
       trial_cta:'Boka provpass',
@@ -147,7 +147,7 @@ try{(function(){
         {name:'Direct debit 6 mo',price:'699 SEK / mo',note:'Flexible · 6-month commitment'},
         {name:'Junior 13–17 yrs',price:'599 SEK / mo',note:'Discounted for young athletes'}
       ],
-      pricing_cta:'Join via Gymcontrol',
+      pricing_cta:'Join now →',
       trial_title:'Free trial class',
       trial_text:'Book a trial class for 200 SEK — no experience needed, and all equipment is available to borrow.',
       trial_cta:'Book trial class',
@@ -195,9 +195,10 @@ try{(function(){
       body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
     }
     else if(key==='pricing'){
-      const cardsHtml=t.pricing_plans.map(p=>'<div class="gymbot-plan-row"><div><span class="gymbot-plan-name">'+p.name+'</span><span class="gymbot-plan-note">'+p.note+'</span></div><span class="gymbot-plan-price">'+p.price+'</span></div>').join('');
-      body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.pricing_title+'</div><div class="gymbot-plan-list">'+cardsHtml+'</div><div class="gymbot-screen-actions"><a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership" target="_blank" rel="noopener noreferrer" class="gymbot-cta">'+t.pricing_cta+'</a></div>');
-      body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
+      const gcUrl='https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership';
+      const cardsHtml=t.pricing_plans.map(p=>'<a href="'+gcUrl+'" target="_blank" rel="noopener noreferrer" class="gymbot-plan-row"><div><span class="gymbot-plan-name">'+p.name+'</span><span class="gymbot-plan-note">'+p.note+'</span></div><span class="gymbot-plan-price">'+p.price+'</span></a>').join('');
+      body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.pricing_title+'</div><div class="gymbot-plan-list">'+cardsHtml+'</div><div class="gymbot-screen-actions"><a href="'+gcUrl+'" target="_blank" rel="noopener noreferrer" class="gymbot-cta">'+t.pricing_cta+'</a></div>');
+      body.querySelectorAll('.gymbot-plan-row,.gymbot-cta').forEach(el=>el.addEventListener('click',closePanel));
     }
     else if(key==='trial'){
       body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.trial_title+'</div><p class="gymbot-screen-text">'+t.trial_text+'</p><div class="gymbot-screen-actions"></div>');
