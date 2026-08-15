@@ -85,6 +85,7 @@ try{(function(){
         {key:'trial',label:'Prova på gratis'},
         {key:'schedule',label:'Schema'}
       ],
+      greeting:'Snabbhjälp',
       back:'Gå tillbaks',
       offers_title:'Erbjudanden',
       offers_text:'Just nu har vi inga tidsbegränsade kampanjer — men fråga oss gärna, vi har ofta erbjudanden för nya medlemmar.',
@@ -107,6 +108,7 @@ try{(function(){
         {key:'trial',label:'Free trial class'},
         {key:'schedule',label:'Schedule'}
       ],
+      greeting:'Quick help',
       back:'Go back',
       offers_title:'Offers',
       offers_text:'No time-limited campaigns right now — but feel free to ask us, we often have deals for new members.',
@@ -126,6 +128,7 @@ try{(function(){
 
   function renderMenu(){
     const t=COPY[lang()];
+    if(greeting)greeting.textContent=t.greeting;
     body.innerHTML='<div class="gymbot-menu"></div>';
     const menu=body.querySelector('.gymbot-menu');
     t.menu.forEach(item=>{
@@ -186,7 +189,10 @@ try{(function(){
   });
   if(closeBtn)closeBtn.addEventListener('click',closePanel);
   document.addEventListener('click',e=>{
-    if(root.classList.contains('open')&&!root.contains(e.target))closePanel();
+    if(!root.classList.contains('open'))return;
+    const path=typeof e.composedPath==='function'?e.composedPath():[];
+    if(path.includes(root))return;
+    closePanel();
   });
   document.addEventListener('keydown',e=>{
     if(e.key==='Escape'&&root.classList.contains('open'))closePanel();
