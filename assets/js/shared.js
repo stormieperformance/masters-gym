@@ -310,7 +310,7 @@ try{(function(){
   const langToggle=document.getElementById('gymbotLangToggle');
   function syncLangToggle(){
     if(!langToggle)return;
-    langToggle.textContent=lang()==='en'?'SV':'EN';
+    langToggle.innerHTML=lang()==='en'?'🇸🇪 SV':'🇬🇧 EN';
   }
   if(langToggle){
     langToggle.addEventListener('click',e=>{
