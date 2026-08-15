@@ -968,7 +968,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .finder3d-card{
   position:absolute;width:var(--f3d-w);height:var(--f3d-h);
   border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;
-  transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .55s ease,border-color .3s,box-shadow .55s ease;
+  transition:opacity .3s ease,border-color .3s,box-shadow .4s ease;
   user-select:none;-webkit-user-select:none;will-change:transform;
   box-shadow:0 20px 50px -20px rgba(0,0,0,.6);
 }
