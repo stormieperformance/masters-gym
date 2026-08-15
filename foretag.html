@@ -294,6 +294,24 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" media="print" onload="this.media='all'">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<div class="gymbot" id="gymbot">
+  <button type="button" class="gymbot-toggle" id="gymbotToggle" aria-label="Snabbhjälp" aria-expanded="false">
+    <img src="MastersGymLogo.png" alt="">
+  </button>
+  <div class="gymbot-panel" id="gymbotPanel">
+    <div class="gymbot-watermark"></div>
+    <div class="gymbot-header">
+      <img src="MastersGymLogo.png" class="gymbot-header-logo" alt="">
+      <div class="gymbot-header-text">
+        <div class="gymbot-header-title">MASTERS GYM</div>
+        <div class="gymbot-header-sub" id="gymbotGreeting" data-i18n="bot_greeting">Snabbhjälp</div>
+      </div>
+      <button type="button" class="gymbot-close" id="gymbotClose" aria-label="Stäng">&times;</button>
+    </div>
+    <div class="gymbot-body" id="gymbotBody"></div>
+  </div>
+</div>
+
 <script src="assets/js/shared.js"></script>
 </body>
 </html>
