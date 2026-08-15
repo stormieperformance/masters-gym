@@ -1371,8 +1371,8 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 
   function layout(idx) {
     var N = cards.length;
-    var cardW = stage.querySelector('.finder3d-card') ? stage.querySelector('.finder3d-card').offsetWidth : 260;
-    var gap = 32;
+    var cardW = stage.querySelector('.finder3d-card') ? stage.querySelector('.finder3d-card').offsetWidth : 360;
+    var gap = 26;
     cards.forEach(function(card, i){
       var offset = i - idx;
       if (offset > N/2) offset -= N;
@@ -1385,11 +1385,11 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
         card.style.zIndex = '0';
         return;
       }
-      var x = offset * (cardW + gap);
-      var rotateY = offset * -10;
-      var scale = isCenter ? 1 : Math.max(0.7, 1 - absOff * 0.13);
-      var z = isCenter ? 0 : -absOff * 70;
-      var opacity = isCenter ? 1 : Math.max(0.28, 1 - absOff * 0.28);
+      var x = offset * (cardW * 0.62 + gap);
+      var rotateY = offset * -26;
+      var scale = isCenter ? 1 : Math.max(0.62, 1 - absOff * 0.18);
+      var z = isCenter ? 0 : -absOff * 170;
+      var opacity = isCenter ? 1 : Math.max(0.3, 1 - absOff * 0.26);
       card.style.transform = 'translateX('+x+'px) translateZ('+z+'px) rotateY('+rotateY+'deg) scale('+scale+')';
       card.style.opacity = String(opacity);
       card.style.zIndex = String(10 - absOff);
