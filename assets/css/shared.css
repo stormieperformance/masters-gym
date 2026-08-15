@@ -98,7 +98,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .btn-corp::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transform:skewX(-20deg);animation:shineSweep 3.5s ease-in-out infinite}
 .btn-corp:active{transform:scale(0.96);animation:none;box-shadow:none}
 .btn-corp:hover{border-color:var(--teal);transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 2px 4px rgba(0,0,0,.5),0 10px 20px -8px rgba(0,0,0,.65)}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;z-index:200}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;z-index:200;margin-left:auto}
 .hamburger span{display:block;width:24px;height:1.5px;background:var(--text);transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .25s cubic-bezier(.4,0,.2,1);transform-origin:center}
 .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
