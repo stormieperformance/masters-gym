@@ -1018,3 +1018,8 @@ button{cursor:pointer;font-family:var(--sans)}
   .finder3d-info{padding:28px 20px 0}
   .finder3d-bio{font-size:13px}
 }
+@media(max-width:768px){
+  .schedule{padding:40px 24px 60px}
+  .news-section{padding:40px 24px 60px}
+  .page-intro{padding-top:calc(var(--banner-h,0px) + 24px) !important}
+}
