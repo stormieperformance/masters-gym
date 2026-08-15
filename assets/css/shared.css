@@ -899,13 +899,13 @@ button{cursor:pointer;font-family:var(--sans)}
 .gymbot-panel{position:absolute;bottom:70px;right:0;width:320px;max-height:min(520px,70vh);background:#fbfaf7;border:1px solid rgba(21,20,15,.1);border-radius:var(--radius-lg);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 24px 60px -16px rgba(21,20,15,.35);overflow:hidden;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(12px) scale(.97);transform-origin:bottom right;transition:opacity .25s ease,transform .25s cubic-bezier(.22,1,.36,1)}
 .gymbot.open .gymbot-panel{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
 .gymbot-watermark{position:absolute;bottom:-36px;right:-36px;width:230px;height:230px;background-image:url('MastersGymLogo.png');background-size:contain;background-repeat:no-repeat;background-position:bottom right;opacity:.07;pointer-events:none;z-index:0}
-.gymbot-header{position:relative;z-index:1;display:flex;align-items:center;gap:12px;padding:18px 16px;background:#fff;border-bottom:1px solid rgba(21,20,15,.08)}
+.gymbot-header{position:relative;z-index:1;display:flex;align-items:center;gap:12px;padding:18px 16px;background:#0a0a0a;border-bottom:1px solid rgba(116,194,188,.2)}
 .gymbot-header-logo{width:34px;height:34px;object-fit:contain;flex-shrink:0}
 .gymbot-header-text{flex:1;min-width:0}
-.gymbot-header-title{font-family:var(--display);font-style:italic;font-weight:800;font-size:14px;letter-spacing:.06em;color:var(--ink)}
-.gymbot-header-sub{font-size:11.5px;color:var(--ink-muted);margin-top:2px;line-height:1.4}
-.gymbot-close{background:none;border:none;color:var(--ink-muted);font-size:20px;line-height:1;cursor:pointer;padding:4px;flex-shrink:0;transition:color .2s}
-.gymbot-close:hover{color:var(--ink)}
+.gymbot-header-title{font-family:var(--display);font-style:italic;font-weight:800;font-size:14px;letter-spacing:.06em;color:#fff}
+.gymbot-header-sub{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:2px;line-height:1.4}
+.gymbot-close{background:none;border:none;color:rgba(255,255,255,.55);font-size:20px;line-height:1;cursor:pointer;padding:4px;flex-shrink:0;transition:color .2s}
+.gymbot-close:hover{color:#fff}
 .gymbot-body{position:relative;z-index:1;padding:16px;overflow-y:auto;flex:1}
 .gymbot-menu{display:flex;flex-direction:column;gap:10px}
 .gymbot-pill{background:#fff;border:1px solid rgba(21,20,15,.12);color:var(--ink);font-size:13px;font-weight:500;padding:13px 16px;border-radius:var(--radius-pill);cursor:pointer;text-align:left;transition:border-color .2s,box-shadow .2s}
