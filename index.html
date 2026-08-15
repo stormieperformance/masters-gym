@@ -46,6 +46,22 @@
 </head>
 <body>
 
+<div class="build-banner" id="buildBanner">
+  <span><span data-i18n="banner_notice_prefix">🚧 Sajt under uppbyggnad, framtagen av </span><a href="https://stormiestudios.com" target="_blank" rel="noopener">Stormie Studios</a><span data-i18n="banner_notice_suffix"> — foton och video är platshållare tills klubbens egna är klara.</span></span>
+  <span class="build-banner-features" data-i18n="banner_features">Redan på plats: självbetjänings-nyheter, kalenderprenumeration för schemat, interaktiv träningsguide, 3D-tränarkarusell och medlemskap via GymControl.</span>
+</div>
+<script>
+(function(){
+  var banner=document.getElementById('buildBanner');
+  function syncBannerHeight(){
+    document.documentElement.style.setProperty('--banner-h',banner.offsetHeight+'px');
+  }
+  syncBannerHeight();
+  window.addEventListener('resize',syncBannerHeight);
+  window.addEventListener('load',syncBannerHeight);
+})();
+</script>
+
 <div class="modal-overlay" id="modal">
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
     <button class="modal-close" id="modal-close" aria-label="Stäng">&times;</button>
