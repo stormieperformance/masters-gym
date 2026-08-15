@@ -116,7 +116,10 @@ try{(function(){
       schedule_cta:'Se schemat',
       schedule_note:'Schemat visas tillfälligt som bild — kontakta oss om något inte stämmer.',
       class_one:'pass',
-      class_many:'pass'
+      class_many:'pass',
+      today_label:'Idag',
+      today_none:'Inga fler pass idag',
+      day_short:{'Måndag':'MÅN','Tisdag':'TIS','Onsdag':'ONS','Torsdag':'TOR','Fredag':'FRE','Lördag':'LÖR','Söndag':'SÖN'}
     },
     en:{
       menu:[
@@ -156,7 +159,10 @@ try{(function(){
       schedule_cta:'View schedule',
       schedule_note:'The schedule is temporarily shown as an image — contact us if anything looks off.',
       class_one:'class',
-      class_many:'classes'
+      class_many:'classes',
+      today_label:'Today',
+      today_none:'No more classes today',
+      day_short:{'Måndag':'MON','Tisdag':'TUE','Onsdag':'WED','Torsdag':'THU','Fredag':'FRI','Lördag':'SAT','Söndag':'SUN'}
     }
   };
 
@@ -213,15 +219,35 @@ try{(function(){
         body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div><img class="gymbot-schedule-img" src="'+SCHEDULE_FALLBACK_SRC+'" alt="'+t.schedule_title+'"><p class="gymbot-screen-text">'+t.schedule_note+'</p><div class="gymbot-screen-actions"><a href="index.html#contact" class="gymbot-ghost">'+t.contact_cta+'</a></div>');
         body.querySelector('.gymbot-ghost').addEventListener('click',closePanel);
       }else{
-        let miniHtml='';
+        let previewHtml='';
         if(typeof scheduleData!=='undefined'&&scheduleData.days&&scheduleData.days.length){
-          const rows=scheduleData.days.map(day=>{
+          const dagOrderLocal=['Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag','Söndag'];
+          const jsDay=new Date().getDay();
+          const todayName=dagOrderLocal[jsDay===0?6:jsDay-1];
+          const now=new Date();
+          const nowStr=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+
+          let nextHtml='';
+          if(scheduleData.byDay[todayName]){
+            const todaysRows=scheduleData.byDay[todayName].filter(r=>!isCancelled(r)).slice().sort((a,b)=>(a.Tid||'').localeCompare(b.Tid||''));
+            const next=todaysRows.find(r=>(r.Tid||'')>=nowStr);
+            if(next){
+              const pl=splitPassLevel(next['Nivå']||next['Niv\u00e5']||'');
+              nextHtml='<div class="gymbot-today-card"><span class="gymbot-today-label">'+t.today_label+'</span><div class="gymbot-today-next"><span class="gymbot-today-next-name">'+esc(pl.name||next.Pass||'')+'</span><span class="gymbot-today-next-time">'+esc(next.Tid||'')+'</span></div></div>';
+            }else{
+              nextHtml='<div class="gymbot-today-card"><span class="gymbot-today-label">'+t.today_label+'</span><div class="gymbot-today-next"><span class="gymbot-today-next-name">'+t.today_none+'</span></div></div>';
+            }
+          }
+
+          const chips=scheduleData.days.map(day=>{
             const count=(scheduleData.byDay[day]||[]).filter(r=>!isCancelled(r)).length;
-            return '<div class="gymbot-week-row"><span>'+day+'</span><span>'+count+' '+(count===1?t.class_one:t.class_many)+'</span></div>';
+            const isToday=day===todayName;
+            return '<div class="gymbot-day-chip'+(isToday?' today':'')+'"><span class="d">'+(t.day_short[day]||day.slice(0,3).toUpperCase())+'</span><span class="n">'+count+'</span></div>';
           }).join('');
-          miniHtml='<div class="gymbot-week-mini">'+rows+'</div>';
+
+          previewHtml=nextHtml+'<div class="gymbot-day-strip">'+chips+'</div>';
         }
-        body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div>'+miniHtml+'<div class="gymbot-screen-actions"><a href="index.html#schedule" class="gymbot-cta">'+t.schedule_cta+'</a></div>');
+        body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div>'+previewHtml+'<div class="gymbot-screen-actions"><a href="index.html#schedule" class="gymbot-cta">'+t.schedule_cta+'</a></div>');
         body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
       }
     }
