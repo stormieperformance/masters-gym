@@ -925,6 +925,12 @@ button{cursor:pointer;font-family:var(--sans)}
 .gymbot-plan-price{font-family:var(--display);font-style:italic;font-weight:800;font-size:14px;color:var(--teal-dark);white-space:nowrap;flex-shrink:0}
 .gymbot-offer-list li{margin-bottom:2px}
 .gymbot-screen-actions{display:flex;flex-direction:column;gap:10px}
+.gymbot-question-form{display:flex;flex-direction:column;gap:8px}
+.gymbot-question-form input,.gymbot-question-form textarea{width:100%;background:#fff;border:1px solid rgba(21,20,15,.15);border-radius:var(--radius-sm);padding:10px 12px;font-size:12.5px;font-family:var(--sans);color:var(--ink);resize:vertical}
+.gymbot-question-form input::placeholder,.gymbot-question-form textarea::placeholder{color:var(--ink-muted)}
+.gymbot-question-form input:focus,.gymbot-question-form textarea:focus{outline:none;border-color:var(--teal-dark)}
+.gymbot-question-form .gymbot-cta{border:none;background:var(--teal-dark);color:#fff;margin-top:2px}
+.gymbot-question-form .gymbot-cta:hover{background:var(--teal)}
 .gymbot-cta{background:#fff;color:var(--teal-dark);border:1.5px solid var(--teal-dark);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;border-radius:var(--radius-sm);cursor:pointer;text-align:center;text-decoration:none;display:block;transition:background .2s,color .2s}
 .gymbot-cta:hover{background:var(--teal-dark);color:#fff}
 .gymbot-ghost{background:none;border:1px solid rgba(21,20,15,.15);color:var(--ink);font-size:12px;font-weight:600;letter-spacing:.06em;padding:12px 16px;border-radius:var(--radius-sm);cursor:pointer;text-align:center;text-decoration:none;display:block;transition:border-color .2s,color .2s}
