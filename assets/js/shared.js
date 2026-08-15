@@ -1342,11 +1342,12 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
       el.setAttribute('aria-label',o.title);
       el.innerHTML = '<img src="'+o.img+'" alt="'+o.title+'" loading="lazy"><div class="finder3d-card-overlay"></div><div class="finder3d-card-info"><div class="finder3d-card-pill">'+o.pill+'</div><div class="finder3d-card-name">'+o.title+'</div></div>';
       el.addEventListener('click', (function(idx){ return function(){
+        pauseAutoplay();
         if(idx===current){ location.href = getOptions()[idx].route; return; }
         if(!animating) goTo(idx);
       }; })(i));
       el.addEventListener('keydown', (function(idx){ return function(e){
-        if((e.key==='Enter'||e.key===' ')&&!animating){ e.preventDefault();
+        if((e.key==='Enter'||e.key===' ')&&!animating){ e.preventDefault(); pauseAutoplay();
           if(idx===current){ location.href = getOptions()[idx].route; } else { goTo(idx); }
         }
       }; })(i));
@@ -1358,9 +1359,9 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
       t.setAttribute('tabindex','0');
       t.setAttribute('role','button');
       t.setAttribute('aria-label',o.title);
-      t.innerHTML = '<img src="'+o.img+'" alt="'+o.title+'">';
-      t.addEventListener('click', (function(idx){ return function(){ if(!animating) goTo(idx); }; })(i));
-      t.addEventListener('keydown', (function(idx){ return function(e){ if((e.key==='Enter'||e.key===' ')&&!animating){ e.preventDefault(); goTo(idx); } }; })(i));
+      t.innerHTML = '<span>'+o.title+'</span>';
+      t.addEventListener('click', (function(idx){ return function(){ pauseAutoplay(); if(!animating) goTo(idx); }; })(i));
+      t.addEventListener('keydown', (function(idx){ return function(e){ if((e.key==='Enter'||e.key===' ')&&!animating){ e.preventDefault(); pauseAutoplay(); goTo(idx); } }; })(i));
       thumbsEl.appendChild(t);
       thumbEls.push(t);
     });
@@ -1371,25 +1372,27 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 
   function layout(idx) {
     var N = cards.length;
-    var cardW = stage.querySelector('.finder3d-card') ? stage.querySelector('.finder3d-card').offsetWidth : 360;
-    var gap = 26;
+    var angleStep = 26;
+    var radius = 460;
     cards.forEach(function(card, i){
       var offset = i - idx;
       if (offset > N/2) offset -= N;
       if (offset < -N/2) offset += N;
       var absOff = Math.abs(offset);
       var isCenter = offset === 0;
-      if (absOff > 3) {
+      if (absOff > Math.floor(N/2)) {
         card.style.opacity = '0';
         card.style.pointerEvents = 'none';
         card.style.zIndex = '0';
         return;
       }
-      var x = offset * (cardW * 0.62 + gap);
-      var rotateY = offset * -26;
-      var scale = isCenter ? 1 : Math.max(0.62, 1 - absOff * 0.18);
-      var z = isCenter ? 0 : -absOff * 170;
-      var opacity = isCenter ? 1 : Math.max(0.3, 1 - absOff * 0.26);
+      var angleDeg = offset * angleStep;
+      var rad = angleDeg * Math.PI / 180;
+      var x = Math.sin(rad) * radius;
+      var z = (Math.cos(rad) - 1) * radius;
+      var rotateY = -angleDeg;
+      var scale = isCenter ? 1 : Math.max(0.6, 1 - absOff * 0.14);
+      var opacity = isCenter ? 1 : Math.max(0.32, 1 - absOff * 0.2);
       card.style.transform = 'translateX('+x+'px) translateZ('+z+'px) rotateY('+rotateY+'deg) scale('+scale+')';
       card.style.opacity = String(opacity);
       card.style.zIndex = String(10 - absOff);
@@ -1435,19 +1438,20 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 
   var prevBtn = document.getElementById('finder3dPrev');
   var nextBtn = document.getElementById('finder3dNext');
-  if(prevBtn)prevBtn.addEventListener('click', function(e){ e.stopPropagation(); goTo(current - 1); });
-  if(nextBtn)nextBtn.addEventListener('click', function(e){ e.stopPropagation(); goTo(current + 1); });
+  if(prevBtn)prevBtn.addEventListener('click', function(e){ e.stopPropagation(); pauseAutoplay(); goTo(current - 1); });
+  if(nextBtn)nextBtn.addEventListener('click', function(e){ e.stopPropagation(); pauseAutoplay(); goTo(current + 1); });
 
   document.addEventListener('keydown', function(e){
     if (document.activeElement && document.activeElement.closest && document.activeElement.closest('#classes')) {
-      if (e.key === 'ArrowLeft') goTo(current - 1);
-      if (e.key === 'ArrowRight') goTo(current + 1);
+      if (e.key === 'ArrowLeft') { pauseAutoplay(); goTo(current - 1); }
+      if (e.key === 'ArrowRight') { pauseAutoplay(); goTo(current + 1); }
     }
   });
 
   var dragStartX = 0, dragging = false;
   stage.addEventListener('pointerdown', function(e){
     if (e.target.closest && e.target.closest('.finder3d-prev,.finder3d-next')) return;
+    pauseAutoplay();
     dragStartX = e.clientX; dragging = true; stage.setPointerCapture(e.pointerId);
   });
   stage.addEventListener('pointerup', function(e){
@@ -1463,7 +1467,22 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     resizeTimer2 = setTimeout(function(){ layout(current); }, 120);
   });
 
+  var autoplayTimer = null;
+  var autoplayPausedUntilResume = false;
+  function startAutoplay(){
+    if(autoplayTimer) return;
+    autoplayTimer = setInterval(function(){
+      if(!animating) goTo(current + 1);
+    }, 4200);
+  }
+  function pauseAutoplay(){
+    if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; }
+  }
+  stage.addEventListener('mouseenter', pauseAutoplay);
+  stage.addEventListener('mouseleave', startAutoplay);
+
   buildCarousel();
+  startAutoplay();
 
   var _patchLang2 = setInterval(function(){
     if (typeof toggleLang === 'function') {
