@@ -6,7 +6,7 @@
   --text:#f0ede6;--muted:rgba(240,237,230,0.45);--muted2:rgba(240,237,230,0.18);
   --line:rgba(240,237,230,0.08);--teal:#74C1BB;--teal-dim:rgba(116,194,188,0.12);
   --teal-dark:#42908A;--sans:'DM Sans',sans-serif;--display:'Barlow Condensed',sans-serif;
-  --bg-light:#FFFFFF;--bg-light2:#F7F7F7;--ink:#15140F;--ink-muted:rgba(21,20,15,0.55);--line-dark:rgba(21,20,15,0.1);
+  --bg-light:#F5F2EA;--bg-light2:#EDE9DE;--ink:#15140F;--ink-muted:rgba(21,20,15,0.55);--line-dark:rgba(21,20,15,0.1);
   --radius-lg:20px;--radius-md:14px;--radius-sm:10px;--radius-pill:999px;
   --shadow-card:0 1px 0 rgba(255,255,255,.04) inset,0 12px 28px -14px rgba(0,0,0,.35);
   --shadow-card-hover:0 1px 0 rgba(255,255,255,.05) inset,0 20px 40px -16px rgba(0,0,0,.4);
@@ -845,7 +845,7 @@ button{cursor:pointer;font-family:var(--sans)}
 }
 
 /* ── REVIEWS (light section) ── */
-.reviews{padding:160px 40px 140px;background:radial-gradient(circle 320px at 50% 10%,rgba(116,194,188,0.14),transparent 70%),var(--bg-light2);position:relative;overflow:hidden;text-align:center}
+.reviews{padding:160px 40px 140px;background:radial-gradient(circle 320px at 50% 10%,rgba(116,194,188,0.14),transparent 70%),var(--bg-light);position:relative;overflow:hidden;text-align:center}
 .reviews .section-label{color:var(--teal-dark)}
 .reviews .section-title{color:var(--ink)}
 .reviews-container{max-width:1100px;margin:0 auto}
