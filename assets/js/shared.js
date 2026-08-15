@@ -58,6 +58,143 @@ document.querySelectorAll('.finder-btn:not(.finder-btn-route)').forEach(btn=>{
   });
 });
 document.querySelectorAll('.open-modal').forEach(b=>b.addEventListener('click',openModal));
+
+// ── GYMBOT: sticky quick-help widget ──
+// Set to true and add schedule-fallback.jpg (or .pdf, adjust the src below) to show
+// a manually-updated schedule image/PDF instead of the live calendar feed —
+// useful if the GymControl/ICS feed ever breaks or needs a temporary override.
+const SCHEDULE_FALLBACK_ACTIVE=false;
+const SCHEDULE_FALLBACK_SRC='schedule-fallback.jpg';
+
+try{(function(){
+  const root=document.getElementById('gymbot');
+  const toggle=document.getElementById('gymbotToggle');
+  const closeBtn=document.getElementById('gymbotClose');
+  const panel=document.getElementById('gymbotPanel');
+  const body=document.getElementById('gymbotBody');
+  const greeting=document.getElementById('gymbotGreeting');
+  if(!root||!toggle||!panel||!body)return;
+
+  function lang(){return document.documentElement.getAttribute('lang')==='en'?'en':'sv';}
+
+  const COPY={
+    sv:{
+      menu:[
+        {key:'offers',label:'Erbjudanden'},
+        {key:'pricing',label:'Priser och medlemskap'},
+        {key:'trial',label:'Prova på gratis'},
+        {key:'schedule',label:'Schema'}
+      ],
+      back:'Gå tillbaks',
+      offers_title:'Erbjudanden',
+      offers_text:'Just nu har vi inga tidsbegränsade kampanjer — men fråga oss gärna, vi har ofta erbjudanden för nya medlemmar.',
+      offers_cta:'Kontakta oss',
+      pricing_title:'Priser och medlemskap',
+      pricing_text:'Vi har flera medlemskap beroende på hur ofta du vill träna, samt ett fördelaktigt provpass för 200 kr.',
+      pricing_cta:'Se alla medlemskap',
+      trial_title:'Prova på gratis',
+      trial_text:'Boka ett provpass för 200 kr — inga förkunskaper krävs och all utrustning finns att låna.',
+      trial_cta:'Boka provpass',
+      schedule_title:'Schema',
+      schedule_text:'Se hela veckoschemat, eller prenumerera på det så uppdateras det automatiskt i din kalender.',
+      schedule_cta:'Se schemat',
+      schedule_note:'Schemat visas tillfälligt som bild — kontakta oss om något inte stämmer.'
+    },
+    en:{
+      menu:[
+        {key:'offers',label:'Offers'},
+        {key:'pricing',label:'Pricing & memberships'},
+        {key:'trial',label:'Free trial class'},
+        {key:'schedule',label:'Schedule'}
+      ],
+      back:'Go back',
+      offers_title:'Offers',
+      offers_text:'No time-limited campaigns right now — but feel free to ask us, we often have deals for new members.',
+      offers_cta:'Contact us',
+      pricing_title:'Pricing & memberships',
+      pricing_text:'We have several membership options depending on how often you want to train, plus a 200 SEK trial class.',
+      pricing_cta:'See all memberships',
+      trial_title:'Free trial class',
+      trial_text:'Book a trial class for 200 SEK — no experience needed, and all equipment is available to borrow.',
+      trial_cta:'Book trial class',
+      schedule_title:'Schedule',
+      schedule_text:'See the full weekly schedule, or subscribe so it updates automatically in your calendar.',
+      schedule_cta:'View schedule',
+      schedule_note:'The schedule is temporarily shown as an image — contact us if anything looks off.'
+    }
+  };
+
+  function renderMenu(){
+    const t=COPY[lang()];
+    body.innerHTML='<div class="gymbot-menu"></div>';
+    const menu=body.querySelector('.gymbot-menu');
+    t.menu.forEach(item=>{
+      const btn=document.createElement('button');
+      btn.type='button';btn.className='gymbot-pill';btn.textContent=item.label;
+      btn.addEventListener('click',()=>renderScreen(item.key));
+      menu.appendChild(btn);
+    });
+  }
+
+  function backBtn(){
+    const t=COPY[lang()];
+    const b=document.createElement('button');
+    b.type='button';b.className='gymbot-back';
+    b.innerHTML='&larr; '+t.back;
+    b.addEventListener('click',renderMenu);
+    return b;
+  }
+
+  function closePanel(){root.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
+
+  function renderScreen(key){
+    const t=COPY[lang()];
+    body.innerHTML='';
+    body.appendChild(backBtn());
+
+    if(key==='offers'){
+      body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.offers_title+'</div><p class="gymbot-screen-text">'+t.offers_text+'</p><div class="gymbot-screen-actions"><a href="index.html#contact" class="gymbot-cta">'+t.offers_cta+'</a></div>');
+      body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
+    }
+    else if(key==='pricing'){
+      body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.pricing_title+'</div><p class="gymbot-screen-text">'+t.pricing_text+'</p><div class="gymbot-screen-actions"><a href="index.html#memberships" class="gymbot-cta">'+t.pricing_cta+'</a></div>');
+      body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
+    }
+    else if(key==='trial'){
+      body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.trial_title+'</div><p class="gymbot-screen-text">'+t.trial_text+'</p><div class="gymbot-screen-actions"></div>');
+      const actions=body.querySelector('.gymbot-screen-actions');
+      const btn=document.createElement('button');
+      btn.type='button';btn.className='gymbot-cta';btn.textContent=t.trial_cta;
+      btn.addEventListener('click',()=>{closePanel();openModal();});
+      actions.appendChild(btn);
+    }
+    else if(key==='schedule'){
+      if(SCHEDULE_FALLBACK_ACTIVE){
+        body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div><img class="gymbot-schedule-img" src="'+SCHEDULE_FALLBACK_SRC+'" alt="'+t.schedule_title+'"><p class="gymbot-screen-text">'+t.schedule_note+'</p><div class="gymbot-screen-actions"><a href="index.html#contact" class="gymbot-ghost">'+t.offers_cta+'</a></div>');
+        body.querySelector('.gymbot-ghost').addEventListener('click',closePanel);
+      }else{
+        body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div><p class="gymbot-screen-text">'+t.schedule_text+'</p><div class="gymbot-screen-actions"><a href="index.html#schedule" class="gymbot-cta">'+t.schedule_cta+'</a></div>');
+        body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
+      }
+    }
+  }
+
+  toggle.addEventListener('click',()=>{
+    const isOpen=root.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',String(isOpen));
+    if(isOpen)renderMenu();
+  });
+  if(closeBtn)closeBtn.addEventListener('click',closePanel);
+  document.addEventListener('click',e=>{
+    if(root.classList.contains('open')&&!root.contains(e.target))closePanel();
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&root.classList.contains('open'))closePanel();
+  });
+
+  renderMenu();
+})();}catch(err){console.error('Gymbot widget failed to init, rest of page unaffected:',err);}
+
 document.getElementById('modal-close').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
 
