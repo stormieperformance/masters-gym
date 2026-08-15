@@ -893,6 +893,8 @@ button{cursor:pointer;font-family:var(--sans)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(0.22,1,0.36,1)}
 .faq-item.open .faq-a{max-height:300px}
 .faq-a p{font-size:13.5px;font-weight:300;color:var(--muted);line-height:1.7;padding:0 22px 22px;margin:0}
+.faq-a p a,.faq-inline-link{color:var(--teal);text-decoration:underline;text-underline-offset:2px;background:none;border:none;font:inherit;padding:0;cursor:pointer;transition:color .2s}
+.faq-a p a:hover,.faq-inline-link:hover{color:var(--teal-dark)}
 @media(max-width:600px){.faq{padding:100px 20px 120px}}
 
 /* ── GYMBOT: sticky quick-help widget ── */
