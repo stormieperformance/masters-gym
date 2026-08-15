@@ -1403,6 +1403,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     });
     var nearest = nearestIndex();
     thumbEls.forEach(function(t, i){ t.classList.toggle('active', i === nearest); });
+    updateInfo(nearest);
   }
 
   function nearestIndex(){
