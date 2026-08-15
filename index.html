@@ -67,7 +67,7 @@
     <button class="modal-close" id="modal-close" aria-label="Stäng">&times;</button>
     <h3 id="modal-title-text" data-i18n="modal_title">BOKA PROVPASS</h3>
     <p class="modal-sub" data-i18n="modal_sub">Prova ditt första pass för 200 kr. Vi återkommer inom 24 timmar.</p>
-    <p class="modal-schedule-hint"><a href="#schedule" onclick="closeModal()"><span data-i18n="modal_schedule_hint_q">Osäker på när du kan träna?</span> <span class="modal-schedule-hint-teal" data-i18n="modal_schedule_hint_link">Se schemat här →</span></a></p>
+    <p class="modal-schedule-hint"><a href="schema.html" onclick="closeModal()"><span data-i18n="modal_schedule_hint_q">Osäker på när du kan träna?</span> <span class="modal-schedule-hint-teal" data-i18n="modal_schedule_hint_link">Se schemat här →</span></a></p>
     <form class="modal-form" name="provpass" method="POST" id="booking-form">
       <input type="hidden" name="form-name" value="provpass"/>
       <p style="display:none" aria-hidden="true"><label>Fyll inte i detta: <input name="_gotcha" tabindex="-1" autocomplete="off"/></label></p>
@@ -180,12 +180,12 @@
     <li><a href="#about" data-i18n="nav_about">Om oss</a></li>
     <li><a href="#classes" data-i18n="nav_classes">Våra pass</a></li>
     <li><a href="junior.html" data-i18n="nav_kids">Barn & Junior</a></li>
-    <li><a href="#schedule" data-i18n="nav_schedule">Schema</a></li>
+    <li><a href="schema.html" data-i18n="nav_schedule">Schema</a></li>
     <li><a href="#memberships" data-i18n="nav_memberships">Medlemskap</a></li>
     <li><a href="foretag.html" data-i18n="nav_corporate">Företag</a></li>
     <li><a href="pt.html" data-i18n="nav_pt">PT</a></li>
     <li><a href="coacher.html" data-i18n="nav_coaches">Coacher</a></li>
-    <li><a href="#news" data-i18n="nav_news">Nyheter</a></li>
+    <li><a href="nyheter.html" data-i18n="nav_news">Nyheter</a></li>
     <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:10px">
@@ -206,11 +206,12 @@
     <a href="#about" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_about">Om oss</span></span></a>
     <a href="#classes" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_classes">Våra pass</span></span></a>
     <a href="junior.html" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_kids">Barn &amp; Junior</span></span></a>
-    <a href="#schedule" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_schedule">Schema</span></span></a>
+    <a href="schema.html" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_schedule">Schema</span></span></a>
     <a href="#memberships" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_memberships">Medlemskap</span></span></a>
     <a href="foretag.html" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_corporate">Företag</span></span></a>
     <a href="pt.html" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_pt">PT</span></span></a>
     <a href="coacher.html" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_coaches">Coacher</span></span></a>
+    <a href="nyheter.html" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_news">Nyheter</span></span></a>
     <a href="#contact" class="mobile-link"><span class="mobile-link-mask"><span data-i18n="nav_contact">Kontakt</span></span></a>
   </nav>
   <div class="mobile-menu-foot">
@@ -311,7 +312,7 @@
               <p class="timeline-format" data-i18n="class1_format">60 minuter med grundtekniker, blockträning och stretch.</p>
               <div class="timeline-equip" data-i18n="class1_equip">Lånehandskar finns att låna. När du vill ta nästa steg rekommenderar vi lindor för extra stöd, som finns att köpa i receptionen. Vi hjälper dig gärna att visa hur de används.</div>
             </div>
-            <a href="#schedule" class="timeline-next"></a>
+            <a href="schema.html" class="timeline-next"></a>
             <button type="button" class="timeline-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
         </div>
@@ -333,7 +334,7 @@
               <p class="timeline-format" data-i18n="class2_format">60 minuters pass med tekniker och mer avancerade kombinationer med mits, sparringövningar, lätt fri sparring, blandat med fysträning och stretch.</p>
               <div class="timeline-equip" data-i18n="class2_equip">Egna handskar, benskydd och lindor. Tandskydd, hjälm och suspensoar vid sparring.</div>
             </div>
-            <a href="#schedule" class="timeline-next"></a>
+            <a href="schema.html" class="timeline-next"></a>
             <button type="button" class="timeline-cta open-modal" data-i18n="book_trial">Boka provpass</button>
           </div>
         </div>
@@ -390,39 +391,6 @@
         <button type="button" class="dropin-next" id="dropinNext" aria-label="Nästa">&#8250;</button>
       </div>
       <div class="dropin-dots" id="dropinDots"></div>
-    </div>
-  </div>
-</section>
-
-<section class="schedule" id="schedule">
-  <div class="schedule-container">
-    <div class="schedule-header">
-      <div><h2 class="reveal-h2" data-i18n="schedule_h2">SCHEMA</h2><p class="schedule-intro" data-i18n="schedule_intro">Lägg till schemat i din kalender en gång — ändringar, nya pass och nya tider dyker upp av sig själva.</p></div>
-      <div class="schedule-actions">
-        <button type="button" class="btn sched-sub-btn" id="open-subscribe-modal" data-i18n="schedule_subscribe_btn">📅 Prenumerera på schemat</button>
-        <div class="schedule-tabs" id="schedule-tabs"></div>
-        <div class="schedule-hint" id="schedule-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span data-i18n="schedule_swipe_hint">Svep för fler dagar</span></div>
-        <div class="schedule-view-toggle">
-          <button class="view-btn" id="view-week" onclick="setScheduleView('week')">Veckoöversikt</button>
-          <button class="view-btn active" id="view-day" onclick="setScheduleView('day')">Dag för dag</button>
-        </div>
-      </div>
-    </div>
-    <div id="schedule-content" style="min-height:200px;display:flex;align-items:center;justify-content:center">
-      <p style="color:var(--muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase" data-i18n="schedule_loading">Laddar schema...</p>
-    </div>
-    <div id="schedule-info-box" class="schedule-info-box" style="display:none"></div>
-    <p class="schedule-note" data-i18n="schedule_note">Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.</p>
-  </div>
-</section>
-
-<!-- NEWS — text-only -->
-<section class="news-section" id="news">
-  <div class="news-container">
-    <p class="section-label" data-i18n="news_label">Nyheter</p>
-    <h2 class="section-title reveal" data-i18n="news_h2">SENASTE NYTT</h2>
-    <div class="news-grid reveal-stagger" id="news-grid">
-      <p style="color:var(--muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase">Laddar nyheter...</p>
     </div>
   </div>
 </section>
@@ -814,7 +782,7 @@
         <span data-i18n="footer_nav">Navigera</span>
         <a href="index.html#about" data-i18n="nav_about">Om oss</a>
         <a href="index.html#classes" data-i18n="nav_classes">Våra pass</a>
-        <a href="index.html#schedule" data-i18n="nav_schedule">Schema</a>
+        <a href="schema.html" data-i18n="nav_schedule">Schema</a>
         <a href="index.html#memberships" data-i18n="nav_memberships">Medlemskap</a>
         <a href="foretag.html" data-i18n="nav_corporate">Företag</a>
         <a href="junior.html" data-i18n="nav_kids">Barn & Junior</a>
