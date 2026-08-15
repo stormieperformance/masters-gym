@@ -80,6 +80,7 @@ try{(function(){
   const COPY={
     sv:{
       menu:[
+        {key:'trial',label:'Boka provpass'},
         {key:'offers',label:'Erbjudanden'},
         {key:'pricing',label:'Priser och medlemskap'},
         {key:'schedule',label:'Schema'},
@@ -131,6 +132,7 @@ try{(function(){
     },
     en:{
       menu:[
+        {key:'trial',label:'Book trial class'},
         {key:'offers',label:'Offers'},
         {key:'pricing',label:'Pricing & memberships'},
         {key:'schedule',label:'Schedule'},
@@ -190,7 +192,10 @@ try{(function(){
     t.menu.forEach(item=>{
       const btn=document.createElement('button');
       btn.type='button';btn.className='gymbot-pill';btn.textContent=item.label;
-      btn.addEventListener('click',()=>renderScreen(item.key));
+      btn.addEventListener('click',()=>{
+        if(item.key==='trial'){ closePanel(); openModal(); return; }
+        renderScreen(item.key);
+      });
       menu.appendChild(btn);
     });
   }
@@ -301,6 +306,21 @@ try{(function(){
   document.addEventListener('keydown',e=>{
     if(e.key==='Escape'&&root.classList.contains('open'))closePanel();
   });
+
+  const langToggle=document.getElementById('gymbotLangToggle');
+  function syncLangToggle(){
+    if(!langToggle)return;
+    langToggle.textContent=lang()==='en'?'SV':'EN';
+  }
+  if(langToggle){
+    langToggle.addEventListener('click',e=>{
+      e.stopPropagation();
+      if(typeof toggleLang==='function')toggleLang();
+      syncLangToggle();
+      renderMenu();
+    });
+  }
+  syncLangToggle();
 
   renderMenu();
 })();}catch(err){console.error('Gymbot widget failed to init, rest of page unaffected:',err);}
@@ -786,7 +806,8 @@ try{
 
 function toggleLang(){
   currentLang=currentLang==='sv'?'en':'sv';
-  document.getElementById('lang-btn').textContent=currentLang==='sv'?'EN':'SV';
+  const legacyLangBtn=document.getElementById('lang-btn');
+  if(legacyLangBtn)legacyLangBtn.textContent=currentLang==='sv'?'EN':'SV';
   document.documentElement.lang=currentLang;
   applyTranslations();
 }
