@@ -1513,7 +1513,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   stage.addEventListener('mouseenter', pauseAutoplay);
   stage.addEventListener('mouseleave', startAutoplay);
 
-  var DRIFT_SPEED = 0.00028; // card-units per ms — super slow continuous drift
+  var DRIFT_SPEED = 0.00016; // card-units per ms — super slow continuous drift
   var lastFrameTime = null;
   function tick(t){
     if(lastFrameTime === null) lastFrameTime = t;
