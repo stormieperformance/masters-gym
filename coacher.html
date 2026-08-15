@@ -163,9 +163,6 @@
     <li><a href="nyheter.html" data-i18n="nav_news">Nyheter</a></li>
     <li><a href="index.html#contact" data-i18n="nav_contact">Kontakt</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:10px">
-    <button class="lang-btn" id="lang-btn" onclick="toggleLang()" aria-label="Byt språk / Switch language">EN</button>
-  </div>
   <button class="hamburger" id="hamburger" aria-label="Meny / Menu"><span></span><span></span><span></span></button>
 </nav>
 
@@ -193,7 +190,6 @@
       <button class="mobile-cta open-modal" data-i18n="nav_cta_trial">Boka provpass</button>
       <a href="https://www.gymcontrol.se/global/webshop/index.php?uid=9074&amp;action=membership" target="_blank" rel="noopener noreferrer" class="mobile-cta ghost" data-i18n="nav_cta_member">Bli medlem</a>
     </div>
-    <button class="lang-btn" style="font-size:11px;padding:9px 18px" onclick="toggleLang()" aria-label="Byt språk / Switch language">EN</button>
   </div>
 </div>
 
@@ -305,6 +301,7 @@
         <div class="gymbot-header-title">MASTERS GYM</div>
         <div class="gymbot-header-sub" id="gymbotGreeting" data-i18n="bot_greeting">Snabbhjälp</div>
       </div>
+      <button type="button" class="gymbot-lang-toggle" id="gymbotLangToggle">EN</button>
       <button type="button" class="gymbot-close" id="gymbotClose" aria-label="Stäng">&times;</button>
     </div>
     <div class="gymbot-body" id="gymbotBody"></div>
