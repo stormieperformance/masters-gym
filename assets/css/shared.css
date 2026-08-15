@@ -916,8 +916,10 @@ button{cursor:pointer;font-family:var(--sans)}
 .gymbot-screen-text{font-size:13px;font-weight:400;color:var(--ink-muted);line-height:1.7;margin-bottom:14px}
 .gymbot-screen-text strong{color:var(--ink);font-weight:600}
 .gymbot-offer-list{font-size:12.5px;color:var(--ink-muted);line-height:1.9;margin:0 0 14px;padding-left:18px}
-.gymbot-plan-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-.gymbot-plan-row{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;border:1px solid rgba(21,20,15,.08);border-radius:8px;padding:10px 12px}
+.gymbot-plan-list{position:relative;display:flex;flex-direction:column;gap:8px;margin-bottom:14px;padding-bottom:8px}
+.gymbot-plan-list::after{content:'';position:absolute;bottom:-6px;right:-6px;width:90px;height:90px;background-image:url('gymcontrol-logo.png');background-size:contain;background-repeat:no-repeat;background-position:bottom right;opacity:.06;pointer-events:none;z-index:0}
+.gymbot-plan-row{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;border:1px solid rgba(21,20,15,.08);border-radius:8px;padding:10px 12px;text-decoration:none;cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .2s}
+.gymbot-plan-row:hover{border-color:var(--teal-dark);box-shadow:0 4px 12px -6px rgba(21,20,15,.15);transform:translateY(-1px)}
 .gymbot-plan-name{display:block;font-size:12.5px;font-weight:600;color:var(--ink)}
 .gymbot-plan-note{display:block;font-size:11px;color:var(--ink-muted);margin-top:1px}
 .gymbot-plan-price{font-family:var(--display);font-style:italic;font-weight:800;font-size:14px;color:var(--teal-dark);white-space:nowrap;flex-shrink:0}
