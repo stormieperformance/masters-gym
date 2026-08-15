@@ -701,16 +701,19 @@ button{cursor:pointer;font-family:var(--sans)}
   .schedule-tab{padding:11px 17px;text-align:center;font-size:10.5px;letter-spacing:.10em;flex:0 0 auto}
 }
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 26px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:none;border-radius:var(--radius-sm);cursor:pointer;font-family:var(--sans);position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.btn-primary{background:linear-gradient(155deg,rgba(255,255,255,0.12),rgba(255,255,255,0) 45%),#0a0a0a;color:var(--text);border:1px solid rgba(116,194,188,.5);transition:transform .2s ease,box-shadow .25s ease,border-color .25s ease;animation:ctaPulse 2.8s ease-in-out infinite;box-shadow:0 1px 0 rgba(255,255,255,.1) inset,0 1px 2px rgba(0,0,0,.5),0 6px 14px -6px rgba(0,0,0,.6)}
+.btn-primary{background:var(--teal);color:#080808;transition:background .25s,transform .2s,box-shadow .25s;animation:ctaPulse 2.8s ease-in-out infinite}
 @keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(116,194,188,0.5)}50%{box-shadow:0 0 0 10px rgba(116,194,188,0)}100%{box-shadow:0 0 0 0 rgba(116,194,188,0)}}
 .btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transform:skewX(-20deg);animation:shineSweep 3.5s ease-in-out infinite}
 @keyframes shineSweep{0%{left:-100%}40%{left:140%}100%{left:140%}}
 .btn-primary:active{transform:scale(0.96);animation:none;box-shadow:none}
+.btn-dark-glow{background:radial-gradient(circle 90px at 50% 15%,rgba(116,194,188,0.3),transparent 70%),#0a0a0a;color:var(--text);border:1px solid rgba(116,194,188,.35);transition:box-shadow .25s ease,transform .2s ease,border-color .25s ease}
+.btn-dark-glow:active{transform:scale(0.96)}
 .btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(240,237,230,0.22);transition:border-color .25s,background .25s,transform .2s}
 .hero-btns .btn-ghost{color:#F0EEEA;border-color:rgba(240,237,230,0.5)}
 .btn-ghost:active{transform:scale(0.96)}
 @media(hover:hover){
-  .btn-primary:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 8px 28px rgba(116,194,188,0.35)}
+  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(116,194,188,0.35)}
+  .btn-dark-glow:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 8px 24px -8px rgba(116,194,188,.4)}
   .btn-ghost:hover{border-color:rgba(240,237,230,0.6);background:rgba(240,237,230,0.05);transform:translateY(-2px)}
 }
 @media(prefers-reduced-motion:reduce){.reveal,.reveal-left,.reveal-right,.reveal-stagger>*,.reveal-h2{opacity:1!important;transform:none!important;filter:none!important;transition:none!important;animation:none!important}}
