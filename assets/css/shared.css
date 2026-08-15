@@ -958,26 +958,27 @@ button{cursor:pointer;font-family:var(--sans)}
 .finder3d-wrap{position:relative;width:100%;overflow:hidden;padding:20px 0 20px}
 .finder3d-stage{
   position:relative;
-  height:calc(var(--f3d-h) + 60px);
+  height:calc(var(--f3d-h) + 80px);
   display:flex;align-items:center;justify-content:center;
   perspective:2000px;perspective-origin:50% 40%;
   touch-action:pan-y;cursor:grab;
-  --f3d-h:400px;--f3d-w:280px;
+  --f3d-h:520px;--f3d-w:360px;
 }
 .finder3d-stage:active{cursor:grabbing}
 .finder3d-card{
   position:absolute;width:var(--f3d-w);height:var(--f3d-h);
-  border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;
-  transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .55s ease,border-color .3s;
+  border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;
+  transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .55s ease,border-color .3s,box-shadow .55s ease;
   user-select:none;-webkit-user-select:none;will-change:transform;
+  box-shadow:0 20px 50px -20px rgba(0,0,0,.6);
 }
 .finder3d-card img{width:100%;height:100%;object-fit:cover;object-position:center;filter:grayscale(25%);transition:filter .4s ease;pointer-events:none;display:block}
 .finder3d-card.active img{filter:grayscale(0%)}
 .finder3d-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.92) 0%,rgba(8,8,8,.15) 50%,transparent 75%);pointer-events:none}
-.finder3d-card-info{position:absolute;bottom:0;left:0;right:0;padding:16px 18px 20px}
-.finder3d-card-pill{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:5px}
-.finder3d-card-name{font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;letter-spacing:.05em;color:#f0ede6;line-height:1.05}
-.finder3d-card.active{border-color:rgba(116,194,188,0.4)}
+.finder3d-card-info{position:absolute;bottom:0;left:0;right:0;padding:20px 22px 26px}
+.finder3d-card-pill{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:6px}
+.finder3d-card-name{font-family:var(--display);font-style:italic;font-weight:800;font-size:28px;letter-spacing:.05em;color:#f0ede6;line-height:1.05}
+.finder3d-card.active{border-color:rgba(116,194,188,0.5);box-shadow:0 30px 70px -20px rgba(0,0,0,.7),0 0 0 1px rgba(116,194,188,.15),0 0 60px -10px rgba(116,194,188,.25)}
 .finder3d-prev,.finder3d-next{
   position:absolute;top:50%;transform:translateY(-50%);z-index:20;
   width:44px;height:44px;border-radius:50%;
@@ -1001,7 +1002,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .finder3d-thumb:not(.active){opacity:.4}
 .finder3d-thumb:not(.active):hover{opacity:.75;transform:scale(1.06)}
 @media(max-width:768px){
-  .finder3d-stage{--f3d-h:340px;--f3d-w:230px}
+  .finder3d-stage{--f3d-h:420px;--f3d-w:290px}
   .finder3d-info{padding:28px 20px 0}
   .finder3d-bio{font-size:13px}
 }
