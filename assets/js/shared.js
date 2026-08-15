@@ -280,7 +280,7 @@ try{(function(){
             previewHtml='<div class="gymbot-today-card"><span class="gymbot-today-label">'+t.today_label+'</span><div class="gymbot-today-next"><span class="gymbot-today-next-name">'+t.today_none+'</span></div></div>';
           }
         }
-        body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div>'+previewHtml+'<div class="gymbot-screen-actions"><a href="index.html#schedule" class="gymbot-cta">'+t.schedule_cta+'</a></div>');
+        body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div>'+previewHtml+'<div class="gymbot-screen-actions"><a href="schema.html" class="gymbot-cta">'+t.schedule_cta+'</a></div>');
         body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
       }
     }
