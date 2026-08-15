@@ -82,7 +82,7 @@ try{(function(){
       menu:[
         {key:'offers',label:'Erbjudanden'},
         {key:'pricing',label:'Priser och medlemskap'},
-        {key:'trial',label:'Prova på gratis'},
+        {key:'question',label:'Övrig fråga'},
         {key:'schedule',label:'Schema'}
       ],
       greeting:'Snabbhjälp',
@@ -108,9 +108,16 @@ try{(function(){
         {name:'Junior 13–17 år',price:'599 kr / mån',note:'Rabatterat för ungdomar'}
       ],
       pricing_cta:'Bli medlem →',
-      trial_title:'Prova på gratis',
-      trial_text:'Boka ett provpass för 200 kr — inga förkunskaper krävs och all utrustning finns att låna.',
-      trial_cta:'Boka provpass',
+      question_title:'Övrig fråga',
+      question_intro:'Hittade du inte svaret du sökte? Skicka din fråga direkt så återkommer vi.',
+      question_name:'Ditt namn',
+      question_email:'E-postadress',
+      question_msg:'Din fråga',
+      question_submit:'Skicka fråga',
+      question_sending:'Skickar...',
+      question_sent:'Skickat! Vi hör av oss snart.',
+      question_error:'Något gick fel. Försök igen eller maila oss direkt.',
+      question_unset:'Formuläret är inte klart ännu. Maila oss direkt.',
       schedule_title:'Schema',
       schedule_text:'Se hela veckoschemat, eller prenumerera på det så uppdateras det automatiskt i din kalender.',
       schedule_cta:'Se schemat',
@@ -125,7 +132,7 @@ try{(function(){
       menu:[
         {key:'offers',label:'Offers'},
         {key:'pricing',label:'Pricing & memberships'},
-        {key:'trial',label:'Free trial class'},
+        {key:'question',label:'Other question'},
         {key:'schedule',label:'Schedule'}
       ],
       greeting:'Quick help',
@@ -151,9 +158,16 @@ try{(function(){
         {name:'Junior 13–17 yrs',price:'599 SEK / mo',note:'Discounted for young athletes'}
       ],
       pricing_cta:'Join now →',
-      trial_title:'Free trial class',
-      trial_text:'Book a trial class for 200 SEK — no experience needed, and all equipment is available to borrow.',
-      trial_cta:'Book trial class',
+      question_title:'Other question',
+      question_intro:"Couldn't find what you were looking for? Send your question directly and we'll get back to you.",
+      question_name:'Your name',
+      question_email:'Email address',
+      question_msg:'Your question',
+      question_submit:'Send question',
+      question_sending:'Sending...',
+      question_sent:"Sent! We'll be in touch soon.",
+      question_error:'Something went wrong. Try again or email us directly.',
+      question_unset:'The form is not set up yet. Please email us directly.',
       schedule_title:'Schedule',
       schedule_text:'See the full weekly schedule, or subscribe so it updates automatically in your calendar.',
       schedule_cta:'View schedule',
@@ -206,13 +220,27 @@ try{(function(){
       body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.pricing_title+'</div><div class="gymbot-plan-list">'+cardsHtml+'</div><div class="gymbot-screen-actions"><a href="'+gcUrl+'" target="_blank" rel="noopener noreferrer" class="gymbot-cta">'+t.pricing_cta+'</a></div>');
       body.querySelectorAll('.gymbot-plan-row,.gymbot-cta').forEach(el=>el.addEventListener('click',closePanel));
     }
-    else if(key==='trial'){
-      body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.trial_title+'</div><p class="gymbot-screen-text">'+t.trial_text+'</p><div class="gymbot-screen-actions"></div>');
-      const actions=body.querySelector('.gymbot-screen-actions');
-      const btn=document.createElement('button');
-      btn.type='button';btn.className='gymbot-cta';btn.textContent=t.trial_cta;
-      btn.addEventListener('click',()=>{closePanel();openModal();});
-      actions.appendChild(btn);
+    else if(key==='question'){
+      body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.question_title+'</div><p class="gymbot-screen-text">'+t.question_intro+'</p><form class="gymbot-question-form" id="gymbotQuestionForm"><input type="text" name="namn" placeholder="'+t.question_name+'" required><input type="email" name="email" placeholder="'+t.question_email+'" required><textarea name="meddelande" placeholder="'+t.question_msg+'" rows="3" required></textarea><button type="submit" class="gymbot-cta">'+t.question_submit+'</button></form>');
+      const form=body.querySelector('#gymbotQuestionForm');
+      const btn=form.querySelector('button[type="submit"]');
+      form.addEventListener('submit',function(e){
+        e.preventDefault();
+        if(typeof FORMSPREE_ENDPOINT==='undefined'||!FORMSPREE_ENDPOINT){
+          btn.textContent=t.question_unset;
+          return;
+        }
+        btn.textContent=t.question_sending;btn.disabled=true;
+        fetch(FORMSPREE_ENDPOINT,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+        .then(res=>{
+          if(!res.ok)throw new Error('bad response');
+          btn.textContent=t.question_sent;
+          setTimeout(closePanel,2000);
+        })
+        .catch(()=>{
+          btn.textContent=t.question_error;btn.disabled=false;
+        });
+      });
     }
     else if(key==='schedule'){
       if(SCHEDULE_FALLBACK_ACTIVE){
