@@ -82,8 +82,8 @@ try{(function(){
       menu:[
         {key:'offers',label:'Erbjudanden'},
         {key:'pricing',label:'Priser och medlemskap'},
-        {key:'question',label:'Övrig fråga'},
-        {key:'schedule',label:'Schema'}
+        {key:'schedule',label:'Schema'},
+        {key:'question',label:'Övrig fråga'}
       ],
       greeting:'Snabbhjälp',
       back:'Gå tillbaks',
@@ -126,14 +126,15 @@ try{(function(){
       class_many:'pass',
       today_label:'Idag',
       today_none:'Inga fler pass idag',
+      upcoming_label:'Nästa pass',
       day_short:{'Måndag':'MÅN','Tisdag':'TIS','Onsdag':'ONS','Torsdag':'TOR','Fredag':'FRE','Lördag':'LÖR','Söndag':'SÖN'}
     },
     en:{
       menu:[
         {key:'offers',label:'Offers'},
         {key:'pricing',label:'Pricing & memberships'},
-        {key:'question',label:'Other question'},
-        {key:'schedule',label:'Schedule'}
+        {key:'schedule',label:'Schedule'},
+        {key:'question',label:'Other question'}
       ],
       greeting:'Quick help',
       back:'Go back',
@@ -176,6 +177,7 @@ try{(function(){
       class_many:'classes',
       today_label:'Today',
       today_none:'No more classes today',
+      upcoming_label:'Coming up',
       day_short:{'Måndag':'MON','Tisdag':'TUE','Onsdag':'WED','Torsdag':'THU','Fredag':'FRI','Lördag':'SAT','Söndag':'SUN'}
     }
   };
@@ -251,29 +253,32 @@ try{(function(){
         if(typeof scheduleData!=='undefined'&&scheduleData.days&&scheduleData.days.length){
           const dagOrderLocal=['Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag','Söndag'];
           const jsDay=new Date().getDay();
-          const todayName=dagOrderLocal[jsDay===0?6:jsDay-1];
+          const todayIdx=jsDay===0?6:jsDay-1;
           const now=new Date();
           const nowStr=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
 
-          let nextHtml='';
-          if(scheduleData.byDay[todayName]){
-            const todaysRows=scheduleData.byDay[todayName].filter(r=>!isCancelled(r)).slice().sort((a,b)=>(a.Tid||'').localeCompare(b.Tid||''));
-            const next=todaysRows.find(r=>(r.Tid||'')>=nowStr);
-            if(next){
-              const pl=splitPassLevel(next['Nivå']||next['Niv\u00e5']||'');
-              nextHtml='<div class="gymbot-today-card"><span class="gymbot-today-label">'+t.today_label+'</span><div class="gymbot-today-next"><span class="gymbot-today-next-name">'+esc(pl.name||next.Pass||'')+'</span><span class="gymbot-today-next-time">'+esc(next.Tid||'')+'</span></div></div>';
-            }else{
-              nextHtml='<div class="gymbot-today-card"><span class="gymbot-today-label">'+t.today_label+'</span><div class="gymbot-today-next"><span class="gymbot-today-next-name">'+t.today_none+'</span></div></div>';
-            }
+          const upcoming=[];
+          for(let offset=0;offset<7&&upcoming.length<3;offset++){
+            const dayIdx=(todayIdx+offset)%7;
+            const dayName=dagOrderLocal[dayIdx];
+            const rows=(scheduleData.byDay[dayName]||[]).filter(r=>!isCancelled(r)).slice().sort((a,b)=>(a.Tid||'').localeCompare(b.Tid||''));
+            rows.forEach(r=>{
+              if(upcoming.length>=3)return;
+              if(offset===0&&(r.Tid||'')<nowStr)return;
+              upcoming.push({day:dayName,offset,row:r});
+            });
           }
 
-          const chips=scheduleData.days.map(day=>{
-            const count=(scheduleData.byDay[day]||[]).filter(r=>!isCancelled(r)).length;
-            const isToday=day===todayName;
-            return '<div class="gymbot-day-chip'+(isToday?' today':'')+'"><span class="d">'+(t.day_short[day]||day.slice(0,3).toUpperCase())+'</span><span class="n">'+count+'</span></div>';
-          }).join('');
-
-          previewHtml=nextHtml+'<div class="gymbot-day-strip">'+chips+'</div>';
+          if(upcoming.length){
+            const rowsHtml=upcoming.map(u=>{
+              const pl=splitPassLevel(u.row['Nivå']||u.row['Niv\u00e5']||'');
+              const dayLabel=u.offset===0?t.today_label:(t.day_short[u.day]||u.day.slice(0,3).toUpperCase());
+              return '<div class="gymbot-upcoming-row"><div class="gymbot-upcoming-time"><span class="gymbot-upcoming-day">'+dayLabel+'</span><span class="gymbot-upcoming-clock">'+esc(u.row.Tid||'')+'</span></div><span class="gymbot-upcoming-name">'+esc(pl.name||u.row.Pass||'')+'</span></div>';
+            }).join('');
+            previewHtml='<span class="gymbot-upcoming-label">'+t.upcoming_label+'</span><div class="gymbot-upcoming-list">'+rowsHtml+'</div>';
+          }else{
+            previewHtml='<div class="gymbot-today-card"><span class="gymbot-today-label">'+t.today_label+'</span><div class="gymbot-today-next"><span class="gymbot-today-next-name">'+t.today_none+'</span></div></div>';
+          }
         }
         body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div>'+previewHtml+'<div class="gymbot-screen-actions"><a href="index.html#schedule" class="gymbot-cta">'+t.schedule_cta+'</a></div>');
         body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
