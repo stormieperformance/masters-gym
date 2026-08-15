@@ -110,7 +110,9 @@ try{(function(){
       schedule_title:'Schema',
       schedule_text:'Se hela veckoschemat, eller prenumerera på det så uppdateras det automatiskt i din kalender.',
       schedule_cta:'Se schemat',
-      schedule_note:'Schemat visas tillfälligt som bild — kontakta oss om något inte stämmer.'
+      schedule_note:'Schemat visas tillfälligt som bild — kontakta oss om något inte stämmer.',
+      class_one:'pass',
+      class_many:'pass'
     },
     en:{
       menu:[
@@ -144,7 +146,9 @@ try{(function(){
       schedule_title:'Schedule',
       schedule_text:'See the full weekly schedule, or subscribe so it updates automatically in your calendar.',
       schedule_cta:'View schedule',
-      schedule_note:'The schedule is temporarily shown as an image — contact us if anything looks off.'
+      schedule_note:'The schedule is temporarily shown as an image — contact us if anything looks off.',
+      class_one:'class',
+      class_many:'classes'
     }
   };
 
@@ -199,7 +203,15 @@ try{(function(){
         body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div><img class="gymbot-schedule-img" src="'+SCHEDULE_FALLBACK_SRC+'" alt="'+t.schedule_title+'"><p class="gymbot-screen-text">'+t.schedule_note+'</p><div class="gymbot-screen-actions"><a href="index.html#contact" class="gymbot-ghost">'+t.contact_cta+'</a></div>');
         body.querySelector('.gymbot-ghost').addEventListener('click',closePanel);
       }else{
-        body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div><p class="gymbot-screen-text">'+t.schedule_text+'</p><div class="gymbot-screen-actions"><a href="index.html#schedule" class="gymbot-cta">'+t.schedule_cta+'</a></div>');
+        let miniHtml='';
+        if(typeof scheduleData!=='undefined'&&scheduleData.days&&scheduleData.days.length){
+          const rows=scheduleData.days.map(day=>{
+            const count=(scheduleData.byDay[day]||[]).filter(r=>!isCancelled(r)).length;
+            return '<div class="gymbot-week-row"><span>'+day+'</span><span>'+count+' '+(count===1?t.class_one:t.class_many)+'</span></div>';
+          }).join('');
+          miniHtml='<div class="gymbot-week-mini">'+rows+'</div>';
+        }
+        body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.schedule_title+'</div>'+miniHtml+'<div class="gymbot-screen-actions"><a href="index.html#schedule" class="gymbot-cta">'+t.schedule_cta+'</a></div>');
         body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
       }
     }
