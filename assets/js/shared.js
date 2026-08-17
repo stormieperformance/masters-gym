@@ -657,7 +657,8 @@ async function loadNews(){
         <form class="news-interest-form" id="${formId}" onsubmit="return submitNewsForm(event,'${formId}','${esc(title).replace(/'/g,"\'")}')">
           <p class="news-interest-label">${esc(r.interestFormQuestion||'')}</p>
           <input type="text" name="namn" placeholder="Namn" required>
-          <input type="email" name="epost" placeholder="E-post" required>
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+          <input type="email" name="email" placeholder="E-post" required>
           <textarea name="svar" placeholder="${esc(r.interestFormQuestion||'Ditt svar')}" rows="2" required></textarea>
           <button type="submit" class="news-interest-submit">${esc(r.interestFormButtonText||'Skicka')}</button>
           <p class="news-interest-sent" style="display:none">Tack! Vi hör av oss.</p>
