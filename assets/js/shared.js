@@ -1642,6 +1642,46 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   }, 100);
 })();
 
+// ── GYMBOT: occasional "notice me" bounce while scrolling ──
+// Fires at most once per cooldown window, and only in response to actual
+// scroll activity — never a constant idle animation (that read as a loading
+// spinner to at least one real visitor, hence removing it from CSS entirely
+// and gating it here instead).
+(function(){
+  var toggleBtn=document.getElementById('gymbotToggle');
+  var rootEl=document.getElementById('gymbot');
+  if(!toggleBtn||!rootEl)return;
+  var lastTriggered=0;
+  var lastScrollY=window.scrollY;
+  var COOLDOWN_MS=25000;
+  var MIN_SCROLL_DISTANCE=400;
+  var scrolledSinceLastTrigger=0;
+  var ticking=false;
+
+  function maybeTrigger(){
+    if(rootEl.classList.contains('open'))return; // never distract while the panel is already open
+    var now=Date.now();
+    if(now-lastTriggered<COOLDOWN_MS)return;
+    if(scrolledSinceLastTrigger<MIN_SCROLL_DISTANCE)return;
+    lastTriggered=now;
+    scrolledSinceLastTrigger=0;
+    toggleBtn.classList.remove('attention');
+    void toggleBtn.offsetWidth; // restart the animation if it's mid-run
+    toggleBtn.classList.add('attention');
+  }
+  toggleBtn.addEventListener('animationend',function(){toggleBtn.classList.remove('attention');});
+
+  window.addEventListener('scroll',function(){
+    var y=window.scrollY;
+    scrolledSinceLastTrigger+=Math.abs(y-lastScrollY);
+    lastScrollY=y;
+    if(!ticking){
+      ticking=true;
+      requestAnimationFrame(function(){maybeTrigger();ticking=false;});
+    }
+  },{passive:true});
+})();
+
 // ── HOMEPAGE NEWS TEASER: sliding image strip pulling from Sanity ──
 (function(){
   var track = document.getElementById('newsTeaserTrack');
