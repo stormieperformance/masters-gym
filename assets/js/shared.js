@@ -454,7 +454,7 @@ function parseCSV(text){
 }
 
 const CSV_SCHEMA='https://docs.google.com/spreadsheets/d/e/2PACX-1vRWT14GD9ZrIPtwTEcpRKcPyKuBIIPvI9NvgxGw5yXLvBe_zhG_Klh-vRtu-48Au3eXEknnGel8qsyz/pub?gid=919728725&single=true&output=csv';
-const FORMSPREE_ENDPOINT='';
+const FORMSPREE_ENDPOINT='https://formspree.io/f/mzepjype';
 // News now runs on Sanity instead of the old news CSV — fill these in after creating the Sanity project (see setup notes).
 const SANITY_PROJECT_ID='9hvgh1q1';
 const SANITY_DATASET='production';
