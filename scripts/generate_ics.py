@@ -22,6 +22,9 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 
 CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWT14GD9ZrIPtwTEcpRKcPyKuBIIPvI9NvgxGw5yXLvBe_zhG_Klh-vRtu-48Au3eXEknnGel8qsyz/pub?gid=919728725&single=true&output=csv'
+CSV_TEMP_PERIODS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5DO8VUAhMLv96t_zPgSghNPBuK683Hchwlc1MYh_XlmkNOCcphDAcNde1g42-Q/pub?gid=1900013866&single=true&output=csv'
+CSV_TEMP_CLASSES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5DO8VUAhMLv96t_zPgSghNPBuK683Hchwlc1MYh_XlmkNOCcphDAcNde1g42-Q/pub?gid=262188045&single=true&output=csv'
+CSV_EXCEPTIONS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5DO8VUAhMLv96t_zPgSghNPBuK683Hchwlc1MYh_XlmkNOCcphDAcNde1g42-Q/pub?gid=826852807&single=true&output=csv'
 OUTPUT_DIR = 'feeds'
 DEFAULT_DURATION_MINUTES = 60
 TIMEZONE = 'Europe/Stockholm'
@@ -143,6 +146,136 @@ def fetch_rows():
         return parse_csv(resp.read().decode('utf-8-sig'))
 
 
+def fetch_raw_csv(url):
+    """Like fetch_rows but returns the raw CSV text, not parsed schedule rows —
+    used for the three new tabs, which have a different shape than the
+    normal schedule. Any failure here degrades gracefully (empty result)
+    rather than breaking the normal schedule feeds."""
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            return resp.read().decode('utf-8-sig')
+    except Exception as e:
+        print(f'WARNING: could not fetch {url}: {e}', file=sys.stderr)
+        return ''
+
+
+def parse_date(value):
+    """Parse a YYYY-MM-DD date string from the sheet. Staff must type dates
+    in this format (same convention as HH:MM for times) — returns None for
+    anything blank or unparseable rather than raising."""
+    value = (value or '').strip()
+    if not value:
+        return None
+    try:
+        return datetime.strptime(value, '%Y-%m-%d').date()
+    except ValueError:
+        return None
+
+
+def rows_for_period(temp_classes_raw, period_name):
+    """Full schedule rows (same shape/categories as the normal schedule) for
+    one named temporary period. Filters the raw Tillfälliga_Pass CSV down to
+    that period's rows, then routes the result back through parse_csv so the
+    category/Aktiv/Status logic is never duplicated."""
+    if not temp_classes_raw:
+        return []
+    reader = csv.reader(io.StringIO(temp_classes_raw))
+    all_rows = list(reader)
+    if not all_rows:
+        return []
+    header = [h.strip() for h in all_rows[0]]
+
+    def norm(h):
+        return ' '.join(str(h).split()).casefold()
+
+    headers_norm = [norm(h) for h in header]
+    if 'period' not in headers_norm:
+        return []
+    period_idx = headers_norm.index('period')
+    matching = [header] + [
+        r for r in all_rows[1:]
+        if len(r) > period_idx and r[period_idx].strip() == period_name
+    ]
+    if len(matching) <= 1:
+        return []
+    buf = io.StringIO()
+    csv.writer(buf).writerows(matching)
+    return parse_csv(buf.getvalue())
+
+
+def fetch_periods_in_horizon():
+    """Every active temporary period whose date range overlaps the
+    generation window — not just ones active today, so an upcoming holiday
+    schedule is already visible in subscribed calendars before it starts."""
+    raw = fetch_raw_csv(CSV_TEMP_PERIODS)
+    if not raw:
+        return []
+    reader = csv.reader(io.StringIO(raw))
+    all_rows = list(reader)
+    if not all_rows:
+        return []
+    header = [h.strip() for h in all_rows[0]]
+
+    def norm(h):
+        return ' '.join(str(h).split()).casefold()
+
+    idx = {norm(h): i for i, h in enumerate(header)}
+    if not all(c in idx for c in ('namn', 'start', 'slut')):
+        print('WARNING: Tillfälliga_Perioder is missing Namn/Start/Slut, skipping.', file=sys.stderr)
+        return []
+
+    horizon_start = datetime.now().date()
+    horizon_end = horizon_start + timedelta(days=HORIZON_DAYS)
+    periods = []
+    for cols in all_rows[1:]:
+        get = lambda name: cols[idx[name]].strip() if idx.get(name) is not None and len(cols) > idx[name] else ''
+        aktiv_i = idx.get('aktiv')
+        if aktiv_i is not None and len(cols) > aktiv_i and not is_true(cols[aktiv_i]):
+            continue
+        name = get('namn')
+        start, end = parse_date(get('start')), parse_date(get('slut'))
+        if not (name and start and end):
+            continue
+        if end < horizon_start or start > horizon_end:
+            continue
+        periods.append({'name': name, 'start': start, 'end': end})
+    return periods
+
+
+def fetch_exceptions():
+    """Returns {date: [{'pass': name, 'typ': text}, ...]}. Only cancellations
+    are mechanically applied to the calendar feed — the simplified Undantag
+    sheet has no time/rename fields, so a 'moved' or 'added' exception can't
+    be turned into a real calendar event; staff communicate those through
+    the Meddelande text shown on the website instead."""
+    raw = fetch_raw_csv(CSV_EXCEPTIONS)
+    if not raw:
+        return {}
+    reader = csv.reader(io.StringIO(raw))
+    all_rows = list(reader)
+    if not all_rows:
+        return {}
+    header = [h.strip() for h in all_rows[0]]
+
+    def norm(h):
+        return ' '.join(str(h).split()).casefold()
+
+    idx = {norm(h): i for i, h in enumerate(header)}
+    if not all(c in idx for c in ('datum', 'pass')):
+        print('WARNING: Undantag is missing Datum/Pass, skipping.', file=sys.stderr)
+        return {}
+
+    by_date = {}
+    for cols in all_rows[1:]:
+        get = lambda name: cols[idx[name]].strip() if idx.get(name) is not None and len(cols) > idx[name] else ''
+        d = parse_date(get('datum'))
+        if not d:
+            continue
+        by_date.setdefault(d, []).append({'pass': get('pass'), 'typ': get('typ')})
+    return by_date
+
+
 def parse_time(time_str):
     """Parse '18:10' or '18:10-19:10' into ((h, m), duration_minutes)."""
     parts = time_str.replace('–', '-').split('-')
@@ -193,7 +326,28 @@ def fold_line(line):
     return '\r\n'.join(out)
 
 
-def build_vevent(category_id, row):
+def compute_exdates(row, anchor, periods, exceptions_by_date):
+    """Every occurrence of this recurring row, within the horizon, that
+    should be excluded from its weekly RRULE — either because a temporary
+    period takes over that date, or a one-off exception cancels it."""
+    excl = []
+    d = anchor
+    end = anchor + timedelta(days=HORIZON_DAYS)
+    name_lower = row['name'].strip().lower()
+    while d <= end:
+        in_period = any(p['start'] <= d <= p['end'] for p in periods)
+        cancelled = any(
+            e['pass'].strip().lower() == name_lower and is_cancelled(e['typ'])
+            for e in exceptions_by_date.get(d, [])
+        )
+        if in_period or cancelled:
+            excl.append(d)
+        d += timedelta(days=7)
+    return excl
+
+
+def build_vevent(category_id, row, periods=(), exceptions_by_date=None):
+    exceptions_by_date = exceptions_by_date or {}
     day = row['day']
     if day not in SWEDISH_DAY_TO_ICAL:
         return None
@@ -214,6 +368,11 @@ def build_vevent(category_id, row):
         f'DTSTART;TZID={TIMEZONE}:{dtstart.strftime("%Y%m%dT%H%M%S")}',
         f'DTEND;TZID={TIMEZONE}:{dtend.strftime("%Y%m%dT%H%M%S")}',
         f'RRULE:FREQ=WEEKLY;BYDAY={SWEDISH_DAY_TO_ICAL[day]};UNTIL={until}',
+    ]
+    for exd in compute_exdates(row, anchor, periods, exceptions_by_date):
+        exdt = datetime(exd.year, exd.month, exd.day, h, m)
+        lines.append(f'EXDATE;TZID={TIMEZONE}:{exdt.strftime("%Y%m%dT%H%M%S")}')
+    lines += [
         f'SUMMARY:{escape_text(summary)}',
         'LOCATION:Masters Gym\\, Norra Agnegatan 36\\, Stockholm',
         f'DTSTAMP:{datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")}',
@@ -222,7 +381,33 @@ def build_vevent(category_id, row):
     return '\r\n'.join(fold_line(l) for l in lines)
 
 
-def build_calendar(category, rows):
+def build_oneoff_vevent(category_id, row, on_date):
+    """A single non-recurring occurrence — used for temporary-period
+    classes, which only exist for the dates their period covers."""
+    hm, duration_min = parse_time(row['time'])
+    if hm is None:
+        return None
+    h, m = hm
+    dtstart = datetime(on_date.year, on_date.month, on_date.day, h, m)
+    dtend = dtstart + timedelta(minutes=duration_min)
+    summary = row['name'] + (f" ({row['level']})" if row['level'] else '')
+    uid_raw = f'{category_id}|oneoff|{on_date.isoformat()}|{row["time"]}|{row["name"]}'
+    uid = hashlib.sha1(uid_raw.encode('utf-8')).hexdigest() + '@mastersgym'
+
+    lines = [
+        'BEGIN:VEVENT',
+        f'UID:{uid}',
+        f'DTSTART;TZID={TIMEZONE}:{dtstart.strftime("%Y%m%dT%H%M%S")}',
+        f'DTEND;TZID={TIMEZONE}:{dtend.strftime("%Y%m%dT%H%M%S")}',
+        f'SUMMARY:{escape_text(summary)}',
+        'LOCATION:Masters Gym\\, Norra Agnegatan 36\\, Stockholm',
+        f'DTSTAMP:{datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")}',
+        'END:VEVENT',
+    ]
+    return '\r\n'.join(fold_line(l) for l in lines)
+
+
+def build_calendar(category, rows, periods, temp_classes_raw, exceptions_by_date):
     cols = category['columns']
     if not cols:
         matched = rows                                    # full feed: everything active
@@ -230,7 +415,37 @@ def build_calendar(category, rows):
         matched = [r for r in rows
                    if any(r['categories'].get(' '.join(c.split()).casefold()) for c in cols)]
 
-    vevents = [v for v in (build_vevent(category['id'], r) for r in matched) if v]
+    vevents = [v for v in (build_vevent(category['id'], r, periods, exceptions_by_date) for r in matched) if v]
+
+    # One-off events for each active/upcoming temporary period, so a
+    # Christmas or summer schedule actually shows up in subscribed
+    # calendars for the dates it covers, not just as a gap in the normal one.
+    for period in periods:
+        period_rows = rows_for_period(temp_classes_raw, period['name'])
+        if not cols:
+            period_matched = period_rows
+        else:
+            period_matched = [r for r in period_rows
+                               if any(r['categories'].get(' '.join(c.split()).casefold()) for c in cols)]
+        for row in period_matched:
+            day = row['day']
+            if day not in SWEDISH_DAY_TO_PYTHON_WEEKDAY:
+                continue
+            target_weekday = SWEDISH_DAY_TO_PYTHON_WEEKDAY[day]
+            name_lower = row['name'].strip().lower()
+            d = period['start']
+            while d <= period['end']:
+                if d.weekday() == target_weekday:
+                    cancelled = any(
+                        e['pass'].strip().lower() == name_lower and is_cancelled(e['typ'])
+                        for e in exceptions_by_date.get(d, [])
+                    )
+                    if not cancelled:
+                        v = build_oneoff_vevent(category['id'], row, d)
+                        if v:
+                            vevents.append(v)
+                d += timedelta(days=1)
+
     header = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
@@ -259,9 +474,21 @@ def main():
               file=sys.stderr)
         sys.exit(1)
 
+    # These three are allowed to come back empty (unpublished tab, no rows
+    # yet, transient fetch failure) — the normal schedule must never be
+    # blocked by an optional layer on top of it.
+    periods = fetch_periods_in_horizon()
+    temp_classes_raw = fetch_raw_csv(CSV_TEMP_CLASSES)
+    exceptions_by_date = fetch_exceptions()
+    if periods:
+        print(f'--- {len(periods)} temporary period(s) in horizon: '
+              f'{", ".join(p["name"] for p in periods)} ---', file=sys.stderr)
+    if exceptions_by_date:
+        print(f'--- {len(exceptions_by_date)} date(s) with exceptions ---', file=sys.stderr)
+
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     for category in CATEGORIES:
-        ics = build_calendar(category, rows)
+        ics = build_calendar(category, rows, periods, temp_classes_raw, exceptions_by_date)
         path = os.path.join(OUTPUT_DIR, f'{category["id"]}.ics')
         with open(path, 'w', encoding='utf-8', newline='') as f:
             f.write(ics)
