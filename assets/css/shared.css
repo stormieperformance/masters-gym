@@ -540,6 +540,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .footer-social-link:hover{color:var(--text)}
 .social-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
 .social-card{aspect-ratio:1;overflow:hidden;display:block;background:var(--bg2);border-radius:var(--radius-sm)}
+.social-grid.behold-wrap{display:block}
 .social-card img{width:100%;height:100%;object-fit:cover;object-position:center 25%;filter:grayscale(20%);transition:transform .4s ease,filter .3s}
 .social-card:hover img{transform:scale(1.06);filter:grayscale(0%)}
 .contact{padding:100px 40px;background:radial-gradient(circle 320px at 50% 10%,rgba(116,194,188,0.14),transparent 70%),radial-gradient(circle 320px at 50% 90%,rgba(116,194,188,0.14),transparent 70%),var(--bg);border-top:1px solid var(--line)}
