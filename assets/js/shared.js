@@ -619,7 +619,7 @@ async function loadSchedule(){
     const days=Object.keys(byDay).sort((a,b)=>dagOrder.indexOf(a)-dagOrder.indexOf(b));
     scheduleData={byDay,days};renderSchedule();
     const infoBox=document.getElementById('schedule-info-box');
-    const infoMsgs=[...new Set(allRows.map(r=>(r.Info||'').trim()).filter(Boolean))];
+    const infoMsgs=[...new Set(allRows.map(r=>(r.Anteckning||'').trim()).filter(Boolean))];
     if(infoMsgs.length){
       infoBox.style.display='flex';
       infoBox.innerHTML=`<span class="schedule-info-icon">i</span><span class="schedule-info-text"><span class="schedule-info-label">Viktig information</span>${infoMsgs.map(esc).join('<br>')}</span>`;
