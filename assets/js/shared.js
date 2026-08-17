@@ -454,6 +454,9 @@ function parseCSV(text){
 }
 
 const CSV_SCHEMA='https://docs.google.com/spreadsheets/d/e/2PACX-1vRWT14GD9ZrIPtwTEcpRKcPyKuBIIPvI9NvgxGw5yXLvBe_zhG_Klh-vRtu-48Au3eXEknnGel8qsyz/pub?gid=919728725&single=true&output=csv';
+const CSV_TEMP_PERIODS='https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5DO8VUAhMLv96t_zPgSghNPBuK683Hchwlc1MYh_XlmkNOCcphDAcNde1g42-Q/pub?gid=1900013866&single=true&output=csv';
+const CSV_TEMP_CLASSES='https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5DO8VUAhMLv96t_zPgSghNPBuK683Hchwlc1MYh_XlmkNOCcphDAcNde1g42-Q/pub?gid=262188045&single=true&output=csv';
+const CSV_EXCEPTIONS='https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5DO8VUAhMLv96t_zPgSghNPBuK683Hchwlc1MYh_XlmkNOCcphDAcNde1g42-Q/pub?gid=826852807&single=true&output=csv';
 const FORMSPREE_ENDPOINT='https://formspree.io/f/mzepjype';
 // News now runs on Sanity instead of the old news CSV — fill these in after creating the Sanity project (see setup notes).
 const SANITY_PROJECT_ID='9hvgh1q1';
@@ -589,12 +592,67 @@ function updateSubscribeCounts(rows){
     el.textContent=matched.length+' '+word+' i veckan: '+names.join(', ');
   });
 }
+const veckodagIndex={'Söndag':0,'Måndag':1,'Tisdag':2,'Onsdag':3,'Torsdag':4,'Fredag':5,'Lördag':6};
+function toISODate(d){
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function nextDateForDay(dayName){
+  // Same "next occurrence of this weekday" logic as generate_ics.py's
+  // next_date_for_weekday, so the website and calendar feeds agree on
+  // which real calendar date a weekday tab currently represents.
+  const target=veckodagIndex[dayName];
+  if(target===undefined)return null;
+  const now=new Date();
+  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const diff=(target-today.getDay()+7)%7;
+  const d=new Date(today);d.setDate(d.getDate()+diff);
+  return d;
+}
+function findActivePeriod(periods){
+  const todayISO=toISODate(new Date());
+  return periods.find(p=>{
+    if(!isChecked(p.Aktiv))return false;
+    const start=(p.Start||'').trim(),slut=(p.Slut||'').trim();
+    // Dates must be typed as YYYY-MM-DD in the sheet — plain string
+    // comparison then sorts correctly without a date-parsing dependency.
+    if(!start||!slut)return false;
+    return start<=todayISO&&todayISO<=slut;
+  });
+}
+async function fetchCSVSafe(url){
+  // Any of the three new tabs may be unpublished, empty, or briefly
+  // unreachable — none of that should ever break the normal schedule.
+  try{
+    const res=await fetch(url);
+    if(!res.ok)return [];
+    return parseCSV(await res.text());
+  }catch(e){return [];}
+}
+
 async function loadSchedule(){
   try{
     const res=await fetch(CSV_SCHEMA);
     if(!res.ok)throw new Error('bad response');
     const text=await res.text();
-    const allRows=parseCSV(text).filter(isActiveRow).map(normalizeScheduleRow);
+    const normalRows=parseCSV(text).filter(isActiveRow).map(normalizeScheduleRow);
+
+    const [periodRows,tempClassRows,exceptionRows]=await Promise.all([
+      fetchCSVSafe(CSV_TEMP_PERIODS),fetchCSVSafe(CSV_TEMP_CLASSES),fetchCSVSafe(CSV_EXCEPTIONS)
+    ]);
+    const activePeriod=findActivePeriod(periodRows);
+    const allRows=activePeriod
+      ? tempClassRows.filter(isActiveRow).filter(r=>(r.Period||'').trim()===(activePeriod.Namn||'').trim()).map(normalizeScheduleRow)
+      : normalRows;
+
+    // Index exceptions by the real calendar date they target, so each
+    // weekday tab can look up "does anything override me today?".
+    const exceptionsByDate={};
+    exceptionRows.forEach(r=>{
+      const datum=(r.Datum||'').trim();
+      if(!datum)return;
+      (exceptionsByDate[datum]=exceptionsByDate[datum]||[]).push(r);
+    });
+
     const rows=allRows.filter(r=>{
       const day=(r.Dag||'').trim();
       const time=(r.Tid||'').trim();
@@ -614,12 +672,42 @@ async function loadSchedule(){
       document.getElementById('schedule-content').innerHTML='<p style="color:var(--muted);font-size:13px;padding:20px 0">Schemat kunde inte tolkas. Kontrollera kalkylbladets format.</p>';
       return;
     }
+
+    // Apply one-off exceptions on top of whichever base schedule (normal
+    // or temporary) is in effect. Precedence: exception > temporary period
+    // > normal schedule — the temp-period swap already happened above, so
+    // this layer only has to handle the "one specific date" case.
+    const extraMessages=[];
+    rows.forEach(r=>{
+      const d=nextDateForDay(r.Dag);
+      if(!d)return;
+      const iso=toISODate(d);
+      const matches=(exceptionsByDate[iso]||[]).filter(e=>
+        (e.Pass||'').trim().toLowerCase()===(r._passName||r.Pass||'').trim().toLowerCase()
+      );
+      matches.forEach(e=>{
+        const typ=(e.Typ||'').trim().toLowerCase();
+        if(typ.includes('inställ')){
+          r.Status='Inställt'; // reuses the existing isCancelled() rendering as-is
+        }
+        if((e.Meddelande||'').trim()){
+          extraMessages.push(`${r._passName||r.Pass} (${r.Dag}): ${e.Meddelande.trim()}`);
+        }
+      });
+    });
+
     updateSubscribeCounts(rows);
     const byDay={};rows.forEach(r=>{if(!byDay[r.Dag])byDay[r.Dag]=[];byDay[r.Dag].push(r);});
     const days=Object.keys(byDay).sort((a,b)=>dagOrder.indexOf(a)-dagOrder.indexOf(b));
     scheduleData={byDay,days};renderSchedule();
+
     const infoBox=document.getElementById('schedule-info-box');
     const infoMsgs=[...new Set(allRows.map(r=>(r.Anteckning||'').trim()).filter(Boolean))];
+    if(activePeriod){
+      const namn=(activePeriod.Namn||'').trim()||'Tillfälligt schema';
+      infoMsgs.unshift(`Just nu gäller ${namn} (${activePeriod.Start.trim()}–${activePeriod.Slut.trim()}).`);
+    }
+    infoMsgs.push(...extraMessages);
     if(infoMsgs.length){
       infoBox.style.display='flex';
       infoBox.innerHTML=`<span class="schedule-info-icon">i</span><span class="schedule-info-text"><span class="schedule-info-label">Viktig information</span>${infoMsgs.map(esc).join('<br>')}</span>`;
