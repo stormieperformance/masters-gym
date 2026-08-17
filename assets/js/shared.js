@@ -702,7 +702,7 @@ async function loadSchedule(){
     scheduleData={byDay,days};renderSchedule();
 
     const infoBox=document.getElementById('schedule-info-box');
-    const infoMsgs=[...new Set(allRows.map(r=>(r.Anteckning||'').trim()).filter(Boolean))];
+    const infoMsgs=[]; // Anteckning holds internal staff notes (spelling fixes, QA flags), never meant for public display — the banner is now driven only by active-period/exception messages below.
     if(activePeriod){
       const namn=(activePeriod.Namn||'').trim()||'Tillfälligt schema';
       infoMsgs.unshift(`Just nu gäller ${namn} (${activePeriod.Start.trim()}–${activePeriod.Slut.trim()}).`);
