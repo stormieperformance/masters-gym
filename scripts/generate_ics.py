@@ -37,6 +37,7 @@ HORIZON_DAYS = 183
 # without breaking anything. Renaming a header WILL break it.
 COL_DAY, COL_START, COL_END = 'Dag', 'Start', 'Slut'
 COL_NAME, COL_LEVEL, COL_ACTIVE = 'Pass', 'Nivå', 'Aktiv'
+COL_STATUS = 'Status'
 
 # --- Category config --------------------------------------------------------
 # Each category maps to one TRUE/FALSE column in the sheet. 'column': None
@@ -69,6 +70,14 @@ def is_true(value):
     return str(value).strip().lower() in ('true', 'sant', 'ja', 'x', '1', 'yes')
 
 
+def is_cancelled(status_value):
+    """Mirrors the frontend's isCancelled(): a Status cell containing the
+    Swedish word for 'cancelled' (any casing/inflection). The column doesn't
+    exist in the sheet yet as of 2026-08-17, so this is a no-op until staff
+    start using it — same column name the website already watches for."""
+    return 'inställ' in str(status_value).strip().lower()
+
+
 def parse_csv(raw):
     """Parse the schedule CSV into row dicts, keyed by header name."""
     reader = csv.reader(io.StringIO(raw))
@@ -87,7 +96,7 @@ def parse_csv(raw):
         raise ValueError(f'Sheet is missing required column(s): {", ".join(missing)}. '
                          f'Found headers: {header}')
 
-    rows, skipped, inactive, uncategorised = [], 0, 0, []
+    rows, skipped, inactive, cancelled, uncategorised = [], 0, 0, 0, []
     for cols in all_rows[1:]:
         if len(cols) < len(header):
             cols = cols + [''] * (len(header) - len(cols))
@@ -102,6 +111,9 @@ def parse_csv(raw):
         if norm(COL_ACTIVE) in idx and not is_true(get(COL_ACTIVE)):
             inactive += 1
             continue
+        if norm(COL_STATUS) in idx and is_cancelled(get(COL_STATUS)):
+            cancelled += 1
+            continue
 
         cats = {norm(c): is_true(get(c)) for c in CATEGORY_COLUMNS if norm(c) in idx}
         if not any(cats.values()):
@@ -115,7 +127,7 @@ def parse_csv(raw):
             'categories': cats,
         })
 
-    print(f'--- parsed: kept={len(rows)} skipped_incomplete={skipped} inactive={inactive} ---',
+    print(f'--- parsed: kept={len(rows)} skipped_incomplete={skipped} inactive={inactive} cancelled={cancelled} ---',
           file=sys.stderr)
     if uncategorised:
         print(f'--- WARNING: {len(uncategorised)} class(es) have no category ticked and will '
