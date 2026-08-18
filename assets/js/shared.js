@@ -84,7 +84,8 @@ try{(function(){
         {key:'offers',label:'Erbjudanden'},
         {key:'pricing',label:'Priser och medlemskap'},
         {key:'schedule',label:'Schema'},
-        {key:'question',label:'Övrig fråga'}
+        {key:'question',label:'Övrig fråga'},
+        {key:'lang',label:'🇬🇧 Switch to English'}
       ],
       greeting:'Snabbhjälp',
       back:'Gå tillbaks',
@@ -136,7 +137,8 @@ try{(function(){
         {key:'offers',label:'Offers'},
         {key:'pricing',label:'Pricing & memberships'},
         {key:'schedule',label:'Schedule'},
-        {key:'question',label:'Other question'}
+        {key:'question',label:'Other question'},
+        {key:'lang',label:'🇸🇪 Byt till svenska'}
       ],
       greeting:'Quick help',
       back:'Go back',
@@ -194,6 +196,12 @@ try{(function(){
       btn.type='button';btn.className='gymbot-pill';btn.textContent=item.label;
       btn.addEventListener('click',()=>{
         if(item.key==='trial'){ closePanel(); openModal(); return; }
+        if(item.key==='lang'){
+          if(typeof toggleLang==='function')toggleLang();
+          if(typeof syncLangToggle==='function')syncLangToggle();
+          renderMenu();
+          return;
+        }
         renderScreen(item.key);
       });
       menu.appendChild(btn);
