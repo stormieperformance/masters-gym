@@ -900,20 +900,13 @@ button{cursor:pointer;font-family:var(--sans)}
 
 /* ── GYMBOT: sticky quick-help widget ── */
 .gymbot{position:fixed;bottom:32px;right:76px;z-index:95;font-family:var(--sans)}
-.gymbot-toggle{position:relative;width:56px;height:56px;background:none;border:none;cursor:pointer;color:var(--teal);display:flex;align-items:center;justify-content:center;padding:0;filter:drop-shadow(0 4px 10px rgba(0,0,0,.4));transition:transform .25s ease,filter .2s ease,color .2s ease}
-.gymbot-toggle svg{position:relative;z-index:1;width:26px;height:26px}
-.gymbot-toggle:hover{transform:translateY(-2px) scale(1.08);color:var(--teal-dark);filter:drop-shadow(0 6px 14px rgba(116,194,188,.4))}
-.gymbot.open .gymbot-toggle{color:var(--teal-dark)}
-@keyframes gymbotAttention{
-  0%{transform:scale(1) rotate(0deg)}
-  12%{transform:scale(1.22) rotate(-8deg)}
-  24%{transform:scale(0.94) rotate(6deg)}
-  36%{transform:scale(1.12) rotate(-4deg)}
-  48%{transform:scale(0.98) rotate(2deg)}
-  60%{transform:scale(1.04) rotate(0deg)}
-  100%{transform:scale(1) rotate(0deg)}
-}
-.gymbot-toggle.attention{animation:gymbotAttention 1.1s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(0 0 10px rgba(116,194,188,.7))}
+.gymbot-toggle{position:relative;height:48px;min-width:48px;border-radius:24px;background:rgba(10,10,10,.9);border:1px solid rgba(116,194,188,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--teal);cursor:pointer;display:flex;align-items:center;padding:0 13px;overflow:hidden;box-shadow:0 4px 14px -4px rgba(0,0,0,.5);transition:min-width .45s cubic-bezier(.22,1,.36,1),border-color .25s ease,box-shadow .25s ease,transform .25s ease}
+.gymbot-toggle svg{width:22px;height:22px;flex-shrink:0}
+.gymbot-toggle-label{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;font-size:12.5px;font-weight:600;letter-spacing:.02em;margin-left:0;transition:max-width .45s cubic-bezier(.22,1,.36,1),opacity .3s ease .05s,margin-left .45s cubic-bezier(.22,1,.36,1)}
+.gymbot-toggle.popped{min-width:168px;border-color:var(--teal);box-shadow:0 6px 20px -4px rgba(116,194,188,.4)}
+.gymbot-toggle.popped .gymbot-toggle-label{max-width:140px;opacity:1;margin-left:9px}
+.gymbot-toggle:hover{border-color:var(--teal);transform:translateY(-2px)}
+.gymbot.open .gymbot-toggle{border-color:var(--teal)}
 .gymbot-panel{position:absolute;bottom:70px;right:0;width:320px;max-height:min(520px,70vh);background:#fbfaf7;border:1px solid rgba(21,20,15,.1);border-radius:var(--radius-lg);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 24px 60px -16px rgba(21,20,15,.35);overflow:hidden;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(12px) scale(.97);transform-origin:bottom right;transition:opacity .25s ease,transform .25s cubic-bezier(.22,1,.36,1)}
 .gymbot.open .gymbot-panel{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
 .gymbot-watermark{position:absolute;bottom:-36px;right:-36px;width:230px;height:230px;background-image:url('../../MastersGymLogo.png');background-size:contain;background-repeat:no-repeat;background-position:bottom right;opacity:.07;pointer-events:none;z-index:0}
@@ -970,8 +963,11 @@ button{cursor:pointer;font-family:var(--sans)}
 .gymbot-upcoming-name{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.3}
 @media(max-width:640px){
   .gymbot{right:16px;bottom:24px}
-  .gymbot-toggle{width:50px;height:50px}
-  .gymbot-toggle svg{width:23px;height:23px}
+  .gymbot-toggle{height:44px;min-width:44px;padding:0 11px}
+  .gymbot-toggle svg{width:20px;height:20px}
+  .gymbot-toggle.popped{min-width:150px}
+  .gymbot-toggle-label{font-size:12px}
+  .gymbot-toggle.popped .gymbot-toggle-label{max-width:120px}
   .gymbot-panel{width:calc(100vw - 32px);max-width:320px;bottom:62px}
 }
 
