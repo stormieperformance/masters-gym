@@ -1074,7 +1074,7 @@ button{cursor:pointer;font-family:var(--sans)}
 }
 
 /* ── HOMEPAGE NEWS TEASER (sliding image strip) ── */
-.news-teaser{padding:100px 0;background:radial-gradient(circle 320px at 50% 10%,rgba(116,194,188,0.14),transparent 70%),var(--bg);border-top:1px solid var(--line);overflow:hidden}
+.news-teaser{padding:100px 0;background:radial-gradient(circle 320px at 50% 10%,rgba(116,194,188,0.14),transparent 70%),radial-gradient(circle 320px at 50% 90%,rgba(116,194,188,0.14),transparent 70%),var(--bg);border-top:1px solid var(--line);overflow:hidden}
 .news-teaser-head{max-width:1180px;margin:0 auto 48px;padding:0 40px;text-align:center}
 .news-teaser-track-wrap{width:100%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
 .news-teaser-track{display:inline-flex;gap:24px;animation:newsTeaserScroll 38s linear infinite;padding:0 24px}
