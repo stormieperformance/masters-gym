@@ -21,7 +21,7 @@ import sys
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
-CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWT14GD9ZrIPtwTEcpRKcPyKuBIIPvI9NvgxGw5yXLvBe_zhG_Klh-vRtu-48Au3eXEknnGel8qsyz/pub?gid=919728725&single=true&output=csv'
+CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5DO8VUAhMLv96t_zPgSghNPBuK683Hchwlc1MYh_XlmkNOCcphDAcNde1g42-Q/pub?gid=1060172934&single=true&output=csv'
 CSV_TEMP_PERIODS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5DO8VUAhMLv96t_zPgSghNPBuK683Hchwlc1MYh_XlmkNOCcphDAcNde1g42-Q/pub?gid=1900013866&single=true&output=csv'
 CSV_TEMP_CLASSES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5DO8VUAhMLv96t_zPgSghNPBuK683Hchwlc1MYh_XlmkNOCcphDAcNde1g42-Q/pub?gid=262188045&single=true&output=csv'
 CSV_EXCEPTIONS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSx5DO8VUAhMLv96t_zPgSghNPBuK683Hchwlc1MYh_XlmkNOCcphDAcNde1g42-Q/pub?gid=826852807&single=true&output=csv'
