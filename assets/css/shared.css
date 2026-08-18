@@ -534,7 +534,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .social-header h2{font-family:var(--display);font-style:italic;font-weight:900;font-size:clamp(44px,5vw,72px);letter-spacing:.04em;line-height:1}
 .social-handle{font-size:13px;color:var(--muted);margin-top:4px}
 .social-links-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
-.social-icon-link{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);transition:opacity .2s}
+.social-icon-link{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text);transition:opacity .2s}
 .social-icon-link:hover{opacity:.75}
 .footer-social-link{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);transition:color .2s}
 .footer-social-link:hover{color:var(--text)}
