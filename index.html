@@ -42,7 +42,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/shared.css?v=20260818181459">
+<link rel="stylesheet" href="assets/css/shared.css?v=20260818181738">
 </head>
 <body>
 
@@ -274,18 +274,12 @@
         <p class="section-label" data-i18n="sched_teaser_label">Schema</p>
         <h2 class="section-title reveal" style="margin-bottom:0" data-i18n="sched_teaser_h2">NÄSTA PASS</h2>
       </div>
-      <div class="schedule-teaser-toggle" id="scheduleTeaserToggle">
-        <button type="button" class="schedule-teaser-toggle-btn active" data-when="today" data-i18n="sched_teaser_today">Idag</button>
-        <button type="button" class="schedule-teaser-toggle-btn" data-when="tomorrow" data-i18n="sched_teaser_tomorrow">Imorgon</button>
-      </div>
+      <a href="schema.html" class="finder3d-all-link finder3d-all-link--quiet schedule-teaser-full-link"><span class="finder3d-all-text" data-i18n="sched_teaser_full">Se hela schemat</span><span class="finder3d-all-arrow">→</span></a>
     </div>
-    <div class="schedule-teaser-list" id="scheduleTeaserCards">
-      <div class="schedule-teaser-row-skeleton"></div>
-      <div class="schedule-teaser-row-skeleton"></div>
-      <div class="schedule-teaser-row-skeleton"></div>
-    </div>
-    <div style="margin-top:28px">
-      <a href="schema.html" class="btn btn-ghost schedule-teaser-full-btn"><span data-i18n="sched_teaser_full">Se hela schemat</span></a>
+    <div class="schedule-teaser-cards" id="scheduleTeaserCards">
+      <div class="schedule-teaser-skeleton"></div>
+      <div class="schedule-teaser-skeleton"></div>
+      <div class="schedule-teaser-skeleton"></div>
     </div>
   </div>
 </section>
@@ -762,7 +756,7 @@
   </div>
 </div>
 
-<script src="assets/js/shared.js?v=20260818181459"></script>
+<script src="assets/js/shared.js?v=20260818181738"></script>
 </body>
 </html>
 
