@@ -226,8 +226,8 @@ button{cursor:pointer;font-family:var(--sans)}
 .founder-container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .founder-img-wrap{position:relative}
 .founder-img-wrap img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(20%)}
-.founder-bar{position:absolute;bottom:0;left:0;right:0;background:var(--teal);padding:14px 20px}
-.founder-bar span{font-family:var(--display);font-style:italic;font-weight:900;font-size:16px;letter-spacing:.1em;color:#080808}
+.founder-bar{position:absolute;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid rgba(116,194,188,.3);padding:20px 20px}
+.founder-bar span{font-family:var(--display);font-style:italic;font-weight:900;font-size:16px;letter-spacing:.1em;color:var(--text)}
 .founder-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
 .founder-h2{font-family:var(--display);font-style:italic;font-weight:900;font-size:clamp(44px,5vw,80px);letter-spacing:.04em;line-height:.92;margin-bottom:8px}
 .founder-text{font-size:16px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:28px}
