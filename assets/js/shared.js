@@ -525,7 +525,7 @@ const FORMSPREE_ENDPOINT='https://formspree.io/f/mzepjype';
 // Empty until the Apps Script is deployed — see /scripts/apps-script-alerts.gs for the
 // code to paste in, and ALERTS_SETUP.md for deployment steps. Once deployed, paste the
 // "Web app URL" Google gives you here.
-const ALERTS_ENDPOINT='';
+const ALERTS_ENDPOINT='https://script.google.com/macros/s/AKfycbz3kkraPbQGwZfMaECPcX8xKB1iEI9budozd7rpleF19jSpYvCYF2VTEJXsj5wYn5E3/exec';
 // News now runs on Sanity instead of the old news CSV — fill these in after creating the Sanity project (see setup notes).
 const SANITY_PROJECT_ID='9hvgh1q1';
 const SANITY_DATASET='production';
