@@ -303,7 +303,12 @@ button{cursor:pointer;font-family:var(--sans)}
 .schedule-teaser-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:40px}
 .schedule-teaser-full-link{padding:12px 22px;font-size:11px}
 .schedule-teaser-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.schedule-teaser-card{position:relative;overflow:hidden;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius-md);padding:24px 26px;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;box-shadow:var(--shadow-card)}
+.schedule-teaser-card{position:relative;overflow:hidden;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius-md);padding:24px 26px;box-shadow:var(--shadow-card);opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease,border-color .3s ease,box-shadow .3s ease}
+#scheduleTeaserCards.is-visible .schedule-teaser-card{opacity:1;transform:translateY(0)}
+#scheduleTeaserCards.is-visible .schedule-teaser-card:nth-child(1){transition-delay:.04s}
+#scheduleTeaserCards.is-visible .schedule-teaser-card:nth-child(2){transition-delay:.10s}
+#scheduleTeaserCards.is-visible .schedule-teaser-card:nth-child(3){transition-delay:.16s}
+#scheduleTeaserCards.is-visible .schedule-teaser-card:nth-child(n+4){transition-delay:.22s}
 .schedule-teaser-card::after{content:'';position:absolute;bottom:0;left:0;height:1.5px;width:0;background:var(--teal);transition:width .35s ease}
 .schedule-teaser-card:hover{transform:translateY(-4px);border-color:var(--teal);box-shadow:0 0 0 1px var(--teal-dim),0 12px 28px rgba(0,0,0,0.16)}
 .schedule-teaser-card:hover::after{width:100%}
@@ -761,7 +766,7 @@ button{cursor:pointer;font-family:var(--sans)}
   .btn-dark-glow:hover{border-color:var(--teal);transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 2px 4px rgba(0,0,0,.5),0 10px 20px -8px rgba(0,0,0,.65)}
   .btn-ghost:hover{border-color:rgba(240,237,230,0.6);background:rgba(240,237,230,0.05);transform:translateY(-2px)}
 }
-@media(prefers-reduced-motion:reduce){.reveal,.reveal-left,.reveal-right,.reveal-stagger>*,.reveal-h2{opacity:1!important;transform:none!important;filter:none!important;transition:none!important;animation:none!important}}
+@media(prefers-reduced-motion:reduce){.reveal,.reveal-left,.reveal-right,.reveal-stagger>*,.reveal-h2,.schedule-teaser-card{opacity:1!important;transform:none!important;filter:none!important;transition:none!important;animation:none!important}}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;will-change:opacity,transform}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .7s ease,transform .7s ease;will-change:opacity,transform}
