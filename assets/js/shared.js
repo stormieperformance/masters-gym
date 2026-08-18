@@ -1505,7 +1505,6 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   var thumbsEl = document.getElementById('finder3dThumbs');
   var nameEl = document.getElementById('finder3dName');
   var bioEl = document.getElementById('finder3dBio');
-  var pillEl = document.getElementById('finder3dPill');
   var ctaEl = document.getElementById('finder3dCta');
   if (!stage) return;
 
@@ -1610,21 +1609,17 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     var o = opts[idx];
     nameEl.style.opacity = '0';
     bioEl.style.opacity = '0';
-    pillEl.style.opacity = '0';
     ctaEl.style.opacity = '0';
     setTimeout(function(){
       nameEl.textContent = o.title;
       bioEl.textContent = o.bio;
-      pillEl.textContent = o.pill;
       ctaEl.textContent = o.cta;
       ctaEl.href = o.route;
       nameEl.style.transition = 'opacity .35s ease';
       bioEl.style.transition = 'opacity .35s ease';
-      pillEl.style.transition = 'opacity .35s ease';
       ctaEl.style.transition = 'opacity .35s ease';
       nameEl.style.opacity = '1';
       bioEl.style.opacity = '1';
-      pillEl.style.opacity = '1';
       ctaEl.style.opacity = '1';
     }, 140);
   }
