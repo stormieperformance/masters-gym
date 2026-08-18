@@ -298,6 +298,28 @@ button{cursor:pointer;font-family:var(--sans)}
 .event-next{right:-22px}
 @media(max-width:768px){.event-card{flex:0 0 100%}.event-carousel{padding:0 34px}.event-prev{left:-6px}.event-next{right:-6px}.event-nav{width:36px;height:36px;top:calc(50% - 18px)}}
 .classes{padding:100px 40px;background:radial-gradient(circle 320px at 50% 10%,rgba(116,194,188,0.18),transparent 70%),radial-gradient(circle 320px at 50% 90%,rgba(116,194,188,0.11),transparent 70%),var(--bg);border-top:1px solid var(--line)}
+.schedule-teaser{padding:100px 40px;border-top:1px solid var(--line);background:radial-gradient(ellipse 120% 70% at 50% 0%,rgba(116,194,188,0.14),transparent 70%),var(--bg)}
+.schedule-teaser-container{max-width:1200px;margin:0 auto}
+.schedule-teaser-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.schedule-teaser-full-link{padding:12px 22px;font-size:11px}
+.schedule-teaser-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.schedule-teaser-card{position:relative;overflow:hidden;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius-md);padding:24px 26px;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;box-shadow:var(--shadow-card)}
+.schedule-teaser-card::after{content:'';position:absolute;bottom:0;left:0;height:1.5px;width:0;background:var(--teal);transition:width .35s ease}
+.schedule-teaser-card:hover{transform:translateY(-4px);border-color:var(--teal);box-shadow:0 0 0 1px var(--teal-dim),0 12px 28px rgba(0,0,0,0.16)}
+.schedule-teaser-card:hover::after{width:100%}
+.schedule-teaser-day{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.schedule-teaser-day.is-today{color:var(--teal)}
+.schedule-teaser-time{font-family:var(--display);font-style:italic;font-weight:900;font-size:26px;letter-spacing:.03em;color:var(--text);margin-bottom:8px;line-height:1}
+.schedule-teaser-name{font-size:15px;font-weight:500;color:var(--text);margin-bottom:10px}
+.schedule-teaser-level{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text);background:var(--teal-dim);border:1px solid rgba(116,194,188,0.35);padding:4px 12px;border-radius:999px}
+.schedule-teaser-skeleton{height:140px;border-radius:var(--radius-md);background:linear-gradient(100deg,var(--bg2) 30%,rgba(255,255,255,.04) 45%,var(--bg2) 60%);background-size:200% 100%;animation:scheduleTeaserShimmer 1.6s ease-in-out infinite;border:1px solid var(--line)}
+@keyframes scheduleTeaserShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.schedule-teaser-empty{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padding:30px 0}
+@media(max-width:768px){
+  .schedule-teaser{padding:60px 24px}
+  .schedule-teaser-full-link{display:none}
+  .schedule-teaser-cards{grid-template-columns:1fr}
+}
 .classes-container{max-width:1200px;margin:0 auto}
 .section-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500}
 .section-title{font-family:var(--display);font-style:italic;font-weight:900;font-size:clamp(48px,6vw,88px);letter-spacing:.04em;line-height:.92;margin-bottom:56px}
