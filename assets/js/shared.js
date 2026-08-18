@@ -802,6 +802,18 @@ if(document.getElementById('schedule-tabs'))loadSchedule();
 async function loadScheduleTeaser(){
   const el=document.getElementById('scheduleTeaserCards');
   if(!el)return;
+  let dataReady=false,inView=false;
+  function maybeReveal(){
+    if(dataReady&&inView){
+      requestAnimationFrame(()=>el.classList.add('is-visible'));
+    }
+  }
+  const teaserObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){inView=true;maybeReveal();teaserObserver.disconnect();}
+    });
+  },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+  teaserObserver.observe(el);
   try{
     const res=await fetch(CSV_SCHEMA);
     if(!res.ok)throw new Error('bad response');
@@ -837,6 +849,8 @@ async function loadScheduleTeaser(){
       const pl=splitPassLevel(r['Nivå']||r['Niv\u00e5']||'');
       return `<div class="schedule-teaser-card"><div class="schedule-teaser-day${isToday?' is-today':''}">${esc(dayLabel)}</div><div class="schedule-teaser-time">${esc(r.Tid)}</div><div class="schedule-teaser-name">${esc(pl.name)}</div><span class="schedule-teaser-level">${esc(pl.level)}</span></div>`;
     }).join('');
+    dataReady=true;
+    maybeReveal();
   }catch(err){
     el.innerHTML='<p class="schedule-teaser-empty">Kunde inte ladda schemat.</p>';
   }
