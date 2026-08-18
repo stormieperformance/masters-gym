@@ -292,6 +292,7 @@ try{(function(){
   }
 
   toggle.addEventListener('click',()=>{
+    toggle.classList.remove('popped');
     const isOpen=root.classList.toggle('open');
     toggle.setAttribute('aria-expanded',String(isOpen));
     if(isOpen)renderMenu();
@@ -1642,11 +1643,11 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   }, 100);
 })();
 
-// ── GYMBOT: occasional "notice me" bounce while scrolling ──
-// Fires at most once per cooldown window, and only in response to actual
-// scroll activity — never a constant idle animation (that read as a loading
-// spinner to at least one real visitor, hence removing it from CSS entirely
-// and gating it here instead).
+// ── GYMBOT: persistent small tab, occasionally pops out with a label ──
+// Stays as a small always-clickable tab in the corner. On scroll activity
+// (throttled, not a timer) it expands to show a text label for a few
+// seconds, then retracts back down on its own if nobody clicks it —
+// clicking anywhere collapses it immediately via the click handler above.
 (function(){
   var toggleBtn=document.getElementById('gymbotToggle');
   var rootEl=document.getElementById('gymbot');
@@ -1655,8 +1656,10 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   var lastScrollY=window.scrollY;
   var COOLDOWN_MS=25000;
   var MIN_SCROLL_DISTANCE=400;
+  var POP_DURATION_MS=4200;
   var scrolledSinceLastTrigger=0;
   var ticking=false;
+  var retractTimer=null;
 
   function maybeTrigger(){
     if(rootEl.classList.contains('open'))return; // never distract while the panel is already open
@@ -1665,11 +1668,10 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     if(scrolledSinceLastTrigger<MIN_SCROLL_DISTANCE)return;
     lastTriggered=now;
     scrolledSinceLastTrigger=0;
-    toggleBtn.classList.remove('attention');
-    void toggleBtn.offsetWidth; // restart the animation if it's mid-run
-    toggleBtn.classList.add('attention');
+    toggleBtn.classList.add('popped');
+    clearTimeout(retractTimer);
+    retractTimer=setTimeout(function(){toggleBtn.classList.remove('popped');},POP_DURATION_MS);
   }
-  toggleBtn.addEventListener('animationend',function(){toggleBtn.classList.remove('attention');});
 
   window.addEventListener('scroll',function(){
     var y=window.scrollY;
