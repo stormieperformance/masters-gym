@@ -301,6 +301,8 @@ try{(function(){
 
   toggle.addEventListener('click',()=>{
     toggle.classList.remove('popped');
+    const bubbleEl=document.getElementById('gymbotBubble');
+    if(bubbleEl)bubbleEl.classList.remove('visible');
     const isOpen=root.classList.toggle('open');
     toggle.setAttribute('aria-expanded',String(isOpen));
     if(isOpen)renderMenu();
@@ -1789,6 +1791,31 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   var scrolledSinceLastTrigger=0;
   var ticking=false;
   var retractTimer=null;
+  var BUBBLE_DURATION_MS=6000;
+  var bubbleEl=document.getElementById('gymbotBubble');
+  var bubbleShownKey='gymbotLangBubbleShown';
+  var bubbleRetractTimer=null;
+
+  function currentLangCode(){return document.documentElement.getAttribute('lang')==='en'?'en':'sv';}
+
+  function maybeShowLangBubble(){
+    if(!bubbleEl)return false;
+    try{ if(sessionStorage.getItem(bubbleShownKey))return false; }catch(e){}
+    bubbleEl.textContent=currentLangCode()==='en'?'🇸🇪 Läs på svenska? Tryck här':'🇬🇧 Prefer English? Tap here';
+    bubbleEl.classList.add('visible');
+    try{ sessionStorage.setItem(bubbleShownKey,'1'); }catch(e){}
+    clearTimeout(bubbleRetractTimer);
+    bubbleRetractTimer=setTimeout(function(){bubbleEl.classList.remove('visible');},BUBBLE_DURATION_MS);
+    return true;
+  }
+
+  if(bubbleEl){
+    bubbleEl.addEventListener('click',function(){
+      bubbleEl.classList.remove('visible');
+      clearTimeout(bubbleRetractTimer);
+      if(typeof toggleLang==='function')toggleLang();
+    });
+  }
 
   function maybeTrigger(){
     if(rootEl.classList.contains('open'))return; // never distract while the panel is already open
@@ -1797,6 +1824,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     if(scrolledSinceLastTrigger<MIN_SCROLL_DISTANCE)return;
     lastTriggered=now;
     scrolledSinceLastTrigger=0;
+    if(maybeShowLangBubble())return; // first pop of the session offers a language switch instead
     toggleBtn.classList.add('popped');
     clearTimeout(retractTimer);
     retractTimer=setTimeout(function(){toggleBtn.classList.remove('popped');},POP_DURATION_MS);
