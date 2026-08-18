@@ -298,7 +298,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .event-next{right:-22px}
 @media(max-width:768px){.event-card{flex:0 0 100%}.event-carousel{padding:0 34px}.event-prev{left:-6px}.event-next{right:-6px}.event-nav{width:36px;height:36px;top:calc(50% - 18px)}}
 .classes{padding:100px 40px;background:radial-gradient(circle 320px at 50% 10%,rgba(116,194,188,0.18),transparent 70%),radial-gradient(circle 320px at 50% 90%,rgba(116,194,188,0.11),transparent 70%),var(--bg);border-top:1px solid var(--line)}
-.schedule-teaser{padding:100px 40px;border-top:1px solid var(--line);background:radial-gradient(ellipse 120% 70% at 50% 0%,rgba(116,194,188,0.14),transparent 70%),var(--bg)}
+.schedule-teaser{padding:100px 40px;border-top:1px solid var(--line);background:radial-gradient(ellipse 120% 70% at 50% 0%,rgba(116,194,188,0.11),transparent 70%),radial-gradient(circle 320px at 50% 90%,rgba(116,194,188,0.11),transparent 70%),var(--bg)}
 .schedule-teaser-container{max-width:1200px;margin:0 auto}
 .schedule-teaser-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:40px}
 .schedule-teaser-full-link{padding:12px 22px;font-size:11px}
