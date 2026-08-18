@@ -139,6 +139,19 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="alerts-modal">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="alerts-modal-title">
+    <button class="modal-close" id="alerts-modal-close" aria-label="Stäng">&times;</button>
+    <h3 id="alerts-modal-title" data-i18n="alerts_modal_title">FÅ AVISERING VID ÄNDRINGAR</h3>
+    <p class="modal-sub" data-i18n="alerts_modal_sub">Du får bara ett mejl när något faktiskt ändras — inställt pass, ny tid, tillfälligt schema. Inget annat.</p>
+    <form id="alerts-form">
+      <input type="email" name="email" id="alerts-email" data-i18n-placeholder="alerts_email_placeholder" placeholder="E-postadress" required>
+      <button type="submit" class="modal-submit" id="alerts-submit" data-i18n="alerts_submit">Prenumerera på aviseringar</button>
+      <p class="modal-note" data-i18n="alerts_note">Du kan avsluta prenumerationen när du vill, en länk för det finns i varje mejl.</p>
+    </form>
+  </div>
+</div>
+
 <button type="button" class="back-to-top" id="backToTop" aria-label="Till toppen" title="Till toppen">
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
 </button>
@@ -202,6 +215,7 @@
       <div><h2 class="reveal-h2" data-i18n="schedule_h2">SCHEMA</h2><p class="schedule-intro" data-i18n="schedule_intro">Lägg till schemat i din kalender en gång — ändringar, nya pass och nya tider dyker upp av sig själva.</p></div>
       <div class="schedule-actions">
         <button type="button" class="btn sched-sub-btn" id="open-subscribe-modal" data-i18n="schedule_subscribe_btn">📅 Prenumerera på schemat</button>
+        <button type="button" class="btn btn-ghost sched-alert-btn" id="open-alerts-modal" data-i18n="schedule_alerts_btn">🔔 Få avisering vid ändringar</button>
         <div class="schedule-tabs" id="schedule-tabs"></div>
         <div class="schedule-hint" id="schedule-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span data-i18n="schedule_swipe_hint">Svep för fler dagar</span></div>
         <div class="schedule-view-toggle">
