@@ -165,7 +165,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .marquee-teal .marquee-track span{color:#080808}
 .marquee-dark{background:var(--bg)}
 .marquee-dark .marquee-track span{color:var(--teal)}
-.marquee-track{display:inline-flex;animation:marquee 22s linear infinite}
+.marquee-track{display:inline-flex;animation:marquee 55s linear infinite}
 .marquee-track span{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;padding:0 40px}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .values{padding:0;background:radial-gradient(circle 320px at 50% 0%,rgba(116,194,188,0.14),transparent 70%),var(--bg);border-bottom:1px solid var(--line)}
