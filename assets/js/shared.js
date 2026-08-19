@@ -87,10 +87,15 @@ try{(function(){
       .then(d=>{ activeOffer=(d&&d.result)||null; renderOfferBanner(); })
       .catch(()=>{});
   }
+  function syncOfferBannerHeight(){
+    const el=document.getElementById('offerBanner');
+    document.documentElement.style.setProperty('--banner-h', el ? el.offsetHeight+'px' : '0px');
+  }
   function renderOfferBanner(){
     let el=document.getElementById('offerBanner');
     if(!activeOffer||!activeOffer.bannerText){
       if(el)el.remove();
+      syncOfferBannerHeight();
       return;
     }
     if(!el){
@@ -102,8 +107,11 @@ try{(function(){
       document.body.insertBefore(el, document.body.firstChild);
       el.addEventListener('click',openOffersScreen);
       el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openOffersScreen(); } });
+      window.addEventListener('resize',syncOfferBannerHeight);
     }
-    el.textContent=activeOffer.bannerText;
+    el.innerHTML='<span class="offer-banner-icon">\u2728</span><span class="offer-banner-text">'+activeOffer.bannerText+'</span><span class="offer-banner-arrow">Läs mer &rarr;</span>';
+    syncOfferBannerHeight();
+    window.addEventListener('load',syncOfferBannerHeight);
   }
   function openOffersScreen(){
     root.classList.add('open');
