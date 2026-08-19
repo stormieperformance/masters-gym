@@ -1121,7 +1121,9 @@ button{cursor:pointer;font-family:var(--sans)}
 .offer-modal{background:#111;color:#fff;max-width:480px;width:100%;border-radius:14px;overflow:hidden;position:relative;transform:scale(.94);transition:transform .2s ease;box-shadow:0 24px 60px rgba(0,0,0,.5)}
 .offer-modal-overlay.open .offer-modal{transform:scale(1)}
 .offer-modal-image{width:100%;display:block;max-height:280px;object-fit:cover}
-.offer-modal-body{padding:24px 24px 28px}
+.offer-modal-body{padding:24px 24px 28px;position:relative;overflow:hidden}
+.offer-modal-body::before{content:'';position:absolute;right:-30px;bottom:-30px;width:180px;height:180px;background-image:url('/MastersGymLogo.png');background-size:contain;background-repeat:no-repeat;background-position:center;opacity:.06;pointer-events:none;z-index:0}
+.offer-modal-body h3,.offer-modal-body p,.offer-modal-cta{position:relative;z-index:1}
 .offer-modal-body h3{margin:0 0 12px;font-size:20px;font-weight:800;letter-spacing:.01em}
 .offer-modal-body p{margin:0 0 20px;font-size:14px;line-height:1.6;color:rgba(255,255,255,.82);white-space:pre-line}
 .offer-modal-cta{display:inline-block;background:var(--teal,#74C1BB);color:#0a0a0a;font-weight:800;font-size:13px;letter-spacing:.03em;text-transform:uppercase;padding:12px 22px;border-radius:8px;text-decoration:none;transition:filter .15s ease}
