@@ -1628,6 +1628,30 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 
   buildCarousel();
 
+  // ── Live coach data from Sanity (falls back to hardcoded arrays above if empty/unreachable) ──
+  function applyFetchedCoaches(list){
+    if(!list || !list.length) return;
+    var sv=[], en=[];
+    list.forEach(function(c){
+      if(!c.nameField) return;
+      sv.push({name:c.nameField, discipline:c.discipline_sv||'', bio:c.bio_sv||'', img:c.imageUrl||'', badge:c.badge_sv||'Coach'});
+      en.push({name:c.nameField, discipline:c.discipline_en||c.discipline_sv||'', bio:c.bio_en||c.bio_sv||'', img:c.imageUrl||'', badge:c.badge_en||c.badge_sv||'Coach'});
+    });
+    if(!sv.length) return;
+    COACHES_SV = sv;
+    COACHES_EN = en;
+    current = 0;
+    buildCarousel();
+  }
+  function fetchCoaches(){
+    var q=encodeURIComponent('*[_type=="coach"]|order(order asc){nameField,discipline_sv,discipline_en,bio_sv,bio_en,badge_sv,badge_en,"imageUrl":photo.asset->url}');
+    fetch('https://9hvgh1q1.apicdn.sanity.io/v2024-01-01/data/query/production?query='+q)
+      .then(function(r){return r.json();})
+      .then(function(d){ applyFetchedCoaches(d && d.result); })
+      .catch(function(){});
+  }
+  fetchCoaches();
+
   // Patch toggleLang to also refresh coach info
   var _patchLang = setInterval(function(){
     if (typeof toggleLang === 'function') {
