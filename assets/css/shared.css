@@ -1115,3 +1115,17 @@ button{cursor:pointer;font-family:var(--sans)}
   .news-teaser-card{flex:0 0 240px}
   .news-teaser-card img{height:160px}
 }
+
+.offer-modal-overlay{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .2s ease}
+.offer-modal-overlay.open{opacity:1}
+.offer-modal{background:#111;color:#fff;max-width:480px;width:100%;border-radius:14px;overflow:hidden;position:relative;transform:scale(.94);transition:transform .2s ease;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.offer-modal-overlay.open .offer-modal{transform:scale(1)}
+.offer-modal-image{width:100%;display:block;max-height:280px;object-fit:cover}
+.offer-modal-body{padding:24px 24px 28px}
+.offer-modal-body h3{margin:0 0 12px;font-size:20px;font-weight:800;letter-spacing:.01em}
+.offer-modal-body p{margin:0 0 20px;font-size:14px;line-height:1.6;color:rgba(255,255,255,.82);white-space:pre-line}
+.offer-modal-cta{display:inline-block;background:var(--teal,#74C1BB);color:#0a0a0a;font-weight:800;font-size:13px;letter-spacing:.03em;text-transform:uppercase;padding:12px 22px;border-radius:8px;text-decoration:none;transition:filter .15s ease}
+.offer-modal-cta:hover{filter:brightness(1.08)}
+.offer-modal-close{position:absolute;top:12px;right:12px;width:34px;height:34px;border:none;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:20px;line-height:1;cursor:pointer;transition:background-color .15s ease;z-index:1}
+.offer-modal-close:hover{background:rgba(255,255,255,.22)}
+@media(max-width:480px){.offer-modal-body{padding:20px 18px 24px}.offer-modal-body h3{font-size:18px}}
