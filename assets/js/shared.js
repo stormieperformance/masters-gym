@@ -206,6 +206,11 @@ try{(function(){
   fetchClasses();
   fetchPageContent('siteHero', ['hero_eyebrow','hero_everybody','hero_desc','hero_corp_link'], ['hero_image']);
   fetchHeroVideo();
+  fetchPageContent('siteFAQ', ['faq_q1','faq_q2','faq_q4','faq_q5','faq_q6','faq_q7','faq_q8','faq_a2','faq_a6','faq_a7','faq_a8'], []);
+  fetchPageContent('siteContact', ['contact_h2','contact_sub','contact_hours','contact_address','contact_phone_display'], []);
+  fetchPageContent('siteFooter', ['footer_sub'], []);
+  fetchPageContent('siteCorporate', ['corp_h2','corp_p1','corp_p2','corp_f1_title','corp_f1_text','corp_f2_title','corp_f2_text','corp_f4_title','corp_f4_text','corp_f5_title','corp_f5_text'], ['corp_image']);
+  fetchPageContent('siteJunior', ['kids_h2','kids_p1','kids_p1_niva1','kids_p1_niva2','kids_p1_equip','kids_junior1_p1','kids_junior2_p1'], ['junior_image']);
   function fetchHeroVideo(){
     const q=encodeURIComponent('*[_type=="siteHero"][0]{"videoUrl":hero_video.asset->url}');
     fetch('https://'+SANITY_PROJECT_ID+'.apicdn.sanity.io/v2024-01-01/data/query/'+SANITY_DATASET+'?query='+q)
