@@ -204,6 +204,36 @@ try{(function(){
   fetchActiveOffer();
   fetchPricing();
   fetchClasses();
+  fetchPageContent('siteHero', ['hero_eyebrow','hero_everybody','hero_desc','hero_corp_link'], ['hero_image']);
+  fetchPageContent('siteAbout', ['about_label','about_h2','about_tagline','about_p1','about_p2','about_p3'], ['about_image']);
+  function fetchPageContent(docType, textKeys, imageKeys){
+    const textFields=textKeys.map(k=>k+'_sv,'+k+'_en').join(',');
+    const imageFields=(imageKeys||[]).map(k=>'"'+k+'Url":'+k+'.asset->url').join(',');
+    const proj=[textFields,imageFields].filter(Boolean).join(',');
+    const q=encodeURIComponent('*[_type=="'+docType+'"][0]{'+proj+'}');
+    fetch('https://'+SANITY_PROJECT_ID+'.apicdn.sanity.io/v2024-01-01/data/query/'+SANITY_DATASET+'?query='+q)
+      .then(r=>r.json())
+      .then(d=>{
+        const c=d&&d.result;
+        if(!c)return;
+        const map={};
+        Object.keys(c).forEach(key=>{
+          if(key.endsWith('Url')){
+            if(!c[key])return;
+            const el=document.getElementById(key.replace('Url',''));
+            if(el)el.src=c[key];
+            return;
+          }
+          const m=key.match(/^(.+)_(sv|en)$/);
+          if(!m)return;
+          const baseKey=m[1],lang=m[2];
+          if(!map[baseKey])map[baseKey]={};
+          if(c[key])map[baseKey][lang]=c[key];
+        });
+        mergeTranslationOverridesLang(map);
+      })
+      .catch(()=>{});
+  }
 
   const COPY={
     sv:{
