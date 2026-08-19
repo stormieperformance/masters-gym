@@ -81,7 +81,7 @@ try{(function(){
   const SANITY_PROJECT_ID='9hvgh1q1', SANITY_DATASET='production';
   let activeOffer=null;
   function fetchActiveOffer(){
-    const q=encodeURIComponent('*[_type=="offer"&&(!defined(startDate)||startDate<=now())&&(!defined(endDate)||endDate>=now())]|order(_createdAt desc)[0]{bannerText,detailText}');
+    const q=encodeURIComponent('*[_type=="offer"&&(!defined(startDate)||startDate<=now())&&(!defined(endDate)||endDate>=now())]|order(_createdAt desc)[0]{bannerText,detailText,"imageUrl":mainImage.asset->url,"imageAlt":mainImage.alt}');
     return fetch('https://'+SANITY_PROJECT_ID+'.api.sanity.io/v2024-01-01/data/query/'+SANITY_DATASET+'?query='+q)
       .then(r=>r.json())
       .then(d=>{ activeOffer=(d&&d.result)||null; renderOfferBanner(); })
@@ -105,18 +105,42 @@ try{(function(){
       el.setAttribute('role','button');
       el.setAttribute('tabindex','0');
       document.body.insertBefore(el, document.body.firstChild);
-      el.addEventListener('click',openOffersScreen);
-      el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openOffersScreen(); } });
+      el.addEventListener('click',openOfferModal);
+      el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openOfferModal(); } });
       window.addEventListener('resize',syncOfferBannerHeight);
     }
     el.innerHTML='<span class="offer-banner-icon">\u2728</span><span class="offer-banner-text">'+activeOffer.bannerText+'</span><span class="offer-banner-arrow">Läs mer &rarr;</span>';
     syncOfferBannerHeight();
     window.addEventListener('load',syncOfferBannerHeight);
   }
-  function openOffersScreen(){
-    root.classList.add('open');
-    toggle.setAttribute('aria-expanded','true');
-    renderScreen('offers');
+
+  // ── Offer popup modal ──
+  function openOfferModal(){
+    if(!activeOffer)return;
+    closeOfferModal();
+    const detail=activeOffer.detailText||activeOffer.bannerText;
+    const overlay=document.createElement('div');
+    overlay.id='offerModalOverlay';
+    overlay.className='offer-modal-overlay';
+    const imgHtml=activeOffer.imageUrl?'<img class="offer-modal-image" src="'+activeOffer.imageUrl+'" alt="'+(activeOffer.imageAlt||'')+'">':'';
+    overlay.innerHTML='<div class="offer-modal" role="dialog" aria-modal="true" aria-labelledby="offerModalTitle">'+
+      '<button class="offer-modal-close" aria-label="Stäng">&times;</button>'+
+      imgHtml+
+      '<div class="offer-modal-body"><h3 id="offerModalTitle">'+activeOffer.bannerText+'</h3><p>'+detail+'</p>'+
+      '<a href="sms:0709427280" class="offer-modal-cta">SMS:A OSS</a></div></div>';
+    document.body.appendChild(overlay);
+    requestAnimationFrame(()=>overlay.classList.add('open'));
+    overlay.addEventListener('click',e=>{ if(e.target===overlay)closeOfferModal(); });
+    overlay.querySelector('.offer-modal-close').addEventListener('click',closeOfferModal);
+    document.addEventListener('keydown',offerModalEscHandler);
+  }
+  function offerModalEscHandler(e){ if(e.key==='Escape')closeOfferModal(); }
+  function closeOfferModal(){
+    const overlay=document.getElementById('offerModalOverlay');
+    if(!overlay)return;
+    overlay.classList.remove('open');
+    document.removeEventListener('keydown',offerModalEscHandler);
+    setTimeout(()=>overlay.remove(),200);
   }
   fetchActiveOffer();
 
