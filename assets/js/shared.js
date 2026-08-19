@@ -205,6 +205,23 @@ try{(function(){
   fetchPricing();
   fetchClasses();
   fetchPageContent('siteHero', ['hero_eyebrow','hero_everybody','hero_desc','hero_corp_link'], ['hero_image']);
+  fetchHeroVideo();
+  function fetchHeroVideo(){
+    const q=encodeURIComponent('*[_type=="siteHero"][0]{"videoUrl":hero_video.asset->url}');
+    fetch('https://'+SANITY_PROJECT_ID+'.apicdn.sanity.io/v2024-01-01/data/query/'+SANITY_DATASET+'?query='+q)
+      .then(r=>r.json())
+      .then(d=>{
+        const url=d&&d.result&&d.result.videoUrl;
+        if(!url)return;
+        const videoEl=document.getElementById('hero_video');
+        const imgEl=document.getElementById('hero_image');
+        if(!videoEl)return;
+        videoEl.src=url;
+        videoEl.style.display='block';
+        if(imgEl)imgEl.style.display='none';
+      })
+      .catch(()=>{});
+  }
   fetchPageContent('siteAbout', ['about_label','about_h2','about_tagline','about_p1','about_p2','about_p3'], ['about_image']);
   function fetchPageContent(docType, textKeys, imageKeys){
     const textFields=textKeys.map(k=>k+'_sv,'+k+'_en').join(',');
