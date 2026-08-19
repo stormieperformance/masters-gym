@@ -87,6 +87,25 @@ try{(function(){
       .then(d=>{ activeOffer=(d&&d.result)||null; renderOfferBanner(); })
       .catch(()=>{});
   }
+  function mergeTranslationOverrides(map){
+    if(typeof translations==='undefined')return;
+    Object.keys(map).forEach(key=>{
+      const val=map[key];
+      if(!val)return;
+      translations.sv[key]=val;
+      translations.en[key]=val;
+    });
+    if(typeof applyTranslations==='function')applyTranslations();
+  }
+  function mergeTranslationOverridesLang(map){
+    if(typeof translations==='undefined')return;
+    Object.keys(map).forEach(key=>{
+      const pair=map[key];
+      if(pair.sv)translations.sv[key]=pair.sv;
+      if(pair.en)translations.en[key]=pair.en;
+    });
+    if(typeof applyTranslations==='function')applyTranslations();
+  }
   function fetchPricing(){
     const q=encodeURIComponent('*[_type=="pricing"][0]');
     fetch('https://'+SANITY_PROJECT_ID+'.apicdn.sanity.io/v2024-01-01/data/query/'+SANITY_DATASET+'?query='+q)
@@ -94,14 +113,36 @@ try{(function(){
       .then(d=>{
         const p=d&&d.result;
         if(!p)return;
-        Object.keys(p).forEach(key=>{
-          if(key.startsWith('_'))return;
-          const val=p[key];
-          if(!val)return;
-          let el=document.querySelector('[data-i18n="'+key+'"]');
-          if(!el)el=document.getElementById(key);
-          if(el)el.textContent=val;
+        const map={};
+        Object.keys(p).forEach(key=>{ if(!key.startsWith('_')&&p[key])map[key]=p[key]; });
+        mergeTranslationOverrides(map);
+      })
+      .catch(()=>{});
+  }
+  function fetchClasses(){
+    const classIds=['class1','class2','class3','class4','class6','class7'];
+    const projFields=classIds.map(id=>id+'_title_sv,'+id+'_title_en,'+id+'_text_sv,'+id+'_text_en,"'+id+'_imageUrl":'+id+'_image.asset->url').join(',');
+    const q=encodeURIComponent('*[_type=="classContent"][0]{'+projFields+'}');
+    fetch('https://'+SANITY_PROJECT_ID+'.apicdn.sanity.io/v2024-01-01/data/query/'+SANITY_DATASET+'?query='+q)
+      .then(r=>r.json())
+      .then(d=>{
+        const c=d&&d.result;
+        if(!c)return;
+        const map={};
+        Object.keys(c).forEach(key=>{
+          if(key.endsWith('_imageUrl')){
+            if(!c[key])return;
+            const imgEl=document.getElementById(key.replace('_imageUrl','_img'));
+            if(imgEl)imgEl.src=c[key];
+            return;
+          }
+          const m=key.match(/^(.+)_(sv|en)$/);
+          if(!m)return;
+          const baseKey=m[1],lang=m[2];
+          if(!map[baseKey])map[baseKey]={};
+          if(c[key])map[baseKey][lang]=c[key];
         });
+        mergeTranslationOverridesLang(map);
       })
       .catch(()=>{});
   }
@@ -162,6 +203,7 @@ try{(function(){
   }
   fetchActiveOffer();
   fetchPricing();
+  fetchClasses();
 
   const COPY={
     sv:{
