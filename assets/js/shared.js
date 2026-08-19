@@ -82,9 +82,27 @@ try{(function(){
   let activeOffer=null;
   function fetchActiveOffer(){
     const q=encodeURIComponent('*[_type=="offer"&&(!defined(startDate)||startDate<=now())&&(!defined(endDate)||endDate>=now())]|order(_createdAt desc)[0]{bannerText,detailText,"imageUrl":mainImage.asset->url,"imageAlt":mainImage.alt}');
-    return fetch('https://'+SANITY_PROJECT_ID+'.api.sanity.io/v2024-01-01/data/query/'+SANITY_DATASET+'?query='+q)
+    return fetch('https://'+SANITY_PROJECT_ID+'.apicdn.sanity.io/v2024-01-01/data/query/'+SANITY_DATASET+'?query='+q)
       .then(r=>r.json())
       .then(d=>{ activeOffer=(d&&d.result)||null; renderOfferBanner(); })
+      .catch(()=>{});
+  }
+  function fetchPricing(){
+    const q=encodeURIComponent('*[_type=="pricing"][0]');
+    fetch('https://'+SANITY_PROJECT_ID+'.apicdn.sanity.io/v2024-01-01/data/query/'+SANITY_DATASET+'?query='+q)
+      .then(r=>r.json())
+      .then(d=>{
+        const p=d&&d.result;
+        if(!p)return;
+        Object.keys(p).forEach(key=>{
+          if(key.startsWith('_'))return;
+          const val=p[key];
+          if(!val)return;
+          let el=document.querySelector('[data-i18n="'+key+'"]');
+          if(!el)el=document.getElementById(key);
+          if(el)el.textContent=val;
+        });
+      })
       .catch(()=>{});
   }
   function syncOfferBannerHeight(){
@@ -143,6 +161,7 @@ try{(function(){
     setTimeout(()=>overlay.remove(),200);
   }
   fetchActiveOffer();
+  fetchPricing();
 
   const COPY={
     sv:{
