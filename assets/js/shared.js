@@ -77,6 +77,41 @@ try{(function(){
 
   function lang(){return document.documentElement.getAttribute('lang')==='en'?'en':'sv';}
 
+  // ── Live offer (Sanity) ──
+  const SANITY_PROJECT_ID='9hvgh1q1', SANITY_DATASET='production';
+  let activeOffer=null;
+  function fetchActiveOffer(){
+    const q=encodeURIComponent('*[_type=="offer"&&(!defined(startDate)||startDate<=now())&&(!defined(endDate)||endDate>=now())]|order(_createdAt desc)[0]{bannerText,detailText}');
+    return fetch('https://'+SANITY_PROJECT_ID+'.api.sanity.io/v2024-01-01/data/query/'+SANITY_DATASET+'?query='+q)
+      .then(r=>r.json())
+      .then(d=>{ activeOffer=(d&&d.result)||null; renderOfferBanner(); })
+      .catch(()=>{});
+  }
+  function renderOfferBanner(){
+    let el=document.getElementById('offerBanner');
+    if(!activeOffer||!activeOffer.bannerText){
+      if(el)el.remove();
+      return;
+    }
+    if(!el){
+      el=document.createElement('div');
+      el.id='offerBanner';
+      el.className='offer-banner';
+      el.setAttribute('role','button');
+      el.setAttribute('tabindex','0');
+      document.body.insertBefore(el, document.body.firstChild);
+      el.addEventListener('click',openOffersScreen);
+      el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openOffersScreen(); } });
+    }
+    el.textContent=activeOffer.bannerText;
+  }
+  function openOffersScreen(){
+    root.classList.add('open');
+    toggle.setAttribute('aria-expanded','true');
+    renderScreen('offers');
+  }
+  fetchActiveOffer();
+
   const COPY={
     sv:{
       menu:[
@@ -225,9 +260,15 @@ try{(function(){
     body.appendChild(backBtn());
 
     if(key==='offers'){
-      const listHtml=t.offers_list.map(line=>'<li>'+line+'</li>').join('');
-      body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.offers_title+'</div><p class="gymbot-screen-text">'+t.offers_intro+'</p><ul class="gymbot-offer-list">'+listHtml+'</ul><p class="gymbot-screen-text">'+t.offers_note+'</p><div class="gymbot-screen-actions"><a href="sms:0709427280" class="gymbot-cta">'+t.offers_cta+'</a></div>');
-      body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
+      if(activeOffer&&activeOffer.bannerText){
+        const detail=activeOffer.detailText||activeOffer.bannerText;
+        body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+activeOffer.bannerText+'</div><p class="gymbot-screen-text">'+detail+'</p><div class="gymbot-screen-actions"><a href="sms:0709427280" class="gymbot-cta">'+t.offers_cta+'</a></div>');
+        body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
+      } else {
+        const listHtml=t.offers_list.map(line=>'<li>'+line+'</li>').join('');
+        body.insertAdjacentHTML('beforeend','<div class="gymbot-screen-title">'+t.offers_title+'</div><p class="gymbot-screen-text">'+t.offers_intro+'</p><ul class="gymbot-offer-list">'+listHtml+'</ul><p class="gymbot-screen-text">'+t.offers_note+'</p><div class="gymbot-screen-actions"><a href="sms:0709427280" class="gymbot-cta">'+t.offers_cta+'</a></div>');
+        body.querySelector('.gymbot-cta').addEventListener('click',closePanel);
+      }
     }
     else if(key==='pricing'){
       const gcUrl='https://www.gymcontrol.se/global/webshop/index.php?uid=9074&action=membership';
