@@ -755,6 +755,8 @@ button{cursor:pointer;font-family:var(--sans)}
   .footer{padding:40px 20px 24px}.footer-container{flex-direction:column;gap:32px}.footer-right{gap:32px}.footer-bottom{flex-direction:column;gap:12px;text-align:center}
   .hero-scroll{display:none}
   .schedule-actions{flex-direction:column;align-items:flex-start;width:100%}
+  .schedule-post-actions{flex-direction:column;align-items:stretch}
+  .schedule-post-actions .btn{width:100%}
   .schedule-tabs{width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;overscroll-behavior-x:contain}
   .schedule-tabs::-webkit-scrollbar{display:none}
   .schedule-tabs.fade-r{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 38px),transparent 100%);mask-image:linear-gradient(to right,#000 calc(100% - 38px),transparent 100%)}
@@ -849,6 +851,7 @@ button{cursor:pointer;font-family:var(--sans)}
 @media(max-width:900px){.week-grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:600px){.week-grid{grid-template-columns:repeat(2,1fr)}}
 .schedule-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;row-gap:16px}
+.schedule-post-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:28px}
 .schedule-view-toggle{display:flex;gap:2px}
 .view-btn{background:var(--bg3);border:1px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 18px;font-family:var(--sans);cursor:pointer;transition:all .2s}
 .view-btn.active,.view-btn:hover{background:linear-gradient(155deg,rgba(255,255,255,0.12),rgba(255,255,255,0) 45%),#0a0a0a;color:var(--text);border-color:rgba(116,194,188,.5);box-shadow:0 1px 0 rgba(255,255,255,.1) inset,0 2px 6px -2px rgba(0,0,0,.5)}
