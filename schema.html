@@ -199,8 +199,6 @@
     <div class="schedule-header">
       <div><h2 class="reveal-h2" data-i18n="schedule_h2">SCHEMA</h2><p class="schedule-intro" data-i18n="schedule_intro">Lägg till schemat i din kalender en gång — ändringar, nya pass och nya tider dyker upp av sig själva.</p></div>
       <div class="schedule-actions">
-        <button type="button" class="btn sched-sub-btn" id="open-subscribe-modal" data-i18n="schedule_subscribe_btn">📅 Prenumerera på schemat</button>
-        <button type="button" class="btn btn-ghost sched-alert-btn" id="open-alerts-modal" data-i18n="schedule_alerts_btn">🔔 Få avisering vid ändringar</button>
         <div class="schedule-tabs" id="schedule-tabs"></div>
         <div class="schedule-hint" id="schedule-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span data-i18n="schedule_swipe_hint">Svep för fler dagar</span></div>
         <div class="schedule-view-toggle">
@@ -216,6 +214,10 @@
     <div class="schedule-legend" id="schedule-legend"></div>
     <div id="schedule-info-box" class="schedule-info-box" style="display:none"></div>
     <p class="schedule-note" data-i18n="schedule_note">Schemat uppdateras varje säsong. Kontrollera alltid aktuellt schema innan du kommer.</p>
+    <div class="schedule-post-actions">
+      <button type="button" class="btn sched-sub-btn" id="open-subscribe-modal" data-i18n="schedule_subscribe_btn">📅 Prenumerera på schemat</button>
+      <button type="button" class="btn btn-ghost sched-alert-btn" id="open-alerts-modal" data-i18n="schedule_alerts_btn">🔔 Få avisering vid ändringar</button>
+    </div>
   </div>
 </section>
 <section class="contact" id="contact">
