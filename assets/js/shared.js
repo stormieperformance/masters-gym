@@ -781,25 +781,6 @@ function isActiveRow(r){
   if(r.Aktiv===undefined)return true;   // no Aktiv column at all = everything active
   return isChecked(r.Aktiv);
 }
-// Category colour system for the schedule filter pills — mirrors the
-// same columns used for calendar subscriptions (see updateSubscribeCounts),
-// just surfaced visually instead of as counts. Kept in one place so the
-// pills, card accent colour and legend can never drift apart.
-const SCHEDULE_CATS=[
-  {key:'nyb',label:'Nybörjare',labelEn:'Beginner',cols:['nybörjare'],color:'#74C1BB'},
-  {key:'forts',label:'Fortsättning',labelEn:'Intermediate',cols:['fortsättning'],color:'#E0A64D'},
-  {key:'barn',label:'Barn & Junior',labelEn:'Kids & Junior',cols:['barn & junior'],color:'#C97BD1'},
-  {key:'oppna',label:'Alla nivåer',labelEn:'Open level',cols:['alla nivåer','öppna pass'],color:'#6FA3E0'}
-];
-function getRowCats(r){
-  const norm=t=>String(t).trim().replace(/\s+/g,' ').toLowerCase();
-  const keys=Object.keys(r).filter(k=>isChecked(r[k])).map(norm);
-  return SCHEDULE_CATS.filter(c=>c.cols.some(col=>keys.includes(col))).map(c=>c.key);
-}
-function catAccentColor(cats){
-  return cats.length?SCHEDULE_CATS.find(c=>c.key===cats[0]).color:'var(--line)';
-}
-let scheduleCatFilter='all';
 function isCancelled(r){
   return /inställ/i.test(r.Status||'');
 }
@@ -811,46 +792,14 @@ function setScheduleView(view){
   document.getElementById('view-day').classList.toggle('active',view==='day');
   renderSchedule();
 }
-function renderCatFilter(){
-  const el=document.getElementById('schedule-cat-filter');
-  if(!el)return;
-  const t=translations[currentLang]||{};
-  const isEn=currentLang==='en';
-  el.innerHTML=`<button type="button" class="schedule-cat-pill${scheduleCatFilter==='all'?' active':''}" data-cat="all">${isEn?'All':'Alla'}</button>`+
-    SCHEDULE_CATS.map(c=>`<button type="button" class="schedule-cat-pill${scheduleCatFilter===c.key?' active':''}" data-cat="${c.key}" style="--cat-color:${c.color}">${esc(isEn?c.labelEn:c.label)}</button>`).join('');
-  el.querySelectorAll('.schedule-cat-pill').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      scheduleCatFilter=btn.dataset.cat;
-      el.querySelectorAll('.schedule-cat-pill').forEach(b=>b.classList.toggle('active',b===btn));
-      renderSchedule();
-    });
-  });
-  const legend=document.getElementById('schedule-legend');
-  if(legend&&!legend.dataset.built){
-    legend.dataset.built='1';
-    legend.innerHTML=SCHEDULE_CATS.map(c=>`<span class="schedule-legend-item"><span class="schedule-legend-dot" style="background:${c.color}"></span>${esc(isEn?c.labelEn:c.label)}</span>`).join('');
-  }
-}
 function renderSchedule(){
   const{byDay,days}=scheduleData;if(!days.length)return;
-  const catFilterEl=document.getElementById('schedule-cat-filter');
-  if(catFilterEl)catFilterEl.style.display=scheduleView==='week'?'':'none';
-  // Day view lists one day's classes without the side-by-side comparison
-  // the colour filter is meant for, so reset to "all" whenever we leave
-  // week view — a stale filter with no visible pills would be confusing.
-  if(scheduleView!=='week')scheduleCatFilter='all';
-  if(scheduleView==='week')renderCatFilter();
   const tabsEl=document.getElementById('schedule-tabs');
   const content=document.getElementById('schedule-content');
   content.style.cssText='display:block;min-height:auto';
-  const dimClass=r=>{
-    if(scheduleView!=='week'||scheduleCatFilter==='all')return '';
-    const cats=getRowCats(r);
-    return cats.includes(scheduleCatFilter)?'':' is-dimmed';
-  };
   if(scheduleView==='week'){
     tabsEl.style.display='none';
-    content.innerHTML=`<div class="week-grid">${days.map(day=>`<div class="week-col"><div class="week-day-header">${esc(day)}</div><div class="week-day-slots">${byDay[day].map(r=>{const pl=splitPassLevel(r['Nivå']||r['Niv\u00e5']||'');const cats=getRowCats(r);return `<div class="week-slot${isCancelled(r)?' is-cancelled':''}${dimClass(r)}" style="--cat-color:${catAccentColor(cats)}"><span class="week-slot-line"></span><div class="week-slot-time">${esc(r.Tid)}${r.Pass?'–'+esc(r.Pass):''}</div><div class="week-slot-name">${esc(pl.name)}</div><span class="week-slot-level">${esc(pl.level)}</span>${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</div>`}).join('')}</div></div>`).join('')}</div>`;
+    content.innerHTML=`<div class="week-grid">${days.map(day=>`<div class="week-col"><div class="week-day-header">${esc(day)}</div><div class="week-day-slots">${byDay[day].map(r=>{const pl=splitPassLevel(r['Nivå']||r['Niv\u00e5']||'');return `<div class="week-slot${isCancelled(r)?' is-cancelled':''}"><span class="week-slot-line"></span><div class="week-slot-time">${esc(r.Tid)}${r.Pass?'–'+esc(r.Pass):''}</div><div class="week-slot-name">${esc(pl.name)}</div><span class="week-slot-level">${esc(pl.level)}</span>${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</div>`}).join('')}</div></div>`).join('')}</div>`;
   }else{
     tabsEl.style.display='';
     tabsEl.innerHTML='<div class="schedule-tab-pill"></div>'+days.map((d,i)=>`<button class="schedule-tab ${i===0?'active':''}" data-day="${esc(d)}">${esc(d)}</button>`).join('');
@@ -878,7 +827,7 @@ function renderSchedule(){
     window.addEventListener('resize',updateTabAffordance);
     requestAnimationFrame(updateTabAffordance);
     function renderDay(day){
-      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(r=>{const pl=splitPassLevel(r['Nivå']||r['Niv\u00e5']||'');const cats=getRowCats(r);return `<div class="schedule-card${isCancelled(r)?' is-cancelled':''}${dimClass(r)}" style="--cat-color:${catAccentColor(cats)}"><span class="schedule-card-accent"></span><span class="schedule-card-line"></span><div class="schedule-time">${esc(r.Tid)}${r.Pass?'–'+esc(r.Pass):''}</div><div class="schedule-info"><h3>${esc(pl.name)}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</h3><span class="schedule-level">${esc(pl.level)}</span></div></div>`}).join('')}</div>`;
+      content.innerHTML=`<div class="schedule-grid">${byDay[day].map(r=>{const pl=splitPassLevel(r['Nivå']||r['Niv\u00e5']||'');return `<div class="schedule-card${isCancelled(r)?' is-cancelled':''}"><span class="schedule-card-line"></span><div class="schedule-time">${esc(r.Tid)}${r.Pass?'–'+esc(r.Pass):''}</div><div class="schedule-info"><h3>${esc(pl.name)}${isCancelled(r)?' <span class="schedule-cancelled-badge">Inställt</span>':''}</h3><span class="schedule-level">${esc(pl.level)}</span></div></div>`}).join('')}</div>`;
       addScheduleAnimations();
     }
     renderDay(days[0]);
