@@ -803,7 +803,7 @@ let scheduleCatFilter='all';
 function isCancelled(r){
   return /inställ/i.test(r.Status||'');
 }
-let scheduleView='day';
+let scheduleView='week';
 let scheduleData={byDay:{},days:[]};
 function setScheduleView(view){
   scheduleView=view;
@@ -833,12 +833,18 @@ function renderCatFilter(){
 }
 function renderSchedule(){
   const{byDay,days}=scheduleData;if(!days.length)return;
-  renderCatFilter();
+  const catFilterEl=document.getElementById('schedule-cat-filter');
+  if(catFilterEl)catFilterEl.style.display=scheduleView==='week'?'':'none';
+  // Day view lists one day's classes without the side-by-side comparison
+  // the colour filter is meant for, so reset to "all" whenever we leave
+  // week view — a stale filter with no visible pills would be confusing.
+  if(scheduleView!=='week')scheduleCatFilter='all';
+  if(scheduleView==='week')renderCatFilter();
   const tabsEl=document.getElementById('schedule-tabs');
   const content=document.getElementById('schedule-content');
   content.style.cssText='display:block;min-height:auto';
   const dimClass=r=>{
-    if(scheduleCatFilter==='all')return '';
+    if(scheduleView!=='week'||scheduleCatFilter==='all')return '';
     const cats=getRowCats(r);
     return cats.includes(scheduleCatFilter)?'':' is-dimmed';
   };
