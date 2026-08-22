@@ -1870,12 +1870,17 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   var ctaEl = document.getElementById('finder3dCta');
   if (!stage) return;
 
-  var rotation = 0;
-  var targetRotation = 0;
-  var jumping = false;
+  var current = 0;
   var lastShownIndex = -1;
   var cards = [];
   var thumbEls = [];
+
+  // Simple crossfade transition state — replaces the old continuous
+  // 3D-rotation model. A click always fades DIRECTLY from the current
+  // card to the target card, never sweeping through the ones in
+  // between (that sweep was the flicker bug).
+  var fromIndex = 0, toIndex = 0, progress = 1, transitioning = false;
+  var TRANSITION_MS = 450;
 
   function getOptions() {
     return (typeof currentLang !== 'undefined' && currentLang === 'en') ? FINDER_EN : FINDER_SV;
@@ -1895,15 +1900,15 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
       el.setAttribute('tabindex','0');
       el.setAttribute('role','button');
       el.setAttribute('aria-label',o.title);
-      el.innerHTML = '<img src="'+o.img+'" alt="'+o.title+'" loading="lazy"><div class="finder3d-card-overlay"></div><div class="finder3d-card-info"><div class="finder3d-card-pill">'+o.pill+'</div><div class="finder3d-card-name">'+o.title+'</div></div>';
+      el.innerHTML = '<img src="'+o.img+'" alt="'+o.title+'" loading="lazy">';
       el.addEventListener('click', (function(idx){ return function(){
         pauseAutoplay();
-        if(idx===nearestIndex()){ location.href = getOptions()[idx].route; return; }
+        if(idx===current && !transitioning){ location.href = getOptions()[idx].route; return; }
         goTo(idx);
       }; })(i));
       el.addEventListener('keydown', (function(idx){ return function(e){
         if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pauseAutoplay();
-          if(idx===nearestIndex()){ location.href = getOptions()[idx].route; } else { goTo(idx); }
+          if(idx===current && !transitioning){ location.href = getOptions()[idx].route; } else { goTo(idx); }
         }
       }; })(i));
       stage.appendChild(el);
@@ -1921,33 +1926,27 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
       thumbEls.push(t);
     });
 
-    layout(rotation);
-    updateInfo(nearestIndex());
+    current = 0; fromIndex = 0; toIndex = 0; progress = 1; transitioning = false;
+    render();
+    updateInfo(current);
   }
 
-  function layout(pos) {
-    var N = cards.length;
-    var nearest = ((Math.round(pos) % N) + N) % N;
+  function render() {
     cards.forEach(function(card, i){
-      var offset = i - pos;
-      offset = ((offset % N) + N) % N;
-      if (offset > N/2) offset -= N;
-      var absOff = Math.abs(offset);
-      var isCenter = i === nearest;
-      var opacity = Math.max(0, 1 - absOff);
-      card.style.transform = 'none';
+      var opacity = 0;
+      if (transitioning) {
+        if (i === fromIndex) opacity = 1 - progress;
+        else if (i === toIndex) opacity = progress;
+      } else if (i === current) {
+        opacity = 1;
+      }
       card.style.opacity = String(opacity);
-      card.style.zIndex = isCenter ? '2' : '1';
-      card.style.pointerEvents = isCenter ? 'all' : 'none';
-      card.classList.toggle('active', isCenter);
+      var isFront = transitioning ? (i === toIndex) : (i === current);
+      card.style.zIndex = isFront ? '2' : '1';
+      card.style.pointerEvents = (i === current && !transitioning) ? 'all' : 'none';
+      card.classList.toggle('active', i === current && !transitioning);
     });
-    thumbEls.forEach(function(t, i){ t.classList.toggle('active', i === nearest); });
-    updateInfo(nearest);
-  }
-
-  function nearestIndex(){
-    var N = cards.length;
-    return ((Math.round(rotation) % N) + N) % N;
+    thumbEls.forEach(function(t, i){ t.classList.toggle('active', i === (transitioning ? toIndex : current)); });
   }
 
   function updateInfo(idx) {
@@ -1975,51 +1974,43 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   function goTo(idx) {
     var N = cards.length;
     idx = ((idx % N) + N) % N;
-    // shortest path from current rotation to target index
-    var base = Math.round(rotation);
-    var diff = idx - ((base % N) + N) % N;
-    if (diff > N/2) diff -= N;
-    if (diff < -N/2) diff += N;
-    targetRotation = rotation + diff;
-    jumping = true;
+    if (idx === current && !transitioning) return;
+    if (transitioning && idx === toIndex) return;
+    fromIndex = transitioning ? toIndex : current;
+    toIndex = idx;
+    progress = 0;
+    transitioning = true;
+    transitionStart = null;
+    render();
+    updateInfo(toIndex);
   }
 
   var prevBtn = document.getElementById('finder3dPrev');
   var nextBtn = document.getElementById('finder3dNext');
-  if(prevBtn)prevBtn.addEventListener('click', function(e){ e.stopPropagation(); pauseAutoplay(); goTo(nearestIndex() - 1); });
-  if(nextBtn)nextBtn.addEventListener('click', function(e){ e.stopPropagation(); pauseAutoplay(); goTo(nearestIndex() + 1); });
+  if(prevBtn)prevBtn.addEventListener('click', function(e){ e.stopPropagation(); pauseAutoplay(); goTo(current - 1); });
+  if(nextBtn)nextBtn.addEventListener('click', function(e){ e.stopPropagation(); pauseAutoplay(); goTo(current + 1); });
 
   document.addEventListener('keydown', function(e){
     if (document.activeElement && document.activeElement.closest && document.activeElement.closest('#classes')) {
-      if (e.key === 'ArrowLeft') { pauseAutoplay(); goTo(nearestIndex() - 1); }
-      if (e.key === 'ArrowRight') { pauseAutoplay(); goTo(nearestIndex() + 1); }
+      if (e.key === 'ArrowLeft') { pauseAutoplay(); goTo(current - 1); }
+      if (e.key === 'ArrowRight') { pauseAutoplay(); goTo(current + 1); }
     }
   });
 
-  var dragStartX = 0, dragging = false, dragStartRotation = 0;
+  var dragStartX = 0, dragging = false;
   stage.addEventListener('pointerdown', function(e){
     if (e.target.closest && e.target.closest('.finder3d-prev,.finder3d-next')) return;
     pauseAutoplay();
-    jumping = false;
-    dragStartX = e.clientX; dragging = true; dragStartRotation = rotation;
+    dragStartX = e.clientX; dragging = true;
     stage.setPointerCapture(e.pointerId);
   });
-  stage.addEventListener('pointermove', function(e){
-    if (!dragging) return;
-    var dx = e.clientX - dragStartX;
-    rotation = dragStartRotation - dx / 140;
-  });
+  stage.addEventListener('pointermove', function(){ /* visual feedback not needed for a crossfade carousel */ });
   stage.addEventListener('pointerup', function(e){
     if (!dragging) return; dragging = false;
-    goTo(nearestIndex());
+    var dx = e.clientX - dragStartX;
+    if (Math.abs(dx) > 40) { goTo(current + (dx < 0 ? 1 : -1)); }
   });
   stage.addEventListener('pointercancel', function(){ dragging = false; });
-
-  var resizeTimer2;
-  window.addEventListener('resize', function(){
-    clearTimeout(resizeTimer2);
-    resizeTimer2 = setTimeout(function(){ layout(rotation); }, 120);
-  });
 
   var autoplayOn = true;
   function startAutoplay(){ autoplayOn = true; }
@@ -2027,31 +2018,31 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   stage.addEventListener('mouseenter', pauseAutoplay);
   stage.addEventListener('mouseleave', startAutoplay);
 
-  var DRIFT_SPEED = 0.00016; // card-units per ms — super slow continuous drift
-  var lastFrameTime = null;
+  var AUTOPLAY_INTERVAL_MS = 4500;
+  var lastAutoplayTime = null;
+  var transitionStart = null;
   function tick(t){
-    if(lastFrameTime === null) lastFrameTime = t;
-    var dt = t - lastFrameTime;
-    lastFrameTime = t;
-
-    if(jumping){
-      var diff = targetRotation - rotation;
-      if(Math.abs(diff) < 0.002){
-        rotation = targetRotation;
-        jumping = false;
-      }else{
-        rotation += diff * Math.min(1, dt / 220);
+    if (transitioning) {
+      if (transitionStart === null) transitionStart = t;
+      progress = Math.min(1, (t - transitionStart) / TRANSITION_MS);
+      if (progress >= 1) {
+        current = toIndex;
+        transitioning = false;
+        transitionStart = null;
       }
-      layout(rotation);
-    }else if(dragging){
-      layout(rotation);
-    }else if(autoplayOn){
-      rotation += DRIFT_SPEED * dt;
-      layout(rotation);
+      render();
+      lastAutoplayTime = t; // don't let autoplay fire mid-transition
+    } else if (autoplayOn) {
+      if (lastAutoplayTime === null) lastAutoplayTime = t;
+      if (t - lastAutoplayTime >= AUTOPLAY_INTERVAL_MS) {
+        lastAutoplayTime = t;
+        goTo(current + 1);
+      }
+    } else {
+      lastAutoplayTime = t;
     }
     requestAnimationFrame(tick);
   }
-
   buildCarousel();
   requestAnimationFrame(tick);
 
