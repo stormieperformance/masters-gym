@@ -1251,36 +1251,65 @@ try{
   const dropinDots=document.getElementById('dropinDots');
   const dropinPrev=document.getElementById('dropinPrev');
   const dropinNext=document.getElementById('dropinNext');
+  const dropinTabs=document.getElementById('dropinTabs');
   if(dropinCards&&dropinDots){
     const cards=Array.from(dropinCards.children);
     dropinDots.innerHTML=cards.map((_,i)=>`<span data-i${i}="${i}"${i===0?' class="active"':''}></span>`).join('');
     const dots=Array.from(dropinDots.children);
+    const tabs=dropinTabs?Array.from(dropinTabs.children):[];
 
     function cardStep(){
       const card=cards[0];
-      return card.getBoundingClientRect().width+14; // matches .dropin-cards gap
+      return card.getBoundingClientRect().width; // gap:0 on .dropin-cards, so no gap offset needed
     }
-    function setActiveDot(idx){
+    function setActiveIndex(idx){
       dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
+      tabs.forEach((t,i)=>t.classList.toggle('active',i===idx));
     }
     function nearestIndex(){
       const step=cardStep();
       return Math.round(dropinCards.scrollLeft/step);
     }
+    function goTo(i){
+      dropinCards.scrollTo({left:i*cardStep(),behavior:'smooth'});
+    }
     let scrollTimer=null;
     dropinCards.addEventListener('scroll',()=>{
       clearTimeout(scrollTimer);
-      scrollTimer=setTimeout(()=>setActiveDot(nearestIndex()),80);
+      scrollTimer=setTimeout(()=>setActiveIndex(nearestIndex()),80);
     });
-    dots.forEach((dot,i)=>dot.addEventListener('click',()=>{
-      dropinCards.scrollTo({left:i*cardStep(),behavior:'smooth'});
-    }));
+    dots.forEach((dot,i)=>dot.addEventListener('click',()=>{goTo(i);pauseAutoplay();}));
+    tabs.forEach((tab,i)=>tab.addEventListener('click',()=>{goTo(i);pauseAutoplay();}));
     if(dropinPrev)dropinPrev.addEventListener('click',()=>{
       dropinCards.scrollBy({left:-cardStep(),behavior:'smooth'});
+      pauseAutoplay();
     });
     if(dropinNext)dropinNext.addEventListener('click',()=>{
       dropinCards.scrollBy({left:cardStep(),behavior:'smooth'});
+      pauseAutoplay();
     });
+
+    // Auto-advance through the cards, pausing on any manual interaction
+    // (click, touch, or drag) and resuming a few seconds after the user
+    // stops interacting — matches the Squarespace homepage pattern this
+    // was modeled on.
+    let autoplayTimer=null;
+    let resumeTimer=null;
+    function startAutoplay(){
+      clearInterval(autoplayTimer);
+      autoplayTimer=setInterval(()=>{
+        const next=(nearestIndex()+1)%cards.length;
+        goTo(next);
+      },5000);
+    }
+    function pauseAutoplay(){
+      clearInterval(autoplayTimer);
+      clearTimeout(resumeTimer);
+      resumeTimer=setTimeout(startAutoplay,6000);
+    }
+    dropinCards.addEventListener('pointerdown',pauseAutoplay);
+    dropinCards.addEventListener('touchstart',pauseAutoplay,{passive:true});
+    if(cards.length>1)startAutoplay();
   }
 }catch(err){console.error('Dropin carousel failed to initialize, rest of page unaffected:',err);}
 
