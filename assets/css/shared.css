@@ -1109,7 +1109,11 @@ button{cursor:pointer;font-family:var(--sans)}
 .finder3d-thumb.active span{color:var(--text)}
 .finder3d-thumb:not(.active){opacity:.55}
 .finder3d-thumb:not(.active):hover{opacity:.85;border-color:var(--muted)}
+.finder3d-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
+.finder3d-dots span{width:8px;height:8px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .3s ease;display:block}
+.finder3d-dots span.active{background:var(--teal)}
 @media(max-width:768px){
+  .finder3d-prev,.finder3d-next{display:none}
   .finder3d-stage{height:60vh}
   .finder3d-info{padding:28px 20px 0}
   .finder3d-bio{font-size:13px}

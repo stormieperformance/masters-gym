@@ -1865,11 +1865,13 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 
   var stage = document.getElementById('finder3dStage');
   var thumbsEl = document.getElementById('finder3dThumbs');
+  var dotsEl = document.getElementById('finder3dDots');
   var nameEl = document.getElementById('finder3dName');
   var bioEl = document.getElementById('finder3dBio');
   var ctaEl = document.getElementById('finder3dCta');
   if (!stage) return;
 
+  var dotEls = [];
   var current = 0;
   var lastShownIndex = -1;
   var cards = [];
@@ -1892,7 +1894,9 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     thumbEls.forEach(function(t){ t.remove(); });
     cards = [];
     thumbEls = [];
+    dotEls = [];
     thumbsEl.innerHTML = '';
+    if (dotsEl) dotsEl.innerHTML = '';
 
     opts.forEach(function(o, i){
       var el = document.createElement('div');
@@ -1924,6 +1928,15 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
       t.addEventListener('keydown', (function(idx){ return function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pauseAutoplay(); goTo(idx); } }; })(i));
       thumbsEl.appendChild(t);
       thumbEls.push(t);
+
+      if (dotsEl) {
+        var d = document.createElement('span');
+        d.setAttribute('role','button');
+        d.setAttribute('aria-label',o.title);
+        d.addEventListener('click', (function(idx){ return function(){ pauseAutoplay(); goTo(idx); }; })(i));
+        dotsEl.appendChild(d);
+        dotEls.push(d);
+      }
     });
 
     current = 0; fromIndex = 0; toIndex = 0; progress = 1; transitioning = false;
@@ -1947,6 +1960,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
       card.classList.toggle('active', i === current && !transitioning);
     });
     thumbEls.forEach(function(t, i){ t.classList.toggle('active', i === (transitioning ? toIndex : current)); });
+    dotEls.forEach(function(d, i){ d.classList.toggle('active', i === (transitioning ? toIndex : current)); });
   }
 
   function updateInfo(idx) {
@@ -2013,10 +2027,16 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   stage.addEventListener('pointercancel', function(){ dragging = false; });
 
   var autoplayOn = true;
+  var resumeTimer = null;
   function startAutoplay(){ autoplayOn = true; }
-  function pauseAutoplay(){ autoplayOn = false; }
-  stage.addEventListener('mouseenter', pauseAutoplay);
+  function pauseAutoplay(){
+    autoplayOn = false;
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(startAutoplay, 6000);
+  }
+  stage.addEventListener('mouseenter', function(){ clearTimeout(resumeTimer); autoplayOn = false; });
   stage.addEventListener('mouseleave', startAutoplay);
+  stage.addEventListener('touchstart', pauseAutoplay, {passive:true});
 
   var AUTOPLAY_INTERVAL_MS = 4500;
   var lastAutoplayTime = null;
