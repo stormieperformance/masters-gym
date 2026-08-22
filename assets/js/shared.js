@@ -1927,34 +1927,20 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 
   function layout(pos) {
     var N = cards.length;
-    var angleStep = 26;
-    var radius = 460;
+    var nearest = ((Math.round(pos) % N) + N) % N;
     cards.forEach(function(card, i){
       var offset = i - pos;
       offset = ((offset % N) + N) % N;
       if (offset > N/2) offset -= N;
       var absOff = Math.abs(offset);
-      var isCenter = absOff < 0.5;
-      if (absOff > Math.floor(N/2) + 0.5) {
-        card.style.opacity = '0';
-        card.style.pointerEvents = 'none';
-        card.style.zIndex = '0';
-        return;
-      }
-      var angleDeg = offset * angleStep;
-      var rad = angleDeg * Math.PI / 180;
-      var x = Math.sin(rad) * radius;
-      var z = (Math.cos(rad) - 1) * radius;
-      var rotateY = -angleDeg;
-      var scale = Math.max(0.6, 1 - absOff * 0.14);
-      var opacity = Math.max(0.32, 1 - absOff * 0.2);
-      card.style.transform = 'translateX('+x+'px) translateZ('+z+'px) rotateY('+rotateY+'deg) scale('+scale+')';
+      var isCenter = i === nearest;
+      var opacity = Math.max(0, 1 - absOff);
+      card.style.transform = 'none';
       card.style.opacity = String(opacity);
-      card.style.zIndex = String(Math.round(10 - absOff));
-      card.style.pointerEvents = 'all';
+      card.style.zIndex = isCenter ? '2' : '1';
+      card.style.pointerEvents = isCenter ? 'all' : 'none';
       card.classList.toggle('active', isCenter);
     });
-    var nearest = nearestIndex();
     thumbEls.forEach(function(t, i){ t.classList.toggle('active', i === nearest); });
     updateInfo(nearest);
   }
