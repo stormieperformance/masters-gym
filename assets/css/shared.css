@@ -389,7 +389,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .dropin-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 22px}
 .dropin-tab{font-family:var(--sans,inherit);font-size:12px;font-weight:600;letter-spacing:.04em;padding:9px 4px;border:none;border-bottom:2px solid transparent;background:transparent;color:var(--muted,rgba(240,237,230,.6));cursor:pointer;transition:border-color .25s ease,color .25s ease}
 .dropin-tab:hover{color:var(--text)}
-.dropin-tab.active{border-bottom-color:var(--teal);color:var(--teal)}
+.dropin-tab.active{border-bottom-color:var(--teal);color:var(--text)}
 .dropin-carousel-outer{position:relative;display:flex;align-items:center;gap:12px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
 .dropin-cards{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;padding:0;scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior-x:contain}
 .dropin-cards::-webkit-scrollbar{display:none}
