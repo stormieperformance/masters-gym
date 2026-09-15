@@ -1904,7 +1904,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
       el.setAttribute('tabindex','0');
       el.setAttribute('role','button');
       el.setAttribute('aria-label',o.title);
-      el.innerHTML = '<img src="'+o.img+'" alt="'+o.title+'" loading="lazy">';
+      el.innerHTML = '<img src="'+o.img+'" alt="'+o.title+'" loading="lazy"><div class="finder3d-card-overlay"><h3 class="finder3d-card-title">'+o.title+'</h3></div>';
       el.addEventListener('click', (function(idx){ return function(){
         pauseAutoplay();
         if(idx===current && !transitioning){ location.href = getOptions()[idx].route; return; }
