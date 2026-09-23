@@ -1086,9 +1086,12 @@ button{cursor:pointer;font-family:var(--sans)}
   overflow:hidden;cursor:pointer;
   user-select:none;-webkit-user-select:none;
 }
-.finder3d-card img{width:100%;height:100%;object-fit:contain;object-position:center;pointer-events:none;display:block;filter:grayscale(20%) contrast(1.1) saturate(1.05) brightness(.94)}
-.finder3d-card-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(180deg,rgba(10,10,10,.35) 0%,rgba(10,10,10,.15) 35%,rgba(10,10,10,.15) 65%,rgba(10,10,10,.45) 100%),radial-gradient(ellipse at center,rgba(116,194,188,.08),transparent 65%);pointer-events:none}
-.finder3d-card-title{width:100%;text-align:center;font-family:var(--display);font-style:italic;font-weight:900;font-size:clamp(42px,7.5vw,88px);letter-spacing:.14em;line-height:1.05;text-transform:uppercase;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.finder3d-card img{width:100%;height:100%;object-fit:contain;object-position:center;pointer-events:none;display:block;filter:grayscale(35%) sepia(8%) saturate(.9) contrast(1.08) brightness(.62);transform:scale(1.02);transition:transform 0s linear;will-change:transform}
+.finder3d-card.is-shown img{transform:scale(1.08);transition:transform 7.5s cubic-bezier(.25,.1,.25,1)}
+.finder3d-card-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(ellipse 70% 60% at center,rgba(10,10,10,0) 30%,rgba(10,10,10,.55) 100%),linear-gradient(180deg,rgba(10,10,10,.4) 0%,rgba(10,10,10,.1) 35%,rgba(10,10,10,.1) 65%,rgba(10,10,10,.55) 100%),radial-gradient(ellipse at center,rgba(116,194,188,.06),transparent 65%);pointer-events:none}
+.finder3d-card-title{width:100%;text-align:center;font-family:var(--display);font-style:italic;font-weight:900;font-size:clamp(42px,7.5vw,88px);letter-spacing:.14em;line-height:1.05;text-transform:uppercase;color:rgba(255,255,255,.82);padding:0 .2em;background:linear-gradient(180deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.78) 55%,rgba(255,255,255,.42) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 4px 24px rgba(0,0,0,.45));opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s ease}
+.finder3d-card.is-shown .finder3d-card-title{opacity:1;transform:none;transition:opacity 1.1s ease .35s,transform 1.4s cubic-bezier(.22,1,.36,1) .35s}
+@media(prefers-reduced-motion:reduce){.finder3d-card img,.finder3d-card.is-shown img{transform:none;transition:none}.finder3d-card-title,.finder3d-card.is-shown .finder3d-card-title{transform:none;transition:opacity .3s ease}}
 .finder3d-card-info{display:none}
 .finder3d-prev,.finder3d-next{
   position:absolute;top:50%;transform:translateY(-50%);z-index:20;

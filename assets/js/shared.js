@@ -1847,7 +1847,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   var FINDER_SV = [
     {title:'NYBÖRJARE',pill:'Nybörjarpass',bio:'Perfekt start. Vi går igenom grunderna tillsammans, inga förkunskaper behövs.',img:'class-nybörjare.jpg',route:'vara-pass.html#tl-0',cta:'Se pass →'},
     {title:'FORTSÄTTNING',pill:'Fortsättningspass',bio:'Boka ett provpass så placerar tränaren dig i rätt grupp utifrån din erfarenhet.',img:'class-fortsattning.jpg',route:'vara-pass.html#tl-1',cta:'Se pass →'},
-    {title:'TÄVLA',pill:'Tävlingsgrupp',bio:'Tävlingsgruppen bestäms av huvudtränaren. Kontakta oss så pratar vi om dina mål.',img:'IMG_5588.JPG',route:'vara-pass.html#tl-2',cta:'Se pass →'},
+    {title:'TÄVLA',pill:'Tävlingsgrupp',bio:'Tävlingsgruppen bestäms av huvudtränaren. Kontakta oss så pratar vi om dina mål.',img:'tavla-headkick.jpg',route:'vara-pass.html#tl-2',cta:'Se pass →'},
     {title:'PERSONLIG TRÄNING',pill:'PT med Thamer',bio:'Skräddarsydd träning från amatör till elitnivå, i din egen takt.',img:'IMG_8269_2.jpg',route:'pt.html',cta:'Se PT →'},
     {title:'ALLA NIVÅER',pill:'Boxning, Fyspass, Morgon/Lunch',bio:'Drop-in träning för alla nivåer, ingen tävling. Boxning, Fyspass och Morgon/Lunch passar alla lika bra.',img:'class-fyspass.jpg',route:'vara-pass.html#tl-4',cta:'Se pass →'},
     {title:'FÖRETAG',pill:'Träna med ditt team',bio:'Skräddarsydda träningslösningar för företag och team — morgonpass, teambuilding och gruppass.',img:'corporate-training.jpg',route:'foretag.html',cta:'Se företagspaket →'},
@@ -1856,7 +1856,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   var FINDER_EN = [
     {title:'BEGINNER',pill:'Beginner class',bio:'The perfect start. We go through the fundamentals together, no experience needed.',img:'class-nybörjare.jpg',route:'vara-pass.html#tl-0',cta:'View class →'},
     {title:'INTERMEDIATE',pill:'Intermediate class',bio:'Book a trial class and the coach will place you in the right group based on your experience.',img:'class-fortsattning.jpg',route:'vara-pass.html#tl-1',cta:'View class →'},
-    {title:'COMPETE',pill:'Competition group',bio:'The competition group is decided by the head coach. Get in touch and let\'s talk about your goals.',img:'IMG_5588.JPG',route:'vara-pass.html#tl-2',cta:'View class →'},
+    {title:'COMPETE',pill:'Competition group',bio:'The competition group is decided by the head coach. Get in touch and let\'s talk about your goals.',img:'tavla-headkick.jpg',route:'vara-pass.html#tl-2',cta:'View class →'},
     {title:'PERSONAL TRAINING',pill:'PT with Thamer',bio:'Tailored training from beginner to elite level, at your own pace.',img:'IMG_8269_2.jpg',route:'pt.html',cta:'View PT →'},
     {title:'ALL LEVELS',pill:'Boxing, Fitness Class, Morning/Lunch',bio:'Drop-in training for all levels, no competition. Boxing, Fitness Class and Morning/Lunch all fit equally well.',img:'class-fyspass.jpg',route:'vara-pass.html#tl-4',cta:'View class →'},
     {title:'CORPORATE',pill:'Train with your team',bio:'Tailored training solutions for companies and teams — morning sessions, team building and group classes.',img:'corporate-training.jpg',route:'foretag.html',cta:'View corporate →'},
@@ -1882,7 +1882,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   // card to the target card, never sweeping through the ones in
   // between (that sweep was the flicker bug).
   var fromIndex = 0, toIndex = 0, progress = 1, transitioning = false;
-  var TRANSITION_MS = 450;
+  var TRANSITION_MS = 1100;
 
   function getOptions() {
     return (typeof currentLang !== 'undefined' && currentLang === 'en') ? FINDER_EN : FINDER_SV;
@@ -1941,6 +1941,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 
     current = 0; fromIndex = 0; toIndex = 0; progress = 1; transitioning = false;
     render();
+    if (cards[0]) requestAnimationFrame(function(){ cards[0].classList.add('is-shown'); });
     updateInfo(current);
   }
 
@@ -1948,8 +1949,10 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     cards.forEach(function(card, i){
       var opacity = 0;
       if (transitioning) {
-        if (i === fromIndex) opacity = 1 - progress;
-        else if (i === toIndex) opacity = progress;
+        // Eased overlap: incoming eases out, outgoing eases in, so the
+        // two never dip below full coverage together (no dark flash).
+        if (i === fromIndex) opacity = 1 - progress * progress;
+        else if (i === toIndex) opacity = 1 - (1 - progress) * (1 - progress);
       } else if (i === current) {
         opacity = 1;
       }
@@ -1995,6 +1998,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     progress = 0;
     transitioning = true;
     transitionStart = null;
+    if (cards[toIndex]) cards[toIndex].classList.add('is-shown');
     render();
     updateInfo(toIndex);
   }
@@ -2038,7 +2042,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   stage.addEventListener('mouseleave', startAutoplay);
   stage.addEventListener('touchstart', pauseAutoplay, {passive:true});
 
-  var AUTOPLAY_INTERVAL_MS = 4500;
+  var AUTOPLAY_INTERVAL_MS = 5000;
   var lastAutoplayTime = null;
   var transitionStart = null;
   function tick(t){
@@ -2049,6 +2053,9 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
         current = toIndex;
         transitioning = false;
         transitionStart = null;
+        // Reset zoom + title on cards that are now fully hidden, so the
+        // snap back happens while invisible.
+        cards.forEach(function(c, ci){ if (ci !== current) c.classList.remove('is-shown'); });
       }
       render();
       lastAutoplayTime = t; // don't let autoplay fire mid-transition
