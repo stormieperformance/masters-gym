@@ -1191,3 +1191,10 @@ button{cursor:pointer;font-family:var(--sans)}
   .img-band-content{text-align:center;padding:0 24px 56px}
 }
 @media(prefers-reduced-motion:reduce){.img-band-bg,.img-band.in-view .img-band-bg{transform:none;transition:none}.img-band-content>*{opacity:1;transform:none;transition:none}}
+
+/* ── Centred section headers: Våra pass + Medlemskap ──
+   Only alignment and side margins, so existing vertical margins and
+   mobile overrides are untouched. Tier label keeps its left accent bar. */
+.classes-container>.section-label,.classes-container>.section-title,.classes-intro,
+.memberships-container>.section-label,.memberships-container>.section-title,.memberships-sub{text-align:center}
+.classes-intro,.memberships-sub{margin-left:auto;margin-right:auto}
