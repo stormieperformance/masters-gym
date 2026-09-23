@@ -1,0 +1,76 @@
+name: Update Instagram feed
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'   # fetch posts every 6 hours
+    - cron: '41 3 * * 1'     # weekly token refresh (Mondays)
+  workflow_dispatch: {}
+  push:
+    paths:
+      - 'scripts/fetch_instagram.py'
+      - '.github/workflows/instagram-feed.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+
+      # Long-lived Instagram tokens last 60 days and can be refreshed once
+      # they are 24h old. Refresh weekly (and on manual runs) and write the
+      # new token back to the repo secret. Needs GH_SECRETS_PAT: a
+      # fine-grained token for this repo with "Secrets: read and write".
+      - name: Refresh Instagram token
+        if: github.event.schedule == '41 3 * * 1' || github.event_name == 'workflow_dispatch'
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_SECRETS_PAT }}
+        run: |
+          if [ -z "$IG_ACCESS_TOKEN" ]; then echo "No IG token yet, skipping refresh."; exit 0; fi
+          if [ -z "$GH_TOKEN" ]; then echo "::warning::GH_SECRETS_PAT missing, cannot store refreshed token."; exit 0; fi
+          NEW=$(curl -sf "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=$IG_ACCESS_TOKEN" | python3 -c "import sys,json;print(json.load(sys.stdin)['access_token'])") || { echo "::error::Instagram token refresh failed"; exit 1; }
+          echo "::add-mask::$NEW"
+          gh secret set IG_ACCESS_TOKEN --body "$NEW" --repo "$GITHUB_REPOSITORY"
+          echo "Token refreshed and stored."
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Pillow
+        run: pip install pillow
+
+      - name: Fetch latest posts
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: python3 scripts/fetch_instagram.py
+
+      - name: Commit updated feed if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A feeds/instagram.json feeds/instagram 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No Instagram changes, nothing to commit."
+            exit 0
+          fi
+          git commit -m "Auto-update Instagram feed"
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected on attempt $attempt, rebasing onto latest main..."
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; exit 1; }
+            sleep $((attempt * 3))
+          done
+          echo "Could not push updated Instagram feed after 5 attempts." >&2
+          exit 1

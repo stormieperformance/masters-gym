@@ -2197,3 +2197,45 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   }, {threshold:0.3});
   io.observe(band);
 })();
+
+// ── INSTAGRAM GRID: self-hosted feed (feeds/instagram.json) ──
+// The JSON and images are fetched by a GitHub Action and served from our
+// own domain, so visitors never load a widget or call Instagram. The grid
+// stays hidden (links above still work) until the feed has posts.
+(function(){
+  var grid = document.getElementById('igGrid');
+  if (!grid || !window.fetch) return;
+  var bust = Math.floor(Date.now() / 3600000);
+  fetch('feeds/instagram.json?h=' + bust).then(function(r){
+    if (!r.ok) throw new Error('no feed');
+    return r.json();
+  }).then(function(data){
+    var posts = (data && data.posts) || [];
+    if (!posts.length) return;
+    posts.slice(0, 8).forEach(function(p){
+      var a = document.createElement('a');
+      a.className = 'social-card';
+      a.href = p.url || 'https://instagram.com/mastersgymstockholm';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      var img = document.createElement('img');
+      img.src = p.img;
+      img.alt = p.caption || 'Instagram-inlägg från Masters Gym';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.width = 640; img.height = 640;
+      a.appendChild(img);
+      if (p.type === 'VIDEO' || p.type === 'CAROUSEL_ALBUM') {
+        var b = document.createElement('span');
+        b.className = 'social-card-badge';
+        b.setAttribute('aria-hidden', 'true');
+        b.innerHTML = p.type === 'VIDEO'
+          ? '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>'
+          : '<svg viewBox="0 0 24 24"><path d="M4 8h12v12H4zM8 4h12v12h-2V6H8z"/></svg>';
+        a.appendChild(b);
+      }
+      grid.appendChild(a);
+    });
+    grid.hidden = false;
+  }).catch(function(){ /* no feed yet: keep grid hidden */ });
+})();

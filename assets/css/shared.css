@@ -1206,3 +1206,11 @@ button{cursor:pointer;font-family:var(--sans)}
 .values-hero>img{object-position:center 22%}
 .about-media img{object-position:42% 30%}
 @media(max-width:768px){.values-hero>img{object-position:70% 22%}}
+
+/* ── Instagram grid (self-hosted feed, replaces Behold) ──
+   Rendered from feeds/instagram.json, written by the instagram-feed
+   GitHub Action. Hidden until real posts exist. */
+.social-grid[hidden]{display:none}
+.social-card{position:relative}
+.social-card-badge{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;background:rgba(10,10,8,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;pointer-events:none}
+.social-card-badge svg{width:12px;height:12px;fill:#fff}
