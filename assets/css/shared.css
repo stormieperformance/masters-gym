@@ -1198,3 +1198,11 @@ button{cursor:pointer;font-family:var(--sans)}
 .classes-container>.section-label,.classes-container>.section-title,.classes-intro,
 .memberships-container>.section-label,.memberships-container>.section-title,.memberships-sub{text-align:center}
 .classes-intro,.memberships-sub{margin-left:auto;margin-right:auto}
+
+/* ── Values hero + Om oss photo swap (2026-09-23) ──
+   Values: Dragon's Eye high kick; keep the kicker's face in frame on
+   narrow screens. Om oss: winner photo, crop anchored high so the raised
+   arm and faces stay in. */
+.values-hero>img{object-position:center 22%}
+.about-media img{object-position:42% 30%}
+@media(max-width:768px){.values-hero>img{object-position:70% 22%}}
