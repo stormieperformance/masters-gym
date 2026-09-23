@@ -2038,8 +2038,9 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     clearTimeout(resumeTimer);
     resumeTimer = setTimeout(startAutoplay, 6000);
   }
-  stage.addEventListener('mouseenter', function(){ clearTimeout(resumeTimer); autoplayOn = false; });
-  stage.addEventListener('mouseleave', startAutoplay);
+  // No hover-pause: the stage is full viewport width, so on desktop the
+  // cursor is almost always over it while scrolling past, which kept
+  // autoplay permanently paused. Real interaction still pauses it.
   stage.addEventListener('touchstart', pauseAutoplay, {passive:true});
 
   var AUTOPLAY_INTERVAL_MS = 5000;
