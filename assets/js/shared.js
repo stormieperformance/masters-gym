@@ -1845,22 +1845,22 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 // ── FINDER 3D CAROUSEL (Hitta rätt träning för dig) ──
 (function(){
   var FINDER_SV = [
-    {title:'NYBÖRJARE',pill:'Nybörjarpass',bio:'Perfekt start. Vi går igenom grunderna tillsammans, inga förkunskaper behövs.',img:'class-nybörjare.jpg',route:'vara-pass.html#tl-0',cta:'Se pass →'},
-    {title:'FORTSÄTTNING',pill:'Fortsättningspass',bio:'Boka ett provpass så placerar tränaren dig i rätt grupp utifrån din erfarenhet.',img:'class-fortsattning.jpg',route:'vara-pass.html#tl-1',cta:'Se pass →'},
+    {title:'NYBÖRJARE',pill:'Nybörjarpass',bio:'Perfekt start. Vi går igenom grunderna tillsammans, inga förkunskaper behövs.',img:'pass-nyborjare.jpg',route:'vara-pass.html#tl-0',cta:'Se pass →'},
+    {title:'FORTSÄTTNING',pill:'Fortsättningspass',bio:'Boka ett provpass så placerar tränaren dig i rätt grupp utifrån din erfarenhet.',img:'pass-fortsattning.jpg',route:'vara-pass.html#tl-1',cta:'Se pass →'},
     {title:'TÄVLING',pill:'Tävlingsgrupp',bio:'Tävlingsgruppen bestäms av huvudtränaren. Kontakta oss så pratar vi om dina mål.',img:'tavla-headkick.jpg',route:'vara-pass.html#tl-2',cta:'Se pass →'},
-    {title:'PERSONLIG TRÄNING',pill:'PT med Thamer',bio:'Skräddarsydd träning från amatör till elitnivå, i din egen takt.',img:'pt-thamer-thailand.jpg',route:'pt.html',cta:'Se PT →'},
-    {title:'ALLA NIVÅER',pill:'Boxning, Fyspass, Morgon/Lunch',bio:'Drop-in träning för alla nivåer, ingen tävling. Boxning, Fyspass och Morgon/Lunch passar alla lika bra.',img:'class-fyspass.jpg',route:'vara-pass.html#tl-4',cta:'Se pass →'},
-    {title:'FÖRETAG',pill:'Träna med ditt team',bio:'Skräddarsydda träningslösningar för företag och team — morgonpass, teambuilding och gruppass.',img:'corporate-training.jpg',route:'foretag.html',cta:'Se företagspaket →'},
-    {title:'BARN & JUNIOR',pill:'Träning för unga utövare',bio:'Strukturerad och trygg träning. Vi lär ut respekt, disciplin och självförtroende.',img:'kids-training.jpg',route:'junior.html',cta:'Se barn & junior →'}
+    {title:'PERSONLIG TRÄNING',pill:'PT med Thamer',bio:'Skräddarsydd träning från amatör till elitnivå, i din egen takt.',img:'pass-pt.jpg',route:'pt.html',cta:'Se PT →'},
+    {title:'ALLA NIVÅER',pill:'Boxning, Fyspass, Morgon/Lunch',bio:'Drop-in träning för alla nivåer, ingen tävling. Boxning, Fyspass och Morgon/Lunch passar alla lika bra.',img:'pass-alla-nivaer.jpg',route:'vara-pass.html#tl-4',cta:'Se pass →'},
+    {title:'FÖRETAG',pill:'Träna med ditt team',bio:'Skräddarsydda träningslösningar för företag och team — morgonpass, teambuilding och gruppass.',img:'pass-foretag.jpg',route:'foretag.html',cta:'Se företagspaket →'},
+    {title:'BARN & JUNIOR',pill:'Träning för unga utövare',bio:'Strukturerad och trygg träning. Vi lär ut respekt, disciplin och självförtroende.',img:'pass-junior.jpg',route:'junior.html',cta:'Se barn & junior →'}
   ];
   var FINDER_EN = [
-    {title:'BEGINNER',pill:'Beginner class',bio:'The perfect start. We go through the fundamentals together, no experience needed.',img:'class-nybörjare.jpg',route:'vara-pass.html#tl-0',cta:'View class →'},
-    {title:'INTERMEDIATE',pill:'Intermediate class',bio:'Book a trial class and the coach will place you in the right group based on your experience.',img:'class-fortsattning.jpg',route:'vara-pass.html#tl-1',cta:'View class →'},
+    {title:'BEGINNER',pill:'Beginner class',bio:'The perfect start. We go through the fundamentals together, no experience needed.',img:'pass-nyborjare.jpg',route:'vara-pass.html#tl-0',cta:'View class →'},
+    {title:'INTERMEDIATE',pill:'Intermediate class',bio:'Book a trial class and the coach will place you in the right group based on your experience.',img:'pass-fortsattning.jpg',route:'vara-pass.html#tl-1',cta:'View class →'},
     {title:'COMPETE',pill:'Competition group',bio:'The competition group is decided by the head coach. Get in touch and let\'s talk about your goals.',img:'tavla-headkick.jpg',route:'vara-pass.html#tl-2',cta:'View class →'},
-    {title:'PERSONAL TRAINING',pill:'PT with Thamer',bio:'Tailored training from beginner to elite level, at your own pace.',img:'pt-thamer-thailand.jpg',route:'pt.html',cta:'View PT →'},
-    {title:'ALL LEVELS',pill:'Boxing, Fitness Class, Morning/Lunch',bio:'Drop-in training for all levels, no competition. Boxing, Fitness Class and Morning/Lunch all fit equally well.',img:'class-fyspass.jpg',route:'vara-pass.html#tl-4',cta:'View class →'},
-    {title:'CORPORATE',pill:'Train with your team',bio:'Tailored training solutions for companies and teams — morning sessions, team building and group classes.',img:'corporate-training.jpg',route:'foretag.html',cta:'View corporate →'},
-    {title:'KIDS & JUNIOR',pill:'Training for young athletes',bio:'Structured and safe training. We teach respect, discipline and confidence.',img:'kids-training.jpg',route:'junior.html',cta:'View kids & junior →'}
+    {title:'PERSONAL TRAINING',pill:'PT with Thamer',bio:'Tailored training from beginner to elite level, at your own pace.',img:'pass-pt.jpg',route:'pt.html',cta:'View PT →'},
+    {title:'ALL LEVELS',pill:'Boxing, Fitness Class, Morning/Lunch',bio:'Drop-in training for all levels, no competition. Boxing, Fitness Class and Morning/Lunch all fit equally well.',img:'pass-alla-nivaer.jpg',route:'vara-pass.html#tl-4',cta:'View class →'},
+    {title:'CORPORATE',pill:'Train with your team',bio:'Tailored training solutions for companies and teams — morning sessions, team building and group classes.',img:'pass-foretag.jpg',route:'foretag.html',cta:'View corporate →'},
+    {title:'KIDS & JUNIOR',pill:'Training for young athletes',bio:'Structured and safe training. We teach respect, discipline and confidence.',img:'pass-junior.jpg',route:'junior.html',cta:'View kids & junior →'}
   ];
 
   // Shared with the stacking pass cards (PASS STACK below).
