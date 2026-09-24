@@ -2303,6 +2303,21 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   }
   fill();
 
+  // Keep every card the same height. Later cards must fully cover the
+  // earlier ones while stacked and all must release at the same line;
+  // on mobile the text panel varies in length (e.g. a two-line title),
+  // so the tallest card sets the height for all.
+  function equalize(){
+    cards.forEach(function(c){ c.style.minHeight = ''; });
+    var m = 0;
+    cards.forEach(function(c){ m = Math.max(m, c.offsetHeight); });
+    cards.forEach(function(c){ c.style.minHeight = m + 'px'; });
+  }
+  equalize();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(equalize);
+  var _eqT;
+  window.addEventListener('resize', function(){ clearTimeout(_eqT); _eqT = setTimeout(equalize, 150); });
+
   if (!reduce) {
     if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function(entries){
@@ -2325,7 +2340,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     if (typeof toggleLang === 'function') {
       clearInterval(_patchLangStack);
       var orig = toggleLang;
-      toggleLang = function(){ orig(); setTimeout(fill, 50); };
+      toggleLang = function(){ orig(); setTimeout(function(){ fill(); equalize(); }, 50); };
     }
   }, 100);
 })();
