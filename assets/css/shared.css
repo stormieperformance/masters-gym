@@ -1214,3 +1214,33 @@ button{cursor:pointer;font-family:var(--sans)}
 .social-card{position:relative}
 .social-card-badge{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;background:rgba(10,10,8,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;pointer-events:none}
 .social-card-badge svg{width:12px;height:12px;fill:#fff}
+
+/* ── PASS STACK (Våra pass) ──
+   Sticky stacking cards, reference: vasterasfightclub.se image cards.
+   Sticky offset 200/175/150px, min-height 60vh, radius 30px, cover image
+   under a black .55 overlay, z-index rising per card, fadeInUp 1.25s
+   entrance over one full card height. No overflow/transform on any
+   ancestor, or sticky stops working. */
+.pass-stack{position:relative;margin-top:100px}
+.pass-stack-gap{height:100px}
+.pass-card{position:sticky;top:200px;min-height:60vh;border-radius:30px;overflow:hidden;background:#0a0a0a;display:flex;align-items:flex-end;isolation:isolate}
+.pass-card-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:grayscale(20%);z-index:-2}
+.pass-card::before{content:'';position:absolute;inset:0;background:#000;opacity:.55;z-index:-1}
+.pass-card-inner{padding:clamp(28px,5vw,64px);max-width:100%;min-width:0}
+.pass-card-pill{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);font-weight:500;margin:0 0 14px}
+.pass-card-title{margin:0;font-family:var(--display);font-style:italic;font-weight:900;font-size:clamp(40px,6.5vw,88px);letter-spacing:.06em;line-height:1;text-transform:uppercase;padding-right:.12em;overflow-wrap:anywhere;background:linear-gradient(180deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.8) 55%,rgba(255,255,255,.5) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.pass-card-bio{margin:16px 0 28px;font-size:15px;line-height:1.7;color:rgba(240,237,230,.82);max-width:520px}
+.pass-card-cta{animation:none}
+.pass-card-cta::before{animation:none}
+.pass-card--pending{visibility:hidden}
+.pass-card--in{animation:passFadeInUp 1.25s ease}
+@keyframes passFadeInUp{from{opacity:0;transform:translate3d(0,100%,0)}to{opacity:1;transform:none}}
+@media(max-width:1024px){.pass-card{top:175px}}
+@media(max-width:767px){
+  .pass-stack{margin-top:60px}
+  .pass-card{top:150px}
+  .pass-card-inner{padding:26px 22px}
+  .pass-card-title{font-size:clamp(30px,9.5vw,44px);letter-spacing:.04em}
+  .pass-card-bio{font-size:14px;margin:12px 0 22px}
+  .pass-card-cta{padding:15px 26px;font-size:14px}
+}

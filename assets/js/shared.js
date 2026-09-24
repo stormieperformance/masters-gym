@@ -1863,6 +1863,9 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     {title:'KIDS & JUNIOR',pill:'Training for young athletes',bio:'Structured and safe training. We teach respect, discipline and confidence.',img:'kids-training.jpg',route:'junior.html',cta:'View kids & junior →'}
   ];
 
+  // Shared with the stacking pass cards (PASS STACK below).
+  window.MG_PASS_DATA = { sv: FINDER_SV, en: FINDER_EN };
+
   var stage = document.getElementById('finder3dStage');
   var thumbsEl = document.getElementById('finder3dThumbs');
   var dotsEl = document.getElementById('finder3dDots');
@@ -2238,4 +2241,91 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     });
     grid.hidden = false;
   }).catch(function(){ /* no feed yet: keep grid hidden */ });
+})();
+
+// ── PASS STACK: sticky stacking pass cards (Våra pass) ──
+// Modelled on the three image cards on vasterasfightclub.se (Elementor
+// sticky "top" limited to the parent + fadeInUp entrance):
+// - every card sticks at the same offset (200px desktop, 175px tablet,
+//   150px mobile, set in CSS); later cards cover earlier ones via z-index
+// - the stack is limited to its parent, so all cards release together at
+//   the last card's natural position and scroll away as one
+// - each card fades up from one full card height below (1.25s) the first
+//   time any part of it enters the viewport
+// Spacing between cards is an empty 100px gap element, not a margin: a
+// CSS sticky box releases when its MARGIN box hits the parent's bottom,
+// while Elementor releases on the border box, so margins would make the
+// earlier cards stop 100px higher and peek out above the last one.
+(function(){
+  var root = document.getElementById('passStack');
+  if (!root || !window.MG_PASS_DATA) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function data(){
+    return (typeof currentLang !== 'undefined' && currentLang === 'en') ? window.MG_PASS_DATA.en : window.MG_PASS_DATA.sv;
+  }
+
+  var cards = [];
+  data().forEach(function(o, i){
+    if (i > 0) {
+      var gap = document.createElement('div');
+      gap.className = 'pass-stack-gap';
+      gap.setAttribute('aria-hidden', 'true');
+      root.appendChild(gap);
+    }
+    var c = document.createElement('article');
+    c.className = 'pass-card' + (reduce ? '' : ' pass-card--pending');
+    c.style.zIndex = String(i + 1);
+    c.innerHTML =
+      '<img class="pass-card-bg" alt="" loading="lazy" decoding="async">' +
+      '<div class="pass-card-inner">' +
+        '<p class="pass-card-pill"></p>' +
+        '<h3 class="pass-card-title"></h3>' +
+        '<p class="pass-card-bio"></p>' +
+        '<a class="finder3d-ctabtn pass-card-cta"></a>' +
+      '</div>';
+    root.appendChild(c);
+    cards.push(c);
+  });
+
+  function fill(){
+    var d = data();
+    cards.forEach(function(c, i){
+      var o = d[i]; if (!o) return;
+      c.querySelector('.pass-card-bg').src = o.img;
+      c.querySelector('.pass-card-pill').textContent = o.pill;
+      c.querySelector('.pass-card-title').textContent = o.title;
+      c.querySelector('.pass-card-bio').textContent = o.bio;
+      var a = c.querySelector('.pass-card-cta');
+      a.href = o.route;
+      a.textContent = o.cta;
+    });
+  }
+  fill();
+
+  if (!reduce) {
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (!e.isIntersecting) return;
+          e.target.classList.remove('pass-card--pending');
+          e.target.classList.add('pass-card--in');
+          io.unobserve(e.target);
+        });
+      });
+      cards.forEach(function(c){ io.observe(c); });
+    } else {
+      cards.forEach(function(c){ c.classList.remove('pass-card--pending'); });
+    }
+  }
+
+  // Language toggle: update text and links in place, no rebuild, so
+  // cards that already played their entrance don't replay it.
+  var _patchLangStack = setInterval(function(){
+    if (typeof toggleLang === 'function') {
+      clearInterval(_patchLangStack);
+      var orig = toggleLang;
+      toggleLang = function(){ orig(); setTimeout(fill, 50); };
+    }
+  }, 100);
 })();
