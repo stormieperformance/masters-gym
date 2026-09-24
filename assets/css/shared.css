@@ -1247,3 +1247,15 @@ button{cursor:pointer;font-family:var(--sans)}
   .pass-card-bio{font-size:14px;line-height:1.6;margin:10px 0 18px}
   .pass-card-cta{padding:13px 24px;font-size:13px}
 }
+
+/* ── PASS FÖR ALLA (vara-pass.html): crossfade stage ──
+   Reuses the finder3d stage/card/title/zoom/dots styles; only the text
+   panel under the stage is new. All three texts sit in one grid cell so
+   the active one crossfades in place without the page jumping. */
+.dropin-xf{margin-top:8px}
+.dropin-xf-info{display:grid;max-width:600px;margin:0 auto;padding:22px 20px 0;text-align:center}
+.dropin-xf-item{grid-area:1/1;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s}
+.dropin-xf-item.active{opacity:1;visibility:visible;transition:opacity .45s ease .15s,visibility 0s}
+.dropin-xf-item .timeline-badge{display:inline-block;margin-bottom:14px}
+.dropin-xf-item .finder3d-bio{margin-bottom:10px}
+@media(max-width:768px){.dropin-xf .finder3d-card-title{font-size:clamp(28px,8.5vw,44px);letter-spacing:.08em}}

@@ -2344,3 +2344,104 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     }
   }, 100);
 })();
+
+// ── PASS FÖR ALLA (vara-pass.html): crossfade stage ──
+// Same behaviour as the Våra pass carousel the homepage had before the
+// stacking cards: eased 1.1s crossfade with no dark dip, slow zoom on the
+// shown image, title fading up, autoplay every 5s, pause 6s after any
+// interaction (tabs, dots, arrows, swipe, keys). Cards, titles and texts
+// live in the HTML with data-i18n, so the language toggle just works.
+// A #tl-3/#tl-4/#tl-5 hash (links from the homepage) opens that card.
+(function(){
+  var stage = document.getElementById('dropinStage');
+  if (!stage) return;
+  var cards = Array.prototype.slice.call(stage.querySelectorAll('.finder3d-card'));
+  var dotsEl = document.getElementById('dropinDots');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('#dropinTabs .dropin-tab'));
+  var infoItems = Array.prototype.slice.call(document.querySelectorAll('#dropinInfo .dropin-xf-item'));
+  var N = cards.length; if (!N) return;
+  var TRANSITION_MS = 1100, AUTOPLAY_MS = 5000;
+  var current = 0, fromIndex = 0, toIndex = 0, progress = 1, transitioning = false, tStart = null, lastAuto = null;
+  var dots = [];
+  if (dotsEl) {
+    dotsEl.innerHTML = '';
+    cards.forEach(function(c, i){
+      var d = document.createElement('span');
+      d.setAttribute('role','button');
+      d.setAttribute('aria-label', String(i + 1));
+      d.addEventListener('click', function(){ pause(); goTo(i); });
+      dotsEl.appendChild(d); dots.push(d);
+    });
+  }
+  function sel(){ return transitioning ? toIndex : current; }
+  function render(){
+    cards.forEach(function(c, i){
+      var o = 0;
+      if (transitioning) {
+        if (i === fromIndex) o = 1 - progress * progress;
+        else if (i === toIndex) o = 1 - (1 - progress) * (1 - progress);
+      } else if (i === current) o = 1;
+      c.style.opacity = String(o);
+      c.style.zIndex = (transitioning ? i === toIndex : i === current) ? '2' : '1';
+      c.style.pointerEvents = 'none';
+    });
+    var s = sel();
+    dots.forEach(function(d, i){ d.classList.toggle('active', i === s); });
+    tabs.forEach(function(t, i){ t.classList.toggle('active', i === s); t.setAttribute('aria-selected', i === s ? 'true' : 'false'); });
+    infoItems.forEach(function(it, i){ it.classList.toggle('active', i === s); });
+  }
+  function goTo(idx){
+    idx = ((idx % N) + N) % N;
+    if (idx === current && !transitioning) return;
+    if (transitioning && idx === toIndex) return;
+    fromIndex = transitioning ? toIndex : current;
+    toIndex = idx; progress = 0; transitioning = true; tStart = null;
+    cards[toIndex].classList.add('is-shown');
+    render();
+  }
+  var autoOn = true, resumeT = null;
+  function pause(){ autoOn = false; clearTimeout(resumeT); resumeT = setTimeout(function(){ autoOn = true; }, 6000); }
+  function tick(t){
+    if (transitioning) {
+      if (tStart === null) tStart = t;
+      progress = Math.min(1, (t - tStart) / TRANSITION_MS);
+      if (progress >= 1) {
+        current = toIndex; transitioning = false; tStart = null;
+        cards.forEach(function(c, i){ if (i !== current) c.classList.remove('is-shown'); });
+      }
+      render(); lastAuto = t;
+    } else if (autoOn) {
+      if (lastAuto === null) lastAuto = t;
+      if (t - lastAuto >= AUTOPLAY_MS) { lastAuto = t; goTo(current + 1); }
+    } else lastAuto = t;
+    requestAnimationFrame(tick);
+  }
+  tabs.forEach(function(t, i){ t.addEventListener('click', function(){ pause(); goTo(i); }); });
+  var prev = document.getElementById('dropinPrev'), next = document.getElementById('dropinNext');
+  if (prev) prev.addEventListener('click', function(e){ e.stopPropagation(); pause(); goTo(sel() - 1); });
+  if (next) next.addEventListener('click', function(e){ e.stopPropagation(); pause(); goTo(sel() + 1); });
+  var dx0 = 0, dragging = false;
+  stage.addEventListener('pointerdown', function(e){
+    if (e.target.closest && e.target.closest('.finder3d-prev,.finder3d-next')) return;
+    pause(); dx0 = e.clientX; dragging = true;
+  });
+  stage.addEventListener('pointerup', function(e){
+    if (!dragging) return; dragging = false;
+    var dx = e.clientX - dx0;
+    if (Math.abs(dx) > 40) goTo(sel() + (dx < 0 ? 1 : -1));
+  });
+  stage.addEventListener('pointercancel', function(){ dragging = false; });
+  stage.addEventListener('touchstart', pause, {passive:true});
+  stage.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft') { pause(); goTo(sel() - 1); }
+    if (e.key === 'ArrowRight') { pause(); goTo(sel() + 1); }
+  });
+  var h = location.hash ? location.hash.slice(1) : '';
+  var start = 0;
+  cards.forEach(function(c, i){ if (c.id && c.id === h) start = i; });
+  current = fromIndex = toIndex = start;
+  render();
+  requestAnimationFrame(function(){ cards[start].classList.add('is-shown'); });
+  if (start) pause();
+  requestAnimationFrame(tick);
+})();
