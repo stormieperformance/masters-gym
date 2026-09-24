@@ -1847,7 +1847,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   var FINDER_SV = [
     {title:'NYBÖRJARE',pill:'Nybörjarpass',bio:'Perfekt start. Vi går igenom grunderna tillsammans, inga förkunskaper behövs.',img:'class-nybörjare.jpg',route:'vara-pass.html#tl-0',cta:'Se pass →'},
     {title:'FORTSÄTTNING',pill:'Fortsättningspass',bio:'Boka ett provpass så placerar tränaren dig i rätt grupp utifrån din erfarenhet.',img:'class-fortsattning.jpg',route:'vara-pass.html#tl-1',cta:'Se pass →'},
-    {title:'TÄVLA',pill:'Tävlingsgrupp',bio:'Tävlingsgruppen bestäms av huvudtränaren. Kontakta oss så pratar vi om dina mål.',img:'tavla-headkick.jpg',route:'vara-pass.html#tl-2',cta:'Se pass →'},
+    {title:'TÄVLING',pill:'Tävlingsgrupp',bio:'Tävlingsgruppen bestäms av huvudtränaren. Kontakta oss så pratar vi om dina mål.',img:'tavla-headkick.jpg',route:'vara-pass.html#tl-2',cta:'Se pass →'},
     {title:'PERSONLIG TRÄNING',pill:'PT med Thamer',bio:'Skräddarsydd träning från amatör till elitnivå, i din egen takt.',img:'pt-thamer-thailand.jpg',route:'pt.html',cta:'Se PT →'},
     {title:'ALLA NIVÅER',pill:'Boxning, Fyspass, Morgon/Lunch',bio:'Drop-in träning för alla nivåer, ingen tävling. Boxning, Fyspass och Morgon/Lunch passar alla lika bra.',img:'class-fyspass.jpg',route:'vara-pass.html#tl-4',cta:'Se pass →'},
     {title:'FÖRETAG',pill:'Träna med ditt team',bio:'Skräddarsydda träningslösningar för företag och team — morgonpass, teambuilding och gruppass.',img:'corporate-training.jpg',route:'foretag.html',cta:'Se företagspaket →'},
