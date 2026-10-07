@@ -68,6 +68,8 @@ button{cursor:pointer;font-family:var(--sans)}
 @media(max-width:768px){
   .back-to-top{bottom:28px;left:16px;width:36px;height:36px}
 }
+/* Desktop users scroll with trackpad, wheel or Home key; the button only earns its place on long mobile pages. */
+@media(min-width:769px){.back-to-top{display:none}}
 .build-banner{position:relative;z-index:101;background:#1a1a1a;color:rgba(255,255,255,.72);text-align:center;padding:8px 20px;font-size:11px;letter-spacing:.03em;line-height:1.6;font-family:var(--sans);border-bottom:1px solid rgba(255,255,255,.08)}
 .offer-banner{position:relative;z-index:102;background:#0a0a0a;color:#fff;text-align:center;padding:12px 20px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-family:var(--sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;overflow:hidden;transition:background-color .2s ease}
 .offer-banner:hover,.offer-banner:focus-visible{background:#1a1a1a}
