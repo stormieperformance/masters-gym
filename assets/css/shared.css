@@ -1263,3 +1263,6 @@ button{cursor:pointer;font-family:var(--sans)}
 /* Om oss photo is ungraded, so it gets the documentary photo filter
    (same family as founder, corporate and kids images). */
 .about-media img{filter:grayscale(20%)}
+
+/* Junior page photo is portrait: anchor near the top so the coach and both kids stay in frame. */
+#junior_image{object-position:50% 10%}
