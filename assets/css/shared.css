@@ -1000,7 +1000,9 @@ button{cursor:pointer;font-family:var(--sans)}
 .gymbot-bubble.visible{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
 .gymbot-bubble:hover{border-color:var(--teal)}
 @media(max-width:768px){.gymbot-bubble{max-width:180px;white-space:normal;font-size:11.5px}}
-.gymbot-toggle{position:relative;height:48px;min-width:48px;border-radius:24px;background:rgba(10,10,10,.9);border:1px solid rgba(116,194,188,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--text);cursor:pointer;display:flex;align-items:center;padding:0 13px;overflow:hidden;box-shadow:0 4px 14px -4px rgba(0,0,0,.5);transition:min-width .45s cubic-bezier(.22,1,.36,1),border-color .25s ease,box-shadow .25s ease,transform .25s ease}
+.gymbot-toggle{position:relative;height:48px;min-width:48px;border-radius:24px;background:rgba(10,10,10,.9);border:1px solid rgba(116,194,188,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--text);cursor:pointer;display:flex;align-items:center;padding:0 13px;overflow:hidden;box-shadow:0 4px 14px -4px rgba(0,0,0,.5);opacity:0;visibility:hidden;transform:translateY(14px) scale(.92);transition:min-width .45s cubic-bezier(.22,1,.36,1),border-color .25s ease,box-shadow .25s ease,transform .35s cubic-bezier(.22,1,.36,1),opacity .35s ease,visibility 0s linear .35s}
+/* Hidden by default; only shown while it pops out or while the panel is open. */
+.gymbot-toggle.popped,.gymbot.open .gymbot-toggle{opacity:1;visibility:visible;transform:none;transition:min-width .45s cubic-bezier(.22,1,.36,1),border-color .25s ease,box-shadow .25s ease,transform .35s cubic-bezier(.22,1,.36,1),opacity .35s ease,visibility 0s}
 .gymbot-toggle svg{width:22px;height:22px;flex-shrink:0}
 .gymbot-toggle-label{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;color:var(--text);font-size:12.5px;font-weight:600;letter-spacing:.02em;margin-left:0;transition:max-width .45s cubic-bezier(.22,1,.36,1),opacity .3s ease .05s,margin-left .45s cubic-bezier(.22,1,.36,1)}
 .gymbot-toggle.popped{min-width:168px;border-color:var(--teal);box-shadow:0 6px 20px -4px rgba(116,194,188,.4)}

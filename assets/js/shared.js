@@ -2120,7 +2120,8 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
   var lastScrollY=window.scrollY;
   var COOLDOWN_MS=25000;
   var MIN_SCROLL_DISTANCE=400;
-  var POP_DURATION_MS=4200;
+  var POP_DURATION_MS=6000;
+  var FIRST_POP_MS=8000;
   var scrolledSinceLastTrigger=0;
   var ticking=false;
   var retractTimer=null;
@@ -2157,11 +2158,35 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     if(scrolledSinceLastTrigger<MIN_SCROLL_DISTANCE)return;
     lastTriggered=now;
     scrolledSinceLastTrigger=0;
-    if(maybeShowLangBubble())return; // first pop of the session offers a language switch instead
+    pop();
+  }
+
+  // The button is invisible between pops, so every pop shows it with its
+  // label; the first pop of a session also offers the language switch.
+  function pop(){
+    if(rootEl.classList.contains('open'))return;
+    maybeShowLangBubble();
     toggleBtn.classList.add('popped');
+    scheduleRetract();
+  }
+  function scheduleRetract(){
     clearTimeout(retractTimer);
     retractTimer=setTimeout(function(){toggleBtn.classList.remove('popped');},POP_DURATION_MS);
   }
+  // Keep it out while the pointer or keyboard focus is on it, so it never
+  // vanishes from under someone about to click.
+  toggleBtn.addEventListener('mouseenter',function(){clearTimeout(retractTimer);});
+  toggleBtn.addEventListener('mouseleave',function(){if(toggleBtn.classList.contains('popped'))scheduleRetract();});
+  toggleBtn.addEventListener('focus',function(){clearTimeout(retractTimer);});
+  toggleBtn.addEventListener('blur',function(){if(toggleBtn.classList.contains('popped'))scheduleRetract();});
+
+  // First appearance on a timer, so visitors who barely scroll still see it.
+  setTimeout(function(){
+    if(Date.now()-lastTriggered<COOLDOWN_MS)return;
+    lastTriggered=Date.now();
+    scrolledSinceLastTrigger=0;
+    pop();
+  },FIRST_POP_MS);
 
   window.addEventListener('scroll',function(){
     var y=window.scrollY;
