@@ -1226,7 +1226,9 @@ button{cursor:pointer;font-family:var(--sans)}
 .pass-stack{position:relative;margin-top:100px}
 .pass-stack-gap{height:100px}
 .pass-card{--stick-top:200px;position:sticky;top:var(--stick-top);width:min(100%,calc((100vh - var(--stick-top) - 40px) * 1.668));width:min(100%,calc((100svh - var(--stick-top) - 40px) * 1.668));aspect-ratio:1920/1151;margin-inline:auto;border-radius:30px;overflow:hidden;background:#0a0a0a;display:flex;align-items:flex-end;isolation:isolate}
-.pass-card-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;z-index:-2;filter:grayscale(35%) sepia(8%) saturate(.9) contrast(1.08) brightness(.8)}
+.pass-card-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;z-index:-2;filter:grayscale(55%) sepia(8%) saturate(.9) contrast(1.15) brightness(.65)}
+/* Same grade as the Våra pass photos. The Tävling photo is graded in the file already, so it is left unfiltered here too. */
+.pass-card-bg[src$="tavla-headkick.jpg"]{filter:none}
 .pass-card::before{content:'';position:absolute;inset:0;background:linear-gradient(20deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.22) 100%);z-index:-1}
 .pass-card-inner{padding:clamp(28px,5vw,64px);max-width:100%;min-width:0}
 .pass-card-pill{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);font-weight:500;margin:0 0 14px}
