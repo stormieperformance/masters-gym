@@ -1845,7 +1845,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
 // ── FINDER 3D CAROUSEL (Hitta rätt träning för dig) ──
 (function(){
   var FINDER_SV = [
-    {title:'NYBÖRJARE',pill:'Nybörjarpass',bio:'Perfekt start. Vi går igenom grunderna tillsammans, inga förkunskaper behövs.',img:'pass-placeholder-1.jpg',route:'vara-pass.html#tl-0',cta:'Se pass →'},
+    {title:'NYBÖRJARE',pill:'Nybörjarpass',bio:'Perfekt start. Vi går igenom grunderna tillsammans, inga förkunskaper behövs.',img:'pass-nyborjare-mits.jpg',route:'vara-pass.html#tl-0',cta:'Se pass →'},
     {title:'FORTSÄTTNING',pill:'Fortsättningspass',bio:'Boka ett provpass så placerar tränaren dig i rätt grupp utifrån din erfarenhet.',img:'pass-placeholder-2.jpg',route:'vara-pass.html#tl-1',cta:'Se pass →'},
     {title:'TÄVLING',pill:'Tävlingsgrupp',bio:'Tävlingsgruppen bestäms av huvudtränaren. Kontakta oss så pratar vi om dina mål.',img:'tavla-headkick.jpg',route:'vara-pass.html#tl-2',cta:'Se pass →'},
     {title:'PERSONLIG TRÄNING',pill:'PT med Thamer',bio:'Skräddarsydd träning från amatör till elitnivå, i din egen takt.',img:'pass-pt.jpg',route:'pt.html',cta:'Se PT →'},
@@ -1854,7 +1854,7 @@ initMobileCarousel('membershipsSecondary','membershipsSecondaryDots','.membershi
     {title:'BARN & JUNIOR',pill:'Träning för unga utövare',bio:'Strukturerad och trygg träning. Vi lär ut respekt, disciplin och självförtroende.',img:'pass-barn-junior.jpg',route:'junior.html',cta:'Se barn & junior →'}
   ];
   var FINDER_EN = [
-    {title:'BEGINNER',pill:'Beginner class',bio:'The perfect start. We go through the fundamentals together, no experience needed.',img:'pass-placeholder-1.jpg',route:'vara-pass.html#tl-0',cta:'View class →'},
+    {title:'BEGINNER',pill:'Beginner class',bio:'The perfect start. We go through the fundamentals together, no experience needed.',img:'pass-nyborjare-mits.jpg',route:'vara-pass.html#tl-0',cta:'View class →'},
     {title:'INTERMEDIATE',pill:'Intermediate class',bio:'Book a trial class and the coach will place you in the right group based on your experience.',img:'pass-placeholder-2.jpg',route:'vara-pass.html#tl-1',cta:'View class →'},
     {title:'COMPETE',pill:'Competition group',bio:'The competition group is decided by the head coach. Get in touch and let\'s talk about your goals.',img:'tavla-headkick.jpg',route:'vara-pass.html#tl-2',cta:'View class →'},
     {title:'PERSONAL TRAINING',pill:'PT with Thamer',bio:'Tailored training from beginner to elite level, at your own pace.',img:'pass-pt.jpg',route:'pt.html',cta:'View PT →'},
