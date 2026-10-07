@@ -1204,7 +1204,7 @@ button{cursor:pointer;font-family:var(--sans)}
    narrow screens. Om oss: winner photo, crop anchored high so the raised
    arm and faces stay in. */
 .values-hero>img{object-position:center 22%}
-.about-media img{object-position:42% 30%}
+.about-media img{object-position:50% 8%}
 @media(max-width:768px){.values-hero>img{object-position:70% 22%}}
 
 /* ── Instagram grid (self-hosted feed, replaces Behold) ──
@@ -1260,6 +1260,6 @@ button{cursor:pointer;font-family:var(--sans)}
 .dropin-xf-item .finder3d-bio{margin-bottom:10px}
 @media(max-width:768px){.dropin-xf .finder3d-card-title{font-size:clamp(28px,8.5vw,44px);letter-spacing:.08em}}
 
-/* Om oss photo is colour-graded in the file itself (Dragon's Eye look), so
-   the documentary grayscale filter is switched off for it. */
-.about-media img{filter:none}
+/* Om oss photo is ungraded, so it gets the documentary photo filter
+   (same family as founder, corporate and kids images). */
+.about-media img{filter:grayscale(20%)}
