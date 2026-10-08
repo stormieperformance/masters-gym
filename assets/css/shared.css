@@ -1264,3 +1264,29 @@ button{cursor:pointer;font-family:var(--sans)}
 
 /* Junior page photo is portrait: anchor near the top so the coach and both kids stay in frame. */
 #junior_image{object-position:50% 10%}
+
+/* ── MEDLEMSKAP: light section, same warm bone as Recensioner ──
+   Colour-only overrides; layout, mobile carousel and buttons untouched.
+   Teal drops to --teal-dark for text/strokes (plain teal fails contrast on light). */
+.memberships{background:radial-gradient(circle 320px at 50% 10%,rgba(116,194,188,0.14),transparent 70%),radial-gradient(circle 320px at 50% 90%,rgba(116,194,188,0.14),transparent 70%),var(--bg-light);border-top:none}
+.memberships .section-label{color:var(--teal-dark)}
+.memberships .section-title{color:var(--ink)}
+.memberships .memberships-sub{color:var(--ink-muted)}
+.memberships .memberships-tier-label{color:var(--ink);border-left-color:var(--teal-dark)}
+.memberships .membership-card{background:#fff;border-color:var(--line-dark);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 10px 24px -14px rgba(21,20,15,.16)}
+.memberships .membership-card::before{filter:brightness(0);opacity:.04}
+.memberships .membership-card.featured{background:#fff;border-color:rgba(66,144,138,.45);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 14px 30px -14px rgba(21,20,15,.22),0 0 0 1px rgba(66,144,138,.15)}
+.memberships .membership-card:hover,.memberships .membership-card.featured:hover{border-color:var(--teal-dark);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 4px 10px -6px rgba(21,20,15,.18)}
+.memberships .membership-icon{stroke:var(--teal-dark)}
+.memberships .membership-card h3{background:var(--ink);color:#F0EDE6}
+.memberships .membership-card .price{color:var(--ink)}
+.memberships .membership-checklist li{color:rgba(21,20,15,.72)}
+.memberships .membership-checklist li::before{color:var(--teal-dark)}
+.memberships .membership-card .btn{border-color:rgba(21,20,15,.18);color:var(--ink)}
+.memberships .membership-card .btn:hover,.memberships .membership-card.featured .btn{color:var(--text)}
+.memberships .membership-cta{border-color:rgba(66,144,138,.3);background:rgba(255,255,255,.5)}
+.memberships .membership-cta p.membership-cta-q,.memberships .membership-cta strong{color:var(--ink)}
+.memberships .membership-cta p{color:var(--ink-muted)}
+.memberships .membership-cta-secure{color:var(--ink-muted)}
+.memberships .carousel-dots span{background:rgba(21,20,15,.15)}
+.memberships .carousel-dots span.active{background:var(--teal-dark)}
