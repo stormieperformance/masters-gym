@@ -1278,9 +1278,12 @@ button{cursor:pointer;font-family:var(--sans)}
    The featured "Bäst värde" card is the one dark card, carrying the brand: near-black,
    teal top glow, MG watermark and the same solid teal CTA as the hero. */
 .memberships .memberships-grid{gap:20px}
-.memberships .membership-card{background:#FBFAF6;border:1px solid rgba(21,20,15,.09);box-shadow:0 1px 0 #fff inset,0 18px 40px -26px rgba(21,20,15,.28);padding:38px 34px}
+.memberships .membership-card{background:radial-gradient(ellipse 120% 70% at 50% 0%,rgba(116,194,188,.10),transparent 70%),#F8F6F0;border:1px solid rgba(21,20,15,.09);box-shadow:0 1px 0 #fff inset,0 18px 40px -26px rgba(21,20,15,.28);padding:38px 34px}
 .memberships .membership-card.compact{padding:30px 28px}
-.memberships .membership-card::before,.memberships .membership-card::after{display:none}
+.memberships .membership-card::after{display:none}
+/* Light cards: black MG logo with the teal fighter in the corner, same placement as the dark card's watermark. */
+.memberships .membership-card::before{background-image:url('../../mg-logo-dark.png');opacity:.14}
+.memberships .membership-card.featured::before{background-image:url('../../MastersGymLogo.png');opacity:.055}
 .memberships .membership-card:hover{border-color:rgba(66,144,138,.45);box-shadow:0 1px 0 #fff inset,0 10px 24px -18px rgba(21,20,15,.3)}
 .memberships .membership-icon{stroke:var(--teal-dark);width:22px;height:22px;margin-bottom:22px}
 .memberships .membership-card h3{background:none;box-shadow:none;padding:0;border-radius:0;font-family:var(--sans);font-style:normal;font-weight:700;font-size:11px;letter-spacing:.18em;color:var(--teal-dark);margin-bottom:10px}
@@ -1289,11 +1292,10 @@ button{cursor:pointer;font-family:var(--sans)}
 .memberships .membership-card.compact .price{font-size:32px;margin-bottom:20px;padding-bottom:20px}
 .memberships .membership-checklist li{color:rgba(21,20,15,.68)}
 .memberships .membership-checklist li::before{color:var(--teal-dark)}
-.memberships .membership-card .btn{background:transparent;border:1px solid rgba(21,20,15,.2);color:var(--ink);box-shadow:none}
+.memberships .membership-card .btn{background:#F8F6F0;border:1px solid rgba(21,20,15,.2);color:var(--ink);box-shadow:none}
 @media(hover:hover){.memberships .membership-card .btn:hover{background:var(--ink);border-color:var(--ink);color:#F0EDE6;box-shadow:none}}
 /* Featured: the one dark card */
 .memberships .membership-card.featured{background:radial-gradient(ellipse 120% 70% at 50% 0%,rgba(116,194,188,.16),transparent 70%),#0f0f0d;border-color:rgba(116,194,188,.45);box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 30px 60px -28px rgba(21,20,15,.6),0 0 0 1px rgba(116,194,188,.12)}
-.memberships .membership-card.featured::before{display:block}
 .memberships .membership-card.featured:hover{border-color:var(--teal);box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 14px 30px -18px rgba(21,20,15,.55)}
 .memberships .membership-card.featured .membership-icon{stroke:var(--teal)}
 .memberships .membership-card.featured h3{color:var(--teal)}
