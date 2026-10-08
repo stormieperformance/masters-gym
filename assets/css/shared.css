@@ -1288,7 +1288,7 @@ button{cursor:pointer;font-family:var(--sans)}
 .memberships .membership-icon{stroke:var(--teal-dark);width:22px;height:22px;margin-bottom:22px}
 .memberships .membership-card h3{background:none;box-shadow:none;padding:0;border-radius:0;font-family:var(--sans);font-style:normal;font-weight:700;font-size:11px;letter-spacing:.18em;color:var(--teal-dark);margin-bottom:10px}
 .memberships .membership-card.compact h3{font-size:10.5px;padding:0}
-.memberships .membership-card .price{font-family:var(--display);font-style:italic;font-weight:900;font-size:40px;line-height:1;letter-spacing:.01em;color:var(--ink);margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid rgba(21,20,15,.08)}
+.memberships .membership-card .price{font-family:var(--display);font-style:italic;font-weight:900;font-size:40px;line-height:1;letter-spacing:.01em;color:var(--ink);margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid rgba(21,20,15,.55)}
 .memberships .membership-card.compact .price{font-size:32px;margin-bottom:20px;padding-bottom:20px}
 .memberships .membership-checklist li{color:rgba(21,20,15,.68)}
 .memberships .membership-checklist li::before{color:var(--teal-dark)}
