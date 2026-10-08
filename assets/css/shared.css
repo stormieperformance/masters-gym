@@ -1277,6 +1277,11 @@ button{cursor:pointer;font-family:var(--sans)}
 .memberships .membership-card{box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 22px 44px -20px rgba(21,20,15,.5),0 6px 14px -8px rgba(21,20,15,.25)}
 .memberships .membership-card.featured{box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 26px 50px -20px rgba(21,20,15,.55),0 6px 14px -8px rgba(21,20,15,.25),0 0 0 1px rgba(116,194,188,.15)}
 .memberships .membership-card:hover,.memberships .membership-card.featured:hover{box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 10px 22px -12px rgba(21,20,15,.45)}
+/* Teal-tinted cards: deep teal glass instead of near-black, so they sit softer on the light section. */
+.memberships .membership-card{background:radial-gradient(ellipse 140% 90% at 50% 0%,rgba(116,194,188,.30),transparent 65%),linear-gradient(160deg,#1f3f3c 0%,#152b29 55%,#10201f 100%);border-color:rgba(116,194,188,.28)}
+.memberships .membership-card.featured{background:radial-gradient(ellipse 140% 90% at 50% 0%,rgba(116,194,188,.40),transparent 65%),linear-gradient(160deg,#24504b 0%,#18322f 55%,#122422 100%);border-color:rgba(116,194,188,.55)}
+.memberships .membership-card h3{background:rgba(8,16,15,.55)}
+.memberships .membership-checklist li{color:rgba(240,237,230,.72)}
 .memberships .membership-cta{border-color:rgba(66,144,138,.3);background:rgba(255,255,255,.5)}
 .memberships .membership-cta p.membership-cta-q,.memberships .membership-cta strong{color:var(--ink)}
 .memberships .membership-cta p{color:var(--ink-muted)}
